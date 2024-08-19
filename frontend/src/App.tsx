@@ -18,6 +18,7 @@ import {MainStore} from './pages/inventory/mainstore';
 import { Substore } from './pages/inventory/substore';
 import { Pharmacy } from './pages/inventory/pharmacy';
 import { Ward } from './pages/inventory/ward';
+import { DoctorConsultancy } from './pages/Doctor/doctorConsultancy'
 
 function App() {
 
@@ -31,6 +32,7 @@ function App() {
           <Route path="/doctorssignin" element={<SigninDoctor />}></Route>
           <Route path="/doctordashboard" element={<DoctorDashBoard/>}></Route>
           <Route path="/adminsignin" element={<SignAdmin/>}/>
+          <Route path="/doctorconsultancy" element={<DoctorConsultancy/>}/>
           <Route path="/adminsignup" element={<Register/>}/>
           <Route path="/admindashboard" element={<Admindashboard/>}/>
           <Route path="/inventorysignin" element={<InventoryLogin/>}/>
