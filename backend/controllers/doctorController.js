@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs"
 import validator from "validator";
 import jwt from "jsonwebtoken";
-import { PrismaClient, QueueStatus } from "../prisma/generated/hospitalClient/index.js";
+import { DesignationType, PrismaClient, QueueStatus } from "../prisma/generated/hospitalClient/index.js";
 const prisma = new PrismaClient({
     datasources:{
         db:{
@@ -20,19 +20,42 @@ const createToken = (id)=>{
 
 const doctorRegister = async(req,res)=>{
     const prisma = req.prisma;
-    console.log(prisma)
-    const {name,contact,email,password,departmentId} = req.body;
+    const {name,contact,email,password,departmentId,gender,designation} = req.body;
     try{
         if(password.length < 8){
             res.json({success:false,message:"Weak Password"});
         }
         const salt = await bcrypt.genSalt(10);
         const hashedPass = await bcrypt.hash(password,salt);
+        let design = "";
+        let hod = false;
+        if(designation == "Trainee"){
+            design = DesignationType.Trainee
+        }else if(designation == "Assistant"){
+            design = DesignationType.Assistant
+        }
+        else if(designation == "Senior"){
+            design = DesignationType.Senior
+        }
+        else{
+            design = DesignationType.HeadOfDepartment;
+            hod = true;
+        }
         const newDoctor = await prisma.doctors.create({
             data:{
-                name,contact,email,password:hashedPass,departmentId,active:true
+                name,contact,email,password:hashedPass,departmentId,active:true,
+                gender:gender,designation:design
             }
         })
+        if(hod == true){
+            const department = await prisma.department.update({
+                where:{
+                    id:departmentId
+                },data:{
+                    headOfDepartmentId : newDoctor.id
+                }
+            })
+        }
         const token = createToken(newDoctor.id);
         res.json({success:true,doctor:newDoctor,token:`Bearer ${token}`})
     }catch(err){
@@ -74,6 +97,17 @@ const getQueuedPatients = async(req,res) =>{
         const patients = await prisma.oPDQueue.findMany({
             where:{
                 doctorId:doctorId
+            },select:{
+                patientInstance:{
+                    select:{
+                        abhaId :true,
+                        age:true,
+                        Gender:true,
+                        reason:true
+                    }
+                },
+                status:true,
+                queueNumber:true
             }
         })
         res.json({success:true,patients:patients})

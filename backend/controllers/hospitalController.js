@@ -44,7 +44,12 @@ const addDepartments = async(req,res)=>{
 const getDepartments = async(req,res)=>{
     const prisma = req.prisma;
     try{
-        const depts = await prisma.departments.findMany({})
+        const depts = await prisma.departments.findMany({
+            select:{
+                id:true,
+                name:true
+            }
+        })
         res.json({success:true,departments:depts})
 
     }catch(err){
@@ -56,13 +61,16 @@ const getDepartments = async(req,res)=>{
 const createPatientInstance = async(req,res)=>{
     const prisma = req.prisma;
     try{
-        const {abhaId,doctorId,queueNumber,visitType} = req.body;
+        const {abhaId,doctorId,queueNumber,visitType,age,gender,reason} = req.body;
         const patientInstance = await prisma.patientInstance.create({
             data:{
                 abhaId:abhaId,
                 doctorId:doctorId,
                 queueNumber:queueNumber,
-                visitType: (visitType === "FreshVisit") ? VisitType.FreshVisit : VisitType.Revisit
+                visitType: (visitType === "FreshVisit") ? VisitType.FreshVisit : VisitType.Revisit,
+                age:age,
+                Gender:gender,
+                reason:reason
             }
         })
         const patientqueue = await prisma.oPDQueue.create({

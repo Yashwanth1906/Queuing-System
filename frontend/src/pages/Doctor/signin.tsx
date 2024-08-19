@@ -3,8 +3,9 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { BACKEND_URL } from "@/config";
+import { BACKEND_URL, HOSPITAL_CODE } from "@/config";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 // Define the shape of the form data
 interface SignInFormData {
@@ -27,7 +28,7 @@ export function SigninDoctor() {
       [id]: value,
     }));
   };
-
+  const navigate = useNavigate();
   // Handle form submission
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -43,9 +44,14 @@ export function SigninDoctor() {
 
     // Handle the form submission (e.g., API call)
     try {
-        const res = await axios.post(`${BACKEND_URL}/api/doctor/register`,formData) as {success:boolean,token:string};
+        const res = await axios.post(`${BACKEND_URL}/api/doctor/login`,formData,{
+          headers:{
+            code:HOSPITAL_CODE
+          }
+        }) as {success:boolean,token:string};
         localStorage.setItem("doctortoken",res.token)
-      console.log("Login successful");
+        alert("Login Successful")
+        navigate("/doctordashboard")
     } catch (err: any) {
       // Handle error
       setError(err.message);

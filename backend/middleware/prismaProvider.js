@@ -23,7 +23,7 @@ const getHospitalPrismaClient = async(req,res,next)=>{
         console.log(hospitals)
         const hospitalDBURL = await centralprisma.hospital.findUnique({
             where:{
-                code:req.headers.code
+                code:code
             },select:{
                 dbURL:true
             }

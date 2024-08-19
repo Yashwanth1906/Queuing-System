@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useDebugValue, useEffect, useState } from "react";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import axios from "axios";
+import { BACKEND_URL, HOSPITAL_CODE } from "@/config";
 
 // Types
 type Patient = {
@@ -40,7 +42,15 @@ export function DoctorDashBoard() {
       status: "Completed",
     },
   ]);
-
+  useEffect(()=>{
+    axios.get(`${BACKEND_URL}/api/doctor/getPatients`,{
+      headers:{
+        code:HOSPITAL_CODE
+      }
+    }).then((data)=>{
+      console.log(data.data.patients);
+    })
+  },[])
   const statusColors = {
     Waiting: "bg-red-500 text-red-50",
     "In Progress": "bg-yellow-500 text-yellow-50",

@@ -85,6 +85,8 @@ model Ward {
 model PatientInstance {
   id String @id @default(uuid())
   abhaId String @unique
+  age Int
+  Gender String
   reason String
   doctorId String
   doctor Doctors @relation(fields: [doctorId], references: [id])
