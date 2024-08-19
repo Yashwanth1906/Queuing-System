@@ -1,0 +1,162 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/hospitalClient"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DYNAMIC_DB_URL")
+}
+
+model Doctors {
+    id String @id @default(uuid())
+    name String
+    gender String
+    designation DesignationType
+    contact String
+    email String   @unique
+    password String
+    active Boolean
+    departmentId String
+    department Departments @relation(fields: [departmentId], references: [id])
+    opdQueue OPDQueue[]
+    admissions Admission[]
+    patientInstances PatientInstance[]
+}
+enum DesignationType{
+  Trainee
+  Assistant
+  Senior
+  HeadOfDepartment
+}
+
+
+
+
+model Departments {
+  id String @id @default(uuid())
+  name String
+  headOfDepartmentId String @default(" ")
+  doctors Doctors[]
+}
+
+model OPDQueue {
+  id String @id @default(uuid())
+  patientInstanceId String @unique
+  patientInstance PatientInstance @relation(fields: [patientInstanceId], references: [abhaId])
+  doctorId String
+  doctor Doctors @relation(fields: [doctorId], references: [id])
+  status QueueStatus
+  queueNumber Int
+  timeStamp DateTime? @default(now())
+}
+
+enum QueueStatus {
+  Pending
+  Inprogress
+  Completed
+}
+
+model Bed {
+  id String @id @default(uuid())
+  bedNumber String @unique
+  wardId String
+  ward Ward @relation(fields: [wardId], references: [id])
+  status BedStatus
+  admissions Admission[]
+}
+
+enum BedStatus {
+  Available
+  Occupied
+  Under_Maintainence
+}
+
+model Ward {
+  id String @id @default(uuid())
+  name String
+  totalBeds Int
+  availableBeds Int
+  beds Bed[]
+  admissions Admission[]
+}
+
+
+model PatientInstance {
+  id String @id @default(uuid())
+  abhaId String @unique
+  reason String
+  doctorId String
+  doctor Doctors @relation(fields: [doctorId], references: [id])
+  queueNumber Int?
+  medications Json?
+  feedback String?
+  visitType VisitType
+  opqueue OPDQueue[]
+  admission Admission[]
+}
+
+enum VisitType {
+  FreshVisit
+  Revisit
+}
+
+model Admission {
+  id String @id @default(uuid())
+  patientId String
+  patinet PatientInstance @relation(fields: [patientId],references: [abhaId])
+  wardId String?
+  ward Ward? @relation(fields: [wardId], references: [id])
+  bedId String?
+  bed Bed? @relation(fields: [bedId], references: [id])
+  doctorId String
+  doctor Doctors @relation(fields: [doctorId], references: [id])
+}
+
+
+model MainStore {
+  id        String      @id @default(uuid())
+  name      String
+  inventory Inventory[] 
+  subStores SubStore[]  
+}
+
+model SubStore {
+  id         String      @id @default(uuid())
+  name       String
+  mainStoreId String   
+  mainStore  MainStore  @relation(fields: [mainStoreId], references: [id])
+  inventory  Inventory[] 
+  pharmacies Pharmacy[]  
+}
+
+model Pharmacy {
+  id         String      @id @default(uuid())
+  name       String
+  subStoreId String     
+  subStore   SubStore   @relation(fields: [subStoreId], references: [id])
+  inventory  Inventory[] 
+}
+
+model Inventory {
+  id              String          @id @default(uuid())
+  itemName        String
+  category        InventoryCategory
+  quantity        Int
+  price           Float
+  reorderLevel    Int
+  lastOrderDate   DateTime        @default(now())
+  stockBatches    Json[]
+  mainStoreId     String?       
+  mainStore       MainStore?      @relation(fields: [mainStoreId], references: [id])
+  subStoreId      String?         
+  subStore        SubStore?       @relation(fields: [subStoreId], references: [id])
+  pharmacyId      String?         
+  pharmacy        Pharmacy?       @relation(fields: [pharmacyId], references: [id])
+}
+
+enum InventoryCategory {
+  Medicine
+  Surgical_Tools
+  Others
+}

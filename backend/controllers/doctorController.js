@@ -1,63 +1,63 @@
-import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs"
 import validator from "validator";
-import jwt from "jsonwebtoken"
-
-const prisma = new PrismaClient();
-
-
-const createToken = (id) =>{
+import jwt from "jsonwebtoken";
+import { PrismaClient, QueueStatus } from "../prisma/generated/hospitalClient/index.js";
+const prisma = new PrismaClient({
+    datasources:{
+        db:{
+            url:"postgres://avnadmin:AVNS_5qb24Cru8rsqoTnQMap@pg-37f71f7d-shreecharan215-d1dd.b.aivencloud.com:13070/defaultdb?sslmode=require"
+        }
+    }
+})
+prisma.oPDQueue.create({
+    data:{
+        status:QueueStatus
+    }
+})
+const createToken = (id)=>{
     return jwt.sign({id},process.env.JWT_SECRET);
 }
 
-const doctorRegister = async(req,res) =>{
-    console.log(req.body)
-    const {name,contact,email,departmentId,hospitalId,password} = req.body;
+const doctorRegister = async(req,res)=>{
+    const prisma = req.prisma;
+    console.log(prisma)
+    const {name,contact,email,password,departmentId} = req.body;
     try{
-        if(!validator.isEmail(email)){
-            return res.json({success:false,message:"Email doesnot exist"});
-        }
         if(password.length < 8){
-            return res.json({success:false,message:"Password isn't strong"});
+            res.json({success:false,message:"Weak Password"});
         }
         const salt = await bcrypt.genSalt(10);
-        const hashedPass = await bcrypt.hash(password,salt)
+        const hashedPass = await bcrypt.hash(password,salt);
         const newDoctor = await prisma.doctors.create({
             data:{
-                name:name,
-            contact:contact,
-            email:email,
-            password:hashedPass,
-            active:true,
-            departmentId:departmentId,
-            hospitalId:hospitalId
+                name,contact,email,password:hashedPass,departmentId,active:true
             }
         })
-        const token = createToken(newDoctor.id)
-        res.json({success:true,token:`Bearer ${token}`})
+        const token = createToken(newDoctor.id);
+        res.json({success:true,doctor:newDoctor,token:`Bearer ${token}`})
     }catch(err){
-        console.log(err)
+        console.log(err);
         res.json({success:false,message:err})
     }
 }
 
-
-const doctorLogin = async(req,res) =>{
+const doctorLogin = async(req,res)=>{
+    const prisma = req.prisma;
     try{
         const {email,password} = req.body;
         const doctor = await prisma.doctors.findUnique({
             where:{
-                email:email
+                email :email
             },select:{
-                password:true
+                id:true,password:true
             }
         })
         if(!doctor){
-            res.json({success:false,message:"Email not found"})
+            res.json({success:false,message:"Doctor not found"})
         }
         const passVerify = await bcrypt.compare(password,doctor.password);
         if(!passVerify){
-            res.json({success:false,message:"Invalid Crediantials"})
+            res.json({success:false,message:"Incorrect Password"});
         }
         const token = createToken(doctor.id);
         res.json({success:true,token:`Bearer ${token}`})
@@ -67,5 +67,67 @@ const doctorLogin = async(req,res) =>{
     }
 }
 
+const getQueuedPatients = async(req,res) =>{
+    const prisma = req.prisma;
+    const doctorId = req.headers.id;
+    try{
+        const patients = await prisma.oPDQueue.findMany({
+            where:{
+                doctorId:doctorId
+            }
+        })
+        res.json({success:true,patients:patients})
+    }catch(err){
+        console.log(err);
+        res.json({success:false,message:err})
+    }
+}
 
-export {doctorRegister,doctorLogin}
+const addMedications = async(req,res)=>{
+    const prisma = req.prisma;
+    try{
+        const {medications,abhaid,feedback} = req.body;
+        const patient = await prisma.patientInstance.update({
+            where:{
+                abhaId : abhaid
+            },
+            data:{
+                medications:medications,
+                feedback:feedback
+            }
+        })
+        const op = await prisma.oPDQueue.update({
+            where:{
+                id:"dc967432-c08c-4cab-b45d-c867ef2b5d4b"
+            },data:{
+                status:QueueStatus.Completed,
+            }
+        })
+        res.json({success:true,message:patient})
+    }catch(err){
+        console.log(err);
+        res.json({success:false,mesage:err})
+    }
+}
+
+const createAdmission = async(req,res)=>{
+    const prisma = req.prisma;
+    try{
+        const {abhaId,wardId} = req.body;
+        const newAdmission = await prisma.admission.create({
+            data:{
+                patientId:abhaId,
+                wardId:wardId,
+                doctorId:req.headers.id
+            }
+        });
+        res.json({success:true,admssion:newAdmission})
+    }catch(err){
+        console.log(err);
+        res.json({success:false,message:err})
+    }
+}
+
+
+
+export {doctorRegister,doctorLogin,getQueuedPatients,addMedications,createAdmission}

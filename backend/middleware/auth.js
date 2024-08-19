@@ -1,9 +1,15 @@
 import jwt from "jsonwebtoken"
 import bcyrpt from "bcryptjs"
-import {  PrismaClient } from "@prisma/client";
 import nodemailer from "nodemailer"
+import { PrismaClient } from "../prisma/generated/central/index.js"
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+    datasources:{
+        db:{
+            url:process.env.CENTRAL_DB_URL
+        }
+    }
+})
 
 const authMiddleWare = async(req,res,next)=>{
     const token = req.headers.authorization.split(" ")[1];
