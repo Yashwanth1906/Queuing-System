@@ -68,6 +68,7 @@ const doctorLogin = async(req,res)=>{
     const prisma = req.prisma;
     try{
         const {email,password} = req.body;
+        console.log("email "+email)
         const doctor = await prisma.doctors.findUnique({
             where:{
                 email :email
@@ -103,8 +104,9 @@ const getQueuedPatients = async(req,res) =>{
                         abhaId :true,
                         age:true,
                         Gender:true,
-                        reason:true
-                    }
+                        reason:true,
+                        name:true
+                    },
                 },
                 status:true,
                 queueNumber:true
@@ -128,11 +130,11 @@ const addMedications = async(req,res)=>{
             data:{
                 medications:medications,
                 feedback:feedback
-            }
+            },
         })
         const op = await prisma.oPDQueue.update({
             where:{
-                id:"dc967432-c08c-4cab-b45d-c867ef2b5d4b"
+                patientInstanceId : abhaid
             },data:{
                 status:QueueStatus.Completed,
             }

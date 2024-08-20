@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import axios from "axios";
@@ -16,45 +16,36 @@ type Patient = {
 
 // Component
 export function DoctorDashBoard() {
-  const [patients, setPatients] = useState<Patient[]>([
-    {
-      id: 1,
-      name: "John Doe",
-      age: 35,
-      gender: "Male",
-      reason: "Flu symptoms",
-      status: "Waiting",
-    },
-    {
-      id: 2,
-      name: "Jane Smith",
-      age: 42,
-      gender: "Female",
-      reason: "Broken arm",
-      status: "In Progress",
-    },
-    {
-      id: 3,
-      name: "Michael Johnson",
-      age: 28,
-      gender: "Male",
-      reason: "Routine checkup",
-      status: "Completed",
-    },
-  ]);
+  const [patients, setPatients] = useState<Patient[]>([]);
 
   useEffect(() => {
     axios
       .get(`${BACKEND_URL}/api/doctor/getPatients`, {
         headers: {
           code: HOSPITAL_CODE,
+          Authorization: localStorage.getItem("doctortoken"),
         },
       })
-      .then((data) => {
-        console.log(data.data.patients);
+      .then((response) => {
+        if (response.data.success) {
+          const formattedPatients = response.data.patients.map((item: any) => ({
+            id: item.patientInstance.abhaId,
+            name: item.patientInstance.name, // You might need to add a name if it's available in the backend
+            age: item.patientInstance.age,
+            gender: item.patientInstance.Gender,
+            reason: item.patientInstance.reason,
+            status: item.status === "Pending" ? "Waiting" : item.status, // Adjust status mapping
+          }));
+          setPatients(formattedPatients);
+        } else {
+          console.log("Failed to fetch patients:", response.data.message);
+        }
+        console.log(patients)
+      })
+      .catch((error) => {
+        console.error("Error fetching patients:", error);
       });
   }, []);
-
   const statusColors = {
     Waiting: "bg-red-500 text-red-50",
     "In Progress": "bg-yellow-500 text-yellow-50",
@@ -62,21 +53,58 @@ export function DoctorDashBoard() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen w-full">
-      {/* Top Dashboard */}
-      <div className="flex items-center justify-between bg-gray-100 p-4 border-b">
-        <h1 className="text-2xl font-bold">Doctor Dashboard</h1>
-        <Link to="/doctorssignin"><button className="ml-auto">
-          Home
-        </button></Link>
-      </div>
-
-      {/* Main Content */}
-      <div className="flex min-h-screen w-full">
-        <aside className="flex flex-col border-r bg-background p-4 sm:p-6">
-          <div className="flex items-center gap-2 border-b pb-4">
-            <div className="rounded-full bg-primary p-2 text-primary-foreground">
-              <StethoscopeIcon className="h-6 w-6" />
+    <div className="flex min-h-screen w-full">
+      <aside className="flex flex-col border-r bg-background p-4 sm:p-6">
+        <div className="flex items-center gap-2 border-b pb-4">
+          <div className="rounded-full bg-primary p-2 text-primary-foreground">
+            <StethoscopeIcon className="h-6 w-6" />
+          </div>
+          <h2 className="text-xl font-semibold">Dashboard</h2>
+        </div>
+        <nav className="mt-6 flex flex-col gap-2">
+          <span className="flex items-center gap-2 rounded-md px-3 py-2 text-muted-foreground">
+            <ClipboardIcon className="h-5 w-5" />
+            <span>Ops</span>
+          </span>
+          <span className="flex items-center gap-2 rounded-md px-3 py-2 text-muted-foreground">
+            <UserIcon className="h-5 w-5" />
+            <span>IPs</span>
+          </span>
+          <span className="flex items-center gap-2 rounded-md px-3 py-2 text-muted-foreground">
+            <BarChartIcon className="h-5 w-5" />
+            <span>Analysis</span>
+          </span>
+        </nav>
+      </aside>
+      <div className="flex-1 p-4 sm:p-6">
+        <div className="grid gap-4">
+          <div className="grid gap-2">
+            <h3 className="text-lg font-semibold">Ops</h3>
+            <div className="grid gap-4">
+              {patients.map((patient) => (
+                <a key={patient.id} href={`/doctorconsultancy?abhaid=${patient.id}`} className="no-underline"><Card key={patient.id} className="relative">
+                  <CardHeader className={`${statusColors[patient.status]} px-4 py-2 rounded-t-md`}>
+                    <div className="absolute top-2 right-2 rounded-full bg-black px-2 py-1 text-xs font-medium">
+                      {patient.status}
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Avatar className="border-2 border-white">
+                        <AvatarImage src="/placeholder-user.jpg" alt={patient.name} />
+                        <AvatarFallback>{patient.name[0] + patient.name[1]}</AvatarFallback>
+                      </Avatar>
+                      <div>
+                        <div className="font-medium">{patient.name}</div>
+                        <div className="text-sm">{`${patient.age} years old, ${patient.gender}`}</div>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="px-4 py-3">
+                    <div className="text-sm text-muted-foreground">
+                      Reason for visit: {patient.reason}
+                    </div>
+                  </CardContent>
+                </Card></a>
+              ))}
             </div>
             <h2 className="text-xl font-semibold">Dr. Smith's Dashboard</h2>
           </div>
@@ -139,7 +167,7 @@ export function DoctorDashBoard() {
       </div>
     </div>
   );
-}
+}     
 
 // Icon Components
 function BarChartIcon(props: React.SVGProps<SVGSVGElement>) {

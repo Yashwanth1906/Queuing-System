@@ -61,7 +61,7 @@ const getDepartments = async(req,res)=>{
 const createPatientInstance = async(req,res)=>{
     const prisma = req.prisma;
     try{
-        const {abhaId,doctorId,queueNumber,visitType,age,gender,reason} = req.body;
+        const {abhaId,doctorId,queueNumber,visitType,age,gender,reason,name} = req.body;
         const patientInstance = await prisma.patientInstance.create({
             data:{
                 abhaId:abhaId,
@@ -70,7 +70,8 @@ const createPatientInstance = async(req,res)=>{
                 visitType: (visitType === "FreshVisit") ? VisitType.FreshVisit : VisitType.Revisit,
                 age:age,
                 Gender:gender,
-                reason:reason
+                reason:reason,
+                name:name
             }
         })
         const patientqueue = await prisma.oPDQueue.create({
@@ -167,6 +168,28 @@ const allocateBed = async(req,res) =>{
         res.json({success:false,message:err})
     }
 }
+const getPatient = async(req,res)=>{
+    const prisma = req.prisma;
+    console.log(req.headers.abhaid)
+    try{
+        const patient = await prisma.patientInstance.findUnique({
+            where:{
+            abhaId:req.headers.abhaid
+            },select:{
+                abhaId:true,
+                name:true,
+                age:true,
+                Gender:true,
+                reason:true
+            }
+        })
+        res.json({success:true,patient:patient})
+    }catch(err){
+        console.log(err);
+        res.json({success:false,message:err})
+    }
+}
+
 
 
 // const bedRequest = async(req,res)=>{
@@ -178,4 +201,4 @@ const allocateBed = async(req,res) =>{
 //     }
 // }
 
-export {getDoctors,addDepartments,getDepartments,createPatientInstance,addWard,getAdmissionsBedNotAllocated,allocateBed}
+export {getDoctors,addDepartments,getDepartments,createPatientInstance,addWard,getAdmissionsBedNotAllocated,allocateBed,getPatient}

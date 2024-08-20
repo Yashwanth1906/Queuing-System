@@ -163,6 +163,7 @@ exports.Prisma.WardScalarFieldEnum = {
 exports.Prisma.PatientInstanceScalarFieldEnum = {
   id: 'id',
   abhaId: 'abhaId',
+  name: 'name',
   age: 'age',
   Gender: 'Gender',
   reason: 'reason',
