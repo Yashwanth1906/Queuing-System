@@ -5,7 +5,7 @@ const adminRouter = express.Router();
 
 adminRouter.post("/addhospital",addHospital)
 adminRouter.get("/migratedb",migratealldbs)
-adminRouter.post("/getpatient",getPatientabhaId)
+adminRouter.get("/getpatient",getPatientabhaId)
 adminRouter.post("/createpatient",createPatient)
 adminRouter.post("/adminregister",getHospitalPrismaClient,adminregister)
 adminRouter.post("/adminlogin",getHospitalPrismaClient,adminlogin)

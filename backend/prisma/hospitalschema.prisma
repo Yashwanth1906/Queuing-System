@@ -30,9 +30,6 @@ enum DesignationType{
   HeadOfDepartment
 }
 
-
-
-
 model Departments {
   id String @id @default(uuid())
   name String
@@ -85,6 +82,7 @@ model Ward {
 model PatientInstance {
   id String @id @default(uuid())
   abhaId String @unique
+  name String
   age Int
   Gender String
   reason String

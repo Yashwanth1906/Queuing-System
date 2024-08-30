@@ -68,6 +68,7 @@ const doctorLogin = async(req,res)=>{
     const prisma = req.prisma;
     try{
         const {email,password} = req.body;
+        console.log("email "+email)
         const doctor = await prisma.doctors.findUnique({
             where:{
                 email :email
@@ -103,8 +104,9 @@ const getQueuedPatients = async(req,res) =>{
                         abhaId :true,
                         age:true,
                         Gender:true,
-                        reason:true
-                    }
+                        reason:true,
+                        name:true
+                    },
                 },
                 status:true,
                 queueNumber:true
@@ -128,11 +130,11 @@ const addMedications = async(req,res)=>{
             data:{
                 medications:medications,
                 feedback:feedback
-            }
+            },
         })
         const op = await prisma.oPDQueue.update({
             where:{
-                id:"dc967432-c08c-4cab-b45d-c867ef2b5d4b"
+                patientInstanceId : abhaid
             },data:{
                 status:QueueStatus.Completed,
             }
@@ -162,6 +164,63 @@ const createAdmission = async(req,res)=>{
     }
 }
 
+const allDoctors = async(req,res)=>{
+    const prisma = req.prisma;
+    try{
+        const alldoctors = await prisma.doctors.findMany({
+            select:{
+                id:true,
+                name:true,
+                designation:true,
+                department:{
+                    select:{
+                        name:true
+                    }
+                },
+                _count:{
+                    select:{
+                        opdQueue:{
+                            where:{
+                                status:QueueStatus.Pending
+                            }
+                        }
+                    }
+                }
+            }
+        })
+        res.json({success:true,doctors:alldoctors})
+    }catch(err){
+        console.log(err);
+        res.json({success:false,doctors:null})
+    }
+}
 
+const getDoctor = async(req,res)=>{
+    const prisma = req.prisma;
+    try{
+        const {doctor_id} = req.bodyl
+        const doctorwithid = await prisma.doctors.findUnique({
+            where:{
+                id:doctor_id
+            },select:{
+                name:true,
+                department:{
+                    name:true
+                },
+                _count:{
+                    opdQueue:{
+                        where:{
+                            status:QueueStatus.Pending
+                        }
+                    }
+                }
+            }
+        })
+        res.json({success:true,doctors:doctorwithid})
+    }catch(err){
+        console.log(err);
+        res.json({success:false,doctors:null})
+    }
+}
 
-export {doctorRegister,doctorLogin,getQueuedPatients,addMedications,createAdmission}
+export {doctorRegister,doctorLogin,getQueuedPatients,addMedications,allDoctors,createAdmission,getDoctor}

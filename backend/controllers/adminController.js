@@ -65,7 +65,8 @@ const migratealldbs = async(req,res) =>{
 }
 
 const getPatientabhaId = async(req,res)=>{
-    const {abhaId} = req.body;
+    const abhaId = req.headers.abhaid;
+    console.log(abhaId)
     try{
         const patient = await centralprisma.patient.findUnique({
             where:{
@@ -73,10 +74,19 @@ const getPatientabhaId = async(req,res)=>{
             },select:{
                 abhaId:true,
                 name:true,
-                contact:true,
-                address:true
+                Age:true,gender:true,contact:true,
             }
         })
+        console.log(patient)
+        res.json({success:true,patient:patient})
+    }catch(err){
+        console.log(err);
+        res.json({success:true,message:err})
+    }
+}
+
+const getMedicalRecords = async(req,res)=>{
+    try{
         const medicalRecord = await centralprisma.medicalRecord.findMany({
             where:{
                 patientId:abhaId
@@ -90,22 +100,24 @@ const getPatientabhaId = async(req,res)=>{
                 documents:true
             }
         })
-        res.json({success:true,patient:patient,medicalRecord:medicalRecord})
+        res.json({sucess:true,records:medicalRecord})
     }catch(err){
-        console.log(err);
-        res.json({success:true,message:err})
+        console.log(err)
+        res.json({success:false,message:err})
     }
 }
 
 const createPatient = async(req,res)=>{
-    const {abhaId,name,contact,address} = req.body;
+    const {abhaId,name,contact,address,gender,Age} = req.body;
     try{
         const patient = await centralprisma.patient.create({
             data:{
                 abhaId,
                 name,
                 contact,
-                address
+                address,
+                gender,
+                Age
             }
         })
         console.log(patient);

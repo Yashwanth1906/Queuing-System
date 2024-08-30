@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "app",
+    "rest_framework",
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
@@ -47,7 +50,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = 'HospitalSIH.urls'
 
@@ -69,20 +76,32 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'HospitalSIH.wsgi.application'
 
+APPEND_SLASH = False
+
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgressql',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': "defaultdb",
         "PORT":"13070",
         "USER":"avnadmin",
         "PASSWORD":"AVNS_5qb24Cru8rsqoTnQMap",
-        "HOST":""
+        "HOST":"pg-37f71f7d-shreecharan215-d1dd.b.aivencloud.com"
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': "hospital",
+#         # "PORT":"13070",
+#         "USER":"root",
+#         "PASSWORD":"12345",
+#     }
+# }
 
 
 # Password validation

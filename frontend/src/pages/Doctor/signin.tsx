@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { BACKEND_URL, HOSPITAL_CODE } from "@/config";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import { AlertTriangle } from "lucide-react";
 
 // Define the shape of the form data
 interface SignInFormData {
@@ -29,35 +30,32 @@ export function SigninDoctor() {
     }));
   };
   const navigate = useNavigate();
-  // Handle form submission
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    // Clear any previous errors
-    setError(null);
-
-    // Perform basic validation
-    if (!formData.email || !formData.password) {
-      setError("Please fill in all fields.");
-      return;
-    }
-
-    // Handle the form submission (e.g., API call)
+    e.preventDefault(); 
+    console.log(formData); 
     try {
-        const res = await axios.post(`${BACKEND_URL}/api/doctor/login`,formData,{
-          headers:{
-            code:HOSPITAL_CODE
-          }
-        }) as {success:boolean,token:string};
-        localStorage.setItem("doctortoken",res.token)
-        alert("Login Successful")
-        navigate("/doctordashboard")
-    } catch (err: any) {
-      // Handle error
-      setError(err.message);
+        await axios.post(`${BACKEND_URL}/api/doctor/login`, formData, {
+            headers: {
+                code: HOSPITAL_CODE
+            }
+        }).then((response) => {
+            if (response.data && response.data.success) {
+                const token = response.data.token;
+                console.log(token);
+                localStorage.setItem("doctortoken", token);
+                alert("Login Successful");
+                navigate("/doctordashboard");
+            } else {
+                alert(response.data.message || "Login failed");
+            }
+        }).catch((err) => {
+            alert(err.message || "An error occurred");
+        });
+    } catch (err) {
+        console.log(err);
+        setError("An error occurred. Please try again.");
     }
-  };
-
+};
   return (
     <div className="flex min-h-[100dvh] flex-col items-center justify-center bg-background px-4 py-12 sm:px-6 lg:px-8">
       <div className="mx-auto w-full max-w-md space-y-6">
@@ -89,9 +87,9 @@ export function SigninDoctor() {
           </div>
           {error && <p className="text-red-500">{error}</p>}
           <br />
-          <Link to="/doctordashboard"><Button type="submit" className="w-full">
+          <Button type="submit" className="w-full">
             Login
-          </Button></Link>
+          </Button>
           <p>Have you registered? <Link to="/doctorssignup">SignUp</Link></p>
         </form>
       </div>
