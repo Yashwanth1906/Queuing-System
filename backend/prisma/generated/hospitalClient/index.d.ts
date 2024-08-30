@@ -7043,6 +7043,7 @@ export namespace Prisma {
   export type PatientInstanceMinAggregateOutputType = {
     id: string | null
     abhaId: string | null
+    name: string | null
     age: number | null
     Gender: string | null
     reason: string | null
@@ -7055,6 +7056,7 @@ export namespace Prisma {
   export type PatientInstanceMaxAggregateOutputType = {
     id: string | null
     abhaId: string | null
+    name: string | null
     age: number | null
     Gender: string | null
     reason: string | null
@@ -7067,6 +7069,7 @@ export namespace Prisma {
   export type PatientInstanceCountAggregateOutputType = {
     id: number
     abhaId: number
+    name: number
     age: number
     Gender: number
     reason: number
@@ -7092,6 +7095,7 @@ export namespace Prisma {
   export type PatientInstanceMinAggregateInputType = {
     id?: true
     abhaId?: true
+    name?: true
     age?: true
     Gender?: true
     reason?: true
@@ -7104,6 +7108,7 @@ export namespace Prisma {
   export type PatientInstanceMaxAggregateInputType = {
     id?: true
     abhaId?: true
+    name?: true
     age?: true
     Gender?: true
     reason?: true
@@ -7116,6 +7121,7 @@ export namespace Prisma {
   export type PatientInstanceCountAggregateInputType = {
     id?: true
     abhaId?: true
+    name?: true
     age?: true
     Gender?: true
     reason?: true
@@ -7216,6 +7222,7 @@ export namespace Prisma {
   export type PatientInstanceGroupByOutputType = {
     id: string
     abhaId: string
+    name: string
     age: number
     Gender: string
     reason: string
@@ -7248,6 +7255,7 @@ export namespace Prisma {
   export type PatientInstanceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     abhaId?: boolean
+    name?: boolean
     age?: boolean
     Gender?: boolean
     reason?: boolean
@@ -7265,6 +7273,7 @@ export namespace Prisma {
   export type PatientInstanceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     abhaId?: boolean
+    name?: boolean
     age?: boolean
     Gender?: boolean
     reason?: boolean
@@ -7279,6 +7288,7 @@ export namespace Prisma {
   export type PatientInstanceSelectScalar = {
     id?: boolean
     abhaId?: boolean
+    name?: boolean
     age?: boolean
     Gender?: boolean
     reason?: boolean
@@ -7309,6 +7319,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       abhaId: string
+      name: string
       age: number
       Gender: string
       reason: string
@@ -7715,6 +7726,7 @@ export namespace Prisma {
   interface PatientInstanceFieldRefs {
     readonly id: FieldRef<"PatientInstance", 'String'>
     readonly abhaId: FieldRef<"PatientInstance", 'String'>
+    readonly name: FieldRef<"PatientInstance", 'String'>
     readonly age: FieldRef<"PatientInstance", 'Int'>
     readonly Gender: FieldRef<"PatientInstance", 'String'>
     readonly reason: FieldRef<"PatientInstance", 'String'>
@@ -13079,6 +13091,7 @@ export namespace Prisma {
   export const PatientInstanceScalarFieldEnum: {
     id: 'id',
     abhaId: 'abhaId',
+    name: 'name',
     age: 'age',
     Gender: 'Gender',
     reason: 'reason',
@@ -13650,6 +13663,7 @@ export namespace Prisma {
     NOT?: PatientInstanceWhereInput | PatientInstanceWhereInput[]
     id?: StringFilter<"PatientInstance"> | string
     abhaId?: StringFilter<"PatientInstance"> | string
+    name?: StringFilter<"PatientInstance"> | string
     age?: IntFilter<"PatientInstance"> | number
     Gender?: StringFilter<"PatientInstance"> | string
     reason?: StringFilter<"PatientInstance"> | string
@@ -13666,6 +13680,7 @@ export namespace Prisma {
   export type PatientInstanceOrderByWithRelationInput = {
     id?: SortOrder
     abhaId?: SortOrder
+    name?: SortOrder
     age?: SortOrder
     Gender?: SortOrder
     reason?: SortOrder
@@ -13685,6 +13700,7 @@ export namespace Prisma {
     AND?: PatientInstanceWhereInput | PatientInstanceWhereInput[]
     OR?: PatientInstanceWhereInput[]
     NOT?: PatientInstanceWhereInput | PatientInstanceWhereInput[]
+    name?: StringFilter<"PatientInstance"> | string
     age?: IntFilter<"PatientInstance"> | number
     Gender?: StringFilter<"PatientInstance"> | string
     reason?: StringFilter<"PatientInstance"> | string
@@ -13701,6 +13717,7 @@ export namespace Prisma {
   export type PatientInstanceOrderByWithAggregationInput = {
     id?: SortOrder
     abhaId?: SortOrder
+    name?: SortOrder
     age?: SortOrder
     Gender?: SortOrder
     reason?: SortOrder
@@ -13722,6 +13739,7 @@ export namespace Prisma {
     NOT?: PatientInstanceScalarWhereWithAggregatesInput | PatientInstanceScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"PatientInstance"> | string
     abhaId?: StringWithAggregatesFilter<"PatientInstance"> | string
+    name?: StringWithAggregatesFilter<"PatientInstance"> | string
     age?: IntWithAggregatesFilter<"PatientInstance"> | number
     Gender?: StringWithAggregatesFilter<"PatientInstance"> | string
     reason?: StringWithAggregatesFilter<"PatientInstance"> | string
@@ -14345,6 +14363,7 @@ export namespace Prisma {
   export type PatientInstanceCreateInput = {
     id?: string
     abhaId: string
+    name: string
     age: number
     Gender: string
     reason: string
@@ -14360,6 +14379,7 @@ export namespace Prisma {
   export type PatientInstanceUncheckedCreateInput = {
     id?: string
     abhaId: string
+    name: string
     age: number
     Gender: string
     reason: string
@@ -14375,6 +14395,7 @@ export namespace Prisma {
   export type PatientInstanceUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     abhaId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
     Gender?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
@@ -14390,6 +14411,7 @@ export namespace Prisma {
   export type PatientInstanceUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     abhaId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
     Gender?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
@@ -14405,6 +14427,7 @@ export namespace Prisma {
   export type PatientInstanceCreateManyInput = {
     id?: string
     abhaId: string
+    name: string
     age: number
     Gender: string
     reason: string
@@ -14418,6 +14441,7 @@ export namespace Prisma {
   export type PatientInstanceUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     abhaId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
     Gender?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
@@ -14430,6 +14454,7 @@ export namespace Prisma {
   export type PatientInstanceUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     abhaId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
     Gender?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
@@ -15147,6 +15172,7 @@ export namespace Prisma {
   export type PatientInstanceCountOrderByAggregateInput = {
     id?: SortOrder
     abhaId?: SortOrder
+    name?: SortOrder
     age?: SortOrder
     Gender?: SortOrder
     reason?: SortOrder
@@ -15165,6 +15191,7 @@ export namespace Prisma {
   export type PatientInstanceMaxOrderByAggregateInput = {
     id?: SortOrder
     abhaId?: SortOrder
+    name?: SortOrder
     age?: SortOrder
     Gender?: SortOrder
     reason?: SortOrder
@@ -15177,6 +15204,7 @@ export namespace Prisma {
   export type PatientInstanceMinOrderByAggregateInput = {
     id?: SortOrder
     abhaId?: SortOrder
+    name?: SortOrder
     age?: SortOrder
     Gender?: SortOrder
     reason?: SortOrder
@@ -16796,6 +16824,7 @@ export namespace Prisma {
   export type PatientInstanceCreateWithoutDoctorInput = {
     id?: string
     abhaId: string
+    name: string
     age: number
     Gender: string
     reason: string
@@ -16810,6 +16839,7 @@ export namespace Prisma {
   export type PatientInstanceUncheckedCreateWithoutDoctorInput = {
     id?: string
     abhaId: string
+    name: string
     age: number
     Gender: string
     reason: string
@@ -16931,6 +16961,7 @@ export namespace Prisma {
     NOT?: PatientInstanceScalarWhereInput | PatientInstanceScalarWhereInput[]
     id?: StringFilter<"PatientInstance"> | string
     abhaId?: StringFilter<"PatientInstance"> | string
+    name?: StringFilter<"PatientInstance"> | string
     age?: IntFilter<"PatientInstance"> | number
     Gender?: StringFilter<"PatientInstance"> | string
     reason?: StringFilter<"PatientInstance"> | string
@@ -17013,6 +17044,7 @@ export namespace Prisma {
   export type PatientInstanceCreateWithoutOpqueueInput = {
     id?: string
     abhaId: string
+    name: string
     age: number
     Gender: string
     reason: string
@@ -17027,6 +17059,7 @@ export namespace Prisma {
   export type PatientInstanceUncheckedCreateWithoutOpqueueInput = {
     id?: string
     abhaId: string
+    name: string
     age: number
     Gender: string
     reason: string
@@ -17090,6 +17123,7 @@ export namespace Prisma {
   export type PatientInstanceUpdateWithoutOpqueueInput = {
     id?: StringFieldUpdateOperationsInput | string
     abhaId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
     Gender?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
@@ -17104,6 +17138,7 @@ export namespace Prisma {
   export type PatientInstanceUncheckedUpdateWithoutOpqueueInput = {
     id?: StringFieldUpdateOperationsInput | string
     abhaId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
     Gender?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
@@ -17489,6 +17524,7 @@ export namespace Prisma {
   export type PatientInstanceCreateWithoutAdmissionInput = {
     id?: string
     abhaId: string
+    name: string
     age: number
     Gender: string
     reason: string
@@ -17503,6 +17539,7 @@ export namespace Prisma {
   export type PatientInstanceUncheckedCreateWithoutAdmissionInput = {
     id?: string
     abhaId: string
+    name: string
     age: number
     Gender: string
     reason: string
@@ -17606,6 +17643,7 @@ export namespace Prisma {
   export type PatientInstanceUpdateWithoutAdmissionInput = {
     id?: StringFieldUpdateOperationsInput | string
     abhaId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
     Gender?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
@@ -17620,6 +17658,7 @@ export namespace Prisma {
   export type PatientInstanceUncheckedUpdateWithoutAdmissionInput = {
     id?: StringFieldUpdateOperationsInput | string
     abhaId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
     Gender?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
@@ -18217,6 +18256,7 @@ export namespace Prisma {
   export type PatientInstanceCreateManyDoctorInput = {
     id?: string
     abhaId: string
+    name: string
     age: number
     Gender: string
     reason: string
@@ -18274,6 +18314,7 @@ export namespace Prisma {
   export type PatientInstanceUpdateWithoutDoctorInput = {
     id?: StringFieldUpdateOperationsInput | string
     abhaId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
     Gender?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
@@ -18288,6 +18329,7 @@ export namespace Prisma {
   export type PatientInstanceUncheckedUpdateWithoutDoctorInput = {
     id?: StringFieldUpdateOperationsInput | string
     abhaId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
     Gender?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
@@ -18302,6 +18344,7 @@ export namespace Prisma {
   export type PatientInstanceUncheckedUpdateManyWithoutDoctorInput = {
     id?: StringFieldUpdateOperationsInput | string
     abhaId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
     Gender?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
