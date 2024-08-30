@@ -164,6 +164,63 @@ const createAdmission = async(req,res)=>{
     }
 }
 
+const allDoctors = async(req,res)=>{
+    const prisma = req.prisma;
+    try{
+        const alldoctors = await prisma.doctors.findMany({
+            select:{
+                id:true,
+                name:true,
+                designation:true,
+                department:{
+                    select:{
+                        name:true
+                    }
+                },
+                _count:{
+                    select:{
+                        opdQueue:{
+                            where:{
+                                status:QueueStatus.Pending
+                            }
+                        }
+                    }
+                }
+            }
+        })
+        res.json({success:true,doctors:alldoctors})
+    }catch(err){
+        console.log(err);
+        res.json({success:false,doctors:null})
+    }
+}
 
+const getDoctor = async(req,res)=>{
+    const prisma = req.prisma;
+    try{
+        const {doctor_id} = req.bodyl
+        const doctorwithid = await prisma.doctors.findUnique({
+            where:{
+                id:doctor_id
+            },select:{
+                name:true,
+                department:{
+                    name:true
+                },
+                _count:{
+                    opdQueue:{
+                        where:{
+                            status:QueueStatus.Pending
+                        }
+                    }
+                }
+            }
+        })
+        res.json({success:true,doctors:doctorwithid})
+    }catch(err){
+        console.log(err);
+        res.json({success:false,doctors:null})
+    }
+}
 
-export {doctorRegister,doctorLogin,getQueuedPatients,addMedications,createAdmission}
+export {doctorRegister,doctorLogin,getQueuedPatients,addMedications,allDoctors,createAdmission,getDoctor}

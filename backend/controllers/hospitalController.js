@@ -66,7 +66,7 @@ const createPatientInstance = async(req,res)=>{
             data:{
                 abhaId:abhaId,
                 doctorId:doctorId,
-                queueNumber:queueNumber,
+                queueNumber:queueNumber + 1,
                 visitType: (visitType === "FreshVisit") ? VisitType.FreshVisit : VisitType.Revisit,
                 age:age,
                 Gender:gender,
