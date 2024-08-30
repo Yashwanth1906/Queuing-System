@@ -78,6 +78,7 @@ export function Register() {
     try {
       // Register the user
       const response = await axios.post(`${BACKEND_URL}/api/admin/register`, {
+        name:formState.name,
         email: formState.email,
         password: formState.password,
       });
