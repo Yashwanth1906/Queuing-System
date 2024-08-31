@@ -1,10 +1,6 @@
 /*
   Warnings:
 
-  - You are about to drop the column `allergies` on the `MedicalRecord` table. All the data in the column will be lost.
-  - You are about to drop the column `importantConditions` on the `MedicalRecord` table. All the data in the column will be lost.
-  - You are about to drop the column `lastHospitalVisit` on the `MedicalRecord` table. All the data in the column will be lost.
-  - You are about to drop the column `permanentRecordId` on the `MedicalRecord` table. All the data in the column will be lost.
   - You are about to drop the `Admission` table. If the table is not empty, all the data it contains will be lost.
   - You are about to drop the `Bed` table. If the table is not empty, all the data it contains will be lost.
   - You are about to drop the `Departments` table. If the table is not empty, all the data it contains will be lost.
@@ -13,15 +9,9 @@
   - You are about to drop the `MainStore` table. If the table is not empty, all the data it contains will be lost.
   - You are about to drop the `OPDQueue` table. If the table is not empty, all the data it contains will be lost.
   - You are about to drop the `PatientInstance` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `PermanentRecord` table. If the table is not empty, all the data it contains will be lost.
   - You are about to drop the `Pharmacy` table. If the table is not empty, all the data it contains will be lost.
   - You are about to drop the `SubStore` table. If the table is not empty, all the data it contains will be lost.
   - You are about to drop the `Ward` table. If the table is not empty, all the data it contains will be lost.
-  - Added the required column `doctorName` to the `MedicalRecord` table without a default value. This is not possible if the table is not empty.
-  - Added the required column `hospitalName` to the `MedicalRecord` table without a default value. This is not possible if the table is not empty.
-  - Added the required column `medicationsPrescribed` to the `MedicalRecord` table without a default value. This is not possible if the table is not empty.
-  - Added the required column `patientId` to the `MedicalRecord` table without a default value. This is not possible if the table is not empty.
-  - Added the required column `treatmentSummary` to the `MedicalRecord` table without a default value. This is not possible if the table is not empty.
 
 */
 -- DropForeignKey
@@ -31,7 +21,7 @@ ALTER TABLE "Admission" DROP CONSTRAINT "Admission_bedId_fkey";
 ALTER TABLE "Admission" DROP CONSTRAINT "Admission_doctorId_fkey";
 
 -- DropForeignKey
-ALTER TABLE "Admission" DROP CONSTRAINT "Admission_patientInstanceId_fkey";
+ALTER TABLE "Admission" DROP CONSTRAINT "Admission_patientId_fkey";
 
 -- DropForeignKey
 ALTER TABLE "Admission" DROP CONSTRAINT "Admission_wardId_fkey";
@@ -52,50 +42,19 @@ ALTER TABLE "Inventory" DROP CONSTRAINT "Inventory_pharmacyId_fkey";
 ALTER TABLE "Inventory" DROP CONSTRAINT "Inventory_subStoreId_fkey";
 
 -- DropForeignKey
-ALTER TABLE "MedicalRecord" DROP CONSTRAINT "MedicalRecord_permanentRecordId_fkey";
-
--- DropForeignKey
 ALTER TABLE "OPDQueue" DROP CONSTRAINT "OPDQueue_doctorId_fkey";
 
 -- DropForeignKey
 ALTER TABLE "OPDQueue" DROP CONSTRAINT "OPDQueue_patientInstanceId_fkey";
 
 -- DropForeignKey
-ALTER TABLE "PatientInstance" DROP CONSTRAINT "PatientInstance_bedId_fkey";
-
--- DropForeignKey
 ALTER TABLE "PatientInstance" DROP CONSTRAINT "PatientInstance_doctorId_fkey";
-
--- DropForeignKey
-ALTER TABLE "PatientInstance" DROP CONSTRAINT "PatientInstance_permanentRecordId_fkey";
-
--- DropForeignKey
-ALTER TABLE "PatientInstance" DROP CONSTRAINT "PatientInstance_wardId_fkey";
 
 -- DropForeignKey
 ALTER TABLE "Pharmacy" DROP CONSTRAINT "Pharmacy_subStoreId_fkey";
 
 -- DropForeignKey
 ALTER TABLE "SubStore" DROP CONSTRAINT "SubStore_mainStoreId_fkey";
-
--- DropForeignKey
-ALTER TABLE "Ward" DROP CONSTRAINT "Ward_departmentId_fkey";
-
--- AlterTable
-ALTER TABLE "MedicalRecord" DROP COLUMN "allergies",
-DROP COLUMN "importantConditions",
-DROP COLUMN "lastHospitalVisit",
-DROP COLUMN "permanentRecordId",
-ADD COLUMN     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-ADD COLUMN     "doctorName" TEXT NOT NULL,
-ADD COLUMN     "documents" JSONB,
-ADD COLUMN     "followUpInstructions" TEXT,
-ADD COLUMN     "hospitalName" TEXT NOT NULL,
-ADD COLUMN     "medicationsPrescribed" TEXT NOT NULL,
-ADD COLUMN     "patientId" TEXT NOT NULL,
-ADD COLUMN     "recordDate" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-ADD COLUMN     "treatmentSummary" TEXT NOT NULL,
-ADD COLUMN     "updatedAt" TIMESTAMP(3);
 
 -- DropTable
 DROP TABLE "Admission";
@@ -122,9 +81,6 @@ DROP TABLE "OPDQueue";
 DROP TABLE "PatientInstance";
 
 -- DropTable
-DROP TABLE "PermanentRecord";
-
--- DropTable
 DROP TABLE "Pharmacy";
 
 -- DropTable
@@ -135,6 +91,9 @@ DROP TABLE "Ward";
 
 -- DropEnum
 DROP TYPE "BedStatus";
+
+-- DropEnum
+DROP TYPE "DesignationType";
 
 -- DropEnum
 DROP TYPE "InventoryCategory";
@@ -169,13 +128,63 @@ CREATE TABLE "Hospital" (
 
 -- CreateTable
 CREATE TABLE "Patient" (
-    "id" TEXT NOT NULL,
     "abhaId" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "contact" TEXT NOT NULL,
     "address" TEXT NOT NULL,
+    "gender" TEXT NOT NULL,
+    "DOB" TIMESTAMP(3) NOT NULL,
+    "emergencyContact" TEXT NOT NULL,
 
-    CONSTRAINT "Patient_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Patient_pkey" PRIMARY KEY ("abhaId")
+);
+
+-- CreateTable
+CREATE TABLE "MedicalRecord" (
+    "id" TEXT NOT NULL,
+    "patientId" TEXT NOT NULL,
+    "hospitalName" TEXT NOT NULL,
+    "recordDate" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "visitReason" TEXT NOT NULL,
+    "medicationsPrescribed" TEXT NOT NULL,
+    "treatmentSummary" TEXT NOT NULL,
+    "doctorName" TEXT NOT NULL,
+    "followUpInstructions" TEXT,
+    "documents" JSONB,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3),
+
+    CONSTRAINT "MedicalRecord_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "ABHANumber" (
+    "prev" TEXT NOT NULL,
+
+    CONSTRAINT "ABHANumber_pkey" PRIMARY KEY ("prev")
+);
+
+-- CreateTable
+CREATE TABLE "OTPVerification" (
+    "id" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "otp" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "expiresAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "OTPVerification_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "BedRequest" (
+    "id" TEXT NOT NULL,
+    "hospitalCode" TEXT NOT NULL,
+    "patientAbhaId" TEXT NOT NULL,
+    "patientName" TEXT NOT NULL,
+    "patientContact" TEXT NOT NULL,
+    "wardName" TEXT NOT NULL,
+
+    CONSTRAINT "BedRequest_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -184,5 +193,14 @@ CREATE UNIQUE INDEX "Admin_email_key" ON "Admin"("email");
 -- CreateIndex
 CREATE UNIQUE INDEX "Hospital_code_key" ON "Hospital"("code");
 
+-- CreateIndex
+CREATE UNIQUE INDEX "Patient_abhaId_key" ON "Patient"("abhaId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "OTPVerification_email_key" ON "OTPVerification"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "BedRequest_patientAbhaId_key" ON "BedRequest"("patientAbhaId");
+
 -- AddForeignKey
-ALTER TABLE "MedicalRecord" ADD CONSTRAINT "MedicalRecord_patientId_fkey" FOREIGN KEY ("patientId") REFERENCES "Patient"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "MedicalRecord" ADD CONSTRAINT "MedicalRecord_patientId_fkey" FOREIGN KEY ("patientId") REFERENCES "Patient"("abhaId") ON DELETE RESTRICT ON UPDATE CASCADE;

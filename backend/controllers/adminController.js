@@ -1,3 +1,4 @@
+import { stringify } from "querystring";
 import { PrismaClient } from "../prisma/generated/central/index.js";
 import { exec } from 'child_process';
 const centralprisma = new PrismaClient({
@@ -8,7 +9,7 @@ const centralprisma = new PrismaClient({
     }});
 const addHospital = async(req,res)=>{
     console.log(req.body)
-    const {name,location,city,state,dburl,code} = req.body;
+    const {name,location,city,state,dbURL,code} = req.body;
     try{
     const hospital = await centralprisma.hospital.create({
         data:{
@@ -16,7 +17,7 @@ const addHospital = async(req,res)=>{
             name,
             location,
             city,state,
-            dbURL:dburl
+            dbURL:dbURL,
         }
     })
     res.json({sucess:true,message:"Created",data:hospital})
@@ -72,10 +73,19 @@ const getPatientabhaId = async(req,res)=>{
             },select:{
                 abhaId:true,
                 name:true,
-                Age:true,gender:true,contact:true,
+                DOB:true,gender:true,contact:true,
             }
         })
         console.log(patient)
+        const today = new Date();
+        const birthDate = new Date(patient.DOB);
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const monthDifference = today.getMonth() - birthDate.getMonth();
+        if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        patient.Age = age;
+        console.log(age);
         res.json({success:true,patient:patient})
     }catch(err){
         console.log(err);
@@ -106,20 +116,37 @@ const getMedicalRecords = async(req,res)=>{
 }
 
 const createPatient = async(req,res)=>{
-    const {abhaId,name,contact,address,gender,Age} = req.body;
+    const {name,contact,address,gender,dob,emergencyContact} = req.body;
+    let abhaid = await centralprisma.aBHANumber.findFirst();
+    if(abhaid==null){
+        abhaid = "999999999999"
+    }else{
+        console.log(abhaid);
+        abhaid = parseInt(abhaid.prev,10) -1;
+        console.log(abhaid);
+        abhaid = abhaid.toString();
+        console.log(abhaid)
+    }
+    await centralprisma.aBHANumber.deleteMany()
+    await centralprisma.aBHANumber.create({
+        data:{
+            prev:abhaid
+        }
+    })
     try{
         const patient = await centralprisma.patient.create({
             data:{
-                abhaId,
-                name,
-                contact,
-                address,
-                gender,
-                Age
+                abhaId:abhaid,
+                name:name,
+                contact:contact,
+                address:address,
+                gender:gender,
+                DOB:dob,
+                emergencyContact:emergencyContact
             }
         })
         console.log(patient);
-        res.json({success:true,patient:patient});
+        res.json({success:true,abhaid:abhaid});
     }catch(err){
         console.log(err);
         res.json({success:false,message:err});

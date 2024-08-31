@@ -20,7 +20,7 @@ app.listen(process.env.BACKEND_PORT,()=>{
     console.log("Running")
 })
 app.delete("/delete",async(req,res)=>{
-    await centralprisma.hospital.deleteMany({})
+    await centralprisma.aBHANumber.deleteMany({})
     res.json({success:true})
 })
 app.use("/api/admin",adminRouter)

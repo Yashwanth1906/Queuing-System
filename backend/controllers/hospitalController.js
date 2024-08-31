@@ -24,6 +24,7 @@ const addDepartments = async(req,res)=>{
     console.log("hi")
     const prisma = req.prisma;
     const deparmentss = req.body.departments;
+    console.log(deparmentss)
     try{
         const added = await Promise.all(deparmentss.map(async (x) => {
             const department = await prisma.departments.create({

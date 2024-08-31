@@ -28,7 +28,7 @@ const getHospitalPrismaClient = async(req,res,next)=>{
                 dbURL:true
             }
         })
-        console.log(hospitalDBURL)
+        console.log(hospitalDBURL)  
         const prisma = new hospitalPrismaClient({
             datasources:{
                 db:{

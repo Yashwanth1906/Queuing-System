@@ -115,7 +115,6 @@ export function DoctorConsultancy() {
       alert("An error occurred while submitting the consultation data.");
     }
   };
-
   return (
     <div className="w-full max-w-4xl mx-auto p-6 sm:p-8">
       {/* Header with Back Button */}
@@ -168,7 +167,68 @@ export function DoctorConsultancy() {
         </div>
 
         {/* Medicines */}
-        <div className="grid gap-6">
+        <div className="flex flex-col gap-6">
+  <h2 className="text-xl font-bold text-center">Prescriptions</h2>
+  {medicines.map((medicine, index) => (
+    <div key={index} className="flex flex-wrap sm:flex-nowrap gap-4 items-center justify-center">
+      <Button
+        size="icon"
+        variant="ghost"
+        onClick={() => removeMedicine(index)}
+        className="flex justify-center"
+      >
+        <TrashIcon className="h-5 w-5" />
+      </Button>
+      <div className="grid gap-2">
+        <Label>Medicine Name</Label>
+        <Input value={medicine.name} onChange={(e) => updateMedicine(index, "name", e.target.value)} />
+      </div>
+      <div className="grid gap-2">
+        <Label>Morning</Label>
+        <Input
+          type="number"
+          value={medicine.morning}
+          onChange={(e) => updateMedicine(index, "morning", parseInt(e.target.value))}
+        />
+      </div>
+      <div className="grid gap-2">
+        <Label>Afternoon</Label>
+        <Input
+          type="number"
+          value={medicine.afternoon}
+          onChange={(e) => updateMedicine(index, "afternoon", parseInt(e.target.value))}
+        />
+      </div>
+      <div className="grid gap-2">
+        <Label>Night</Label>
+        <Input
+          type="number"
+          value={medicine.night}
+          onChange={(e) => updateMedicine(index, "night", parseInt(e.target.value))}
+        />
+      </div>
+      <div className="grid gap-2">
+        <Label>Before/After Food</Label>
+        <Input value={medicine.shift} onChange={(e) => updateMedicine(index, "shift", e.target.value)} />
+      </div>
+      <div className="grid gap-2">
+        <Label>Days</Label>
+        <Input
+          type="number"
+          value={medicine.days}
+          onChange={(e) => updateMedicine(index, "days", parseInt(e.target.value))}
+        />
+      </div>
+    </div>
+  ))}
+  <div className="flex justify-center mt-4">
+    <Button onClick={addMedicine} className="flex justify-center bg-sky-500 text-white">
+      Add Medicine
+    </Button>
+  </div>
+</div>
+
+        {/* <div className="grid gap-6">
           <h2 className="text-xl font-bold">Prescriptions</h2>
           <div className="grid gap-6">
             {medicines.map((medicine, index) => (
@@ -212,6 +272,18 @@ export function DoctorConsultancy() {
                   />
                 </div>
                 <div className="grid gap-2">
+                  <Label>Before/After Food</Label>
+                  <Input value={medicine.shift} onChange={(e) => updateMedicine(index, "shift", e.target.value)} />
+                </div>
+                <div className="grid gap-2">
+                  <Label>Morning</Label>
+                  <Input
+                    type="number"
+                    value={medicine.morning}
+                    onChange={(e) => updateMedicine(index, "morning", parseInt(e.target.value))}
+                  />
+                </div>
+                <div className="grid gap-2">
                   <Label>Days</Label>
                   <Input
                     type="number"
@@ -227,7 +299,7 @@ export function DoctorConsultancy() {
               </Button>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* Injections */}
         <div className="grid gap-6">
@@ -258,7 +330,7 @@ export function DoctorConsultancy() {
               </div>
             ))}
             <div className="flex justify-center">
-              <Button onClick={addInjection} className="flex justify-center">
+              <Button onClick={addInjection} className="flex justify-center bg-sky-500">
                 Add Injection
               </Button>
             </div>
@@ -267,8 +339,9 @@ export function DoctorConsultancy() {
 
         {/* Request Admission Modal */}
         <div className="grid gap-6">
+        <h2 className="text-xl font-bold">Admission</h2>
           <div className="flex justify-center">
-            <Button onClick={openModal} className="flex justify-center">
+            <Button onClick={openModal} className="flex justify-center bg-sky-500">
               Request Admission
             </Button>
           </div>
@@ -310,6 +383,8 @@ export function DoctorConsultancy() {
 
         {/* Feedback Summary */}
         <div className="grid gap-6">
+          <h2 className="text-xl font-bold">Feed Back</h2>
+
           <Textarea
             placeholder="Feedback Summary"
             className="min-h-[100px]"
