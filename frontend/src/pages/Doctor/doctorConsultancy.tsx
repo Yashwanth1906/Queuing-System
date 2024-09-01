@@ -101,7 +101,7 @@ export function DoctorConsultancy() {
 
       const response = await axios.post(`${BACKEND_URL}/api/doctor/addmedications`, data, {
         headers: {
-          code: HOSPITAL_CODE,
+          code: localStorage.getItem("hospitalcode"),
           Authorization: localStorage.getItem("doctortoken"),
         }
       });

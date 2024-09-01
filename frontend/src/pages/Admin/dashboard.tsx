@@ -215,7 +215,6 @@ import { Link } from "react-router-dom";
 import { BACKEND_URL, HOSPITAL_CODE } from "@/config";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
-import axios from "axios";
 
 import { AlertTriangle } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -316,7 +315,7 @@ export function Admindashboard() {
     }
     const response =await axios.post(`${BACKEND_URL}/api/admin/createPatient`,formState)
     const {abhaid} = response.data;
-    await setFormState((prevState) => ({
+    setFormState((prevState) => ({
       ...prevState,
       abhaid, 
     }));

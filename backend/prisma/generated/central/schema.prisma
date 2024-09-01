@@ -9,20 +9,23 @@ datasource db {
 }
 
 model Admin {
-  id       String @id @default(uuid())
-  name     String
-  email    String @unique
-  password String
+  id           String   @id @default(uuid())
+  email        String   @unique
+  name         String   @default("admin")
+  password     String
+  hospitalCode String   @default("")
+  hospital     Hospital @relation(fields: [hospitalCode], references: [code])
 }
 
 model Hospital {
-  id       String @id @default(uuid())
-  code     String @unique
+  id       String  @id @default(uuid())
+  code     String  @unique
   name     String
   location String
   city     String
   state    String
   dbURL    String
+  admin    Admin[]
 }
 
 model Patient {
@@ -31,7 +34,7 @@ model Patient {
   contact          String
   address          String
   gender           String
-  DOB              DateTime
+  DOB              String
   emergencyContact String
   medicalRecords   MedicalRecord[]
 }

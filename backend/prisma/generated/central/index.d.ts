@@ -1390,6 +1390,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type HospitalCountOutputType
+   */
+
+  export type HospitalCountOutputType = {
+    admin: number
+  }
+
+  export type HospitalCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    admin?: boolean | HospitalCountOutputTypeCountAdminArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * HospitalCountOutputType without action
+   */
+  export type HospitalCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HospitalCountOutputType
+     */
+    select?: HospitalCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * HospitalCountOutputType without action
+   */
+  export type HospitalCountOutputTypeCountAdminArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AdminWhereInput
+  }
+
+
+  /**
    * Count Type PatientCountOutputType
    */
 
@@ -1438,21 +1469,27 @@ export namespace Prisma {
     id: string | null
     name: string | null
     email: string | null
+    name: string | null
     password: string | null
+    hospitalCode: string | null
   }
 
   export type AdminMaxAggregateOutputType = {
     id: string | null
     name: string | null
     email: string | null
+    name: string | null
     password: string | null
+    hospitalCode: string | null
   }
 
   export type AdminCountAggregateOutputType = {
     id: number
     name: number
     email: number
+    name: number
     password: number
+    hospitalCode: number
     _all: number
   }
 
@@ -1461,21 +1498,27 @@ export namespace Prisma {
     id?: true
     name?: true
     email?: true
+    name?: true
     password?: true
+    hospitalCode?: true
   }
 
   export type AdminMaxAggregateInputType = {
     id?: true
     name?: true
     email?: true
+    name?: true
     password?: true
+    hospitalCode?: true
   }
 
   export type AdminCountAggregateInputType = {
     id?: true
     name?: true
     email?: true
+    name?: true
     password?: true
+    hospitalCode?: true
     _all?: true
   }
 
@@ -1555,7 +1598,9 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    name: string
     password: string
+    hospitalCode: string
     _count: AdminCountAggregateOutputType | null
     _min: AdminMinAggregateOutputType | null
     _max: AdminMaxAggregateOutputType | null
@@ -1579,32 +1624,50 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     email?: boolean
+    name?: boolean
     password?: boolean
+    hospitalCode?: boolean
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["admin"]>
 
   export type AdminSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
     email?: boolean
+    name?: boolean
     password?: boolean
+    hospitalCode?: boolean
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["admin"]>
 
   export type AdminSelectScalar = {
     id?: boolean
     name?: boolean
     email?: boolean
+    name?: boolean
     password?: boolean
+    hospitalCode?: boolean
   }
 
+  export type AdminInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+  }
+  export type AdminIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+  }
 
   export type $AdminPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Admin"
-    objects: {}
+    objects: {
+      hospital: Prisma.$HospitalPayload<ExtArgs>
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
       email: string
+      name: string
       password: string
+      hospitalCode: string
     }, ExtArgs["result"]["admin"]>
     composites: {}
   }
@@ -1969,6 +2032,7 @@ export namespace Prisma {
    */
   export interface Prisma__AdminClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    hospital<T extends HospitalDefaultArgs<ExtArgs> = {}>(args?: Subset<T, HospitalDefaultArgs<ExtArgs>>): Prisma__HospitalClient<$Result.GetResult<Prisma.$HospitalPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2001,7 +2065,9 @@ export namespace Prisma {
     readonly id: FieldRef<"Admin", 'String'>
     readonly name: FieldRef<"Admin", 'String'>
     readonly email: FieldRef<"Admin", 'String'>
+    readonly name: FieldRef<"Admin", 'String'>
     readonly password: FieldRef<"Admin", 'String'>
+    readonly hospitalCode: FieldRef<"Admin", 'String'>
   }
     
 
@@ -2014,6 +2080,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Admin
      */
     select?: AdminSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
     /**
      * Filter, which Admin to fetch.
      */
@@ -2029,6 +2099,10 @@ export namespace Prisma {
      */
     select?: AdminSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
+    /**
      * Filter, which Admin to fetch.
      */
     where: AdminWhereUniqueInput
@@ -2042,6 +2116,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Admin
      */
     select?: AdminSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
     /**
      * Filter, which Admin to fetch.
      */
@@ -2087,6 +2165,10 @@ export namespace Prisma {
      */
     select?: AdminSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
+    /**
      * Filter, which Admin to fetch.
      */
     where?: AdminWhereInput
@@ -2131,6 +2213,10 @@ export namespace Prisma {
      */
     select?: AdminSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
+    /**
      * Filter, which Admins to fetch.
      */
     where?: AdminWhereInput
@@ -2170,6 +2256,10 @@ export namespace Prisma {
      */
     select?: AdminSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
+    /**
      * The data needed to create a Admin.
      */
     data: XOR<AdminCreateInput, AdminUncheckedCreateInput>
@@ -2199,6 +2289,10 @@ export namespace Prisma {
      */
     data: AdminCreateManyInput | AdminCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -2209,6 +2303,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Admin
      */
     select?: AdminSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
     /**
      * The data needed to update a Admin.
      */
@@ -2242,6 +2340,10 @@ export namespace Prisma {
      */
     select?: AdminSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
+    /**
      * The filter to search for the Admin to update in case it exists.
      */
     where: AdminWhereUniqueInput
@@ -2263,6 +2365,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Admin
      */
     select?: AdminSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
     /**
      * Filter which Admin to delete.
      */
@@ -2287,6 +2393,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Admin
      */
     select?: AdminSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
   }
 
 
@@ -2470,6 +2580,8 @@ export namespace Prisma {
     city?: boolean
     state?: boolean
     dbURL?: boolean
+    admin?: boolean | Hospital$adminArgs<ExtArgs>
+    _count?: boolean | HospitalCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["hospital"]>
 
   export type HospitalSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2492,10 +2604,17 @@ export namespace Prisma {
     dbURL?: boolean
   }
 
+  export type HospitalInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    admin?: boolean | Hospital$adminArgs<ExtArgs>
+    _count?: boolean | HospitalCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type HospitalIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $HospitalPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Hospital"
-    objects: {}
+    objects: {
+      admin: Prisma.$AdminPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       code: string
@@ -2868,6 +2987,7 @@ export namespace Prisma {
    */
   export interface Prisma__HospitalClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    admin<T extends Hospital$adminArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$adminArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2917,6 +3037,10 @@ export namespace Prisma {
      */
     select?: HospitalSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HospitalInclude<ExtArgs> | null
+    /**
      * Filter, which Hospital to fetch.
      */
     where: HospitalWhereUniqueInput
@@ -2931,6 +3055,10 @@ export namespace Prisma {
      */
     select?: HospitalSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HospitalInclude<ExtArgs> | null
+    /**
      * Filter, which Hospital to fetch.
      */
     where: HospitalWhereUniqueInput
@@ -2944,6 +3072,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Hospital
      */
     select?: HospitalSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HospitalInclude<ExtArgs> | null
     /**
      * Filter, which Hospital to fetch.
      */
@@ -2989,6 +3121,10 @@ export namespace Prisma {
      */
     select?: HospitalSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HospitalInclude<ExtArgs> | null
+    /**
      * Filter, which Hospital to fetch.
      */
     where?: HospitalWhereInput
@@ -3033,6 +3169,10 @@ export namespace Prisma {
      */
     select?: HospitalSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HospitalInclude<ExtArgs> | null
+    /**
      * Filter, which Hospitals to fetch.
      */
     where?: HospitalWhereInput
@@ -3071,6 +3211,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Hospital
      */
     select?: HospitalSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HospitalInclude<ExtArgs> | null
     /**
      * The data needed to create a Hospital.
      */
@@ -3112,6 +3256,10 @@ export namespace Prisma {
      */
     select?: HospitalSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HospitalInclude<ExtArgs> | null
+    /**
      * The data needed to update a Hospital.
      */
     data: XOR<HospitalUpdateInput, HospitalUncheckedUpdateInput>
@@ -3144,6 +3292,10 @@ export namespace Prisma {
      */
     select?: HospitalSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HospitalInclude<ExtArgs> | null
+    /**
      * The filter to search for the Hospital to update in case it exists.
      */
     where: HospitalWhereUniqueInput
@@ -3166,6 +3318,10 @@ export namespace Prisma {
      */
     select?: HospitalSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HospitalInclude<ExtArgs> | null
+    /**
      * Filter which Hospital to delete.
      */
     where: HospitalWhereUniqueInput
@@ -3182,6 +3338,26 @@ export namespace Prisma {
   }
 
   /**
+   * Hospital.admin
+   */
+  export type Hospital$adminArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
+    where?: AdminWhereInput
+    orderBy?: AdminOrderByWithRelationInput | AdminOrderByWithRelationInput[]
+    cursor?: AdminWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AdminScalarFieldEnum | AdminScalarFieldEnum[]
+  }
+
+  /**
    * Hospital without action
    */
   export type HospitalDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3189,6 +3365,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Hospital
      */
     select?: HospitalSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HospitalInclude<ExtArgs> | null
   }
 
 
@@ -3208,7 +3388,7 @@ export namespace Prisma {
     contact: string | null
     address: string | null
     gender: string | null
-    DOB: Date | null
+    DOB: string | null
     emergencyContact: string | null
   }
 
@@ -3218,7 +3398,7 @@ export namespace Prisma {
     contact: string | null
     address: string | null
     gender: string | null
-    DOB: Date | null
+    DOB: string | null
     emergencyContact: string | null
   }
 
@@ -3343,7 +3523,7 @@ export namespace Prisma {
     contact: string
     address: string
     gender: string
-    DOB: Date
+    DOB: string
     emergencyContact: string
     _count: PatientCountAggregateOutputType | null
     _min: PatientMinAggregateOutputType | null
@@ -3413,7 +3593,7 @@ export namespace Prisma {
       contact: string
       address: string
       gender: string
-      DOB: Date
+      DOB: string
       emergencyContact: string
     }, ExtArgs["result"]["patient"]>
     composites: {}
@@ -3814,7 +3994,7 @@ export namespace Prisma {
     readonly contact: FieldRef<"Patient", 'String'>
     readonly address: FieldRef<"Patient", 'String'>
     readonly gender: FieldRef<"Patient", 'String'>
-    readonly DOB: FieldRef<"Patient", 'DateTime'>
+    readonly DOB: FieldRef<"Patient", 'String'>
     readonly emergencyContact: FieldRef<"Patient", 'String'>
   }
     
@@ -7793,7 +7973,9 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     email: 'email',
-    password: 'password'
+    name: 'name',
+    password: 'password',
+    hospitalCode: 'hospitalCode'
   };
 
   export type AdminScalarFieldEnum = (typeof AdminScalarFieldEnum)[keyof typeof AdminScalarFieldEnum]
@@ -7978,14 +8160,20 @@ export namespace Prisma {
     id?: StringFilter<"Admin"> | string
     name?: StringFilter<"Admin"> | string
     email?: StringFilter<"Admin"> | string
+    name?: StringFilter<"Admin"> | string
     password?: StringFilter<"Admin"> | string
+    hospitalCode?: StringFilter<"Admin"> | string
+    hospital?: XOR<HospitalRelationFilter, HospitalWhereInput>
   }
 
   export type AdminOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
+    name?: SortOrder
     password?: SortOrder
+    hospitalCode?: SortOrder
+    hospital?: HospitalOrderByWithRelationInput
   }
 
   export type AdminWhereUniqueInput = Prisma.AtLeast<{
@@ -7996,13 +8184,17 @@ export namespace Prisma {
     NOT?: AdminWhereInput | AdminWhereInput[]
     name?: StringFilter<"Admin"> | string
     password?: StringFilter<"Admin"> | string
+    hospitalCode?: StringFilter<"Admin"> | string
+    hospital?: XOR<HospitalRelationFilter, HospitalWhereInput>
   }, "id" | "email">
 
   export type AdminOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
+    name?: SortOrder
     password?: SortOrder
+    hospitalCode?: SortOrder
     _count?: AdminCountOrderByAggregateInput
     _max?: AdminMaxOrderByAggregateInput
     _min?: AdminMinOrderByAggregateInput
@@ -8015,7 +8207,9 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Admin"> | string
     name?: StringWithAggregatesFilter<"Admin"> | string
     email?: StringWithAggregatesFilter<"Admin"> | string
+    name?: StringWithAggregatesFilter<"Admin"> | string
     password?: StringWithAggregatesFilter<"Admin"> | string
+    hospitalCode?: StringWithAggregatesFilter<"Admin"> | string
   }
 
   export type HospitalWhereInput = {
@@ -8029,6 +8223,7 @@ export namespace Prisma {
     city?: StringFilter<"Hospital"> | string
     state?: StringFilter<"Hospital"> | string
     dbURL?: StringFilter<"Hospital"> | string
+    admin?: AdminListRelationFilter
   }
 
   export type HospitalOrderByWithRelationInput = {
@@ -8039,6 +8234,7 @@ export namespace Prisma {
     city?: SortOrder
     state?: SortOrder
     dbURL?: SortOrder
+    admin?: AdminOrderByRelationAggregateInput
   }
 
   export type HospitalWhereUniqueInput = Prisma.AtLeast<{
@@ -8052,6 +8248,7 @@ export namespace Prisma {
     city?: StringFilter<"Hospital"> | string
     state?: StringFilter<"Hospital"> | string
     dbURL?: StringFilter<"Hospital"> | string
+    admin?: AdminListRelationFilter
   }, "id" | "code">
 
   export type HospitalOrderByWithAggregationInput = {
@@ -8089,7 +8286,7 @@ export namespace Prisma {
     contact?: StringFilter<"Patient"> | string
     address?: StringFilter<"Patient"> | string
     gender?: StringFilter<"Patient"> | string
-    DOB?: DateTimeFilter<"Patient"> | Date | string
+    DOB?: StringFilter<"Patient"> | string
     emergencyContact?: StringFilter<"Patient"> | string
     medicalRecords?: MedicalRecordListRelationFilter
   }
@@ -8114,7 +8311,7 @@ export namespace Prisma {
     contact?: StringFilter<"Patient"> | string
     address?: StringFilter<"Patient"> | string
     gender?: StringFilter<"Patient"> | string
-    DOB?: DateTimeFilter<"Patient"> | Date | string
+    DOB?: StringFilter<"Patient"> | string
     emergencyContact?: StringFilter<"Patient"> | string
     medicalRecords?: MedicalRecordListRelationFilter
   }, "abhaId" | "abhaId">
@@ -8141,7 +8338,7 @@ export namespace Prisma {
     contact?: StringWithAggregatesFilter<"Patient"> | string
     address?: StringWithAggregatesFilter<"Patient"> | string
     gender?: StringWithAggregatesFilter<"Patient"> | string
-    DOB?: DateTimeWithAggregatesFilter<"Patient"> | Date | string
+    DOB?: StringWithAggregatesFilter<"Patient"> | string
     emergencyContact?: StringWithAggregatesFilter<"Patient"> | string
   }
 
@@ -8380,41 +8577,52 @@ export namespace Prisma {
     id?: string
     name: string
     email: string
+    name?: string
     password: string
+    hospital?: HospitalCreateNestedOneWithoutAdminInput
   }
 
   export type AdminUncheckedCreateInput = {
     id?: string
     name: string
     email: string
+    name?: string
     password: string
+    hospitalCode?: string
   }
 
   export type AdminUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    hospital?: HospitalUpdateOneRequiredWithoutAdminNestedInput
   }
 
   export type AdminUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    hospitalCode?: StringFieldUpdateOperationsInput | string
   }
 
   export type AdminCreateManyInput = {
     id?: string
     name: string
     email: string
+    name?: string
     password: string
+    hospitalCode?: string
   }
 
   export type AdminUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
   }
 
@@ -8422,7 +8630,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    hospitalCode?: StringFieldUpdateOperationsInput | string
   }
 
   export type HospitalCreateInput = {
@@ -8433,6 +8643,7 @@ export namespace Prisma {
     city: string
     state: string
     dbURL: string
+    admin?: AdminCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateInput = {
@@ -8443,6 +8654,7 @@ export namespace Prisma {
     city: string
     state: string
     dbURL: string
+    admin?: AdminUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUpdateInput = {
@@ -8453,6 +8665,7 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     state?: StringFieldUpdateOperationsInput | string
     dbURL?: StringFieldUpdateOperationsInput | string
+    admin?: AdminUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateInput = {
@@ -8463,6 +8676,7 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     state?: StringFieldUpdateOperationsInput | string
     dbURL?: StringFieldUpdateOperationsInput | string
+    admin?: AdminUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalCreateManyInput = {
@@ -8501,7 +8715,7 @@ export namespace Prisma {
     contact: string
     address: string
     gender: string
-    DOB: Date | string
+    DOB: string
     emergencyContact: string
     medicalRecords?: MedicalRecordCreateNestedManyWithoutPatientInput
   }
@@ -8512,7 +8726,7 @@ export namespace Prisma {
     contact: string
     address: string
     gender: string
-    DOB: Date | string
+    DOB: string
     emergencyContact: string
     medicalRecords?: MedicalRecordUncheckedCreateNestedManyWithoutPatientInput
   }
@@ -8523,7 +8737,7 @@ export namespace Prisma {
     contact?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     gender?: StringFieldUpdateOperationsInput | string
-    DOB?: DateTimeFieldUpdateOperationsInput | Date | string
+    DOB?: StringFieldUpdateOperationsInput | string
     emergencyContact?: StringFieldUpdateOperationsInput | string
     medicalRecords?: MedicalRecordUpdateManyWithoutPatientNestedInput
   }
@@ -8534,7 +8748,7 @@ export namespace Prisma {
     contact?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     gender?: StringFieldUpdateOperationsInput | string
-    DOB?: DateTimeFieldUpdateOperationsInput | Date | string
+    DOB?: StringFieldUpdateOperationsInput | string
     emergencyContact?: StringFieldUpdateOperationsInput | string
     medicalRecords?: MedicalRecordUncheckedUpdateManyWithoutPatientNestedInput
   }
@@ -8545,7 +8759,7 @@ export namespace Prisma {
     contact: string
     address: string
     gender: string
-    DOB: Date | string
+    DOB: string
     emergencyContact: string
   }
 
@@ -8555,7 +8769,7 @@ export namespace Prisma {
     contact?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     gender?: StringFieldUpdateOperationsInput | string
-    DOB?: DateTimeFieldUpdateOperationsInput | Date | string
+    DOB?: StringFieldUpdateOperationsInput | string
     emergencyContact?: StringFieldUpdateOperationsInput | string
   }
 
@@ -8565,7 +8779,7 @@ export namespace Prisma {
     contact?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     gender?: StringFieldUpdateOperationsInput | string
-    DOB?: DateTimeFieldUpdateOperationsInput | Date | string
+    DOB?: StringFieldUpdateOperationsInput | string
     emergencyContact?: StringFieldUpdateOperationsInput | string
   }
 
@@ -8835,25 +9049,36 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type HospitalRelationFilter = {
+    is?: HospitalWhereInput
+    isNot?: HospitalWhereInput
+  }
+
   export type AdminCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
+    name?: SortOrder
     password?: SortOrder
+    hospitalCode?: SortOrder
   }
 
   export type AdminMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
+    name?: SortOrder
     password?: SortOrder
+    hospitalCode?: SortOrder
   }
 
   export type AdminMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
+    name?: SortOrder
     password?: SortOrder
+    hospitalCode?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -8872,6 +9097,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type AdminListRelationFilter = {
+    every?: AdminWhereInput
+    some?: AdminWhereInput
+    none?: AdminWhereInput
+  }
+
+  export type AdminOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type HospitalCountOrderByAggregateInput = {
@@ -8902,17 +9137,6 @@ export namespace Prisma {
     city?: SortOrder
     state?: SortOrder
     dbURL?: SortOrder
-  }
-
-  export type DateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
   export type MedicalRecordListRelationFilter = {
@@ -8955,7 +9179,7 @@ export namespace Prisma {
     emergencyContact?: SortOrder
   }
 
-  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+  export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
     notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -8963,10 +9187,7 @@ export namespace Prisma {
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
   export type StringNullableFilter<$PrismaModel = never> = {
@@ -9068,6 +9289,20 @@ export namespace Prisma {
     followUpInstructions?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -9190,8 +9425,64 @@ export namespace Prisma {
     wardName?: SortOrder
   }
 
+  export type HospitalCreateNestedOneWithoutAdminInput = {
+    create?: XOR<HospitalCreateWithoutAdminInput, HospitalUncheckedCreateWithoutAdminInput>
+    connectOrCreate?: HospitalCreateOrConnectWithoutAdminInput
+    connect?: HospitalWhereUniqueInput
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
+  }
+
+  export type HospitalUpdateOneRequiredWithoutAdminNestedInput = {
+    create?: XOR<HospitalCreateWithoutAdminInput, HospitalUncheckedCreateWithoutAdminInput>
+    connectOrCreate?: HospitalCreateOrConnectWithoutAdminInput
+    upsert?: HospitalUpsertWithoutAdminInput
+    connect?: HospitalWhereUniqueInput
+    update?: XOR<XOR<HospitalUpdateToOneWithWhereWithoutAdminInput, HospitalUpdateWithoutAdminInput>, HospitalUncheckedUpdateWithoutAdminInput>
+  }
+
+  export type AdminCreateNestedManyWithoutHospitalInput = {
+    create?: XOR<AdminCreateWithoutHospitalInput, AdminUncheckedCreateWithoutHospitalInput> | AdminCreateWithoutHospitalInput[] | AdminUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: AdminCreateOrConnectWithoutHospitalInput | AdminCreateOrConnectWithoutHospitalInput[]
+    createMany?: AdminCreateManyHospitalInputEnvelope
+    connect?: AdminWhereUniqueInput | AdminWhereUniqueInput[]
+  }
+
+  export type AdminUncheckedCreateNestedManyWithoutHospitalInput = {
+    create?: XOR<AdminCreateWithoutHospitalInput, AdminUncheckedCreateWithoutHospitalInput> | AdminCreateWithoutHospitalInput[] | AdminUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: AdminCreateOrConnectWithoutHospitalInput | AdminCreateOrConnectWithoutHospitalInput[]
+    createMany?: AdminCreateManyHospitalInputEnvelope
+    connect?: AdminWhereUniqueInput | AdminWhereUniqueInput[]
+  }
+
+  export type AdminUpdateManyWithoutHospitalNestedInput = {
+    create?: XOR<AdminCreateWithoutHospitalInput, AdminUncheckedCreateWithoutHospitalInput> | AdminCreateWithoutHospitalInput[] | AdminUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: AdminCreateOrConnectWithoutHospitalInput | AdminCreateOrConnectWithoutHospitalInput[]
+    upsert?: AdminUpsertWithWhereUniqueWithoutHospitalInput | AdminUpsertWithWhereUniqueWithoutHospitalInput[]
+    createMany?: AdminCreateManyHospitalInputEnvelope
+    set?: AdminWhereUniqueInput | AdminWhereUniqueInput[]
+    disconnect?: AdminWhereUniqueInput | AdminWhereUniqueInput[]
+    delete?: AdminWhereUniqueInput | AdminWhereUniqueInput[]
+    connect?: AdminWhereUniqueInput | AdminWhereUniqueInput[]
+    update?: AdminUpdateWithWhereUniqueWithoutHospitalInput | AdminUpdateWithWhereUniqueWithoutHospitalInput[]
+    updateMany?: AdminUpdateManyWithWhereWithoutHospitalInput | AdminUpdateManyWithWhereWithoutHospitalInput[]
+    deleteMany?: AdminScalarWhereInput | AdminScalarWhereInput[]
+  }
+
+  export type AdminUncheckedUpdateManyWithoutHospitalNestedInput = {
+    create?: XOR<AdminCreateWithoutHospitalInput, AdminUncheckedCreateWithoutHospitalInput> | AdminCreateWithoutHospitalInput[] | AdminUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: AdminCreateOrConnectWithoutHospitalInput | AdminCreateOrConnectWithoutHospitalInput[]
+    upsert?: AdminUpsertWithWhereUniqueWithoutHospitalInput | AdminUpsertWithWhereUniqueWithoutHospitalInput[]
+    createMany?: AdminCreateManyHospitalInputEnvelope
+    set?: AdminWhereUniqueInput | AdminWhereUniqueInput[]
+    disconnect?: AdminWhereUniqueInput | AdminWhereUniqueInput[]
+    delete?: AdminWhereUniqueInput | AdminWhereUniqueInput[]
+    connect?: AdminWhereUniqueInput | AdminWhereUniqueInput[]
+    update?: AdminUpdateWithWhereUniqueWithoutHospitalInput | AdminUpdateWithWhereUniqueWithoutHospitalInput[]
+    updateMany?: AdminUpdateManyWithWhereWithoutHospitalInput | AdminUpdateManyWithWhereWithoutHospitalInput[]
+    deleteMany?: AdminScalarWhereInput | AdminScalarWhereInput[]
   }
 
   export type MedicalRecordCreateNestedManyWithoutPatientInput = {
@@ -9206,10 +9497,6 @@ export namespace Prisma {
     connectOrCreate?: MedicalRecordCreateOrConnectWithoutPatientInput | MedicalRecordCreateOrConnectWithoutPatientInput[]
     createMany?: MedicalRecordCreateManyPatientInputEnvelope
     connect?: MedicalRecordWhereUniqueInput | MedicalRecordWhereUniqueInput[]
-  }
-
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
   }
 
   export type MedicalRecordUpdateManyWithoutPatientNestedInput = {
@@ -9244,6 +9531,10 @@ export namespace Prisma {
     create?: XOR<PatientCreateWithoutMedicalRecordsInput, PatientUncheckedCreateWithoutMedicalRecordsInput>
     connectOrCreate?: PatientCreateOrConnectWithoutMedicalRecordsInput
     connect?: PatientWhereUniqueInput
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
@@ -9315,20 +9606,6 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
   export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -9352,6 +9629,20 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -9416,6 +9707,113 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type HospitalCreateWithoutAdminInput = {
+    id?: string
+    code: string
+    name: string
+    location: string
+    city: string
+    state: string
+    dbURL: string
+  }
+
+  export type HospitalUncheckedCreateWithoutAdminInput = {
+    id?: string
+    code: string
+    name: string
+    location: string
+    city: string
+    state: string
+    dbURL: string
+  }
+
+  export type HospitalCreateOrConnectWithoutAdminInput = {
+    where: HospitalWhereUniqueInput
+    create: XOR<HospitalCreateWithoutAdminInput, HospitalUncheckedCreateWithoutAdminInput>
+  }
+
+  export type HospitalUpsertWithoutAdminInput = {
+    update: XOR<HospitalUpdateWithoutAdminInput, HospitalUncheckedUpdateWithoutAdminInput>
+    create: XOR<HospitalCreateWithoutAdminInput, HospitalUncheckedCreateWithoutAdminInput>
+    where?: HospitalWhereInput
+  }
+
+  export type HospitalUpdateToOneWithWhereWithoutAdminInput = {
+    where?: HospitalWhereInput
+    data: XOR<HospitalUpdateWithoutAdminInput, HospitalUncheckedUpdateWithoutAdminInput>
+  }
+
+  export type HospitalUpdateWithoutAdminInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    state?: StringFieldUpdateOperationsInput | string
+    dbURL?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type HospitalUncheckedUpdateWithoutAdminInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    state?: StringFieldUpdateOperationsInput | string
+    dbURL?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AdminCreateWithoutHospitalInput = {
+    id?: string
+    email: string
+    name?: string
+    password: string
+  }
+
+  export type AdminUncheckedCreateWithoutHospitalInput = {
+    id?: string
+    email: string
+    name?: string
+    password: string
+  }
+
+  export type AdminCreateOrConnectWithoutHospitalInput = {
+    where: AdminWhereUniqueInput
+    create: XOR<AdminCreateWithoutHospitalInput, AdminUncheckedCreateWithoutHospitalInput>
+  }
+
+  export type AdminCreateManyHospitalInputEnvelope = {
+    data: AdminCreateManyHospitalInput | AdminCreateManyHospitalInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AdminUpsertWithWhereUniqueWithoutHospitalInput = {
+    where: AdminWhereUniqueInput
+    update: XOR<AdminUpdateWithoutHospitalInput, AdminUncheckedUpdateWithoutHospitalInput>
+    create: XOR<AdminCreateWithoutHospitalInput, AdminUncheckedCreateWithoutHospitalInput>
+  }
+
+  export type AdminUpdateWithWhereUniqueWithoutHospitalInput = {
+    where: AdminWhereUniqueInput
+    data: XOR<AdminUpdateWithoutHospitalInput, AdminUncheckedUpdateWithoutHospitalInput>
+  }
+
+  export type AdminUpdateManyWithWhereWithoutHospitalInput = {
+    where: AdminScalarWhereInput
+    data: XOR<AdminUpdateManyMutationInput, AdminUncheckedUpdateManyWithoutHospitalInput>
+  }
+
+  export type AdminScalarWhereInput = {
+    AND?: AdminScalarWhereInput | AdminScalarWhereInput[]
+    OR?: AdminScalarWhereInput[]
+    NOT?: AdminScalarWhereInput | AdminScalarWhereInput[]
+    id?: StringFilter<"Admin"> | string
+    email?: StringFilter<"Admin"> | string
+    name?: StringFilter<"Admin"> | string
+    password?: StringFilter<"Admin"> | string
+    hospitalCode?: StringFilter<"Admin"> | string
   }
 
   export type MedicalRecordCreateWithoutPatientInput = {
@@ -9496,7 +9894,7 @@ export namespace Prisma {
     contact: string
     address: string
     gender: string
-    DOB: Date | string
+    DOB: string
     emergencyContact: string
   }
 
@@ -9506,7 +9904,7 @@ export namespace Prisma {
     contact: string
     address: string
     gender: string
-    DOB: Date | string
+    DOB: string
     emergencyContact: string
   }
 
@@ -9532,7 +9930,7 @@ export namespace Prisma {
     contact?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     gender?: StringFieldUpdateOperationsInput | string
-    DOB?: DateTimeFieldUpdateOperationsInput | Date | string
+    DOB?: StringFieldUpdateOperationsInput | string
     emergencyContact?: StringFieldUpdateOperationsInput | string
   }
 
@@ -9542,8 +9940,36 @@ export namespace Prisma {
     contact?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     gender?: StringFieldUpdateOperationsInput | string
-    DOB?: DateTimeFieldUpdateOperationsInput | Date | string
+    DOB?: StringFieldUpdateOperationsInput | string
     emergencyContact?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AdminCreateManyHospitalInput = {
+    id?: string
+    email: string
+    name?: string
+    password: string
+  }
+
+  export type AdminUpdateWithoutHospitalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AdminUncheckedUpdateWithoutHospitalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AdminUncheckedUpdateManyWithoutHospitalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
   }
 
   export type MedicalRecordCreateManyPatientInput = {
@@ -9607,6 +10033,10 @@ export namespace Prisma {
   /**
    * Aliases for legacy arg types
    */
+    /**
+     * @deprecated Use HospitalCountOutputTypeDefaultArgs instead
+     */
+    export type HospitalCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = HospitalCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use PatientCountOutputTypeDefaultArgs instead
      */

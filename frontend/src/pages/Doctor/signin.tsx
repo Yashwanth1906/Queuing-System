@@ -15,45 +15,50 @@ interface SignInFormData {
 }
 
 export function SigninDoctor() {
-  const [formData, setFormData] = useState<SignInFormData>({
-    email: "",
-    password: "",
-  });
-  const [error, setError] = useState<string | null>(null);
 
-  // Handle input changes
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [id]: value,
-    }));
-  };
-  const navigate = useNavigate();
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); 
-    console.log(formData); 
+
+  const [email,setEmail]=useState<string>();
+  const [passwd,setPasswd]=useState<string>();
+  const [hosCode,setHosCode]=useState<string>();
+  const navigate=useNavigate();
+
+
+
+
+ 
+ 
+  const handleSubmit = async () => {
+   
     try {
-        await axios.post(`${BACKEND_URL}/api/doctor/login`, formData, {
-            headers: {
-                code: HOSPITAL_CODE
-            }
-        }).then((response) => {
-            if (response.data && response.data.success) {
-                const token = response.data.token;
-                console.log(token);
-                localStorage.setItem("doctortoken", token);
-                alert("Login Successful");
-                navigate("/doctordashboard");
-            } else {
-                alert(response.data.message || "Login failed");
-            }
-        }).catch((err) => {
-            alert(err.message || "An error occurred");
-        });
+        const res=await axios.post(`${BACKEND_URL}/api/doctor/login`, {
+          email,
+          passwd,
+          hosCode
+        },{
+          headers:{
+            code:hosCode
+          }
+        })
+        if(!res.data.success)
+        {
+          alert("error")
+        }
+        else{
+          localStorage.setItem("doctortoken",res.data.token)
+          localStorage.setItem("hospitalcode",res.data.hosCode) 
+          navigate("/doctordashboard") 
+
+        
+
+        }
+        
+             
+
+
+
     } catch (err) {
         console.log(err);
-        setError("An error occurred. Please try again.");
+
     }
 };
   return (
@@ -63,15 +68,15 @@ export function SigninDoctor() {
           <h1 className="text-3xl font-bold tracking-tight text-foreground">Doctor Login</h1>
           <p className="mt-2 text-muted-foreground">Enter your email and password to access your account.</p>
         </div>
-        <form className="space-y-4" onSubmit={handleSubmit}>
+        <div className="space-y-4" >
           <div>
             <Label htmlFor="email">Email</Label>
             <Input
               id="email"
               type="email"
               placeholder="example@hospital.com"
-              value={formData.email}
-              onChange={handleChange}
+          
+              onChange={(e)=>{setEmail(e.target.value)}}
               required
             />
           </div>
@@ -80,18 +85,26 @@ export function SigninDoctor() {
             <Input
               id="password"
               type="password"
-              value={formData.password}
-              onChange={handleChange}
+              onChange={(e)=>setPasswd(e.target.value)}
               required
             />
           </div>
-          {error && <p className="text-red-500">{error}</p>}
-          <br />
-          <Button type="submit" className="w-full">
+          <div>
+            <Label htmlFor="password">Hospital Code</Label>
+            <Input
+              
+              type="text"
+              onChange={(e)=>setHosCode(e.target.value)}
+              required
+            />
+          </div>
+         
+         
+          <Button type="submit" className="w-full" onClick={handleSubmit}>
             Login
           </Button>
-          <p>Have you registered? <Link to="/doctorssignup">SignUp</Link></p>
-        </form>
+      
+        </div>
       </div>
     </div>
   );

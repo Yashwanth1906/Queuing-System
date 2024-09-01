@@ -1,5 +1,6 @@
 import { stringify } from "querystring";
 import { PrismaClient } from "../prisma/generated/central/index.js";
+import { centralprisma } from "../util.js";
 import { exec } from 'child_process';
 import bcrypt from "bcryptjs"
 import validator from "validator";
@@ -9,7 +10,6 @@ const centralprisma = new PrismaClient({
             url:process.env.CENTRAL_DB_URL,
         }
     }});
-    
 const addHospital = async(req,res)=>{
     console.log(req.body)
     const {name,location,city,state,dbURL,code} = req.body;
@@ -157,7 +157,7 @@ const createPatient = async(req,res)=>{
 }
 
 const adminregister=async(req,res)=>{
-    const {name,email,password}=req.body
+    const {name,email,pass}=req.body
     try{
         if (password.length<8){
             res.json({success:false,message:"password small"})
@@ -165,12 +165,14 @@ const adminregister=async(req,res)=>{
         const salt = await bcrypt.genSalt(10)
         const hashpass=await bcrypt.hash(password,salt)
 
-        const admin=await centralprisma.admin.create(
+
+        const admin=await prisma.admin.create(
             {
                 data:{
                     name,
                     email,
-                    password:hashpass
+                    password:hashpass,
+                    hospitalCode:hosCode
                 }
             }
         )
@@ -184,28 +186,38 @@ const adminregister=async(req,res)=>{
 }
 
 const adminlogin=async(req,res)=>{
+        const prisma=req.prisma
         try{
         const {email,password}=req.body
-        const admin=await centralprisma.admin.findUnique({
+        const admin=await prisma.admin.findUnique({
             where:{
-                email:email
-            },
-            select:{
-                id:true,
-                password:true
+                email,
+                hospitalCode:hosCode
+    
             }
         })   
+        if(!admin)
+        {
+            return res.json({success:false})
+        }
 
         const passVerify=await bcrypt.compare(password,admin.password)
         if(!passVerify){
-            res.json({success:true,message:"pass dont match"})
+            res.json({success:false,message:"pass dont match"})
         }
         const token = createtoken(admin.id)
-        res.json({success:true,message:{token}})
-    }
+        res.json({success:true,token,hosCode:admin.hospitalCode})
+        }
     catch(err){
         res.json({success:false,message:err})
     }
+}
+
+
+function createtoken(id)
+{
+    const token=jwt.sign({id},"hospitaladmin");
+    return token
 }
 
 export {addHospital,migratealldbs,createPatient,getPatientabhaId,adminregister,adminlogin}
