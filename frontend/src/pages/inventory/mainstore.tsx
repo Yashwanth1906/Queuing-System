@@ -65,7 +65,6 @@ export function MainStore() {
       lastOrderDate: "2023-08-01",
       expiryDate: "2025-03-31",
     },
-    // Add more items as needed
   ]);
   const [showMainStore, setShowMainStore] = useState(true);
   const [showPharmacy, setShowPharmacy] = useState(false);

@@ -96,7 +96,8 @@ exports.Prisma.DoctorsScalarFieldEnum = {
   email: 'email',
   password: 'password',
   active: 'active',
-  departmentId: 'departmentId'
+  departmentId: 'departmentId',
+  hospitalCode: 'hospitalCode'
 };
 
 exports.Prisma.DepartmentsScalarFieldEnum = {

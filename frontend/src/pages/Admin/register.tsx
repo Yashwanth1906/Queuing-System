@@ -4,7 +4,8 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
-import { BACKEND_URL } from "@/config";
+import { BACKEND_URL, HOSPITAL_CODE } from "@/config";
+import { AlertTriangle } from "lucide-react";
 
 // Define the shape of the sign-up form state
 interface SignUpFormState {
@@ -22,11 +23,7 @@ export function Register() {
     password: "",
     confirmPassword: "",
   });
-
-  // State to manage OTP input and verification
   const [otp, setOtp] = useState<string>("");
-  const [email, setEmail] = useState<string>(""); // Email input state
-  const [name, setName] = useState<string>(""); // Name input state
   
   const [isOTPSent, setIsOTPSent] = useState<boolean>(false); // To track if OTP has been sent
   const [isOTPVerified, setIsOTPVerified] = useState<boolean>(false); // To track if OTP has been verified
@@ -37,52 +34,54 @@ export function Register() {
   // Function to handle sending OTP to the provided email
   const handleSendOTP = async () => {
     try {
-      await axios.post(`${BACKEND_URL}/api/sendotp`, { email });
+      console.log(formState.email)
+      await axios.post(`${BACKEND_URL}/api/sendotp`, {
+          email:formState.email
+      }).then((data) => {
+        console.log(data.data.message);
+        alert(data.data.message);
+      });
       setIsOTPSent(true); // Mark OTP as sent
     } catch (err) {
       setError("Failed to send OTP. Please try again."); // Handle OTP sending errors
     }
   };
 
-  // Function to handle verifying the entered OTP
   const handleVerifyOTP = async () => {
     try {
-      const response = await axios.post(`${BACKEND_URL}/api/verifyotp`, { email, otp });
-      alert(response.data.message); // Show response message
+      const response = await axios.post(`${BACKEND_URL}/api/verifyotp`,{
+        email:formState.email,
+        otp:otp
+      });
+      alert(response.data.message); 
       if (response.data.message === "OTP verified") {
-        setIsOTPVerified(true); // Mark OTP as verified
+        setIsOTPVerified(true); 
       } else {
-        setIsOTPVerified(false); // OTP verification failed
+        setIsOTPVerified(false); 
       }
     } catch (err) {
       setError("OTP verification failed. Please try again."); // Handle OTP verification errors
     }
   };
 
-  // Function to handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault(); // Prevent default form submission behavior
-
-    // Check if passwords match
+    e.preventDefault(); 
     if (formState.password !== formState.confirmPassword) {
       setError("Passwords don't match");
       return;
     }
-
-    // Ensure OTP is verified before proceeding
     if (!isOTPVerified) {
       setError("Please verify OTP before submitting.");
       return;
     }
 
     try {
-      // Register the user
-      const response = await axios.post(`${BACKEND_URL}/api/admin/register`, {
+      const response = await axios.post(`${BACKEND_URL}/api/admin/adminregister`, {
         name:formState.name,
         email: formState.email,
         password: formState.password,
-      });
-      // Store token in local storage and navigate to dashboard
+      }
+    );
       localStorage.setItem("admintoken", response.data.token);
       navigate("/admindashboard");
     } catch (err) {
@@ -90,7 +89,6 @@ export function Register() {
     }
   };
 
-  // Handle changes in form inputs
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     setFormState((prevData) => ({
@@ -98,20 +96,8 @@ export function Register() {
       [id]: value,
     }));
   };
-
-  // Handle changes in email input
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
-
-  // Handle changes in OTP input
   const handleOtpChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setOtp(e.target.value);
-  };
-
-  // Handle changes in name input
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setName(e.target.value);
   };
 
   return (
@@ -143,7 +129,7 @@ export function Register() {
                 required
                 placeholder="Name"
                 value={formState.name}
-                onChange={handleNameChange} // Update form state on change
+                onChange={handleChange} // Update form state on change
                 className="block w-full appearance-none rounded-md border border-input bg-background px-3 py-2 placeholder-muted-foreground shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
               />
             </div>
@@ -161,7 +147,7 @@ export function Register() {
                 required
                 placeholder="Email"
                 value={formState.email}
-                onChange={handleEmailChange} // Update email state on change
+                onChange={handleChange} // Update email state on change
                 className="block w-full appearance-none rounded-md border border-input bg-background px-3 py-2 placeholder-muted-foreground shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
               />
               <div className="flex gap-2">
@@ -202,7 +188,7 @@ export function Register() {
             </Label>
             <div className="mt-1">
               <Input
-                id="confirm-password"
+                id="confirmPassword"
                 name="confirm-password"
                 type="password"
                 autoComplete="current-password"

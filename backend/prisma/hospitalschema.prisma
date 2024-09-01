@@ -18,11 +18,13 @@ model Doctors {
     password String
     active Boolean
     departmentId String
+    hospitalCode String @default("0001")
     department Departments @relation(fields: [departmentId], references: [id])
     opdQueue OPDQueue[]
     admissions Admission[]
     patientInstances PatientInstance[]
 }
+
 enum DesignationType{
   Trainee
   Assistant
@@ -161,10 +163,3 @@ enum InventoryCategory {
   Others
 }
 
-
-model admin {
-  id          String   @id @default(uuid())
-  name        String    
-  email       String
-  password    String
-  }
