@@ -160,3 +160,11 @@ enum InventoryCategory {
   Surgical_Tools
   Others
 }
+
+
+model admin {
+  id          String   @id @(uuid())
+  name        String    
+  email       String
+  password    String
+  }

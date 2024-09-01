@@ -1,6 +1,8 @@
 import { stringify } from "querystring";
 import { PrismaClient } from "../prisma/generated/central/index.js";
 import { exec } from 'child_process';
+import bcrypt from "bcryptjs"
+import validator from "validator";
 const centralprisma = new PrismaClient({
     datasources:{
         db:{
@@ -153,5 +155,58 @@ const createPatient = async(req,res)=>{
     }
 }
 
+const adminregister=async(req,res)=>{
+    const {name,email,pass}=req.body
+    try{
+        if (pass.length<8){
+            res.json({success:false,message:"pass small"})
+        }
+        const salt = await bcrypt.genSalt(10)
+        const hashpass=await bcrypt.hash(pass,salt)
 
-export {addHospital,migratealldbs,createPatient,getPatientabhaId,getMedicalRecords}
+
+        const admin=await prisma.admin.create(
+            {
+                data:{
+                    name,
+                    email,
+                    password:hashpass
+                }
+            }
+        )
+        console.log(admin)
+        res.json({success:true,message:admin})
+    }
+    catch (err){
+        console.log(err)
+        res.json({success:false,message:err})
+    }
+}
+
+const adminlogin=async(req,res)=>{
+        const prisma=req.prisma
+        try{
+        const {email,password}=req.body
+        const admin=await prisma.admin.findUnique({
+            where:{
+                email:email
+            },
+            select:{
+                id:true,
+                password:true
+            }
+        })   
+
+        const passVerify=await bcrypt.compare(password,admin.password)
+        if(!passVerify){
+            res.json({success:true,message:"pass dont match"})
+        }
+        const token = createtoken(admin.id)
+        res.json({success:true,message:{token}})
+    }
+    catch(err){
+        res.json({success:false,message:err})
+    }
+}
+
+export {addHospital,migratealldbs,createPatient,getPatientabhaId,adminregister,adminlogin}
