@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { BACKEND_URL, HOSPITAL_CODE } from "@/config";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import { ShootingStars } from '@/components/ui/shooting-stars';
+import { StarsBackground } from "@/components/ui/stars-background";
 import { AlertTriangle } from "lucide-react";
 
 // Define the shape of the form data
@@ -62,10 +64,12 @@ export function SigninDoctor() {
     }
 };
   return (
-    <div className="flex min-h-[100dvh] flex-col items-center justify-center bg-background px-4 py-12 sm:px-6 lg:px-8">
-      <div className="mx-auto w-full max-w-md space-y-6">
+    <div className="flex h-screen flex-col items-center bg-neutral-950 justify-center w-screen absolute top-0 left-0 right-0 px-4 py-12 sm:px-6 lg:px-8">
+      <ShootingStars />
+      <StarsBackground/>
+      <div className="mx-auto w-full max-w-md relative space-y-6">
         <div className="text-center">
-          <h1 className="text-3xl font-bold tracking-tight text-foreground">Doctor Login</h1>
+          <h1 className="text-3xl font-bold relative bg-clip-text text-transparent bg-no-repeat bg-gradient-to-r from-purple-500 via-violet-500 to-pink-500 font-bold">Doctor Login</h1>
           <p className="mt-2 text-muted-foreground">Enter your email and password to access your account.</p>
         </div>
         <div className="space-y-4" >

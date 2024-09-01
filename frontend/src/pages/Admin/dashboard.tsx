@@ -212,8 +212,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Link } from "react-router-dom";
+
+import axios from "axios";
+import { Navbar } from "@/components/component/navbar";
 import { BACKEND_URL, HOSPITAL_CODE } from "@/config";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+
+
+
 
 
 import { AlertTriangle } from "lucide-react";
@@ -582,20 +588,22 @@ export function Admindashboard() {
       })
   }
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col w-screen h-screen absolute left-0 top-0 right-0 ">
       {/* Top Dashboard */}
-      <div className="flex items-center justify-between bg-gray-100 p-4 border-b">
-        <h1 className="text-2xl font-bold">Admin Dashboard</h1>
-        <Link to="/adminsignin"><Button className="ml-auto">Home</Button></Link>
+
+      <div className="flex items-center bg-neutral-950 justify-between w-screen p-4 border-b">
+        <h1 className="text-2xl relative bg-clip-text text-transparent bg-no-repeat bg-gradient-to-r from-purple-500 via-violet-500 to-pink-500 font-bold">Admin Dashboard</h1>
+        <Link to="/adminsignin"><Button className="ml-auto bg-gradient-to-b from-indigo-500 to-purple-500">Home</Button></Link>
       </div>
 
       {/* Main Content */}
       <div className="grid grid-cols-[280px_1fr] flex-1">
-        <div className="flex flex-col border-r bg-muted/40 p-4">
-          <div className="flex flex-col gap-4">
-            <Button onClick={() => setActiveView("newPatientForm")}>New Patient</Button>
-            <Button onClick={() => { setActiveView("activeDoctors"); setPatientDetails(null); }}>Active Doctors</Button>
-            <Button onClick={() => { setActiveView("inactiveDoctors"); setPatientDetails(null); }}>Inactive Doctors</Button>
+        <div className="flex flex-col border-r bg-neutral-950 p-4">
+          <div className="flex flex-col  gap-4">
+            
+            <Button className=" bg-purple-500 hover:bg-purple-800" onClick={() => setActiveView("newPatientForm")}>New Patient</Button>
+            <Button className="bg-purple-500 hover:bg-purple-800" onClick={() => { setActiveView("activeDoctors"); setPatientDetails(null); }}>Active Doctors</Button>
+            <Button className="bg-purple-500 hover:bg-purple-800 " onClick={() => { setActiveView("inactiveDoctors"); setPatientDetails(null); }}>Inactive Doctors</Button>
           </div>
         </div>
         <div className="flex flex-col p-6">

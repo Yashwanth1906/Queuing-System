@@ -116,19 +116,17 @@ export function DoctorConsultancy() {
     }
   };
   return (
-    <div className="w-full max-w-4xl mx-auto p-6 sm:p-8">
+    <div className="w-screen h-screen absolute top-0 left-0 right-0  mx-auto ">
       {/* Header with Back Button */}
-      <div className="flex items-center mb-6">
-        <Link to="/doctordashboard">
-          <Button variant="ghost" className="mr-4">
-            <ArrowLeftIcon className="h-5 w-5" />
-            Back
-          </Button>
-        </Link>
-        <h1 className="text-2xl font-bold">Patient Details</h1>
-      </div>
+      <div className="flex items-center bg-neutral-950 justify-between w-screen p-4 border-b">
+        <h1 className="text-4xl relative bg-clip-text text-transparent bg-no-repeat bg-gradient-to-r from-purple-500 via-violet-500 to-pink-500 font-bold ">Consultancy</h1>
+        <Link to="/doctorsignin"><Button className="ml-auto bg-gradient-to-b from-indigo-500 to-purple-500">Home</Button></Link>
+        </div>
 
       {/* Patient Details */}
+      <div className="px-32 text-2xl">
+        <br></br>
+        <br></br>
       <div className="grid gap-8">
         <div className="grid sm:grid-cols-2 gap-6">
           <div className="grid gap-4">
@@ -149,7 +147,7 @@ export function DoctorConsultancy() {
               <span>{patient?.age}</span>
             </div>
           </div>
-          <div className="grid gap-4">
+          <div className="grid text-2xl gap-4">
             <div className="flex items-center gap-2">
               <span className="font-medium">Reason for Visit:</span>
               <span>{patient?.reason}</span>
@@ -164,16 +162,16 @@ export function DoctorConsultancy() {
               </div>
             </div>
           </div>
-        </div>
+        </div></div>
 
         {/* Medicines */}
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col text-2xl gap-2">
   <h2 className="text-xl font-bold text-center">Prescriptions</h2>
   {medicines.map((medicine, index) => (
     <div key={index} className="flex flex-wrap sm:flex-nowrap gap-4 items-center justify-center">
       <Button
         size="icon"
-        variant="ghost"
+    
         onClick={() => removeMedicine(index)}
         className="flex justify-center"
       >
@@ -218,11 +216,11 @@ export function DoctorConsultancy() {
           value={medicine.days}
           onChange={(e) => updateMedicine(index, "days", parseInt(e.target.value))}
         />
-      </div>
-    </div>
+      </div></div>
+    
   ))}
   <div className="flex justify-center mt-4">
-    <Button onClick={addMedicine} className="flex justify-center bg-sky-500 text-white">
+    <Button onClick={addMedicine} className="flex justify-center text-white">
       Add Medicine
     </Button>
   </div>
@@ -302,6 +300,7 @@ export function DoctorConsultancy() {
         </div> */}
 
         {/* Injections */}
+        <br></br>
         <div className="grid gap-6">
           <h2 className="text-xl font-bold">Injections</h2>
           <div className="grid gap-6">
@@ -310,7 +309,7 @@ export function DoctorConsultancy() {
                 <div className="flex items-center justify-end">
                   <Button
                     size="icon"
-                    variant="ghost"
+                   
                     onClick={() => removeInjection(index)}
                     className="flex justify-center"
                   >
@@ -330,7 +329,7 @@ export function DoctorConsultancy() {
               </div>
             ))}
             <div className="flex justify-center">
-              <Button onClick={addInjection} className="flex justify-center bg-sky-500">
+              <Button onClick={addInjection} className="flex justify-center ">
                 Add Injection
               </Button>
             </div>
@@ -338,10 +337,11 @@ export function DoctorConsultancy() {
         </div>
 
         {/* Request Admission Modal */}
+        <br></br>
         <div className="grid gap-6">
         <h2 className="text-xl font-bold">Admission</h2>
           <div className="flex justify-center">
-            <Button onClick={openModal} className="flex justify-center bg-sky-500">
+            <Button onClick={openModal} className="flex justify-center ">
               Request Admission
             </Button>
           </div>
@@ -352,7 +352,7 @@ export function DoctorConsultancy() {
                   <h2 className="text-lg font-bold">Request Admission</h2>
                   <Button variant="ghost" onClick={closeModal} className="flex justify-center">
                     <XIcon className="h-5 w-5" />
-                    Close
+                   
                   </Button>
                 </div>
                 <div className="grid gap-6">
@@ -382,6 +382,7 @@ export function DoctorConsultancy() {
         </div>
 
         {/* Feedback Summary */}
+        <br></br>
         <div className="grid gap-6">
           <h2 className="text-xl font-bold">Feed Back</h2>
 
