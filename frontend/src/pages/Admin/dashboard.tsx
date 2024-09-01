@@ -212,10 +212,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Link } from "react-router-dom";
+
 import axios from "axios";
 import { Navbar } from "@/components/component/navbar";
 import { BACKEND_URL, HOSPITAL_CODE } from "@/config";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+
+
 
 
 
@@ -318,7 +321,7 @@ export function Admindashboard() {
     }
     const response =await axios.post(`${BACKEND_URL}/api/admin/createPatient`,formState)
     const {abhaid} = response.data;
-    await setFormState((prevState) => ({
+    setFormState((prevState) => ({
       ...prevState,
       abhaid, 
     }));

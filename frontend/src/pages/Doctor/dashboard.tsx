@@ -32,11 +32,11 @@ export function DoctorDashBoard() {
         if (response.data.success) {
           const formattedPatients = response.data.patients.map((item: any) => ({
             id: item.patientInstance.abhaId,
-            name: item.patientInstance.name, // You might need to add a name if it's available in the backend
+            name: item.patientInstance.name,
             age: item.patientInstance.age,
             gender: item.patientInstance.Gender,
             reason: item.patientInstance.reason,
-            status: item.status === "Pending" ? "Waiting" : item.status, // Adjust status mapping
+            status: item.status === "Pending" ? "Waiting" : item.status, 
           }));
           setPatients(formattedPatients);
         } else {

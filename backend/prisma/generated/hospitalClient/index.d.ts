@@ -2129,6 +2129,7 @@ export namespace Prisma {
     password: string | null
     active: boolean | null
     departmentId: string | null
+    hospitalCode: string | null
   }
 
   export type DoctorsMaxAggregateOutputType = {
@@ -2141,6 +2142,7 @@ export namespace Prisma {
     password: string | null
     active: boolean | null
     departmentId: string | null
+    hospitalCode: string | null
   }
 
   export type DoctorsCountAggregateOutputType = {
@@ -2153,6 +2155,7 @@ export namespace Prisma {
     password: number
     active: number
     departmentId: number
+    hospitalCode: number
     _all: number
   }
 
@@ -2167,6 +2170,7 @@ export namespace Prisma {
     password?: true
     active?: true
     departmentId?: true
+    hospitalCode?: true
   }
 
   export type DoctorsMaxAggregateInputType = {
@@ -2179,6 +2183,7 @@ export namespace Prisma {
     password?: true
     active?: true
     departmentId?: true
+    hospitalCode?: true
   }
 
   export type DoctorsCountAggregateInputType = {
@@ -2191,6 +2196,7 @@ export namespace Prisma {
     password?: true
     active?: true
     departmentId?: true
+    hospitalCode?: true
     _all?: true
   }
 
@@ -2276,6 +2282,7 @@ export namespace Prisma {
     password: string
     active: boolean
     departmentId: string
+    hospitalCode: string
     _count: DoctorsCountAggregateOutputType | null
     _min: DoctorsMinAggregateOutputType | null
     _max: DoctorsMaxAggregateOutputType | null
@@ -2305,6 +2312,7 @@ export namespace Prisma {
     password?: boolean
     active?: boolean
     departmentId?: boolean
+    hospitalCode?: boolean
     department?: boolean | DepartmentsDefaultArgs<ExtArgs>
     opdQueue?: boolean | Doctors$opdQueueArgs<ExtArgs>
     admissions?: boolean | Doctors$admissionsArgs<ExtArgs>
@@ -2322,6 +2330,7 @@ export namespace Prisma {
     password?: boolean
     active?: boolean
     departmentId?: boolean
+    hospitalCode?: boolean
     department?: boolean | DepartmentsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["doctors"]>
 
@@ -2335,6 +2344,7 @@ export namespace Prisma {
     password?: boolean
     active?: boolean
     departmentId?: boolean
+    hospitalCode?: boolean
   }
 
   export type DoctorsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2366,6 +2376,7 @@ export namespace Prisma {
       password: string
       active: boolean
       departmentId: string
+      hospitalCode: string
     }, ExtArgs["result"]["doctors"]>
     composites: {}
   }
@@ -2772,6 +2783,7 @@ export namespace Prisma {
     readonly password: FieldRef<"Doctors", 'String'>
     readonly active: FieldRef<"Doctors", 'Boolean'>
     readonly departmentId: FieldRef<"Doctors", 'String'>
+    readonly hospitalCode: FieldRef<"Doctors", 'String'>
   }
     
 
@@ -13041,7 +13053,8 @@ export namespace Prisma {
     email: 'email',
     password: 'password',
     active: 'active',
-    departmentId: 'departmentId'
+    departmentId: 'departmentId',
+    hospitalCode: 'hospitalCode'
   };
 
   export type DoctorsScalarFieldEnum = (typeof DoctorsScalarFieldEnum)[keyof typeof DoctorsScalarFieldEnum]
@@ -13368,6 +13381,7 @@ export namespace Prisma {
     password?: StringFilter<"Doctors"> | string
     active?: BoolFilter<"Doctors"> | boolean
     departmentId?: StringFilter<"Doctors"> | string
+    hospitalCode?: StringFilter<"Doctors"> | string
     department?: XOR<DepartmentsRelationFilter, DepartmentsWhereInput>
     opdQueue?: OPDQueueListRelationFilter
     admissions?: AdmissionListRelationFilter
@@ -13384,6 +13398,7 @@ export namespace Prisma {
     password?: SortOrder
     active?: SortOrder
     departmentId?: SortOrder
+    hospitalCode?: SortOrder
     department?: DepartmentsOrderByWithRelationInput
     opdQueue?: OPDQueueOrderByRelationAggregateInput
     admissions?: AdmissionOrderByRelationAggregateInput
@@ -13403,6 +13418,7 @@ export namespace Prisma {
     password?: StringFilter<"Doctors"> | string
     active?: BoolFilter<"Doctors"> | boolean
     departmentId?: StringFilter<"Doctors"> | string
+    hospitalCode?: StringFilter<"Doctors"> | string
     department?: XOR<DepartmentsRelationFilter, DepartmentsWhereInput>
     opdQueue?: OPDQueueListRelationFilter
     admissions?: AdmissionListRelationFilter
@@ -13419,6 +13435,7 @@ export namespace Prisma {
     password?: SortOrder
     active?: SortOrder
     departmentId?: SortOrder
+    hospitalCode?: SortOrder
     _count?: DoctorsCountOrderByAggregateInput
     _max?: DoctorsMaxOrderByAggregateInput
     _min?: DoctorsMinOrderByAggregateInput
@@ -13437,6 +13454,7 @@ export namespace Prisma {
     password?: StringWithAggregatesFilter<"Doctors"> | string
     active?: BoolWithAggregatesFilter<"Doctors"> | boolean
     departmentId?: StringWithAggregatesFilter<"Doctors"> | string
+    hospitalCode?: StringWithAggregatesFilter<"Doctors"> | string
   }
 
   export type DepartmentsWhereInput = {
@@ -14058,6 +14076,7 @@ export namespace Prisma {
     email: string
     password: string
     active: boolean
+    hospitalCode?: string
     department: DepartmentsCreateNestedOneWithoutDoctorsInput
     opdQueue?: OPDQueueCreateNestedManyWithoutDoctorInput
     admissions?: AdmissionCreateNestedManyWithoutDoctorInput
@@ -14074,6 +14093,7 @@ export namespace Prisma {
     password: string
     active: boolean
     departmentId: string
+    hospitalCode?: string
     opdQueue?: OPDQueueUncheckedCreateNestedManyWithoutDoctorInput
     admissions?: AdmissionUncheckedCreateNestedManyWithoutDoctorInput
     patientInstances?: PatientInstanceUncheckedCreateNestedManyWithoutDoctorInput
@@ -14088,6 +14108,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
+    hospitalCode?: StringFieldUpdateOperationsInput | string
     department?: DepartmentsUpdateOneRequiredWithoutDoctorsNestedInput
     opdQueue?: OPDQueueUpdateManyWithoutDoctorNestedInput
     admissions?: AdmissionUpdateManyWithoutDoctorNestedInput
@@ -14104,6 +14125,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     departmentId?: StringFieldUpdateOperationsInput | string
+    hospitalCode?: StringFieldUpdateOperationsInput | string
     opdQueue?: OPDQueueUncheckedUpdateManyWithoutDoctorNestedInput
     admissions?: AdmissionUncheckedUpdateManyWithoutDoctorNestedInput
     patientInstances?: PatientInstanceUncheckedUpdateManyWithoutDoctorNestedInput
@@ -14119,6 +14141,7 @@ export namespace Prisma {
     password: string
     active: boolean
     departmentId: string
+    hospitalCode?: string
   }
 
   export type DoctorsUpdateManyMutationInput = {
@@ -14130,6 +14153,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
+    hospitalCode?: StringFieldUpdateOperationsInput | string
   }
 
   export type DoctorsUncheckedUpdateManyInput = {
@@ -14142,6 +14166,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     departmentId?: StringFieldUpdateOperationsInput | string
+    hospitalCode?: StringFieldUpdateOperationsInput | string
   }
 
   export type DepartmentsCreateInput = {
@@ -14821,6 +14846,7 @@ export namespace Prisma {
     password?: SortOrder
     active?: SortOrder
     departmentId?: SortOrder
+    hospitalCode?: SortOrder
   }
 
   export type DoctorsMaxOrderByAggregateInput = {
@@ -14833,6 +14859,7 @@ export namespace Prisma {
     password?: SortOrder
     active?: SortOrder
     departmentId?: SortOrder
+    hospitalCode?: SortOrder
   }
 
   export type DoctorsMinOrderByAggregateInput = {
@@ -14845,6 +14872,7 @@ export namespace Prisma {
     password?: SortOrder
     active?: SortOrder
     departmentId?: SortOrder
+    hospitalCode?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -16981,6 +17009,7 @@ export namespace Prisma {
     email: string
     password: string
     active: boolean
+    hospitalCode?: string
     opdQueue?: OPDQueueCreateNestedManyWithoutDoctorInput
     admissions?: AdmissionCreateNestedManyWithoutDoctorInput
     patientInstances?: PatientInstanceCreateNestedManyWithoutDoctorInput
@@ -16995,6 +17024,7 @@ export namespace Prisma {
     email: string
     password: string
     active: boolean
+    hospitalCode?: string
     opdQueue?: OPDQueueUncheckedCreateNestedManyWithoutDoctorInput
     admissions?: AdmissionUncheckedCreateNestedManyWithoutDoctorInput
     patientInstances?: PatientInstanceUncheckedCreateNestedManyWithoutDoctorInput
@@ -17039,6 +17069,7 @@ export namespace Prisma {
     password?: StringFilter<"Doctors"> | string
     active?: BoolFilter<"Doctors"> | boolean
     departmentId?: StringFilter<"Doctors"> | string
+    hospitalCode?: StringFilter<"Doctors"> | string
   }
 
   export type PatientInstanceCreateWithoutOpqueueInput = {
@@ -17085,6 +17116,7 @@ export namespace Prisma {
     email: string
     password: string
     active: boolean
+    hospitalCode?: string
     department: DepartmentsCreateNestedOneWithoutDoctorsInput
     admissions?: AdmissionCreateNestedManyWithoutDoctorInput
     patientInstances?: PatientInstanceCreateNestedManyWithoutDoctorInput
@@ -17100,6 +17132,7 @@ export namespace Prisma {
     password: string
     active: boolean
     departmentId: string
+    hospitalCode?: string
     admissions?: AdmissionUncheckedCreateNestedManyWithoutDoctorInput
     patientInstances?: PatientInstanceUncheckedCreateNestedManyWithoutDoctorInput
   }
@@ -17170,6 +17203,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
+    hospitalCode?: StringFieldUpdateOperationsInput | string
     department?: DepartmentsUpdateOneRequiredWithoutDoctorsNestedInput
     admissions?: AdmissionUpdateManyWithoutDoctorNestedInput
     patientInstances?: PatientInstanceUpdateManyWithoutDoctorNestedInput
@@ -17185,6 +17219,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     departmentId?: StringFieldUpdateOperationsInput | string
+    hospitalCode?: StringFieldUpdateOperationsInput | string
     admissions?: AdmissionUncheckedUpdateManyWithoutDoctorNestedInput
     patientInstances?: PatientInstanceUncheckedUpdateManyWithoutDoctorNestedInput
   }
@@ -17376,6 +17411,7 @@ export namespace Prisma {
     email: string
     password: string
     active: boolean
+    hospitalCode?: string
     department: DepartmentsCreateNestedOneWithoutDoctorsInput
     opdQueue?: OPDQueueCreateNestedManyWithoutDoctorInput
     admissions?: AdmissionCreateNestedManyWithoutDoctorInput
@@ -17391,6 +17427,7 @@ export namespace Prisma {
     password: string
     active: boolean
     departmentId: string
+    hospitalCode?: string
     opdQueue?: OPDQueueUncheckedCreateNestedManyWithoutDoctorInput
     admissions?: AdmissionUncheckedCreateNestedManyWithoutDoctorInput
   }
@@ -17470,6 +17507,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
+    hospitalCode?: StringFieldUpdateOperationsInput | string
     department?: DepartmentsUpdateOneRequiredWithoutDoctorsNestedInput
     opdQueue?: OPDQueueUpdateManyWithoutDoctorNestedInput
     admissions?: AdmissionUpdateManyWithoutDoctorNestedInput
@@ -17485,6 +17523,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     departmentId?: StringFieldUpdateOperationsInput | string
+    hospitalCode?: StringFieldUpdateOperationsInput | string
     opdQueue?: OPDQueueUncheckedUpdateManyWithoutDoctorNestedInput
     admissions?: AdmissionUncheckedUpdateManyWithoutDoctorNestedInput
   }
@@ -17605,6 +17644,7 @@ export namespace Prisma {
     email: string
     password: string
     active: boolean
+    hospitalCode?: string
     department: DepartmentsCreateNestedOneWithoutDoctorsInput
     opdQueue?: OPDQueueCreateNestedManyWithoutDoctorInput
     patientInstances?: PatientInstanceCreateNestedManyWithoutDoctorInput
@@ -17620,6 +17660,7 @@ export namespace Prisma {
     password: string
     active: boolean
     departmentId: string
+    hospitalCode?: string
     opdQueue?: OPDQueueUncheckedCreateNestedManyWithoutDoctorInput
     patientInstances?: PatientInstanceUncheckedCreateNestedManyWithoutDoctorInput
   }
@@ -17742,6 +17783,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
+    hospitalCode?: StringFieldUpdateOperationsInput | string
     department?: DepartmentsUpdateOneRequiredWithoutDoctorsNestedInput
     opdQueue?: OPDQueueUpdateManyWithoutDoctorNestedInput
     patientInstances?: PatientInstanceUpdateManyWithoutDoctorNestedInput
@@ -17757,6 +17799,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     departmentId?: StringFieldUpdateOperationsInput | string
+    hospitalCode?: StringFieldUpdateOperationsInput | string
     opdQueue?: OPDQueueUncheckedUpdateManyWithoutDoctorNestedInput
     patientInstances?: PatientInstanceUncheckedUpdateManyWithoutDoctorNestedInput
   }
@@ -18363,6 +18406,7 @@ export namespace Prisma {
     email: string
     password: string
     active: boolean
+    hospitalCode?: string
   }
 
   export type DoctorsUpdateWithoutDepartmentInput = {
@@ -18374,6 +18418,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
+    hospitalCode?: StringFieldUpdateOperationsInput | string
     opdQueue?: OPDQueueUpdateManyWithoutDoctorNestedInput
     admissions?: AdmissionUpdateManyWithoutDoctorNestedInput
     patientInstances?: PatientInstanceUpdateManyWithoutDoctorNestedInput
@@ -18388,6 +18433,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
+    hospitalCode?: StringFieldUpdateOperationsInput | string
     opdQueue?: OPDQueueUncheckedUpdateManyWithoutDoctorNestedInput
     admissions?: AdmissionUncheckedUpdateManyWithoutDoctorNestedInput
     patientInstances?: PatientInstanceUncheckedUpdateManyWithoutDoctorNestedInput
@@ -18402,6 +18448,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
+    hospitalCode?: StringFieldUpdateOperationsInput | string
   }
 
   export type AdmissionCreateManyBedInput = {
