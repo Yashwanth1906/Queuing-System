@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { SigninDoctor } from "./Doctor/signin"; // Example Doctor signin component
 import { Route, Routes, useNavigate, Link } from "react-router-dom";
-
+import { BackgroundBeamsWithCollision } from "@/components/ui/background-beams-with-collision";
+import { Navbar } from "@/components/component/navbar";
 // Defining props for icons
 interface IconProps {
   className?: string;
@@ -16,48 +17,17 @@ export function LandingPage() {
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-col min-h-screen bg-background">
+   <div>
+    <div className="flex flex-col h-screen w-screen from-neutral-950 to-neutral-800  absolute top-0 left-0 right-0 ">
       {/* Header */}
-      <header className="px-4 lg:px-6 h-14 flex items-center border-b">
-        <div className="flex items-center justify-center cursor-pointer" onClick={() => navigate("/")}>
-          <HospitalIcon className="size-6" />
-          <span className="sr-only">Hospital Management System</span>
-        </div>
-        <nav className="ml-auto flex gap-4 sm:gap-6">
-          <div
-            className={`text-sm font-medium hover:underline underline-offset-4 cursor-pointer ${activeSection === "admin" ? "text-primary" : ""}`}
-            onClick={() => {
-              setActiveSection("admin");
-              navigate("/adminsignin"); // Navigate to admin page
-            }}
-          >
-            Hospital Admin
-          </div>
-          <div
-            className={`text-sm font-medium hover:underline underline-offset-4 cursor-pointer ${activeSection === "doctors" ? "text-primary" : ""}`}
-            onClick={() => {
-              setActiveSection("doctors");
-              navigate("/doctorssignin"); // Navigate to doctor sign-in
-            }}
-          >
-            Doctors
-          </div>
-          <div
-            className={`text-sm font-medium hover:underline underline-offset-4 cursor-pointer ${activeSection === "inventory" ? "text-primary" : ""}`}
-            onClick={() => {
-              setActiveSection("inventory");
-              navigate("/inventorysignin"); // Navigate to inventory page
-            }}
-          >
-            Inventory
-          </div>
-        </nav>
-      </header>
-
+      
+      <Navbar/>
+      <BackgroundBeamsWithCollision>
       {/* Main Section */}
-      <main className="flex-1 flex flex-col items-center justify-center px-4 md:px-6">
+
+      <main className="flex-1 flex flex-col items-center  justify-center  px-4 md:px-6">
         <div className="max-w-2xl text-center space-y-6">
-          <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl">
+          <h1 className="text-6xl relative bg-clip-text text-transparent bg-no-repeat bg-gradient-to-r from-purple-500 via-violet-500 to-pink-500 py-4">
             Hospital Management System
           </h1>
           <p className="text-muted-foreground md:text-xl">
@@ -66,33 +36,34 @@ export function LandingPage() {
         </div>
 
         {/* Clickable Icons for Navigation */}
-        <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-8">
+        <div className="mt-12 grid grid-cols-1 text-muted-foreground sm:grid-cols-3 gap-8">
           <Link
             to="/adminsignin"
             className="flex flex-col items-center justify-center cursor-pointer"
           >
-            <HospitalIcon className="w-12 h-12 text-primary" />
+            <HospitalIcon className="w-12 h-12 text-muted-foreground " />
             <h3 className="mt-2 text-lg font-semibold">Hospital Admin</h3>
           </Link>
           <Link
             to="/doctorssignin"
             className="flex flex-col items-center justify-center cursor-pointer"
           >
-            <HospitalIcon className="w-12 h-12 text-primary" />
-            <h3 className="mt-2 text-lg font-semibold">Doctors</h3>
+            <HospitalIcon className="w-12 h-12  text-muted-foregroundtext-primary" />
+            <h3 className="mt-2 text-lg text-muted-foreground font-semibold">Doctors</h3>
           </Link>
           <Link
             to="/inventorysignin"
-            className="flex flex-col items-center justify-center cursor-pointer"
+            className="flex flex-col items-center text-muted-foreground justify-center cursor-pointer"
           >
-            <WarehouseIcon className="w-12 h-12 text-primary" />
-            <h3 className="mt-2 text-lg font-semibold">Inventory</h3>
+            <WarehouseIcon className="w-12 h-12 text-muted-foreground " />
+            <h3 className="mt-2 text-lg  text-muted-foreground font-semibold">Inventory</h3>
           </Link>
         </div>
-      </main>
+        </main>
+        
 
       {/* Footer */}
-      <footer className="bg-muted p-6 md:py-12 w-full">
+      {/* <footer className="bg-muted p-6 md:py-12 w-full">
         <div className="container max-w-7xl grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 text-sm">
           <div className="grid gap-1">
             <h3 className="font-semibold">Company</h3>
@@ -125,8 +96,12 @@ export function LandingPage() {
             <p>Partnerships</p>
           </div>
         </div>
-      </footer>
-    </div>
+      </footer> */}
+           </BackgroundBeamsWithCollision>
+      </div>
+     
+      </div>
+      
   );
 }
 
