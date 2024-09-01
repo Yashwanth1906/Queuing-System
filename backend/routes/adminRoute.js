@@ -7,8 +7,8 @@ adminRouter.post("/addhospital",addHospital)
 adminRouter.get("/migratedb",migratealldbs)
 adminRouter.get("/getpatient",getPatientabhaId)
 adminRouter.post("/createpatient",createPatient)
-adminRouter.post("/adminregister",getHospitalPrismaClient,adminregister)
-adminRouter.post("/adminlogin",getHospitalPrismaClient,adminlogin)
+adminRouter.post("/adminregister",adminregister)
+adminRouter.post("/adminlogin",adminlogin)
 
 
 export {adminRouter}
