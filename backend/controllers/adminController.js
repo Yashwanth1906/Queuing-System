@@ -9,6 +9,7 @@ const centralprisma = new PrismaClient({
             url:process.env.CENTRAL_DB_URL,
         }
     }});
+    
 const addHospital = async(req,res)=>{
     console.log(req.body)
     const {name,location,city,state,dbURL,code} = req.body;
@@ -40,7 +41,7 @@ const migratealldbs = async(req,res) =>{
     const migrateHospitals = hospitalDBURLS.map((x)=>{
         process.env.DYNAMIC_DB_URL = x.dbURL;
         return new Promise((resolve,reject) =>{
-            exec("npx prisma migrate dev --schema=/home/yashwanth-linux/Demo/prisma/hospitalschema.prisma",(error,stdout,stderr)=>{
+            exec("npx prisma migrate dev --schema=/home/yashwanth-linux/Hospital-SIH/backend/prisma/hospitalschema.prisma",(error,stdout,stderr)=>{
                 if(error){
                     console.log("Error in migrating");
                     reject(error);
@@ -48,7 +49,7 @@ const migratealldbs = async(req,res) =>{
                 console.log("Migration output: "+stdout);
                 resolve();
             })
-            exec("npx prisma generate --schema=/home/yashwanth-linux/Demo/prisma/hospitalschema.prisma",(error,stdout,stderr)=>{
+            exec("npx prisma generate --schema=/home/yashwanth-linux/Hospital-SIH/backend/prisma/hospitalschema.prisma",(error,stdout,stderr)=>{
                 if(error){
                     console.log("Error in migrating");
                     reject(error);
@@ -156,16 +157,15 @@ const createPatient = async(req,res)=>{
 }
 
 const adminregister=async(req,res)=>{
-    const {name,email,pass}=req.body
+    const {name,email,password}=req.body
     try{
-        if (pass.length<8){
-            res.json({success:false,message:"pass small"})
+        if (password.length<8){
+            res.json({success:false,message:"password small"})
         }
         const salt = await bcrypt.genSalt(10)
-        const hashpass=await bcrypt.hash(pass,salt)
+        const hashpass=await bcrypt.hash(password,salt)
 
-
-        const admin=await prisma.admin.create(
+        const admin=await centralprisma.admin.create(
             {
                 data:{
                     name,
@@ -184,10 +184,9 @@ const adminregister=async(req,res)=>{
 }
 
 const adminlogin=async(req,res)=>{
-        const prisma=req.prisma
         try{
         const {email,password}=req.body
-        const admin=await prisma.admin.findUnique({
+        const admin=await centralprisma.admin.findUnique({
             where:{
                 email:email
             },

@@ -362,11 +362,11 @@ export function DoctorConsultancy() {
                       <SelectTrigger>
                         <SelectValue placeholder="Select Ward" />
                       </SelectTrigger>
-                      <SelectContent>
+                      {/* <SelectContent>
                         <SelectItem value="general">General Ward</SelectItem>
                         <SelectItem value="icu">ICU</SelectItem>
                         <SelectItem value="pediatric">Pediatric</SelectItem>
-                      </SelectContent>
+                      </SelectContent> */}
                     </Select>
                   </div>
                 </div>

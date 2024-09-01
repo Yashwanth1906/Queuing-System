@@ -27,7 +27,7 @@ export function SignAdmin() {
     }));
   };
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement> ) => {
     e.preventDefault();
     setError(null);
 
@@ -78,9 +78,9 @@ export function SignAdmin() {
             </div>
           </CardContent>
           <CardFooter className="flex items-center justify-between">
-            <Button type="submit" className="w-full">
+            <Link to="/admindashboard"><Button type="submit" className="w-full" >
               Sign in
-            </Button>
+            </Button></Link>
           </CardFooter>
         </form>
       </Card>
