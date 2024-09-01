@@ -191,6 +191,34 @@ const getPatient = async(req,res)=>{
     }
 }
 
+const getwards = async(req,res)=>{
+    const prisma =req.prisma 
+    try{
+        const wards = await prisma.ward.findMany({
+            where:{
+                availableBeds:{
+                    gt:0
+                }
+
+            },
+            select:{
+                name:true,
+                availableBeds:true
+            }
+        })
+
+        if (wards.length > 0) {
+            res.json({ success: true, message: wards });
+        } else {
+            res.json({ success: false, message: 'No  wards' });
+        }
+        
+    }
+    catch(err){
+        res.send({success:false,message:err})
+    }
+
+}
 
 
 // const bedRequest = async(req,res)=>{
@@ -202,4 +230,4 @@ const getPatient = async(req,res)=>{
 //     }
 // }
 
-export {getDoctors,addDepartments,getDepartments,createPatientInstance,addWard,getAdmissionsBedNotAllocated,allocateBed,getPatient}
+export {getDoctors,addDepartments,getDepartments,createPatientInstance,addWard,getAdmissionsBedNotAllocated,allocateBed,getPatient,getwards}

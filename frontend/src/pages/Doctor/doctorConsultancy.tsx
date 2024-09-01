@@ -31,12 +31,20 @@ type Patient = {
   reason: string;
 };
 
+type ward={
+  name:String,
+  availablebeds:String
+};
+
 export function DoctorConsultancy() {
   const [medicines, setMedicines] = useState<Medicine[]>([]);
   const [injections, setInjections] = useState<Injection[]>([]);
   const [feedback, setFeedback] = useState<string>("");
   const [showModal, setShowModal] = useState(false);
   const [patient, setPatient] = useState<Patient | undefined>();
+  const [wards, setWards] = useState<ward[]>([]);
+  const [selectedWard, setSelectedWard] = useState("");
+
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -50,7 +58,19 @@ export function DoctorConsultancy() {
     }).then((data) => {
       setPatient(data.data.patient);
     });
+
+
+    axios.get(`${BACKEND_URL}/api/hospital/getwards`, {
+      headers: {
+        code: HOSPITAL_CODE,
+      }
+    }).then((response) => {
+      setWards(response.data.wards);
+    }).catch((err) => {
+      console.error("Error fetching wards:", err);
+    });
   }, []);
+
 
   const addMedicine = () => {
     setMedicines([...medicines, { name: "", shift: "", morning: 0, afternoon: 0, night: 0, days: 0 }]);
@@ -227,80 +247,6 @@ export function DoctorConsultancy() {
     </Button>
   </div>
 </div>
-
-        {/* <div className="grid gap-6">
-          <h2 className="text-xl font-bold">Prescriptions</h2>
-          <div className="grid gap-6">
-            {medicines.map((medicine, index) => (
-              <div key={index} className="grid sm:grid-cols-6 gap-4 items-center">
-                <div className="flex items-center justify-end">
-                  <Button
-                    size="icon"
-                    variant="ghost"
-                    onClick={() => removeMedicine(index)}
-                    className="flex justify-center"
-                  >
-                    <TrashIcon className="h-5 w-5" />
-                  </Button>
-                </div>
-                <div className="grid gap-2">
-                  <Label>Medicine Name</Label>
-                  <Input value={medicine.name} onChange={(e) => updateMedicine(index, "name", e.target.value)} />
-                </div>
-                <div className="grid gap-2">
-                  <Label>Morning</Label>
-                  <Input
-                    type="number"
-                    value={medicine.morning}
-                    onChange={(e) => updateMedicine(index, "morning", parseInt(e.target.value))}
-                  />
-                </div>
-                <div className="grid gap-2">
-                  <Label>Afternoon</Label>
-                  <Input
-                    type="number"
-                    value={medicine.afternoon}
-                    onChange={(e) => updateMedicine(index, "afternoon", parseInt(e.target.value))}
-                  />
-                </div>
-                <div className="grid gap-2">
-                  <Label>Night</Label>
-                  <Input
-                    type="number"
-                    value={medicine.night}
-                    onChange={(e) => updateMedicine(index, "night", parseInt(e.target.value))}
-                  />
-                </div>
-                <div className="grid gap-2">
-                  <Label>Before/After Food</Label>
-                  <Input value={medicine.shift} onChange={(e) => updateMedicine(index, "shift", e.target.value)} />
-                </div>
-                <div className="grid gap-2">
-                  <Label>Morning</Label>
-                  <Input
-                    type="number"
-                    value={medicine.morning}
-                    onChange={(e) => updateMedicine(index, "morning", parseInt(e.target.value))}
-                  />
-                </div>
-                <div className="grid gap-2">
-                  <Label>Days</Label>
-                  <Input
-                    type="number"
-                    value={medicine.days}
-                    onChange={(e) => updateMedicine(index, "days", parseInt(e.target.value))}
-                  />
-                </div>
-              </div>
-            ))}
-            <div className="flex justify-center">
-              <Button onClick={addMedicine} className="flex justify-center">
-                Add Medicine
-              </Button>
-            </div>
-          </div>
-        </div> */}
-
         {/* Injections */}
         <div className="grid gap-6">
           <h2 className="text-xl font-bold">Injections</h2>
@@ -337,8 +283,9 @@ export function DoctorConsultancy() {
           </div>
         </div>
 
-        {/* Request Admission Modal */}
-        <div className="grid gap-6">
+{/* Request Admission Modal */}
+
+<div className="grid gap-6">
         <h2 className="text-xl font-bold">Admission</h2>
           <div className="flex justify-center">
             <Button onClick={openModal} className="flex justify-center bg-sky-500">
@@ -380,6 +327,8 @@ export function DoctorConsultancy() {
             </div>
           )}
         </div>
+
+
 
         {/* Feedback Summary */}
         <div className="grid gap-6">

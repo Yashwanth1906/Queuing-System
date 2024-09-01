@@ -213,6 +213,13 @@ exports.Prisma.InventoryScalarFieldEnum = {
   pharmacyId: 'pharmacyId'
 };
 
+exports.Prisma.AdminScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  email: 'email',
+  password: 'password'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -279,7 +286,8 @@ exports.Prisma.ModelName = {
   MainStore: 'MainStore',
   SubStore: 'SubStore',
   Pharmacy: 'Pharmacy',
-  Inventory: 'Inventory'
+  Inventory: 'Inventory',
+  admin: 'admin'
 };
 
 /**

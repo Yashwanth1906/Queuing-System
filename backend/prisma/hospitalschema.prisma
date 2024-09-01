@@ -163,7 +163,7 @@ enum InventoryCategory {
 
 
 model admin {
-  id          String   @id @(uuid())
+  id          String   @id @default(uuid())
   name        String    
   email       String
   password    String
