@@ -2,7 +2,9 @@
 CREATE TABLE "Admin" (
     "id" TEXT NOT NULL,
     "email" TEXT NOT NULL,
+    "name" TEXT NOT NULL DEFAULT 'admin',
     "password" TEXT NOT NULL,
+    "hospitalCode" TEXT NOT NULL DEFAULT '',
 
     CONSTRAINT "Admin_pkey" PRIMARY KEY ("id")
 );
@@ -27,7 +29,7 @@ CREATE TABLE "Patient" (
     "contact" TEXT NOT NULL,
     "address" TEXT NOT NULL,
     "gender" TEXT NOT NULL,
-    "DOB" TIMESTAMP(3) NOT NULL,
+    "DOB" TEXT NOT NULL,
     "emergencyContact" TEXT NOT NULL,
 
     CONSTRAINT "Patient_pkey" PRIMARY KEY ("abhaId")
@@ -40,7 +42,7 @@ CREATE TABLE "MedicalRecord" (
     "hospitalName" TEXT NOT NULL,
     "recordDate" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "visitReason" TEXT NOT NULL,
-    "medicationsPrescribed" TEXT NOT NULL,
+    "medicationsPrescribed" JSONB NOT NULL,
     "treatmentSummary" TEXT NOT NULL,
     "doctorName" TEXT NOT NULL,
     "followUpInstructions" TEXT,
@@ -49,6 +51,13 @@ CREATE TABLE "MedicalRecord" (
     "updatedAt" TIMESTAMP(3),
 
     CONSTRAINT "MedicalRecord_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "ABHANumber" (
+    "prev" TEXT NOT NULL,
+
+    CONSTRAINT "ABHANumber_pkey" PRIMARY KEY ("prev")
 );
 
 -- CreateTable
@@ -88,6 +97,9 @@ CREATE UNIQUE INDEX "OTPVerification_email_key" ON "OTPVerification"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "BedRequest_patientAbhaId_key" ON "BedRequest"("patientAbhaId");
+
+-- AddForeignKey
+ALTER TABLE "Admin" ADD CONSTRAINT "Admin_hospitalCode_fkey" FOREIGN KEY ("hospitalCode") REFERENCES "Hospital"("code") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "MedicalRecord" ADD CONSTRAINT "MedicalRecord_patientId_fkey" FOREIGN KEY ("patientId") REFERENCES "Patient"("abhaId") ON DELETE RESTRICT ON UPDATE CASCADE;

@@ -4,12 +4,12 @@ import { centralprisma } from "../util.js";
 import { exec } from 'child_process';
 import bcrypt from "bcryptjs"
 import validator from "validator";
-const centralprisma = new PrismaClient({
-    datasources:{
-        db:{
-            url:process.env.CENTRAL_DB_URL,
-        }
-    }});
+// const centralprisma = new PrismaClient({
+//     datasources:{
+//         db:{
+//             url:process.env.CENTRAL_DB_URL,
+//         }
+//     }});
 const addHospital = async(req,res)=>{
     console.log(req.body)
     const {name,location,city,state,dbURL,code} = req.body;

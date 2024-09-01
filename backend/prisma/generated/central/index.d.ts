@@ -1467,7 +1467,6 @@ export namespace Prisma {
 
   export type AdminMinAggregateOutputType = {
     id: string | null
-    name: string | null
     email: string | null
     name: string | null
     password: string | null
@@ -1476,7 +1475,6 @@ export namespace Prisma {
 
   export type AdminMaxAggregateOutputType = {
     id: string | null
-    name: string | null
     email: string | null
     name: string | null
     password: string | null
@@ -1485,7 +1483,6 @@ export namespace Prisma {
 
   export type AdminCountAggregateOutputType = {
     id: number
-    name: number
     email: number
     name: number
     password: number
@@ -1496,7 +1493,6 @@ export namespace Prisma {
 
   export type AdminMinAggregateInputType = {
     id?: true
-    name?: true
     email?: true
     name?: true
     password?: true
@@ -1505,7 +1501,6 @@ export namespace Prisma {
 
   export type AdminMaxAggregateInputType = {
     id?: true
-    name?: true
     email?: true
     name?: true
     password?: true
@@ -1514,7 +1509,6 @@ export namespace Prisma {
 
   export type AdminCountAggregateInputType = {
     id?: true
-    name?: true
     email?: true
     name?: true
     password?: true
@@ -1596,7 +1590,6 @@ export namespace Prisma {
 
   export type AdminGroupByOutputType = {
     id: string
-    name: string
     email: string
     name: string
     password: string
@@ -1622,7 +1615,6 @@ export namespace Prisma {
 
   export type AdminSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    name?: boolean
     email?: boolean
     name?: boolean
     password?: boolean
@@ -1632,7 +1624,6 @@ export namespace Prisma {
 
   export type AdminSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    name?: boolean
     email?: boolean
     name?: boolean
     password?: boolean
@@ -1642,7 +1633,6 @@ export namespace Prisma {
 
   export type AdminSelectScalar = {
     id?: boolean
-    name?: boolean
     email?: boolean
     name?: boolean
     password?: boolean
@@ -1663,7 +1653,6 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      name: string
       email: string
       name: string
       password: string
@@ -2063,7 +2052,6 @@ export namespace Prisma {
    */ 
   interface AdminFieldRefs {
     readonly id: FieldRef<"Admin", 'String'>
-    readonly name: FieldRef<"Admin", 'String'>
     readonly email: FieldRef<"Admin", 'String'>
     readonly name: FieldRef<"Admin", 'String'>
     readonly password: FieldRef<"Admin", 'String'>
@@ -4360,7 +4348,6 @@ export namespace Prisma {
     hospitalName: string | null
     recordDate: Date | null
     visitReason: string | null
-    medicationsPrescribed: string | null
     treatmentSummary: string | null
     doctorName: string | null
     followUpInstructions: string | null
@@ -4374,7 +4361,6 @@ export namespace Prisma {
     hospitalName: string | null
     recordDate: Date | null
     visitReason: string | null
-    medicationsPrescribed: string | null
     treatmentSummary: string | null
     doctorName: string | null
     followUpInstructions: string | null
@@ -4405,7 +4391,6 @@ export namespace Prisma {
     hospitalName?: true
     recordDate?: true
     visitReason?: true
-    medicationsPrescribed?: true
     treatmentSummary?: true
     doctorName?: true
     followUpInstructions?: true
@@ -4419,7 +4404,6 @@ export namespace Prisma {
     hospitalName?: true
     recordDate?: true
     visitReason?: true
-    medicationsPrescribed?: true
     treatmentSummary?: true
     doctorName?: true
     followUpInstructions?: true
@@ -4521,7 +4505,7 @@ export namespace Prisma {
     hospitalName: string
     recordDate: Date
     visitReason: string
-    medicationsPrescribed: string
+    medicationsPrescribed: JsonValue
     treatmentSummary: string
     doctorName: string
     followUpInstructions: string | null
@@ -4612,7 +4596,7 @@ export namespace Prisma {
       hospitalName: string
       recordDate: Date
       visitReason: string
-      medicationsPrescribed: string
+      medicationsPrescribed: Prisma.JsonValue
       treatmentSummary: string
       doctorName: string
       followUpInstructions: string | null
@@ -5018,7 +5002,7 @@ export namespace Prisma {
     readonly hospitalName: FieldRef<"MedicalRecord", 'String'>
     readonly recordDate: FieldRef<"MedicalRecord", 'DateTime'>
     readonly visitReason: FieldRef<"MedicalRecord", 'String'>
-    readonly medicationsPrescribed: FieldRef<"MedicalRecord", 'String'>
+    readonly medicationsPrescribed: FieldRef<"MedicalRecord", 'Json'>
     readonly treatmentSummary: FieldRef<"MedicalRecord", 'String'>
     readonly doctorName: FieldRef<"MedicalRecord", 'String'>
     readonly followUpInstructions: FieldRef<"MedicalRecord", 'String'>
@@ -7971,7 +7955,6 @@ export namespace Prisma {
 
   export const AdminScalarFieldEnum: {
     id: 'id',
-    name: 'name',
     email: 'email',
     name: 'name',
     password: 'password',
@@ -8061,6 +8044,13 @@ export namespace Prisma {
   };
 
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+  export const JsonNullValueInput: {
+    JsonNull: typeof JsonNull
+  };
+
+  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
   export const NullableJsonNullValueInput: {
@@ -8158,7 +8148,6 @@ export namespace Prisma {
     OR?: AdminWhereInput[]
     NOT?: AdminWhereInput | AdminWhereInput[]
     id?: StringFilter<"Admin"> | string
-    name?: StringFilter<"Admin"> | string
     email?: StringFilter<"Admin"> | string
     name?: StringFilter<"Admin"> | string
     password?: StringFilter<"Admin"> | string
@@ -8168,7 +8157,6 @@ export namespace Prisma {
 
   export type AdminOrderByWithRelationInput = {
     id?: SortOrder
-    name?: SortOrder
     email?: SortOrder
     name?: SortOrder
     password?: SortOrder
@@ -8190,7 +8178,6 @@ export namespace Prisma {
 
   export type AdminOrderByWithAggregationInput = {
     id?: SortOrder
-    name?: SortOrder
     email?: SortOrder
     name?: SortOrder
     password?: SortOrder
@@ -8205,7 +8192,6 @@ export namespace Prisma {
     OR?: AdminScalarWhereWithAggregatesInput[]
     NOT?: AdminScalarWhereWithAggregatesInput | AdminScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Admin"> | string
-    name?: StringWithAggregatesFilter<"Admin"> | string
     email?: StringWithAggregatesFilter<"Admin"> | string
     name?: StringWithAggregatesFilter<"Admin"> | string
     password?: StringWithAggregatesFilter<"Admin"> | string
@@ -8351,7 +8337,7 @@ export namespace Prisma {
     hospitalName?: StringFilter<"MedicalRecord"> | string
     recordDate?: DateTimeFilter<"MedicalRecord"> | Date | string
     visitReason?: StringFilter<"MedicalRecord"> | string
-    medicationsPrescribed?: StringFilter<"MedicalRecord"> | string
+    medicationsPrescribed?: JsonFilter<"MedicalRecord">
     treatmentSummary?: StringFilter<"MedicalRecord"> | string
     doctorName?: StringFilter<"MedicalRecord"> | string
     followUpInstructions?: StringNullableFilter<"MedicalRecord"> | string | null
@@ -8386,7 +8372,7 @@ export namespace Prisma {
     hospitalName?: StringFilter<"MedicalRecord"> | string
     recordDate?: DateTimeFilter<"MedicalRecord"> | Date | string
     visitReason?: StringFilter<"MedicalRecord"> | string
-    medicationsPrescribed?: StringFilter<"MedicalRecord"> | string
+    medicationsPrescribed?: JsonFilter<"MedicalRecord">
     treatmentSummary?: StringFilter<"MedicalRecord"> | string
     doctorName?: StringFilter<"MedicalRecord"> | string
     followUpInstructions?: StringNullableFilter<"MedicalRecord"> | string | null
@@ -8423,7 +8409,7 @@ export namespace Prisma {
     hospitalName?: StringWithAggregatesFilter<"MedicalRecord"> | string
     recordDate?: DateTimeWithAggregatesFilter<"MedicalRecord"> | Date | string
     visitReason?: StringWithAggregatesFilter<"MedicalRecord"> | string
-    medicationsPrescribed?: StringWithAggregatesFilter<"MedicalRecord"> | string
+    medicationsPrescribed?: JsonWithAggregatesFilter<"MedicalRecord">
     treatmentSummary?: StringWithAggregatesFilter<"MedicalRecord"> | string
     doctorName?: StringWithAggregatesFilter<"MedicalRecord"> | string
     followUpInstructions?: StringNullableWithAggregatesFilter<"MedicalRecord"> | string | null
@@ -8575,7 +8561,6 @@ export namespace Prisma {
 
   export type AdminCreateInput = {
     id?: string
-    name: string
     email: string
     name?: string
     password: string
@@ -8584,7 +8569,6 @@ export namespace Prisma {
 
   export type AdminUncheckedCreateInput = {
     id?: string
-    name: string
     email: string
     name?: string
     password: string
@@ -8593,7 +8577,6 @@ export namespace Prisma {
 
   export type AdminUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
@@ -8602,7 +8585,6 @@ export namespace Prisma {
 
   export type AdminUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
@@ -8611,7 +8593,6 @@ export namespace Prisma {
 
   export type AdminCreateManyInput = {
     id?: string
-    name: string
     email: string
     name?: string
     password: string
@@ -8620,7 +8601,6 @@ export namespace Prisma {
 
   export type AdminUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
@@ -8628,7 +8608,6 @@ export namespace Prisma {
 
   export type AdminUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
@@ -8788,7 +8767,7 @@ export namespace Prisma {
     hospitalName: string
     recordDate?: Date | string
     visitReason: string
-    medicationsPrescribed: string
+    medicationsPrescribed: JsonNullValueInput | InputJsonValue
     treatmentSummary: string
     doctorName: string
     followUpInstructions?: string | null
@@ -8804,7 +8783,7 @@ export namespace Prisma {
     hospitalName: string
     recordDate?: Date | string
     visitReason: string
-    medicationsPrescribed: string
+    medicationsPrescribed: JsonNullValueInput | InputJsonValue
     treatmentSummary: string
     doctorName: string
     followUpInstructions?: string | null
@@ -8818,7 +8797,7 @@ export namespace Prisma {
     hospitalName?: StringFieldUpdateOperationsInput | string
     recordDate?: DateTimeFieldUpdateOperationsInput | Date | string
     visitReason?: StringFieldUpdateOperationsInput | string
-    medicationsPrescribed?: StringFieldUpdateOperationsInput | string
+    medicationsPrescribed?: JsonNullValueInput | InputJsonValue
     treatmentSummary?: StringFieldUpdateOperationsInput | string
     doctorName?: StringFieldUpdateOperationsInput | string
     followUpInstructions?: NullableStringFieldUpdateOperationsInput | string | null
@@ -8834,7 +8813,7 @@ export namespace Prisma {
     hospitalName?: StringFieldUpdateOperationsInput | string
     recordDate?: DateTimeFieldUpdateOperationsInput | Date | string
     visitReason?: StringFieldUpdateOperationsInput | string
-    medicationsPrescribed?: StringFieldUpdateOperationsInput | string
+    medicationsPrescribed?: JsonNullValueInput | InputJsonValue
     treatmentSummary?: StringFieldUpdateOperationsInput | string
     doctorName?: StringFieldUpdateOperationsInput | string
     followUpInstructions?: NullableStringFieldUpdateOperationsInput | string | null
@@ -8849,7 +8828,7 @@ export namespace Prisma {
     hospitalName: string
     recordDate?: Date | string
     visitReason: string
-    medicationsPrescribed: string
+    medicationsPrescribed: JsonNullValueInput | InputJsonValue
     treatmentSummary: string
     doctorName: string
     followUpInstructions?: string | null
@@ -8863,7 +8842,7 @@ export namespace Prisma {
     hospitalName?: StringFieldUpdateOperationsInput | string
     recordDate?: DateTimeFieldUpdateOperationsInput | Date | string
     visitReason?: StringFieldUpdateOperationsInput | string
-    medicationsPrescribed?: StringFieldUpdateOperationsInput | string
+    medicationsPrescribed?: JsonNullValueInput | InputJsonValue
     treatmentSummary?: StringFieldUpdateOperationsInput | string
     doctorName?: StringFieldUpdateOperationsInput | string
     followUpInstructions?: NullableStringFieldUpdateOperationsInput | string | null
@@ -8878,7 +8857,7 @@ export namespace Prisma {
     hospitalName?: StringFieldUpdateOperationsInput | string
     recordDate?: DateTimeFieldUpdateOperationsInput | Date | string
     visitReason?: StringFieldUpdateOperationsInput | string
-    medicationsPrescribed?: StringFieldUpdateOperationsInput | string
+    medicationsPrescribed?: JsonNullValueInput | InputJsonValue
     treatmentSummary?: StringFieldUpdateOperationsInput | string
     doctorName?: StringFieldUpdateOperationsInput | string
     followUpInstructions?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9056,7 +9035,6 @@ export namespace Prisma {
 
   export type AdminCountOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
     email?: SortOrder
     name?: SortOrder
     password?: SortOrder
@@ -9065,7 +9043,6 @@ export namespace Prisma {
 
   export type AdminMaxOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
     email?: SortOrder
     name?: SortOrder
     password?: SortOrder
@@ -9074,7 +9051,6 @@ export namespace Prisma {
 
   export type AdminMinOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
     email?: SortOrder
     name?: SortOrder
     password?: SortOrder
@@ -9189,6 +9165,28 @@ export namespace Prisma {
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
+  export type JsonFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type StringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
@@ -9269,7 +9267,6 @@ export namespace Prisma {
     hospitalName?: SortOrder
     recordDate?: SortOrder
     visitReason?: SortOrder
-    medicationsPrescribed?: SortOrder
     treatmentSummary?: SortOrder
     doctorName?: SortOrder
     followUpInstructions?: SortOrder
@@ -9283,7 +9280,6 @@ export namespace Prisma {
     hospitalName?: SortOrder
     recordDate?: SortOrder
     visitReason?: SortOrder
-    medicationsPrescribed?: SortOrder
     treatmentSummary?: SortOrder
     doctorName?: SortOrder
     followUpInstructions?: SortOrder
@@ -9303,6 +9299,31 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+  export type JsonWithAggregatesFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedJsonFilter<$PrismaModel>
+    _max?: NestedJsonFilter<$PrismaModel>
   }
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -9644,6 +9665,28 @@ export namespace Prisma {
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
+  export type NestedJsonFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
@@ -9821,7 +9864,7 @@ export namespace Prisma {
     hospitalName: string
     recordDate?: Date | string
     visitReason: string
-    medicationsPrescribed: string
+    medicationsPrescribed: JsonNullValueInput | InputJsonValue
     treatmentSummary: string
     doctorName: string
     followUpInstructions?: string | null
@@ -9835,7 +9878,7 @@ export namespace Prisma {
     hospitalName: string
     recordDate?: Date | string
     visitReason: string
-    medicationsPrescribed: string
+    medicationsPrescribed: JsonNullValueInput | InputJsonValue
     treatmentSummary: string
     doctorName: string
     followUpInstructions?: string | null
@@ -9879,7 +9922,7 @@ export namespace Prisma {
     hospitalName?: StringFilter<"MedicalRecord"> | string
     recordDate?: DateTimeFilter<"MedicalRecord"> | Date | string
     visitReason?: StringFilter<"MedicalRecord"> | string
-    medicationsPrescribed?: StringFilter<"MedicalRecord"> | string
+    medicationsPrescribed?: JsonFilter<"MedicalRecord">
     treatmentSummary?: StringFilter<"MedicalRecord"> | string
     doctorName?: StringFilter<"MedicalRecord"> | string
     followUpInstructions?: StringNullableFilter<"MedicalRecord"> | string | null
@@ -9977,7 +10020,7 @@ export namespace Prisma {
     hospitalName: string
     recordDate?: Date | string
     visitReason: string
-    medicationsPrescribed: string
+    medicationsPrescribed: JsonNullValueInput | InputJsonValue
     treatmentSummary: string
     doctorName: string
     followUpInstructions?: string | null
@@ -9991,7 +10034,7 @@ export namespace Prisma {
     hospitalName?: StringFieldUpdateOperationsInput | string
     recordDate?: DateTimeFieldUpdateOperationsInput | Date | string
     visitReason?: StringFieldUpdateOperationsInput | string
-    medicationsPrescribed?: StringFieldUpdateOperationsInput | string
+    medicationsPrescribed?: JsonNullValueInput | InputJsonValue
     treatmentSummary?: StringFieldUpdateOperationsInput | string
     doctorName?: StringFieldUpdateOperationsInput | string
     followUpInstructions?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10005,7 +10048,7 @@ export namespace Prisma {
     hospitalName?: StringFieldUpdateOperationsInput | string
     recordDate?: DateTimeFieldUpdateOperationsInput | Date | string
     visitReason?: StringFieldUpdateOperationsInput | string
-    medicationsPrescribed?: StringFieldUpdateOperationsInput | string
+    medicationsPrescribed?: JsonNullValueInput | InputJsonValue
     treatmentSummary?: StringFieldUpdateOperationsInput | string
     doctorName?: StringFieldUpdateOperationsInput | string
     followUpInstructions?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10019,7 +10062,7 @@ export namespace Prisma {
     hospitalName?: StringFieldUpdateOperationsInput | string
     recordDate?: DateTimeFieldUpdateOperationsInput | Date | string
     visitReason?: StringFieldUpdateOperationsInput | string
-    medicationsPrescribed?: StringFieldUpdateOperationsInput | string
+    medicationsPrescribed?: JsonNullValueInput | InputJsonValue
     treatmentSummary?: StringFieldUpdateOperationsInput | string
     doctorName?: StringFieldUpdateOperationsInput | string
     followUpInstructions?: NullableStringFieldUpdateOperationsInput | string | null

@@ -10,8 +10,6 @@ datasource db {
 
 model Admin {
   id       String @id @default(uuid())
-  name     String
-  hospitalCode String
   email    String @unique
   name String @default("admin")
   password String
