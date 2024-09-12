@@ -10,7 +10,7 @@ import { BACKEND_URL, HOSPITAL_CODE } from "@/config";
 import { Ward } from "../inventory/ward";
 import { AlertTriangle } from "lucide-react";
 
-// Define types for medicine and injection
+
 type Medicine = {
   name: string;
   shift: string;
@@ -118,7 +118,7 @@ export function DoctorConsultancy() {
   };
 
   const handleWardChange = (value: string) => {
-    setSelectedWardId(value); // Update the state with the selected ward ID
+    setSelectedWardId(value);
   };
 
   const handleSubmit = async () => {
