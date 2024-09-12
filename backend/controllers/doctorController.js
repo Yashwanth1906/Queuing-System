@@ -19,8 +19,6 @@ const doctorRegister = async(req,res)=>{
         if(password.length < 8){
             res.json({success:false,message:"Weak Password"});
         }
-        const salt = await bcrypt.genSalt(10);
-        const hashedPass = await bcrypt.hash(password,salt);
         let design = "";
         let hod = false;
         if(designation == "Trainee"){
@@ -117,9 +115,9 @@ const addMedications = async(req,res)=>{
     const prisma = req.prisma;
     try{
         const {medications,abhaid,feedback} = req.body;
-        await prisma.$transaction(async (tx)=>{
+        // await prisma.$transaction(async (tx)=>{
 
-            const patient = await tx.patientInstance.update({
+            const patient = await prisma.patientInstance.update({
                 where:{
                     abhaId : abhaid
                 },
@@ -128,30 +126,20 @@ const addMedications = async(req,res)=>{
                     feedback:feedback
                 },
             })
-            const op = await tx.ODQueue.update({
+            const op = await prisma.oPDQueue.update({
                 where:{
                     patientInstanceId : abhaid
                 },data:{
                     status:QueueStatus.Completed,
                 }
             })
-
-
-        })
-
-        await centralprisma.medicalRecord.create({
-            data:{
-                patientId:abhaid,
-                hospitalName
-            }
-
-
-
-        })
-    
-
-
-        
+        // })
+        // await centralprisma.medicalRecord.create({
+        //     data:{
+        //         patientId:abhaid,
+        //         hospitalName
+        //     }
+        // })
         res.json({success:true,message:patient})
     }catch(err){
         console.log(err);

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { SigninDoctor } from "../../pages/Doctor/signin"; // Example Doctor signin component
 import { Route, Routes, useNavigate, Link } from "react-router-dom";
+import { Button } from "../ui/button";
 interface IconProps {
     className?: string;
   }
@@ -13,39 +14,39 @@ export function Navbar() {
   const navigate = useNavigate();
     return (
 
-        <div className="px-4 lg:px-6 h-14 flex  bg-neutral-950  relative  bg-items-center ">
+        <div className="px-4 lg:px-6 h-32 flex  bg-neutral-950  relative  bg-items-center py-6 ">
         <div className="flex items-center justify-center cursor-pointer" onClick={() => navigate("/")}>
           <HospitalIcon  className="size-6 text-muted-foreground " />
           <span className="sr-only text-muted-foreground ">Hospital Management System</span>
         </div>
         <nav className="ml-auto flex gap-4 sm:gap-6">
-          <div
-            className={`text-sm font-medium hover:underline  text-muted-foreground  underline-offset-4 cursor-pointer ${activeSection === "admin" ? "text-primary" : ""}`}
+          <Button
+            className={`text-sm font-medium hover:underline  text-white  underline-offset-4 cursor-pointer ${activeSection === "admin" ? "text-primary" : ""}`}
             onClick={() => {
               setActiveSection("admin");
               navigate("/adminsignin"); // Navigate to admin page
             }}
           >
             Hospital Admin
-          </div>
-          <div
-            className={`text-sm font-medium  text-muted-foreground hover:underline underline-offset-4 cursor-pointer ${activeSection === "doctors" ? "text-primary" : ""}`}
+          </Button>
+          <Button
+            className={`text-sm font-medium  text-white hover:underline underline-offset-4 cursor-pointer ${activeSection === "doctors" ? "text-primary" : ""}`}
             onClick={() => {
               setActiveSection("doctors");
               navigate("/doctorssignin"); // Navigate to doctor sign-in
             }}
           >
             Doctors
-          </div>
-          <div
-            className={`text-sm font-medium hover:underline text-muted-foreground  underline-offset-4 cursor-pointer ${activeSection === "inventory" ? "text-primary" : ""}`}
+          </Button>
+          <Button
+            className={`text-sm font-medium hover:underline text-white -offset-4 cursor-pointer ${activeSection === "inventory" ? "text-primary" : ""}`}
             onClick={() => {
               setActiveSection("inventory");
               navigate("/inventorysignin"); // Navigate to inventory page
             }}
           >
             Inventory
-          </div>
+          </Button>
         </nav>
       </div>
     );

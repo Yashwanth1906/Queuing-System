@@ -37,20 +37,15 @@ export function SignAdmin() {
     }
 
     try {
+      console.log(email,passwd,hosCode)
       const res = await axios.post(`${BACKEND_URL}/api/admin/adminlogin`, {
         email,
         password:passwd,
         hosCode
-
-
       }) as { data:{success: boolean, token: string,hosCode:string} };
       localStorage.setItem("admintoken", res.data.token);
       localStorage.setItem("hospitalcode",res.data.hosCode);
-
-      console.log("Login successful");
-      navigate('/admindashboard')
-      
-
+      navigate("/admindashboard")
     } catch (err: any) {
       alert("error")
      
@@ -78,7 +73,7 @@ export function SignAdmin() {
       <h2 className="font-bold text-xl text-white  w-full text-center"> LOGIN</h2>
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
             <div className=" py-8 px-4 shadow sm:rounded-lg sm:px-10">
-      <div className="grid w-full max-w-sm items-center gap-1.5">
+                <div className="grid w-full max-w-sm items-center gap-1.5">
                      <label htmlFor="email" className=" flex justify-start text-white">Email</label>
                      <Input type="text" id="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
                  </div>
@@ -87,41 +82,14 @@ export function SignAdmin() {
                      <label htmlFor="email" className=" flex justify-start text-white">Password</label>
                      <Input type="text" id="email" placeholder="Password" onChange={(e) => setPasswd(e.target.value)} />
                  </div>
-<br></br>
-        <AnimeatedButton className="" val={"Signin"} onClicked={async () => {
-                     try {
-                         const res = await axios.post(`${BACKEND_URL}/api/user/login`, {
-                             email,
-                             password: passwd
 
-                         })
-                         console.log(res.data.token);
-                         if (!res.data.success) {
-                             alert("user not found")
-                         }
-                         else {
-                             localStorage.setItem("usertoken", res.data.token);
-                             console.log(localStorage.getItem("token"))
-                      
-                             navigate("/dashboard");
-                         }
-                         //@ts-ignore
-                        
-                     }
-                     catch {
-                        window.alert("error");
-                    }
-
-            }}>Sign In</AnimeatedButton>
-           
-               
-           
-
-      
+                 <div className="grid w-full max-w-sm items-center gap-1.5 py-5  ">
+                     <label htmlFor="hosCode" className=" flex justify-start text-white">Hospital Code</label>
+                     <Input type="text" id="hosCode" placeholder="Hospital Code" onChange={(e) => setPasswd(e.target.value)} />
+                 </div>
+              <AnimeatedButton className="" val={"Signin"} onClicked={handleSubmit}>Sign In</AnimeatedButton>
           </div>
           </div>
-      
-                <Meteors number={40} />
                
     </div>
         </div>

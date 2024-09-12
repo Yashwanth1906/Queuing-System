@@ -65,24 +65,24 @@ export function DoctorDashBoard() {
           {/* <h2 className="text-xl font-semibold">Dashboard</h2> */}
         <div className="flex items-center bg-neutral-950 justify-between w-screen p-4 border-b">
         <h1 className="text-4xl relative bg-clip-text text-transparent bg-no-repeat bg-gradient-to-r from-purple-500 via-violet-500 to-pink-500 font-bold ">Doctor Dashboard</h1>
-        <Link to="/doctorsignin"><Button className="ml-auto bg-gradient-to-b from-indigo-500 to-purple-500">Home</Button></Link>
+        <Link to="/"><Button className="ml-auto bg-gradient-to-b from-indigo-500 to-purple-500">Home</Button></Link>
         </div>
         <div className="flex">
       <aside className="flex flex-col bg-neutral-950 h-screen w-72 border-r bg-background p-4 sm:p-6">
         <nav className="mt-6 flex flex-col gap-2">
           <span className="flex items-center gap-2 rounded-md px-3 py-2  text-muted-foreground">
-          <Link to="/"><Button className="ml-auto w-60 bg-purple-500 hover:bg-purple-800"> <ClipboardIcon className="h-5 w-5" /> 
-            Ops</Button></Link>
+          <Button className="ml-auto w-60 bg-purple-500 hover:bg-purple-800"> <ClipboardIcon className="h-5 w-5" /> 
+            Ops</Button>
           </span>
               <span className="flex items-center gap-2 rounded-md px-3 py-2 text-muted-foreground">
-              <Link to="/"><Button className="ml-auto w-60 bg-purple-500 hover:bg-purple-800"><UserIcon className="h-5 w-5" />
-            IPs</Button></Link>
+                <Button className="ml-auto w-60 bg-purple-500 hover:bg-purple-800"><UserIcon className="h-5 w-5" />
+            IPs</Button>
            
           </span>
           <span className="flex items-center gap-2 rounded-md px-3 py-2 text-muted-foreground">
             
-            <Link to="/"><Button className="ml-auto w-60 bg-purple-500 hover:bg-purple-800"><BarChartIcon className="h-5 w-5" />
-            Analysis</Button></Link>
+            <Button className="ml-auto w-60 bg-purple-500 hover:bg-purple-800"><BarChartIcon className="h-5 w-5" />
+            Analysis</Button>
           </span>
         </nav>
       </aside>

@@ -204,7 +204,7 @@
 //   );
 // }
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardContent, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -222,11 +222,12 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 
 
-import { AlertTriangle } from "lucide-react";
+import { AlertTriangle, ClipboardIcon, HomeIcon, HospitalIcon, InfoIcon, UserIcon } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Separator } from "@radix-ui/react-dropdown-menu";
 
 
 interface PatientDetails {
@@ -260,11 +261,35 @@ interface FormState {
   abhaid?:string;
 }
 
+interface DoctorforUnallocaetd {
+  name: string;
+}
+
+interface PatientforUnallocated {
+  name: string;
+  reason: string;
+}
+
+interface WardforUnallocated {
+  name: string;
+}
+
+interface UnallocatedPatient {
+  id:String,
+  patientId: string;
+  doctor: DoctorforUnallocaetd;
+  patient: PatientforUnallocated;
+  ward: WardforUnallocated;
+}
+
 export function Admindashboard() {
-  const [activeView, setActiveView] = useState<"activeDoctors" | "inactiveDoctors" | "newPatientForm" | "createABHA" | "popupcard" | null>(null);
+  const [activeView, setActiveView] = useState<"activeDoctors" | "inactiveDoctors" | "newPatientForm" | "createABHA" | "popupcard" | "bedAllocation" | "bedPopUp" |null>(null);
   const [patientDetails, setPatientDetails] = useState<PatientDetails | null>(null);
   const [reason, setReason] = useState('');
   const [abhaId, setAbhaId] = useState("");
+  const [selectedPatient, setSelectedPatient] = useState<UnallocatedPatient | null>(null);
+  const [bedNumber, setBedNumber] = useState<string>('');
+  const [unallocatedPatients, setUnallocatedPatients] = useState<UnallocatedPatient[]>([]);
   const [doctors, setDoctors] = useState<Doctor[]>([]);
   const [allocatedDoctor, setAllocatedDoctor] = useState<Doctor | null>(null); // State for the allocated doctor
   const [formState, setFormState] = useState<FormState>({
@@ -330,6 +355,79 @@ export function Admindashboard() {
     console.log('Form submitted:', formState);
   };
   
+  const fetchBedNumber = async (id: string) => {
+    console.log(id)
+    try {
+      axios.post(`${BACKEND_URL}/api/hospital/allocate`,{
+        admissionId:id,
+      },{
+        headers:{
+          code:HOSPITAL_CODE
+        }
+      }).then((data)=>{
+        console.log(data.data)
+        setBedNumber(data.data.bed.bedNumber);
+        setTimeout(() => setActiveView("bedPopUp"), 2000);
+        setTimeout(() => setActiveView("bedAllocation"), 4000);
+    }) 
+    }catch (error) {
+      console.error('Error fetching bed number:', error);
+    }
+  };
+
+  const handlePatientSelect = (patient: UnallocatedPatient) => {
+    setSelectedPatient(patient);
+    console.log(selectedPatient)
+    fetchBedNumber(patient.id);
+  };
+
+  const handleClosePopup = () => {
+    setSelectedPatient(null);
+    setBedNumber('');
+    setActiveView("bedAllocation")
+  };
+
+  useEffect(() => {
+    if (selectedPatient?.id) {
+      //@ts-ignore
+      fetchBedNumber(selectedPatient?.id);
+    }
+  }, [selectedPatient]);
+
+  const bedAllocatedPopUp = () => {
+    if (!selectedPatient || !bedNumber) return null;
+    console.log(selectedPatient)
+    return (
+      <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center">
+        <Card className="w-full max-w-sm p-6 grid gap-4">
+          <div className="flex items-center gap-4">
+            <Avatar className="border w-12 h-12">
+              <AvatarImage src="/placeholder-user.jpg" alt="Patient" />
+              <AvatarFallback>JD</AvatarFallback>
+            </Avatar>
+            <div className="grid gap-1">
+              <h3 className="font-semibold">{selectedPatient?.patinet.name}</h3>
+              <p className="text-muted-foreground text-sm">ABHA ID: {selectedPatient?.patientId}</p>
+            </div>
+          </div>
+          <div className="grid gap-2">
+            <div className="flex items-center justify-between">
+              <span className="text-muted-foreground">Doctor:</span>
+              <span>{selectedPatient?.doctor.name}</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-muted-foreground">Ward:</span>
+              <span>{selectedPatient?.ward.name}</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-muted-foreground">Bed:</span>
+              <span>{bedNumber}</span>
+            </div>
+          </div>
+        </Card>
+      </div>
+    );
+  };
 
   const renderActiveDoctors = () => (
     <Card>
@@ -396,6 +494,55 @@ export function Admindashboard() {
       </DialogContent>
     </Dialog>
   )
+
+
+  const renderBedAllocation = () =>(
+    <div className="space-y-6">
+      {unallocatedPatients.map((patient, index) => (
+  <Card className="w-full max-w-3xl" key={index}>
+    <CardContent className="grid grid-cols-[1fr_1fr_1fr] gap-4 p-4">
+      <div className="space-y-1.5">
+        <Label htmlFor="patient-name">Patient Name</Label>
+        <div className="flex items-center">
+          <Avatar className="mr-2">
+            <AvatarImage src="/placeholder-user.jpg" alt="Patient" />
+            <AvatarFallback>{patient?.patinet?.name ? patient.patinet.name[0] : 'N/A'}</AvatarFallback>
+          </Avatar>
+          <span>{patient?.patinet?.name || 'Unknown'}</span>
+        </div>
+      </div>
+      <div className="space-y-1.5">
+        <Label htmlFor="abha-id">Abha ID</Label>
+        <div>{patient?.patientId || 'N/A'}</div>
+      </div>
+      <div className="space-y-1.5">
+        <Label htmlFor="doctor-name">Doctor Name</Label>
+        <div className="flex items-center">
+          <Avatar className="mr-2">
+            <AvatarImage src="/placeholder-user.jpg" alt="Doctor" />
+            <AvatarFallback>{patient?.doctor?.name ? patient.doctor.name[0] : 'N/A'}</AvatarFallback>
+          </Avatar>
+          <span>{patient?.doctor?.name || 'Unknown'}</span>
+        </div>
+      </div>
+      <div className="space-y-1.5">
+        <Label htmlFor="reason">Reason</Label>
+        <div>{patient?.patinet?.reason || 'No reason provided'}</div>
+      </div>
+      <div className="space-y-1.5">
+        <Label htmlFor="ward-name">Ward Name</Label>
+        <div>{patient?.ward?.name || 'No ward assigned'}</div>
+      </div>
+      <div className="flex items-end justify-end">
+        <Button size="lg" onClick={() => handlePatientSelect(patient)} >Allocate Bed</Button>
+      </div>
+    </CardContent>
+  </Card>
+))}
+
+    </div>
+  )
+
 
   const renderNewPatientForm = () => (
     <Card>
@@ -500,19 +647,15 @@ export function Admindashboard() {
         </div>
         <div className="space-y-2">
           <Label htmlFor="dob">Date of Birth</Label>
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button variant="outline" className="w-full justify-start font-normal">
-                {formState.dob ? formState.dob.toDateString() : 'Pick a date'}
-                <div className="ml-auto h-4 w-4 opacity-50" />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-auto p-0" align="start">
-              //@ts-ignore
-              <Calendar mode="single" selected={formState.dob} onSelect={handleDateChange} />
-            </PopoverContent>
-          </Popover>
-        </div>
+            <input
+              type="date"
+              id="dob"
+              name="dob"
+              className="w-full p-2 border rounded outline-none"
+              value={formState.dob ? formState.dob.toISOString().substring(0, 10) : ''} // Format date to YYYY-MM-DD for the input
+              onChange={(e) => handleDateChange(new Date(e.target.value))}
+            />
+      </div>
       </div>
       <div className="space-y-2">
         <Label htmlFor="emergency-contact">Emergency Contact Address</Label>
@@ -564,6 +707,21 @@ export function Admindashboard() {
       console.error(error);
     }
   };
+
+  const getBedAllocationRequests = async()=>{
+    await axios.get(`${BACKEND_URL}/api/hospital/getunallocated`,{
+      headers:{
+        code:HOSPITAL_CODE
+      }
+    }).then((data)=>{
+        console.log(data.data.patients)
+        setUnallocatedPatients(data.data.patients);
+        setTimeout(() => setActiveView("bedAllocation"), 0);
+        setTimeout(()=>console.log(unallocatedPatients),0);
+    })
+  }
+
+
   const handleOPDUpdate = async()=>{
       await axios.post(`${BACKEND_URL}/api/hospital/createpatient`,{
           abhaId:patientDetails?.abhaId,
@@ -584,7 +742,8 @@ export function Admindashboard() {
         if(data.data.message!=null){
           alert(data.data.message);
         }
-        setAllocatedDoctor(null)
+        setAllocatedDoctor(null);
+        setActiveView(null);
       })
   }
   return (
@@ -602,6 +761,7 @@ export function Admindashboard() {
           <div className="flex flex-col  gap-4">
             
             <Button className=" bg-purple-500 hover:bg-purple-800" onClick={() => setActiveView("newPatientForm")}>New Patient</Button>
+            <Button className=" bg-purple-500 hover:bg-purple-800" onClick={getBedAllocationRequests}>Bed Allocation Request</Button>
             <Button className="bg-purple-500 hover:bg-purple-800" onClick={() => { setActiveView("activeDoctors"); setPatientDetails(null); }}>Active Doctors</Button>
             <Button className="bg-purple-500 hover:bg-purple-800 " onClick={() => { setActiveView("inactiveDoctors"); setPatientDetails(null); }}>Inactive Doctors</Button>
           </div>
@@ -612,6 +772,8 @@ export function Admindashboard() {
           {activeView === "newPatientForm" && renderNewPatientForm()}
           {activeView === "createABHA" && createABHA()}
           {activeView === "popupcard" && popUpCard()}
+          {activeView === "bedAllocation" && renderBedAllocation()}
+          {activeView === "bedPopUp" && bedAllocatedPopUp()}
           {patientDetails && (
             <Card>
               <CardHeader>

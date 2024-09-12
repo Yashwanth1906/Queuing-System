@@ -74,7 +74,7 @@ export function SigninDoctor() {
         </div>
         <div className="space-y-4" >
           <div>
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email" className="text-white">Email</Label>
             <Input
               id="email"
               type="email"
@@ -85,29 +85,30 @@ export function SigninDoctor() {
             />
           </div>
           <div>
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password" className="text-white">Password</Label>
             <Input
               id="password"
               type="password"
+              placeholder="Password"
               onChange={(e)=>setPasswd(e.target.value)}
               required
             />
           </div>
           <div>
-            <Label htmlFor="password">Hospital Code</Label>
+            <Label htmlFor="password" className="text-white">Hospital Code</Label>
             <Input
-              
+              placeholder="Hospital Code"
               type="text"
               onChange={(e)=>setHosCode(e.target.value)}
               required
             />
           </div>
-         
-         
           <Button type="submit" className="w-full" onClick={handleSubmit}>
             Login
           </Button>
-      
+        </div>
+        <div>
+          <div className="text-white px-2">New Doctor?<Link to="/doctorssignup" className="text-blue">     Register</Link></div>
         </div>
       </div>
     </div>

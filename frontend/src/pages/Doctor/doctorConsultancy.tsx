@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { SetStateAction, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -7,6 +7,8 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@
 import { Textarea } from "@/components/ui/textarea";
 import axios from "axios";
 import { BACKEND_URL, HOSPITAL_CODE } from "@/config";
+import { Ward } from "../inventory/ward";
+import { AlertTriangle } from "lucide-react";
 
 // Define types for medicine and injection
 type Medicine = {
@@ -30,6 +32,11 @@ type Patient = {
   abhaId: string;
   reason: string;
 };
+interface Ward {
+  id: string;
+  name: string;
+}
+
 
 export function DoctorConsultancy() {
   const [medicines, setMedicines] = useState<Medicine[]>([]);
@@ -37,6 +44,8 @@ export function DoctorConsultancy() {
   const [feedback, setFeedback] = useState<string>("");
   const [showModal, setShowModal] = useState(false);
   const [patient, setPatient] = useState<Patient | undefined>();
+  const [ward,setWard] = useState<Ward[]>([]);
+  const [selectedWardId, setSelectedWardId] = useState<String>('');
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -50,7 +59,22 @@ export function DoctorConsultancy() {
     }).then((data) => {
       setPatient(data.data.patient);
     });
+    axios.get(`${BACKEND_URL}/api/hospital/getward`,{
+      headers:{
+        code:HOSPITAL_CODE
+      }
+    }).then((data)=>{
+      console.log("HI")
+      console.log(data.data.ward);
+      setWard(data.data.ward);
+      console.log(ward)
+    })
   }, []);
+
+  useEffect(() => {
+    console.log('Updated ward:', ward);
+  }, [ward]);
+  const navigate = useNavigate();
 
   const addMedicine = () => {
     setMedicines([...medicines, { name: "", shift: "", morning: 0, afternoon: 0, night: 0, days: 0 }]);
@@ -93,6 +117,10 @@ export function DoctorConsultancy() {
     setShowModal(false);
   };
 
+  const handleWardChange = (value: string) => {
+    setSelectedWardId(value); // Update the state with the selected ward ID
+  };
+
   const handleSubmit = async () => {
     try {
       const abhaid = patient?.abhaId;
@@ -107,6 +135,7 @@ export function DoctorConsultancy() {
       });
       if (response.data.success) {
         alert("Consultation completed successfully!");
+        navigate("/doctordashboard")
       } else {
         alert("Error: " + response.data.message);
       }
@@ -115,6 +144,23 @@ export function DoctorConsultancy() {
       alert("An error occurred while submitting the consultation data.");
     }
   };
+  const handleAdmission = () =>{
+    console.log("SelectedWardId: ",selectedWardId);
+    axios.post(`${BACKEND_URL}/api/doctor/createadmission`,{
+      abhaId:patient?.abhaId,
+      wardId : selectedWardId
+    },
+    {
+      headers:{
+        code:HOSPITAL_CODE,
+        Authorization: localStorage.getItem("doctortoken"),
+      }
+    }
+  ).then((data)=>{
+    alert("Admission is Created, The bed will be Allocated!")
+  })
+  }
+
   return (
     <div className="w-screen h-screen absolute top-0 left-0 right-0  mx-auto ">
       {/* Header with Back Button */}
@@ -358,23 +404,25 @@ export function DoctorConsultancy() {
                 <div className="grid gap-6">
                   <div className="grid gap-2">
                     <Label htmlFor="ward">Ward</Label>
-                    <Select>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select Ward" />
-                      </SelectTrigger>
-                      {/* <SelectContent>
-                        <SelectItem value="general">General Ward</SelectItem>
-                        <SelectItem value="icu">ICU</SelectItem>
-                        <SelectItem value="pediatric">Pediatric</SelectItem>
-                      </SelectContent> */}
-                    </Select>
+                    <Select onValueChange={handleWardChange}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select Ward" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {ward.map((item) => (
+                      <SelectItem key={item.id} value={item.id}>
+                        {item.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
                   </div>
                 </div>
                 <div className="flex justify-between mt-6">
                   <Button onClick={closeModal} className="flex justify-center">
                     Cancel
                   </Button>
-                  <Button className="flex justify-center">Request Bed</Button>
+                  <Button className="flex justify-center" onClick={handleAdmission}>Request Bed</Button>
                 </div>
               </div>
             </div>

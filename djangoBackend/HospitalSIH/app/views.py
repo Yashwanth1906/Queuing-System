@@ -73,7 +73,7 @@ data = {
         "Gastroenterology", "Gastroenterology", "Gastroenterology", "Gastroenterology", "Gastroenterology", "Gastroenterology", "Gastroenterology",
         "Neurology", "Neurology", "Neurology", "Neurology", "Neurology", "Neurology", "Neurology",
         "Obstetrics and Gynecology", "Obstetrics and Gynecology", "Obstetrics and Gynecology", "Obstetrics and Gynecology", "Obstetrics and Gynecology", "Obstetrics and Gynecology", "Obstetrics and Gynecology",
-        "General Medicine", "General Medicine", "General Medicine", "General Medicine", "General Medicine", "General Medicine", "General Medicine",
+        "General","General","General","General","General","General","General",
         "Rheumatology", "Rheumatology", "Rheumatology", "Rheumatology", "Rheumatology", "Rheumatology", "Rheumatology",
         "Neurology", "Cardiology", "Neurology", "Rheumatology", "Obstetrics and Gynecology", "Cardiology"
     ]
@@ -143,6 +143,8 @@ class PredictDepartmentAndDoctorAPIView(APIView):
             department = label_encoder.inverse_transform(department_prediction)[0]
 
             # Step 2: Predict the doctor based on the predicted department
+
+            print(department)
             doctor = predict_doctor(department)
             if(doctor == ""):
                 return Response({'department': department, "error":"No Doctor there in the particular department"}, status=status.HTTP_200_OK)
