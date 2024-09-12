@@ -12,7 +12,7 @@ const centralprisma = new centralPrismaClient({
 const prismaClients = new Map();
 
 const getHospitalPrismaClient = async(req,res,next)=>{
-    const code = req.headers.code;
+    const code =  req.headers.code ;
     console.log(code);
     try{
         if(prismaClients.has(code)){
@@ -28,7 +28,7 @@ const getHospitalPrismaClient = async(req,res,next)=>{
                 dbURL:true
             }
         })
-        console.log(hospitalDBURL)
+        console.log(hospitalDBURL)  
         const prisma = new hospitalPrismaClient({
             datasources:{
                 db:{

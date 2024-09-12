@@ -122,7 +122,9 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 exports.Prisma.AdminScalarFieldEnum = {
   id: 'id',
   email: 'email',
-  password: 'password'
+  name: 'name',
+  password: 'password',
+  hospitalCode: 'hospitalCode'
 };
 
 exports.Prisma.HospitalScalarFieldEnum = {
@@ -141,7 +143,8 @@ exports.Prisma.PatientScalarFieldEnum = {
   contact: 'contact',
   address: 'address',
   gender: 'gender',
-  Age: 'Age'
+  DOB: 'DOB',
+  emergencyContact: 'emergencyContact'
 };
 
 exports.Prisma.MedicalRecordScalarFieldEnum = {
@@ -157,6 +160,10 @@ exports.Prisma.MedicalRecordScalarFieldEnum = {
   documents: 'documents',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ABHANumberScalarFieldEnum = {
+  prev: 'prev'
 };
 
 exports.Prisma.OTPVerificationScalarFieldEnum = {
@@ -179,6 +186,10 @@ exports.Prisma.BedRequestScalarFieldEnum = {
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.NullableJsonNullValueInput = {
@@ -208,6 +219,7 @@ exports.Prisma.ModelName = {
   Hospital: 'Hospital',
   Patient: 'Patient',
   MedicalRecord: 'MedicalRecord',
+  ABHANumber: 'ABHANumber',
   OTPVerification: 'OTPVerification',
   BedRequest: 'BedRequest'
 };

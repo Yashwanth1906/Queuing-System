@@ -24,6 +24,7 @@ const addDepartments = async(req,res)=>{
     console.log("hi")
     const prisma = req.prisma;
     const deparmentss = req.body.departments;
+    console.log(deparmentss)
     try{
         const added = await Promise.all(deparmentss.map(async (x) => {
             const department = await prisma.departments.create({
@@ -66,7 +67,7 @@ const createPatientInstance = async(req,res)=>{
             data:{
                 abhaId:abhaId,
                 doctorId:doctorId,
-                queueNumber:queueNumber,
+                queueNumber:queueNumber + 1,
                 visitType: (visitType === "FreshVisit") ? VisitType.FreshVisit : VisitType.Revisit,
                 age:age,
                 Gender:gender,
@@ -129,8 +130,23 @@ const getAdmissionsBedNotAllocated = async(req,res)=>{
                 bedId:null
             },select:{
                 id:true,
-                wardId:true,
+                ward:{
+                    select:{
+                    name:true
+                    }
+                },
                 patientId:true,
+                patinet:{
+                    select:{
+                        name:true,
+                        reason:true
+                    }
+                },
+                doctor:{
+                    select:{
+                        name:true
+                    }
+                }
             }
         })
         res.json({success:true,patients:unAllocated})
@@ -140,34 +156,47 @@ const getAdmissionsBedNotAllocated = async(req,res)=>{
     }
 }
 
-const allocateBed = async(req,res) =>{
+const allocateBed = async (req, res) => {
     const prisma = req.prisma;
-    try{
-        const adm = await prisma.admission.findUnique({
-            where:{
-                id:req.headers.admissionId
-            },select:{
-                wardId:true,
-                bedId:true
-            }
-        })
-        const availableBed = await prisma.bed.findFirst({
-            where:{
-                wardId:adm.wardId,
-                status:BedStatus.Available
-            }
-        })
-        if(!availableBed){
-            return res.json({success:false,message:"No Bed available"});
-        }
-        adm.bedId = availableBed.id;
-        availableBed.status = BedStatus.Occupied
-        res.json({success:true,bed:availableBed})
-    }catch(err){
-        console.log(err);
-        res.json({success:false,message:err})
+    try {
+      const { admissionId } = req.body;
+  
+      const adm = await prisma.admission.findUnique({
+        where: { id: admissionId },
+        select: { wardId: true },
+      });
+  
+      if (!adm) {
+        return res.json({ success: false, message: "Admission not found" });
+      }
+  
+      const availableBed = await prisma.bed.findFirst({
+        where: { wardId: adm.wardId, status: BedStatus.Available },
+        select: { id: true, bedNumber: true },
+      });
+  
+      if (!availableBed) {
+        return res.json({ success: false, message: "No bed available" });
+      }
+  
+      await prisma.admission.update({
+        where: { id: admissionId },
+        data: { bedId: availableBed.id },
+      });
+  
+      await prisma.bed.update({
+        where: { id: availableBed.id },
+        data: { status: BedStatus.Occupied },
+      });
+  
+      res.json({ success: true, bed: availableBed });
+  
+    } catch (err) {
+      console.log(err);
+      res.json({ success: false, message: err.message });
     }
-}
+  };
+  
 const getPatient = async(req,res)=>{
     const prisma = req.prisma;
     console.log(req.headers.abhaid)
@@ -190,6 +219,30 @@ const getPatient = async(req,res)=>{
     }
 }
 
+const getWard = async(req,res) =>{
+    const prisma = req.prisma;
+    console.log(req.headers.code);
+    console.log("getWard")
+    try{
+        const wards = await prisma.ward.findMany({
+            select:{
+                id:true,
+                name:true
+            }
+        });
+        // let ward = [];
+        // for(i of wards){
+        //     let temp = []
+        //     temp.push(i.id);
+        //     temp.push(i.name);
+        //     ward.push(temp)
+        // }
+        res.json({success:true,ward:wards})
+    }catch(err){
+        console.log(err);
+        res.json({success:false,message:err});
+    }
+}
 
 
 // const bedRequest = async(req,res)=>{
@@ -201,4 +254,4 @@ const getPatient = async(req,res)=>{
 //     }
 // }
 
-export {getDoctors,addDepartments,getDepartments,createPatientInstance,addWard,getAdmissionsBedNotAllocated,allocateBed,getPatient}
+export {getDoctors,addDepartments,getDepartments,createPatientInstance,addWard,getAdmissionsBedNotAllocated,allocateBed,getPatient,getWard}

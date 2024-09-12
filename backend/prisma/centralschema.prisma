@@ -11,7 +11,10 @@ datasource db {
 model Admin {
   id       String @id @default(uuid())
   email    String @unique
+  name String @default("admin")
   password String
+  hospitalCode String @default("")
+  hospital Hospital @relation(fields: [hospitalCode],references: [code])
 }
 
 model Hospital {
@@ -22,6 +25,7 @@ model Hospital {
   city    String
   state   String
   dbURL   String
+  admin Admin[]
 }
 
 model Patient{
@@ -30,7 +34,8 @@ model Patient{
   contact String
   address String
   gender String
-  Age Int
+  DOB String
+  emergencyContact String
   medicalRecords MedicalRecord[]
 }
 
@@ -41,13 +46,17 @@ model MedicalRecord {
   hospitalName String
   recordDate DateTime @default(now())
   visitReason String
-  medicationsPrescribed String
+  medicationsPrescribed Json
   treatmentSummary String
   doctorName String
   followUpInstructions String?
   documents Json?
   createdAt DateTime @default(now())
   updatedAt DateTime? @updatedAt
+}
+
+model ABHANumber{
+  prev String @id
 }
 
 model OTPVerification{

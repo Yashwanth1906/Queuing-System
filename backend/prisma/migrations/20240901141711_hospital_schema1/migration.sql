@@ -1,13 +1,18 @@
 /*
   Warnings:
 
+  - You are about to drop the `ABHANumber` table. If the table is not empty, all the data it contains will be lost.
   - You are about to drop the `Admin` table. If the table is not empty, all the data it contains will be lost.
+  - You are about to drop the `BedRequest` table. If the table is not empty, all the data it contains will be lost.
   - You are about to drop the `Hospital` table. If the table is not empty, all the data it contains will be lost.
   - You are about to drop the `MedicalRecord` table. If the table is not empty, all the data it contains will be lost.
   - You are about to drop the `OTPVerification` table. If the table is not empty, all the data it contains will be lost.
   - You are about to drop the `Patient` table. If the table is not empty, all the data it contains will be lost.
 
 */
+-- CreateEnum
+CREATE TYPE "DesignationType" AS ENUM ('Trainee', 'Assistant', 'Senior', 'HeadOfDepartment');
+
 -- CreateEnum
 CREATE TYPE "QueueStatus" AS ENUM ('Pending', 'Inprogress', 'Completed');
 
@@ -21,10 +26,19 @@ CREATE TYPE "VisitType" AS ENUM ('FreshVisit', 'Revisit');
 CREATE TYPE "InventoryCategory" AS ENUM ('Medicine', 'Surgical_Tools', 'Others');
 
 -- DropForeignKey
+ALTER TABLE "Admin" DROP CONSTRAINT "Admin_hospitalCode_fkey";
+
+-- DropForeignKey
 ALTER TABLE "MedicalRecord" DROP CONSTRAINT "MedicalRecord_patientId_fkey";
 
 -- DropTable
+DROP TABLE "ABHANumber";
+
+-- DropTable
 DROP TABLE "Admin";
+
+-- DropTable
+DROP TABLE "BedRequest";
 
 -- DropTable
 DROP TABLE "Hospital";
@@ -42,11 +56,14 @@ DROP TABLE "Patient";
 CREATE TABLE "Doctors" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
+    "gender" TEXT NOT NULL,
+    "designation" "DesignationType" NOT NULL,
     "contact" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "active" BOOLEAN NOT NULL,
     "departmentId" TEXT NOT NULL,
+    "hospitalCode" TEXT NOT NULL DEFAULT '0001',
 
     CONSTRAINT "Doctors_pkey" PRIMARY KEY ("id")
 );
@@ -67,7 +84,7 @@ CREATE TABLE "OPDQueue" (
     "doctorId" TEXT NOT NULL,
     "status" "QueueStatus" NOT NULL,
     "queueNumber" INTEGER NOT NULL,
-    "timeStamp" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "timeStamp" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "OPDQueue_pkey" PRIMARY KEY ("id")
 );
@@ -96,6 +113,10 @@ CREATE TABLE "Ward" (
 CREATE TABLE "PatientInstance" (
     "id" TEXT NOT NULL,
     "abhaId" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "age" INTEGER NOT NULL,
+    "Gender" TEXT NOT NULL,
+    "reason" TEXT NOT NULL,
     "doctorId" TEXT NOT NULL,
     "queueNumber" INTEGER,
     "medications" JSONB,
@@ -161,6 +182,12 @@ CREATE TABLE "Inventory" (
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Doctors_email_key" ON "Doctors"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "OPDQueue_patientInstanceId_key" ON "OPDQueue"("patientInstanceId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Bed_bedNumber_key" ON "Bed"("bedNumber");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "PatientInstance_abhaId_key" ON "PatientInstance"("abhaId");

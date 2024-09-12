@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { BACKEND_URL, HOSPITAL_CODE } from "@/config";
 import axios from "axios";
@@ -71,7 +72,7 @@ export function DoctorDashBoard() {
             age: item.patientInstance.age,
             gender: item.patientInstance.Gender,
             reason: item.patientInstance.reason,
-            status: item.status === "Pending" ? "Waiting" : item.status,
+            status: item.status === "Pending" ? "Waiting" : item.status, 
           }));
           setPatients(formattedPatients);
         } else {
@@ -84,8 +85,37 @@ export function DoctorDashBoard() {
   }, []);
 
   return (
-    <div className="flex min-h-screen w-full">
-      {/* Sidebar and other content omitted for brevity */}
+    <div className="flex h-screen w-screen absolute top-0 left-0 right-0">
+      <div>
+        
+        {/* <div className="flex items-center gap-2 border-b pb-4"> */}
+          {/* <div className="rounded-full bg-primary p-2 text-primary-foreground">
+            <StethoscopeIcon className="h-6 w-6" />
+          </div> */}
+          {/* <h2 className="text-xl font-semibold">Dashboard</h2> */}
+        <div className="flex items-center bg-neutral-950 justify-between w-screen p-4 border-b">
+        <h1 className="text-4xl relative bg-clip-text text-transparent bg-no-repeat bg-gradient-to-r from-purple-500 via-violet-500 to-pink-500 font-bold ">Doctor Dashboard</h1>
+        <Link to="/"><Button className="ml-auto bg-gradient-to-b from-indigo-500 to-purple-500">Home</Button></Link>
+        </div>
+        <div className="flex">
+      <aside className="flex flex-col bg-neutral-950 h-screen w-72 border-r bg-background p-4 sm:p-6">
+        <nav className="mt-6 flex flex-col gap-2">
+          <span className="flex items-center gap-2 rounded-md px-3 py-2  text-muted-foreground">
+          <Button className="ml-auto w-60 bg-purple-500 hover:bg-purple-800"> <ClipboardIcon className="h-5 w-5" /> 
+            Ops</Button>
+          </span>
+              <span className="flex items-center gap-2 rounded-md px-3 py-2 text-muted-foreground">
+                <Button className="ml-auto w-60 bg-purple-500 hover:bg-purple-800"><UserIcon className="h-5 w-5" />
+            IPs</Button>
+           
+          </span>
+          <span className="flex items-center gap-2 rounded-md px-3 py-2 text-muted-foreground">
+            
+            <Button className="ml-auto w-60 bg-purple-500 hover:bg-purple-800"><BarChartIcon className="h-5 w-5" />
+            Analysis</Button>
+          </span>
+        </nav>
+      </aside>
       <div className="flex-1 p-4 sm:p-6">
         <div className="grid gap-4">
           <div className="grid gap-2">
@@ -99,6 +129,6 @@ export function DoctorDashBoard() {
           {/* Additional sections omitted for brevity */}
         </div>
       </div>
-    </div>
+    </div></div></div>
   );
 }

@@ -34,6 +34,11 @@ export type Patient = $Result.DefaultSelection<Prisma.$PatientPayload>
  */
 export type MedicalRecord = $Result.DefaultSelection<Prisma.$MedicalRecordPayload>
 /**
+ * Model ABHANumber
+ * 
+ */
+export type ABHANumber = $Result.DefaultSelection<Prisma.$ABHANumberPayload>
+/**
  * Model OTPVerification
  * 
  */
@@ -205,6 +210,16 @@ export class PrismaClient<
     * ```
     */
   get medicalRecord(): Prisma.MedicalRecordDelegate<ExtArgs>;
+
+  /**
+   * `prisma.aBHANumber`: Exposes CRUD operations for the **ABHANumber** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ABHANumbers
+    * const aBHANumbers = await prisma.aBHANumber.findMany()
+    * ```
+    */
+  get aBHANumber(): Prisma.ABHANumberDelegate<ExtArgs>;
 
   /**
    * `prisma.oTPVerification`: Exposes CRUD operations for the **OTPVerification** model.
@@ -706,6 +721,7 @@ export namespace Prisma {
     Hospital: 'Hospital',
     Patient: 'Patient',
     MedicalRecord: 'MedicalRecord',
+    ABHANumber: 'ABHANumber',
     OTPVerification: 'OTPVerification',
     BedRequest: 'BedRequest'
   };
@@ -723,7 +739,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "admin" | "hospital" | "patient" | "medicalRecord" | "oTPVerification" | "bedRequest"
+      modelProps: "admin" | "hospital" | "patient" | "medicalRecord" | "aBHANumber" | "oTPVerification" | "bedRequest"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1004,6 +1020,76 @@ export namespace Prisma {
           count: {
             args: Prisma.MedicalRecordCountArgs<ExtArgs>
             result: $Utils.Optional<MedicalRecordCountAggregateOutputType> | number
+          }
+        }
+      }
+      ABHANumber: {
+        payload: Prisma.$ABHANumberPayload<ExtArgs>
+        fields: Prisma.ABHANumberFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ABHANumberFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ABHANumberPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ABHANumberFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ABHANumberPayload>
+          }
+          findFirst: {
+            args: Prisma.ABHANumberFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ABHANumberPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ABHANumberFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ABHANumberPayload>
+          }
+          findMany: {
+            args: Prisma.ABHANumberFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ABHANumberPayload>[]
+          }
+          create: {
+            args: Prisma.ABHANumberCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ABHANumberPayload>
+          }
+          createMany: {
+            args: Prisma.ABHANumberCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ABHANumberCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ABHANumberPayload>[]
+          }
+          delete: {
+            args: Prisma.ABHANumberDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ABHANumberPayload>
+          }
+          update: {
+            args: Prisma.ABHANumberUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ABHANumberPayload>
+          }
+          deleteMany: {
+            args: Prisma.ABHANumberDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ABHANumberUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.ABHANumberUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ABHANumberPayload>
+          }
+          aggregate: {
+            args: Prisma.ABHANumberAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateABHANumber>
+          }
+          groupBy: {
+            args: Prisma.ABHANumberGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ABHANumberGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ABHANumberCountArgs<ExtArgs>
+            result: $Utils.Optional<ABHANumberCountAggregateOutputType> | number
           }
         }
       }
@@ -1304,6 +1390,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type HospitalCountOutputType
+   */
+
+  export type HospitalCountOutputType = {
+    admin: number
+  }
+
+  export type HospitalCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    admin?: boolean | HospitalCountOutputTypeCountAdminArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * HospitalCountOutputType without action
+   */
+  export type HospitalCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HospitalCountOutputType
+     */
+    select?: HospitalCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * HospitalCountOutputType without action
+   */
+  export type HospitalCountOutputTypeCountAdminArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AdminWhereInput
+  }
+
+
+  /**
    * Count Type PatientCountOutputType
    */
 
@@ -1351,19 +1468,25 @@ export namespace Prisma {
   export type AdminMinAggregateOutputType = {
     id: string | null
     email: string | null
+    name: string | null
     password: string | null
+    hospitalCode: string | null
   }
 
   export type AdminMaxAggregateOutputType = {
     id: string | null
     email: string | null
+    name: string | null
     password: string | null
+    hospitalCode: string | null
   }
 
   export type AdminCountAggregateOutputType = {
     id: number
     email: number
+    name: number
     password: number
+    hospitalCode: number
     _all: number
   }
 
@@ -1371,19 +1494,25 @@ export namespace Prisma {
   export type AdminMinAggregateInputType = {
     id?: true
     email?: true
+    name?: true
     password?: true
+    hospitalCode?: true
   }
 
   export type AdminMaxAggregateInputType = {
     id?: true
     email?: true
+    name?: true
     password?: true
+    hospitalCode?: true
   }
 
   export type AdminCountAggregateInputType = {
     id?: true
     email?: true
+    name?: true
     password?: true
+    hospitalCode?: true
     _all?: true
   }
 
@@ -1462,7 +1591,9 @@ export namespace Prisma {
   export type AdminGroupByOutputType = {
     id: string
     email: string
+    name: string
     password: string
+    hospitalCode: string
     _count: AdminCountAggregateOutputType | null
     _min: AdminMinAggregateOutputType | null
     _max: AdminMaxAggregateOutputType | null
@@ -1485,29 +1616,47 @@ export namespace Prisma {
   export type AdminSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     email?: boolean
+    name?: boolean
     password?: boolean
+    hospitalCode?: boolean
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["admin"]>
 
   export type AdminSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     email?: boolean
+    name?: boolean
     password?: boolean
+    hospitalCode?: boolean
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["admin"]>
 
   export type AdminSelectScalar = {
     id?: boolean
     email?: boolean
+    name?: boolean
     password?: boolean
+    hospitalCode?: boolean
   }
 
+  export type AdminInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+  }
+  export type AdminIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+  }
 
   export type $AdminPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Admin"
-    objects: {}
+    objects: {
+      hospital: Prisma.$HospitalPayload<ExtArgs>
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       email: string
+      name: string
       password: string
+      hospitalCode: string
     }, ExtArgs["result"]["admin"]>
     composites: {}
   }
@@ -1872,6 +2021,7 @@ export namespace Prisma {
    */
   export interface Prisma__AdminClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    hospital<T extends HospitalDefaultArgs<ExtArgs> = {}>(args?: Subset<T, HospitalDefaultArgs<ExtArgs>>): Prisma__HospitalClient<$Result.GetResult<Prisma.$HospitalPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1903,7 +2053,9 @@ export namespace Prisma {
   interface AdminFieldRefs {
     readonly id: FieldRef<"Admin", 'String'>
     readonly email: FieldRef<"Admin", 'String'>
+    readonly name: FieldRef<"Admin", 'String'>
     readonly password: FieldRef<"Admin", 'String'>
+    readonly hospitalCode: FieldRef<"Admin", 'String'>
   }
     
 
@@ -1916,6 +2068,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Admin
      */
     select?: AdminSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
     /**
      * Filter, which Admin to fetch.
      */
@@ -1931,6 +2087,10 @@ export namespace Prisma {
      */
     select?: AdminSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
+    /**
      * Filter, which Admin to fetch.
      */
     where: AdminWhereUniqueInput
@@ -1944,6 +2104,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Admin
      */
     select?: AdminSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
     /**
      * Filter, which Admin to fetch.
      */
@@ -1989,6 +2153,10 @@ export namespace Prisma {
      */
     select?: AdminSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
+    /**
      * Filter, which Admin to fetch.
      */
     where?: AdminWhereInput
@@ -2033,6 +2201,10 @@ export namespace Prisma {
      */
     select?: AdminSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
+    /**
      * Filter, which Admins to fetch.
      */
     where?: AdminWhereInput
@@ -2072,6 +2244,10 @@ export namespace Prisma {
      */
     select?: AdminSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
+    /**
      * The data needed to create a Admin.
      */
     data: XOR<AdminCreateInput, AdminUncheckedCreateInput>
@@ -2101,6 +2277,10 @@ export namespace Prisma {
      */
     data: AdminCreateManyInput | AdminCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -2111,6 +2291,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Admin
      */
     select?: AdminSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
     /**
      * The data needed to update a Admin.
      */
@@ -2144,6 +2328,10 @@ export namespace Prisma {
      */
     select?: AdminSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
+    /**
      * The filter to search for the Admin to update in case it exists.
      */
     where: AdminWhereUniqueInput
@@ -2165,6 +2353,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Admin
      */
     select?: AdminSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
     /**
      * Filter which Admin to delete.
      */
@@ -2189,6 +2381,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Admin
      */
     select?: AdminSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
   }
 
 
@@ -2372,6 +2568,8 @@ export namespace Prisma {
     city?: boolean
     state?: boolean
     dbURL?: boolean
+    admin?: boolean | Hospital$adminArgs<ExtArgs>
+    _count?: boolean | HospitalCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["hospital"]>
 
   export type HospitalSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2394,10 +2592,17 @@ export namespace Prisma {
     dbURL?: boolean
   }
 
+  export type HospitalInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    admin?: boolean | Hospital$adminArgs<ExtArgs>
+    _count?: boolean | HospitalCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type HospitalIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $HospitalPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Hospital"
-    objects: {}
+    objects: {
+      admin: Prisma.$AdminPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       code: string
@@ -2770,6 +2975,7 @@ export namespace Prisma {
    */
   export interface Prisma__HospitalClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    admin<T extends Hospital$adminArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$adminArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2819,6 +3025,10 @@ export namespace Prisma {
      */
     select?: HospitalSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HospitalInclude<ExtArgs> | null
+    /**
      * Filter, which Hospital to fetch.
      */
     where: HospitalWhereUniqueInput
@@ -2833,6 +3043,10 @@ export namespace Prisma {
      */
     select?: HospitalSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HospitalInclude<ExtArgs> | null
+    /**
      * Filter, which Hospital to fetch.
      */
     where: HospitalWhereUniqueInput
@@ -2846,6 +3060,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Hospital
      */
     select?: HospitalSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HospitalInclude<ExtArgs> | null
     /**
      * Filter, which Hospital to fetch.
      */
@@ -2891,6 +3109,10 @@ export namespace Prisma {
      */
     select?: HospitalSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HospitalInclude<ExtArgs> | null
+    /**
      * Filter, which Hospital to fetch.
      */
     where?: HospitalWhereInput
@@ -2935,6 +3157,10 @@ export namespace Prisma {
      */
     select?: HospitalSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HospitalInclude<ExtArgs> | null
+    /**
      * Filter, which Hospitals to fetch.
      */
     where?: HospitalWhereInput
@@ -2973,6 +3199,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Hospital
      */
     select?: HospitalSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HospitalInclude<ExtArgs> | null
     /**
      * The data needed to create a Hospital.
      */
@@ -3014,6 +3244,10 @@ export namespace Prisma {
      */
     select?: HospitalSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HospitalInclude<ExtArgs> | null
+    /**
      * The data needed to update a Hospital.
      */
     data: XOR<HospitalUpdateInput, HospitalUncheckedUpdateInput>
@@ -3046,6 +3280,10 @@ export namespace Prisma {
      */
     select?: HospitalSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HospitalInclude<ExtArgs> | null
+    /**
      * The filter to search for the Hospital to update in case it exists.
      */
     where: HospitalWhereUniqueInput
@@ -3068,6 +3306,10 @@ export namespace Prisma {
      */
     select?: HospitalSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HospitalInclude<ExtArgs> | null
+    /**
      * Filter which Hospital to delete.
      */
     where: HospitalWhereUniqueInput
@@ -3084,6 +3326,26 @@ export namespace Prisma {
   }
 
   /**
+   * Hospital.admin
+   */
+  export type Hospital$adminArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
+    where?: AdminWhereInput
+    orderBy?: AdminOrderByWithRelationInput | AdminOrderByWithRelationInput[]
+    cursor?: AdminWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AdminScalarFieldEnum | AdminScalarFieldEnum[]
+  }
+
+  /**
    * Hospital without action
    */
   export type HospitalDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3091,6 +3353,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Hospital
      */
     select?: HospitalSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HospitalInclude<ExtArgs> | null
   }
 
 
@@ -3100,18 +3366,8 @@ export namespace Prisma {
 
   export type AggregatePatient = {
     _count: PatientCountAggregateOutputType | null
-    _avg: PatientAvgAggregateOutputType | null
-    _sum: PatientSumAggregateOutputType | null
     _min: PatientMinAggregateOutputType | null
     _max: PatientMaxAggregateOutputType | null
-  }
-
-  export type PatientAvgAggregateOutputType = {
-    Age: number | null
-  }
-
-  export type PatientSumAggregateOutputType = {
-    Age: number | null
   }
 
   export type PatientMinAggregateOutputType = {
@@ -3120,7 +3376,8 @@ export namespace Prisma {
     contact: string | null
     address: string | null
     gender: string | null
-    Age: number | null
+    DOB: string | null
+    emergencyContact: string | null
   }
 
   export type PatientMaxAggregateOutputType = {
@@ -3129,7 +3386,8 @@ export namespace Prisma {
     contact: string | null
     address: string | null
     gender: string | null
-    Age: number | null
+    DOB: string | null
+    emergencyContact: string | null
   }
 
   export type PatientCountAggregateOutputType = {
@@ -3138,18 +3396,11 @@ export namespace Prisma {
     contact: number
     address: number
     gender: number
-    Age: number
+    DOB: number
+    emergencyContact: number
     _all: number
   }
 
-
-  export type PatientAvgAggregateInputType = {
-    Age?: true
-  }
-
-  export type PatientSumAggregateInputType = {
-    Age?: true
-  }
 
   export type PatientMinAggregateInputType = {
     abhaId?: true
@@ -3157,7 +3408,8 @@ export namespace Prisma {
     contact?: true
     address?: true
     gender?: true
-    Age?: true
+    DOB?: true
+    emergencyContact?: true
   }
 
   export type PatientMaxAggregateInputType = {
@@ -3166,7 +3418,8 @@ export namespace Prisma {
     contact?: true
     address?: true
     gender?: true
-    Age?: true
+    DOB?: true
+    emergencyContact?: true
   }
 
   export type PatientCountAggregateInputType = {
@@ -3175,7 +3428,8 @@ export namespace Prisma {
     contact?: true
     address?: true
     gender?: true
-    Age?: true
+    DOB?: true
+    emergencyContact?: true
     _all?: true
   }
 
@@ -3217,18 +3471,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: PatientAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: PatientSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: PatientMinAggregateInputType
@@ -3259,8 +3501,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: PatientCountAggregateInputType | true
-    _avg?: PatientAvgAggregateInputType
-    _sum?: PatientSumAggregateInputType
     _min?: PatientMinAggregateInputType
     _max?: PatientMaxAggregateInputType
   }
@@ -3271,10 +3511,9 @@ export namespace Prisma {
     contact: string
     address: string
     gender: string
-    Age: number
+    DOB: string
+    emergencyContact: string
     _count: PatientCountAggregateOutputType | null
-    _avg: PatientAvgAggregateOutputType | null
-    _sum: PatientSumAggregateOutputType | null
     _min: PatientMinAggregateOutputType | null
     _max: PatientMaxAggregateOutputType | null
   }
@@ -3299,7 +3538,8 @@ export namespace Prisma {
     contact?: boolean
     address?: boolean
     gender?: boolean
-    Age?: boolean
+    DOB?: boolean
+    emergencyContact?: boolean
     medicalRecords?: boolean | Patient$medicalRecordsArgs<ExtArgs>
     _count?: boolean | PatientCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["patient"]>
@@ -3310,7 +3550,8 @@ export namespace Prisma {
     contact?: boolean
     address?: boolean
     gender?: boolean
-    Age?: boolean
+    DOB?: boolean
+    emergencyContact?: boolean
   }, ExtArgs["result"]["patient"]>
 
   export type PatientSelectScalar = {
@@ -3319,7 +3560,8 @@ export namespace Prisma {
     contact?: boolean
     address?: boolean
     gender?: boolean
-    Age?: boolean
+    DOB?: boolean
+    emergencyContact?: boolean
   }
 
   export type PatientInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3339,7 +3581,8 @@ export namespace Prisma {
       contact: string
       address: string
       gender: string
-      Age: number
+      DOB: string
+      emergencyContact: string
     }, ExtArgs["result"]["patient"]>
     composites: {}
   }
@@ -3739,7 +3982,8 @@ export namespace Prisma {
     readonly contact: FieldRef<"Patient", 'String'>
     readonly address: FieldRef<"Patient", 'String'>
     readonly gender: FieldRef<"Patient", 'String'>
-    readonly Age: FieldRef<"Patient", 'Int'>
+    readonly DOB: FieldRef<"Patient", 'String'>
+    readonly emergencyContact: FieldRef<"Patient", 'String'>
   }
     
 
@@ -4104,7 +4348,6 @@ export namespace Prisma {
     hospitalName: string | null
     recordDate: Date | null
     visitReason: string | null
-    medicationsPrescribed: string | null
     treatmentSummary: string | null
     doctorName: string | null
     followUpInstructions: string | null
@@ -4118,7 +4361,6 @@ export namespace Prisma {
     hospitalName: string | null
     recordDate: Date | null
     visitReason: string | null
-    medicationsPrescribed: string | null
     treatmentSummary: string | null
     doctorName: string | null
     followUpInstructions: string | null
@@ -4149,7 +4391,6 @@ export namespace Prisma {
     hospitalName?: true
     recordDate?: true
     visitReason?: true
-    medicationsPrescribed?: true
     treatmentSummary?: true
     doctorName?: true
     followUpInstructions?: true
@@ -4163,7 +4404,6 @@ export namespace Prisma {
     hospitalName?: true
     recordDate?: true
     visitReason?: true
-    medicationsPrescribed?: true
     treatmentSummary?: true
     doctorName?: true
     followUpInstructions?: true
@@ -4265,7 +4505,7 @@ export namespace Prisma {
     hospitalName: string
     recordDate: Date
     visitReason: string
-    medicationsPrescribed: string
+    medicationsPrescribed: JsonValue
     treatmentSummary: string
     doctorName: string
     followUpInstructions: string | null
@@ -4356,7 +4596,7 @@ export namespace Prisma {
       hospitalName: string
       recordDate: Date
       visitReason: string
-      medicationsPrescribed: string
+      medicationsPrescribed: Prisma.JsonValue
       treatmentSummary: string
       doctorName: string
       followUpInstructions: string | null
@@ -4762,7 +5002,7 @@ export namespace Prisma {
     readonly hospitalName: FieldRef<"MedicalRecord", 'String'>
     readonly recordDate: FieldRef<"MedicalRecord", 'DateTime'>
     readonly visitReason: FieldRef<"MedicalRecord", 'String'>
-    readonly medicationsPrescribed: FieldRef<"MedicalRecord", 'String'>
+    readonly medicationsPrescribed: FieldRef<"MedicalRecord", 'Json'>
     readonly treatmentSummary: FieldRef<"MedicalRecord", 'String'>
     readonly doctorName: FieldRef<"MedicalRecord", 'String'>
     readonly followUpInstructions: FieldRef<"MedicalRecord", 'String'>
@@ -5098,6 +5338,836 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: MedicalRecordInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ABHANumber
+   */
+
+  export type AggregateABHANumber = {
+    _count: ABHANumberCountAggregateOutputType | null
+    _min: ABHANumberMinAggregateOutputType | null
+    _max: ABHANumberMaxAggregateOutputType | null
+  }
+
+  export type ABHANumberMinAggregateOutputType = {
+    prev: string | null
+  }
+
+  export type ABHANumberMaxAggregateOutputType = {
+    prev: string | null
+  }
+
+  export type ABHANumberCountAggregateOutputType = {
+    prev: number
+    _all: number
+  }
+
+
+  export type ABHANumberMinAggregateInputType = {
+    prev?: true
+  }
+
+  export type ABHANumberMaxAggregateInputType = {
+    prev?: true
+  }
+
+  export type ABHANumberCountAggregateInputType = {
+    prev?: true
+    _all?: true
+  }
+
+  export type ABHANumberAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ABHANumber to aggregate.
+     */
+    where?: ABHANumberWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ABHANumbers to fetch.
+     */
+    orderBy?: ABHANumberOrderByWithRelationInput | ABHANumberOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ABHANumberWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ABHANumbers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ABHANumbers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ABHANumbers
+    **/
+    _count?: true | ABHANumberCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ABHANumberMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ABHANumberMaxAggregateInputType
+  }
+
+  export type GetABHANumberAggregateType<T extends ABHANumberAggregateArgs> = {
+        [P in keyof T & keyof AggregateABHANumber]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateABHANumber[P]>
+      : GetScalarType<T[P], AggregateABHANumber[P]>
+  }
+
+
+
+
+  export type ABHANumberGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ABHANumberWhereInput
+    orderBy?: ABHANumberOrderByWithAggregationInput | ABHANumberOrderByWithAggregationInput[]
+    by: ABHANumberScalarFieldEnum[] | ABHANumberScalarFieldEnum
+    having?: ABHANumberScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ABHANumberCountAggregateInputType | true
+    _min?: ABHANumberMinAggregateInputType
+    _max?: ABHANumberMaxAggregateInputType
+  }
+
+  export type ABHANumberGroupByOutputType = {
+    prev: string
+    _count: ABHANumberCountAggregateOutputType | null
+    _min: ABHANumberMinAggregateOutputType | null
+    _max: ABHANumberMaxAggregateOutputType | null
+  }
+
+  type GetABHANumberGroupByPayload<T extends ABHANumberGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ABHANumberGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ABHANumberGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ABHANumberGroupByOutputType[P]>
+            : GetScalarType<T[P], ABHANumberGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ABHANumberSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    prev?: boolean
+  }, ExtArgs["result"]["aBHANumber"]>
+
+  export type ABHANumberSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    prev?: boolean
+  }, ExtArgs["result"]["aBHANumber"]>
+
+  export type ABHANumberSelectScalar = {
+    prev?: boolean
+  }
+
+
+  export type $ABHANumberPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ABHANumber"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      prev: string
+    }, ExtArgs["result"]["aBHANumber"]>
+    composites: {}
+  }
+
+  type ABHANumberGetPayload<S extends boolean | null | undefined | ABHANumberDefaultArgs> = $Result.GetResult<Prisma.$ABHANumberPayload, S>
+
+  type ABHANumberCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<ABHANumberFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: ABHANumberCountAggregateInputType | true
+    }
+
+  export interface ABHANumberDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ABHANumber'], meta: { name: 'ABHANumber' } }
+    /**
+     * Find zero or one ABHANumber that matches the filter.
+     * @param {ABHANumberFindUniqueArgs} args - Arguments to find a ABHANumber
+     * @example
+     * // Get one ABHANumber
+     * const aBHANumber = await prisma.aBHANumber.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ABHANumberFindUniqueArgs>(args: SelectSubset<T, ABHANumberFindUniqueArgs<ExtArgs>>): Prisma__ABHANumberClient<$Result.GetResult<Prisma.$ABHANumberPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one ABHANumber that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {ABHANumberFindUniqueOrThrowArgs} args - Arguments to find a ABHANumber
+     * @example
+     * // Get one ABHANumber
+     * const aBHANumber = await prisma.aBHANumber.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ABHANumberFindUniqueOrThrowArgs>(args: SelectSubset<T, ABHANumberFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ABHANumberClient<$Result.GetResult<Prisma.$ABHANumberPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first ABHANumber that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ABHANumberFindFirstArgs} args - Arguments to find a ABHANumber
+     * @example
+     * // Get one ABHANumber
+     * const aBHANumber = await prisma.aBHANumber.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ABHANumberFindFirstArgs>(args?: SelectSubset<T, ABHANumberFindFirstArgs<ExtArgs>>): Prisma__ABHANumberClient<$Result.GetResult<Prisma.$ABHANumberPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first ABHANumber that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ABHANumberFindFirstOrThrowArgs} args - Arguments to find a ABHANumber
+     * @example
+     * // Get one ABHANumber
+     * const aBHANumber = await prisma.aBHANumber.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ABHANumberFindFirstOrThrowArgs>(args?: SelectSubset<T, ABHANumberFindFirstOrThrowArgs<ExtArgs>>): Prisma__ABHANumberClient<$Result.GetResult<Prisma.$ABHANumberPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more ABHANumbers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ABHANumberFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ABHANumbers
+     * const aBHANumbers = await prisma.aBHANumber.findMany()
+     * 
+     * // Get first 10 ABHANumbers
+     * const aBHANumbers = await prisma.aBHANumber.findMany({ take: 10 })
+     * 
+     * // Only select the `prev`
+     * const aBHANumberWithPrevOnly = await prisma.aBHANumber.findMany({ select: { prev: true } })
+     * 
+     */
+    findMany<T extends ABHANumberFindManyArgs>(args?: SelectSubset<T, ABHANumberFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ABHANumberPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a ABHANumber.
+     * @param {ABHANumberCreateArgs} args - Arguments to create a ABHANumber.
+     * @example
+     * // Create one ABHANumber
+     * const ABHANumber = await prisma.aBHANumber.create({
+     *   data: {
+     *     // ... data to create a ABHANumber
+     *   }
+     * })
+     * 
+     */
+    create<T extends ABHANumberCreateArgs>(args: SelectSubset<T, ABHANumberCreateArgs<ExtArgs>>): Prisma__ABHANumberClient<$Result.GetResult<Prisma.$ABHANumberPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many ABHANumbers.
+     * @param {ABHANumberCreateManyArgs} args - Arguments to create many ABHANumbers.
+     * @example
+     * // Create many ABHANumbers
+     * const aBHANumber = await prisma.aBHANumber.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ABHANumberCreateManyArgs>(args?: SelectSubset<T, ABHANumberCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ABHANumbers and returns the data saved in the database.
+     * @param {ABHANumberCreateManyAndReturnArgs} args - Arguments to create many ABHANumbers.
+     * @example
+     * // Create many ABHANumbers
+     * const aBHANumber = await prisma.aBHANumber.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ABHANumbers and only return the `prev`
+     * const aBHANumberWithPrevOnly = await prisma.aBHANumber.createManyAndReturn({ 
+     *   select: { prev: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ABHANumberCreateManyAndReturnArgs>(args?: SelectSubset<T, ABHANumberCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ABHANumberPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a ABHANumber.
+     * @param {ABHANumberDeleteArgs} args - Arguments to delete one ABHANumber.
+     * @example
+     * // Delete one ABHANumber
+     * const ABHANumber = await prisma.aBHANumber.delete({
+     *   where: {
+     *     // ... filter to delete one ABHANumber
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ABHANumberDeleteArgs>(args: SelectSubset<T, ABHANumberDeleteArgs<ExtArgs>>): Prisma__ABHANumberClient<$Result.GetResult<Prisma.$ABHANumberPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one ABHANumber.
+     * @param {ABHANumberUpdateArgs} args - Arguments to update one ABHANumber.
+     * @example
+     * // Update one ABHANumber
+     * const aBHANumber = await prisma.aBHANumber.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ABHANumberUpdateArgs>(args: SelectSubset<T, ABHANumberUpdateArgs<ExtArgs>>): Prisma__ABHANumberClient<$Result.GetResult<Prisma.$ABHANumberPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more ABHANumbers.
+     * @param {ABHANumberDeleteManyArgs} args - Arguments to filter ABHANumbers to delete.
+     * @example
+     * // Delete a few ABHANumbers
+     * const { count } = await prisma.aBHANumber.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ABHANumberDeleteManyArgs>(args?: SelectSubset<T, ABHANumberDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ABHANumbers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ABHANumberUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ABHANumbers
+     * const aBHANumber = await prisma.aBHANumber.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ABHANumberUpdateManyArgs>(args: SelectSubset<T, ABHANumberUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one ABHANumber.
+     * @param {ABHANumberUpsertArgs} args - Arguments to update or create a ABHANumber.
+     * @example
+     * // Update or create a ABHANumber
+     * const aBHANumber = await prisma.aBHANumber.upsert({
+     *   create: {
+     *     // ... data to create a ABHANumber
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ABHANumber we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ABHANumberUpsertArgs>(args: SelectSubset<T, ABHANumberUpsertArgs<ExtArgs>>): Prisma__ABHANumberClient<$Result.GetResult<Prisma.$ABHANumberPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of ABHANumbers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ABHANumberCountArgs} args - Arguments to filter ABHANumbers to count.
+     * @example
+     * // Count the number of ABHANumbers
+     * const count = await prisma.aBHANumber.count({
+     *   where: {
+     *     // ... the filter for the ABHANumbers we want to count
+     *   }
+     * })
+    **/
+    count<T extends ABHANumberCountArgs>(
+      args?: Subset<T, ABHANumberCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ABHANumberCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ABHANumber.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ABHANumberAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ABHANumberAggregateArgs>(args: Subset<T, ABHANumberAggregateArgs>): Prisma.PrismaPromise<GetABHANumberAggregateType<T>>
+
+    /**
+     * Group by ABHANumber.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ABHANumberGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ABHANumberGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ABHANumberGroupByArgs['orderBy'] }
+        : { orderBy?: ABHANumberGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ABHANumberGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetABHANumberGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ABHANumber model
+   */
+  readonly fields: ABHANumberFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ABHANumber.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ABHANumberClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ABHANumber model
+   */ 
+  interface ABHANumberFieldRefs {
+    readonly prev: FieldRef<"ABHANumber", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ABHANumber findUnique
+   */
+  export type ABHANumberFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ABHANumber
+     */
+    select?: ABHANumberSelect<ExtArgs> | null
+    /**
+     * Filter, which ABHANumber to fetch.
+     */
+    where: ABHANumberWhereUniqueInput
+  }
+
+  /**
+   * ABHANumber findUniqueOrThrow
+   */
+  export type ABHANumberFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ABHANumber
+     */
+    select?: ABHANumberSelect<ExtArgs> | null
+    /**
+     * Filter, which ABHANumber to fetch.
+     */
+    where: ABHANumberWhereUniqueInput
+  }
+
+  /**
+   * ABHANumber findFirst
+   */
+  export type ABHANumberFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ABHANumber
+     */
+    select?: ABHANumberSelect<ExtArgs> | null
+    /**
+     * Filter, which ABHANumber to fetch.
+     */
+    where?: ABHANumberWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ABHANumbers to fetch.
+     */
+    orderBy?: ABHANumberOrderByWithRelationInput | ABHANumberOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ABHANumbers.
+     */
+    cursor?: ABHANumberWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ABHANumbers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ABHANumbers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ABHANumbers.
+     */
+    distinct?: ABHANumberScalarFieldEnum | ABHANumberScalarFieldEnum[]
+  }
+
+  /**
+   * ABHANumber findFirstOrThrow
+   */
+  export type ABHANumberFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ABHANumber
+     */
+    select?: ABHANumberSelect<ExtArgs> | null
+    /**
+     * Filter, which ABHANumber to fetch.
+     */
+    where?: ABHANumberWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ABHANumbers to fetch.
+     */
+    orderBy?: ABHANumberOrderByWithRelationInput | ABHANumberOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ABHANumbers.
+     */
+    cursor?: ABHANumberWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ABHANumbers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ABHANumbers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ABHANumbers.
+     */
+    distinct?: ABHANumberScalarFieldEnum | ABHANumberScalarFieldEnum[]
+  }
+
+  /**
+   * ABHANumber findMany
+   */
+  export type ABHANumberFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ABHANumber
+     */
+    select?: ABHANumberSelect<ExtArgs> | null
+    /**
+     * Filter, which ABHANumbers to fetch.
+     */
+    where?: ABHANumberWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ABHANumbers to fetch.
+     */
+    orderBy?: ABHANumberOrderByWithRelationInput | ABHANumberOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ABHANumbers.
+     */
+    cursor?: ABHANumberWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ABHANumbers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ABHANumbers.
+     */
+    skip?: number
+    distinct?: ABHANumberScalarFieldEnum | ABHANumberScalarFieldEnum[]
+  }
+
+  /**
+   * ABHANumber create
+   */
+  export type ABHANumberCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ABHANumber
+     */
+    select?: ABHANumberSelect<ExtArgs> | null
+    /**
+     * The data needed to create a ABHANumber.
+     */
+    data: XOR<ABHANumberCreateInput, ABHANumberUncheckedCreateInput>
+  }
+
+  /**
+   * ABHANumber createMany
+   */
+  export type ABHANumberCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ABHANumbers.
+     */
+    data: ABHANumberCreateManyInput | ABHANumberCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ABHANumber createManyAndReturn
+   */
+  export type ABHANumberCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ABHANumber
+     */
+    select?: ABHANumberSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many ABHANumbers.
+     */
+    data: ABHANumberCreateManyInput | ABHANumberCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ABHANumber update
+   */
+  export type ABHANumberUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ABHANumber
+     */
+    select?: ABHANumberSelect<ExtArgs> | null
+    /**
+     * The data needed to update a ABHANumber.
+     */
+    data: XOR<ABHANumberUpdateInput, ABHANumberUncheckedUpdateInput>
+    /**
+     * Choose, which ABHANumber to update.
+     */
+    where: ABHANumberWhereUniqueInput
+  }
+
+  /**
+   * ABHANumber updateMany
+   */
+  export type ABHANumberUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ABHANumbers.
+     */
+    data: XOR<ABHANumberUpdateManyMutationInput, ABHANumberUncheckedUpdateManyInput>
+    /**
+     * Filter which ABHANumbers to update
+     */
+    where?: ABHANumberWhereInput
+  }
+
+  /**
+   * ABHANumber upsert
+   */
+  export type ABHANumberUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ABHANumber
+     */
+    select?: ABHANumberSelect<ExtArgs> | null
+    /**
+     * The filter to search for the ABHANumber to update in case it exists.
+     */
+    where: ABHANumberWhereUniqueInput
+    /**
+     * In case the ABHANumber found by the `where` argument doesn't exist, create a new ABHANumber with this data.
+     */
+    create: XOR<ABHANumberCreateInput, ABHANumberUncheckedCreateInput>
+    /**
+     * In case the ABHANumber was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ABHANumberUpdateInput, ABHANumberUncheckedUpdateInput>
+  }
+
+  /**
+   * ABHANumber delete
+   */
+  export type ABHANumberDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ABHANumber
+     */
+    select?: ABHANumberSelect<ExtArgs> | null
+    /**
+     * Filter which ABHANumber to delete.
+     */
+    where: ABHANumberWhereUniqueInput
+  }
+
+  /**
+   * ABHANumber deleteMany
+   */
+  export type ABHANumberDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ABHANumbers to delete
+     */
+    where?: ABHANumberWhereInput
+  }
+
+  /**
+   * ABHANumber without action
+   */
+  export type ABHANumberDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ABHANumber
+     */
+    select?: ABHANumberSelect<ExtArgs> | null
   }
 
 
@@ -6886,7 +7956,9 @@ export namespace Prisma {
   export const AdminScalarFieldEnum: {
     id: 'id',
     email: 'email',
-    password: 'password'
+    name: 'name',
+    password: 'password',
+    hospitalCode: 'hospitalCode'
   };
 
   export type AdminScalarFieldEnum = (typeof AdminScalarFieldEnum)[keyof typeof AdminScalarFieldEnum]
@@ -6911,7 +7983,8 @@ export namespace Prisma {
     contact: 'contact',
     address: 'address',
     gender: 'gender',
-    Age: 'Age'
+    DOB: 'DOB',
+    emergencyContact: 'emergencyContact'
   };
 
   export type PatientScalarFieldEnum = (typeof PatientScalarFieldEnum)[keyof typeof PatientScalarFieldEnum]
@@ -6933,6 +8006,13 @@ export namespace Prisma {
   };
 
   export type MedicalRecordScalarFieldEnum = (typeof MedicalRecordScalarFieldEnum)[keyof typeof MedicalRecordScalarFieldEnum]
+
+
+  export const ABHANumberScalarFieldEnum: {
+    prev: 'prev'
+  };
+
+  export type ABHANumberScalarFieldEnum = (typeof ABHANumberScalarFieldEnum)[keyof typeof ABHANumberScalarFieldEnum]
 
 
   export const OTPVerificationScalarFieldEnum: {
@@ -6964,6 +8044,13 @@ export namespace Prisma {
   };
 
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+  export const JsonNullValueInput: {
+    JsonNull: typeof JsonNull
+  };
+
+  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
   export const NullableJsonNullValueInput: {
@@ -7019,20 +8106,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Int'
-   */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
-
-
-  /**
-   * Reference to a field of type 'Int[]'
-   */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
-
-
-  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -7054,16 +8127,16 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Float'
+   * Reference to a field of type 'Int'
    */
-  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
     
 
 
   /**
-   * Reference to a field of type 'Float[]'
+   * Reference to a field of type 'Int[]'
    */
-  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
   /**
    * Deep Input Types
@@ -7076,13 +8149,19 @@ export namespace Prisma {
     NOT?: AdminWhereInput | AdminWhereInput[]
     id?: StringFilter<"Admin"> | string
     email?: StringFilter<"Admin"> | string
+    name?: StringFilter<"Admin"> | string
     password?: StringFilter<"Admin"> | string
+    hospitalCode?: StringFilter<"Admin"> | string
+    hospital?: XOR<HospitalRelationFilter, HospitalWhereInput>
   }
 
   export type AdminOrderByWithRelationInput = {
     id?: SortOrder
     email?: SortOrder
+    name?: SortOrder
     password?: SortOrder
+    hospitalCode?: SortOrder
+    hospital?: HospitalOrderByWithRelationInput
   }
 
   export type AdminWhereUniqueInput = Prisma.AtLeast<{
@@ -7091,13 +8170,18 @@ export namespace Prisma {
     AND?: AdminWhereInput | AdminWhereInput[]
     OR?: AdminWhereInput[]
     NOT?: AdminWhereInput | AdminWhereInput[]
+    name?: StringFilter<"Admin"> | string
     password?: StringFilter<"Admin"> | string
+    hospitalCode?: StringFilter<"Admin"> | string
+    hospital?: XOR<HospitalRelationFilter, HospitalWhereInput>
   }, "id" | "email">
 
   export type AdminOrderByWithAggregationInput = {
     id?: SortOrder
     email?: SortOrder
+    name?: SortOrder
     password?: SortOrder
+    hospitalCode?: SortOrder
     _count?: AdminCountOrderByAggregateInput
     _max?: AdminMaxOrderByAggregateInput
     _min?: AdminMinOrderByAggregateInput
@@ -7109,7 +8193,9 @@ export namespace Prisma {
     NOT?: AdminScalarWhereWithAggregatesInput | AdminScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Admin"> | string
     email?: StringWithAggregatesFilter<"Admin"> | string
+    name?: StringWithAggregatesFilter<"Admin"> | string
     password?: StringWithAggregatesFilter<"Admin"> | string
+    hospitalCode?: StringWithAggregatesFilter<"Admin"> | string
   }
 
   export type HospitalWhereInput = {
@@ -7123,6 +8209,7 @@ export namespace Prisma {
     city?: StringFilter<"Hospital"> | string
     state?: StringFilter<"Hospital"> | string
     dbURL?: StringFilter<"Hospital"> | string
+    admin?: AdminListRelationFilter
   }
 
   export type HospitalOrderByWithRelationInput = {
@@ -7133,6 +8220,7 @@ export namespace Prisma {
     city?: SortOrder
     state?: SortOrder
     dbURL?: SortOrder
+    admin?: AdminOrderByRelationAggregateInput
   }
 
   export type HospitalWhereUniqueInput = Prisma.AtLeast<{
@@ -7146,6 +8234,7 @@ export namespace Prisma {
     city?: StringFilter<"Hospital"> | string
     state?: StringFilter<"Hospital"> | string
     dbURL?: StringFilter<"Hospital"> | string
+    admin?: AdminListRelationFilter
   }, "id" | "code">
 
   export type HospitalOrderByWithAggregationInput = {
@@ -7183,7 +8272,8 @@ export namespace Prisma {
     contact?: StringFilter<"Patient"> | string
     address?: StringFilter<"Patient"> | string
     gender?: StringFilter<"Patient"> | string
-    Age?: IntFilter<"Patient"> | number
+    DOB?: StringFilter<"Patient"> | string
+    emergencyContact?: StringFilter<"Patient"> | string
     medicalRecords?: MedicalRecordListRelationFilter
   }
 
@@ -7193,7 +8283,8 @@ export namespace Prisma {
     contact?: SortOrder
     address?: SortOrder
     gender?: SortOrder
-    Age?: SortOrder
+    DOB?: SortOrder
+    emergencyContact?: SortOrder
     medicalRecords?: MedicalRecordOrderByRelationAggregateInput
   }
 
@@ -7206,7 +8297,8 @@ export namespace Prisma {
     contact?: StringFilter<"Patient"> | string
     address?: StringFilter<"Patient"> | string
     gender?: StringFilter<"Patient"> | string
-    Age?: IntFilter<"Patient"> | number
+    DOB?: StringFilter<"Patient"> | string
+    emergencyContact?: StringFilter<"Patient"> | string
     medicalRecords?: MedicalRecordListRelationFilter
   }, "abhaId" | "abhaId">
 
@@ -7216,12 +8308,11 @@ export namespace Prisma {
     contact?: SortOrder
     address?: SortOrder
     gender?: SortOrder
-    Age?: SortOrder
+    DOB?: SortOrder
+    emergencyContact?: SortOrder
     _count?: PatientCountOrderByAggregateInput
-    _avg?: PatientAvgOrderByAggregateInput
     _max?: PatientMaxOrderByAggregateInput
     _min?: PatientMinOrderByAggregateInput
-    _sum?: PatientSumOrderByAggregateInput
   }
 
   export type PatientScalarWhereWithAggregatesInput = {
@@ -7233,7 +8324,8 @@ export namespace Prisma {
     contact?: StringWithAggregatesFilter<"Patient"> | string
     address?: StringWithAggregatesFilter<"Patient"> | string
     gender?: StringWithAggregatesFilter<"Patient"> | string
-    Age?: IntWithAggregatesFilter<"Patient"> | number
+    DOB?: StringWithAggregatesFilter<"Patient"> | string
+    emergencyContact?: StringWithAggregatesFilter<"Patient"> | string
   }
 
   export type MedicalRecordWhereInput = {
@@ -7245,7 +8337,7 @@ export namespace Prisma {
     hospitalName?: StringFilter<"MedicalRecord"> | string
     recordDate?: DateTimeFilter<"MedicalRecord"> | Date | string
     visitReason?: StringFilter<"MedicalRecord"> | string
-    medicationsPrescribed?: StringFilter<"MedicalRecord"> | string
+    medicationsPrescribed?: JsonFilter<"MedicalRecord">
     treatmentSummary?: StringFilter<"MedicalRecord"> | string
     doctorName?: StringFilter<"MedicalRecord"> | string
     followUpInstructions?: StringNullableFilter<"MedicalRecord"> | string | null
@@ -7280,7 +8372,7 @@ export namespace Prisma {
     hospitalName?: StringFilter<"MedicalRecord"> | string
     recordDate?: DateTimeFilter<"MedicalRecord"> | Date | string
     visitReason?: StringFilter<"MedicalRecord"> | string
-    medicationsPrescribed?: StringFilter<"MedicalRecord"> | string
+    medicationsPrescribed?: JsonFilter<"MedicalRecord">
     treatmentSummary?: StringFilter<"MedicalRecord"> | string
     doctorName?: StringFilter<"MedicalRecord"> | string
     followUpInstructions?: StringNullableFilter<"MedicalRecord"> | string | null
@@ -7317,13 +8409,45 @@ export namespace Prisma {
     hospitalName?: StringWithAggregatesFilter<"MedicalRecord"> | string
     recordDate?: DateTimeWithAggregatesFilter<"MedicalRecord"> | Date | string
     visitReason?: StringWithAggregatesFilter<"MedicalRecord"> | string
-    medicationsPrescribed?: StringWithAggregatesFilter<"MedicalRecord"> | string
+    medicationsPrescribed?: JsonWithAggregatesFilter<"MedicalRecord">
     treatmentSummary?: StringWithAggregatesFilter<"MedicalRecord"> | string
     doctorName?: StringWithAggregatesFilter<"MedicalRecord"> | string
     followUpInstructions?: StringNullableWithAggregatesFilter<"MedicalRecord"> | string | null
     documents?: JsonNullableWithAggregatesFilter<"MedicalRecord">
     createdAt?: DateTimeWithAggregatesFilter<"MedicalRecord"> | Date | string
     updatedAt?: DateTimeNullableWithAggregatesFilter<"MedicalRecord"> | Date | string | null
+  }
+
+  export type ABHANumberWhereInput = {
+    AND?: ABHANumberWhereInput | ABHANumberWhereInput[]
+    OR?: ABHANumberWhereInput[]
+    NOT?: ABHANumberWhereInput | ABHANumberWhereInput[]
+    prev?: StringFilter<"ABHANumber"> | string
+  }
+
+  export type ABHANumberOrderByWithRelationInput = {
+    prev?: SortOrder
+  }
+
+  export type ABHANumberWhereUniqueInput = Prisma.AtLeast<{
+    prev?: string
+    AND?: ABHANumberWhereInput | ABHANumberWhereInput[]
+    OR?: ABHANumberWhereInput[]
+    NOT?: ABHANumberWhereInput | ABHANumberWhereInput[]
+  }, "prev">
+
+  export type ABHANumberOrderByWithAggregationInput = {
+    prev?: SortOrder
+    _count?: ABHANumberCountOrderByAggregateInput
+    _max?: ABHANumberMaxOrderByAggregateInput
+    _min?: ABHANumberMinOrderByAggregateInput
+  }
+
+  export type ABHANumberScalarWhereWithAggregatesInput = {
+    AND?: ABHANumberScalarWhereWithAggregatesInput | ABHANumberScalarWhereWithAggregatesInput[]
+    OR?: ABHANumberScalarWhereWithAggregatesInput[]
+    NOT?: ABHANumberScalarWhereWithAggregatesInput | ABHANumberScalarWhereWithAggregatesInput[]
+    prev?: StringWithAggregatesFilter<"ABHANumber"> | string
   }
 
   export type OTPVerificationWhereInput = {
@@ -7438,43 +8562,56 @@ export namespace Prisma {
   export type AdminCreateInput = {
     id?: string
     email: string
+    name?: string
     password: string
+    hospital?: HospitalCreateNestedOneWithoutAdminInput
   }
 
   export type AdminUncheckedCreateInput = {
     id?: string
     email: string
+    name?: string
     password: string
+    hospitalCode?: string
   }
 
   export type AdminUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    hospital?: HospitalUpdateOneRequiredWithoutAdminNestedInput
   }
 
   export type AdminUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    hospitalCode?: StringFieldUpdateOperationsInput | string
   }
 
   export type AdminCreateManyInput = {
     id?: string
     email: string
+    name?: string
     password: string
+    hospitalCode?: string
   }
 
   export type AdminUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
   }
 
   export type AdminUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    hospitalCode?: StringFieldUpdateOperationsInput | string
   }
 
   export type HospitalCreateInput = {
@@ -7485,6 +8622,7 @@ export namespace Prisma {
     city: string
     state: string
     dbURL: string
+    admin?: AdminCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateInput = {
@@ -7495,6 +8633,7 @@ export namespace Prisma {
     city: string
     state: string
     dbURL: string
+    admin?: AdminUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUpdateInput = {
@@ -7505,6 +8644,7 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     state?: StringFieldUpdateOperationsInput | string
     dbURL?: StringFieldUpdateOperationsInput | string
+    admin?: AdminUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateInput = {
@@ -7515,6 +8655,7 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     state?: StringFieldUpdateOperationsInput | string
     dbURL?: StringFieldUpdateOperationsInput | string
+    admin?: AdminUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalCreateManyInput = {
@@ -7553,7 +8694,8 @@ export namespace Prisma {
     contact: string
     address: string
     gender: string
-    Age: number
+    DOB: string
+    emergencyContact: string
     medicalRecords?: MedicalRecordCreateNestedManyWithoutPatientInput
   }
 
@@ -7563,7 +8705,8 @@ export namespace Prisma {
     contact: string
     address: string
     gender: string
-    Age: number
+    DOB: string
+    emergencyContact: string
     medicalRecords?: MedicalRecordUncheckedCreateNestedManyWithoutPatientInput
   }
 
@@ -7573,7 +8716,8 @@ export namespace Prisma {
     contact?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     gender?: StringFieldUpdateOperationsInput | string
-    Age?: IntFieldUpdateOperationsInput | number
+    DOB?: StringFieldUpdateOperationsInput | string
+    emergencyContact?: StringFieldUpdateOperationsInput | string
     medicalRecords?: MedicalRecordUpdateManyWithoutPatientNestedInput
   }
 
@@ -7583,7 +8727,8 @@ export namespace Prisma {
     contact?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     gender?: StringFieldUpdateOperationsInput | string
-    Age?: IntFieldUpdateOperationsInput | number
+    DOB?: StringFieldUpdateOperationsInput | string
+    emergencyContact?: StringFieldUpdateOperationsInput | string
     medicalRecords?: MedicalRecordUncheckedUpdateManyWithoutPatientNestedInput
   }
 
@@ -7593,7 +8738,8 @@ export namespace Prisma {
     contact: string
     address: string
     gender: string
-    Age: number
+    DOB: string
+    emergencyContact: string
   }
 
   export type PatientUpdateManyMutationInput = {
@@ -7602,7 +8748,8 @@ export namespace Prisma {
     contact?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     gender?: StringFieldUpdateOperationsInput | string
-    Age?: IntFieldUpdateOperationsInput | number
+    DOB?: StringFieldUpdateOperationsInput | string
+    emergencyContact?: StringFieldUpdateOperationsInput | string
   }
 
   export type PatientUncheckedUpdateManyInput = {
@@ -7611,7 +8758,8 @@ export namespace Prisma {
     contact?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     gender?: StringFieldUpdateOperationsInput | string
-    Age?: IntFieldUpdateOperationsInput | number
+    DOB?: StringFieldUpdateOperationsInput | string
+    emergencyContact?: StringFieldUpdateOperationsInput | string
   }
 
   export type MedicalRecordCreateInput = {
@@ -7619,7 +8767,7 @@ export namespace Prisma {
     hospitalName: string
     recordDate?: Date | string
     visitReason: string
-    medicationsPrescribed: string
+    medicationsPrescribed: JsonNullValueInput | InputJsonValue
     treatmentSummary: string
     doctorName: string
     followUpInstructions?: string | null
@@ -7635,7 +8783,7 @@ export namespace Prisma {
     hospitalName: string
     recordDate?: Date | string
     visitReason: string
-    medicationsPrescribed: string
+    medicationsPrescribed: JsonNullValueInput | InputJsonValue
     treatmentSummary: string
     doctorName: string
     followUpInstructions?: string | null
@@ -7649,7 +8797,7 @@ export namespace Prisma {
     hospitalName?: StringFieldUpdateOperationsInput | string
     recordDate?: DateTimeFieldUpdateOperationsInput | Date | string
     visitReason?: StringFieldUpdateOperationsInput | string
-    medicationsPrescribed?: StringFieldUpdateOperationsInput | string
+    medicationsPrescribed?: JsonNullValueInput | InputJsonValue
     treatmentSummary?: StringFieldUpdateOperationsInput | string
     doctorName?: StringFieldUpdateOperationsInput | string
     followUpInstructions?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7665,7 +8813,7 @@ export namespace Prisma {
     hospitalName?: StringFieldUpdateOperationsInput | string
     recordDate?: DateTimeFieldUpdateOperationsInput | Date | string
     visitReason?: StringFieldUpdateOperationsInput | string
-    medicationsPrescribed?: StringFieldUpdateOperationsInput | string
+    medicationsPrescribed?: JsonNullValueInput | InputJsonValue
     treatmentSummary?: StringFieldUpdateOperationsInput | string
     doctorName?: StringFieldUpdateOperationsInput | string
     followUpInstructions?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7680,7 +8828,7 @@ export namespace Prisma {
     hospitalName: string
     recordDate?: Date | string
     visitReason: string
-    medicationsPrescribed: string
+    medicationsPrescribed: JsonNullValueInput | InputJsonValue
     treatmentSummary: string
     doctorName: string
     followUpInstructions?: string | null
@@ -7694,7 +8842,7 @@ export namespace Prisma {
     hospitalName?: StringFieldUpdateOperationsInput | string
     recordDate?: DateTimeFieldUpdateOperationsInput | Date | string
     visitReason?: StringFieldUpdateOperationsInput | string
-    medicationsPrescribed?: StringFieldUpdateOperationsInput | string
+    medicationsPrescribed?: JsonNullValueInput | InputJsonValue
     treatmentSummary?: StringFieldUpdateOperationsInput | string
     doctorName?: StringFieldUpdateOperationsInput | string
     followUpInstructions?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7709,13 +8857,41 @@ export namespace Prisma {
     hospitalName?: StringFieldUpdateOperationsInput | string
     recordDate?: DateTimeFieldUpdateOperationsInput | Date | string
     visitReason?: StringFieldUpdateOperationsInput | string
-    medicationsPrescribed?: StringFieldUpdateOperationsInput | string
+    medicationsPrescribed?: JsonNullValueInput | InputJsonValue
     treatmentSummary?: StringFieldUpdateOperationsInput | string
     doctorName?: StringFieldUpdateOperationsInput | string
     followUpInstructions?: NullableStringFieldUpdateOperationsInput | string | null
     documents?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type ABHANumberCreateInput = {
+    prev: string
+  }
+
+  export type ABHANumberUncheckedCreateInput = {
+    prev: string
+  }
+
+  export type ABHANumberUpdateInput = {
+    prev?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ABHANumberUncheckedUpdateInput = {
+    prev?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ABHANumberCreateManyInput = {
+    prev: string
+  }
+
+  export type ABHANumberUpdateManyMutationInput = {
+    prev?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ABHANumberUncheckedUpdateManyInput = {
+    prev?: StringFieldUpdateOperationsInput | string
   }
 
   export type OTPVerificationCreateInput = {
@@ -7852,22 +9028,33 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type HospitalRelationFilter = {
+    is?: HospitalWhereInput
+    isNot?: HospitalWhereInput
+  }
+
   export type AdminCountOrderByAggregateInput = {
     id?: SortOrder
     email?: SortOrder
+    name?: SortOrder
     password?: SortOrder
+    hospitalCode?: SortOrder
   }
 
   export type AdminMaxOrderByAggregateInput = {
     id?: SortOrder
     email?: SortOrder
+    name?: SortOrder
     password?: SortOrder
+    hospitalCode?: SortOrder
   }
 
   export type AdminMinOrderByAggregateInput = {
     id?: SortOrder
     email?: SortOrder
+    name?: SortOrder
     password?: SortOrder
+    hospitalCode?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -7886,6 +9073,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type AdminListRelationFilter = {
+    every?: AdminWhereInput
+    some?: AdminWhereInput
+    none?: AdminWhereInput
+  }
+
+  export type AdminOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type HospitalCountOrderByAggregateInput = {
@@ -7918,17 +9115,6 @@ export namespace Prisma {
     dbURL?: SortOrder
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
   export type MedicalRecordListRelationFilter = {
     every?: MedicalRecordWhereInput
     some?: MedicalRecordWhereInput
@@ -7945,11 +9131,8 @@ export namespace Prisma {
     contact?: SortOrder
     address?: SortOrder
     gender?: SortOrder
-    Age?: SortOrder
-  }
-
-  export type PatientAvgOrderByAggregateInput = {
-    Age?: SortOrder
+    DOB?: SortOrder
+    emergencyContact?: SortOrder
   }
 
   export type PatientMaxOrderByAggregateInput = {
@@ -7958,7 +9141,8 @@ export namespace Prisma {
     contact?: SortOrder
     address?: SortOrder
     gender?: SortOrder
-    Age?: SortOrder
+    DOB?: SortOrder
+    emergencyContact?: SortOrder
   }
 
   export type PatientMinOrderByAggregateInput = {
@@ -7967,27 +9151,8 @@ export namespace Prisma {
     contact?: SortOrder
     address?: SortOrder
     gender?: SortOrder
-    Age?: SortOrder
-  }
-
-  export type PatientSumOrderByAggregateInput = {
-    Age?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
+    DOB?: SortOrder
+    emergencyContact?: SortOrder
   }
 
   export type DateTimeFilter<$PrismaModel = never> = {
@@ -7999,6 +9164,28 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+  export type JsonFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
   export type StringNullableFilter<$PrismaModel = never> = {
@@ -8080,7 +9267,6 @@ export namespace Prisma {
     hospitalName?: SortOrder
     recordDate?: SortOrder
     visitReason?: SortOrder
-    medicationsPrescribed?: SortOrder
     treatmentSummary?: SortOrder
     doctorName?: SortOrder
     followUpInstructions?: SortOrder
@@ -8094,7 +9280,6 @@ export namespace Prisma {
     hospitalName?: SortOrder
     recordDate?: SortOrder
     visitReason?: SortOrder
-    medicationsPrescribed?: SortOrder
     treatmentSummary?: SortOrder
     doctorName?: SortOrder
     followUpInstructions?: SortOrder
@@ -8114,6 +9299,31 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+  export type JsonWithAggregatesFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedJsonFilter<$PrismaModel>
+    _max?: NestedJsonFilter<$PrismaModel>
   }
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -8173,6 +9383,18 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
+  export type ABHANumberCountOrderByAggregateInput = {
+    prev?: SortOrder
+  }
+
+  export type ABHANumberMaxOrderByAggregateInput = {
+    prev?: SortOrder
+  }
+
+  export type ABHANumberMinOrderByAggregateInput = {
+    prev?: SortOrder
+  }
+
   export type OTPVerificationCountOrderByAggregateInput = {
     id?: SortOrder
     email?: SortOrder
@@ -8224,8 +9446,64 @@ export namespace Prisma {
     wardName?: SortOrder
   }
 
+  export type HospitalCreateNestedOneWithoutAdminInput = {
+    create?: XOR<HospitalCreateWithoutAdminInput, HospitalUncheckedCreateWithoutAdminInput>
+    connectOrCreate?: HospitalCreateOrConnectWithoutAdminInput
+    connect?: HospitalWhereUniqueInput
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
+  }
+
+  export type HospitalUpdateOneRequiredWithoutAdminNestedInput = {
+    create?: XOR<HospitalCreateWithoutAdminInput, HospitalUncheckedCreateWithoutAdminInput>
+    connectOrCreate?: HospitalCreateOrConnectWithoutAdminInput
+    upsert?: HospitalUpsertWithoutAdminInput
+    connect?: HospitalWhereUniqueInput
+    update?: XOR<XOR<HospitalUpdateToOneWithWhereWithoutAdminInput, HospitalUpdateWithoutAdminInput>, HospitalUncheckedUpdateWithoutAdminInput>
+  }
+
+  export type AdminCreateNestedManyWithoutHospitalInput = {
+    create?: XOR<AdminCreateWithoutHospitalInput, AdminUncheckedCreateWithoutHospitalInput> | AdminCreateWithoutHospitalInput[] | AdminUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: AdminCreateOrConnectWithoutHospitalInput | AdminCreateOrConnectWithoutHospitalInput[]
+    createMany?: AdminCreateManyHospitalInputEnvelope
+    connect?: AdminWhereUniqueInput | AdminWhereUniqueInput[]
+  }
+
+  export type AdminUncheckedCreateNestedManyWithoutHospitalInput = {
+    create?: XOR<AdminCreateWithoutHospitalInput, AdminUncheckedCreateWithoutHospitalInput> | AdminCreateWithoutHospitalInput[] | AdminUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: AdminCreateOrConnectWithoutHospitalInput | AdminCreateOrConnectWithoutHospitalInput[]
+    createMany?: AdminCreateManyHospitalInputEnvelope
+    connect?: AdminWhereUniqueInput | AdminWhereUniqueInput[]
+  }
+
+  export type AdminUpdateManyWithoutHospitalNestedInput = {
+    create?: XOR<AdminCreateWithoutHospitalInput, AdminUncheckedCreateWithoutHospitalInput> | AdminCreateWithoutHospitalInput[] | AdminUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: AdminCreateOrConnectWithoutHospitalInput | AdminCreateOrConnectWithoutHospitalInput[]
+    upsert?: AdminUpsertWithWhereUniqueWithoutHospitalInput | AdminUpsertWithWhereUniqueWithoutHospitalInput[]
+    createMany?: AdminCreateManyHospitalInputEnvelope
+    set?: AdminWhereUniqueInput | AdminWhereUniqueInput[]
+    disconnect?: AdminWhereUniqueInput | AdminWhereUniqueInput[]
+    delete?: AdminWhereUniqueInput | AdminWhereUniqueInput[]
+    connect?: AdminWhereUniqueInput | AdminWhereUniqueInput[]
+    update?: AdminUpdateWithWhereUniqueWithoutHospitalInput | AdminUpdateWithWhereUniqueWithoutHospitalInput[]
+    updateMany?: AdminUpdateManyWithWhereWithoutHospitalInput | AdminUpdateManyWithWhereWithoutHospitalInput[]
+    deleteMany?: AdminScalarWhereInput | AdminScalarWhereInput[]
+  }
+
+  export type AdminUncheckedUpdateManyWithoutHospitalNestedInput = {
+    create?: XOR<AdminCreateWithoutHospitalInput, AdminUncheckedCreateWithoutHospitalInput> | AdminCreateWithoutHospitalInput[] | AdminUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: AdminCreateOrConnectWithoutHospitalInput | AdminCreateOrConnectWithoutHospitalInput[]
+    upsert?: AdminUpsertWithWhereUniqueWithoutHospitalInput | AdminUpsertWithWhereUniqueWithoutHospitalInput[]
+    createMany?: AdminCreateManyHospitalInputEnvelope
+    set?: AdminWhereUniqueInput | AdminWhereUniqueInput[]
+    disconnect?: AdminWhereUniqueInput | AdminWhereUniqueInput[]
+    delete?: AdminWhereUniqueInput | AdminWhereUniqueInput[]
+    connect?: AdminWhereUniqueInput | AdminWhereUniqueInput[]
+    update?: AdminUpdateWithWhereUniqueWithoutHospitalInput | AdminUpdateWithWhereUniqueWithoutHospitalInput[]
+    updateMany?: AdminUpdateManyWithWhereWithoutHospitalInput | AdminUpdateManyWithWhereWithoutHospitalInput[]
+    deleteMany?: AdminScalarWhereInput | AdminScalarWhereInput[]
   }
 
   export type MedicalRecordCreateNestedManyWithoutPatientInput = {
@@ -8240,14 +9518,6 @@ export namespace Prisma {
     connectOrCreate?: MedicalRecordCreateOrConnectWithoutPatientInput | MedicalRecordCreateOrConnectWithoutPatientInput[]
     createMany?: MedicalRecordCreateManyPatientInputEnvelope
     connect?: MedicalRecordWhereUniqueInput | MedicalRecordWhereUniqueInput[]
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type MedicalRecordUpdateManyWithoutPatientNestedInput = {
@@ -8346,33 +9616,6 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -8421,6 +9664,28 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+  export type NestedJsonFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -8487,12 +9752,119 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
+  export type HospitalCreateWithoutAdminInput = {
+    id?: string
+    code: string
+    name: string
+    location: string
+    city: string
+    state: string
+    dbURL: string
+  }
+
+  export type HospitalUncheckedCreateWithoutAdminInput = {
+    id?: string
+    code: string
+    name: string
+    location: string
+    city: string
+    state: string
+    dbURL: string
+  }
+
+  export type HospitalCreateOrConnectWithoutAdminInput = {
+    where: HospitalWhereUniqueInput
+    create: XOR<HospitalCreateWithoutAdminInput, HospitalUncheckedCreateWithoutAdminInput>
+  }
+
+  export type HospitalUpsertWithoutAdminInput = {
+    update: XOR<HospitalUpdateWithoutAdminInput, HospitalUncheckedUpdateWithoutAdminInput>
+    create: XOR<HospitalCreateWithoutAdminInput, HospitalUncheckedCreateWithoutAdminInput>
+    where?: HospitalWhereInput
+  }
+
+  export type HospitalUpdateToOneWithWhereWithoutAdminInput = {
+    where?: HospitalWhereInput
+    data: XOR<HospitalUpdateWithoutAdminInput, HospitalUncheckedUpdateWithoutAdminInput>
+  }
+
+  export type HospitalUpdateWithoutAdminInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    state?: StringFieldUpdateOperationsInput | string
+    dbURL?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type HospitalUncheckedUpdateWithoutAdminInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    state?: StringFieldUpdateOperationsInput | string
+    dbURL?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AdminCreateWithoutHospitalInput = {
+    id?: string
+    email: string
+    name?: string
+    password: string
+  }
+
+  export type AdminUncheckedCreateWithoutHospitalInput = {
+    id?: string
+    email: string
+    name?: string
+    password: string
+  }
+
+  export type AdminCreateOrConnectWithoutHospitalInput = {
+    where: AdminWhereUniqueInput
+    create: XOR<AdminCreateWithoutHospitalInput, AdminUncheckedCreateWithoutHospitalInput>
+  }
+
+  export type AdminCreateManyHospitalInputEnvelope = {
+    data: AdminCreateManyHospitalInput | AdminCreateManyHospitalInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AdminUpsertWithWhereUniqueWithoutHospitalInput = {
+    where: AdminWhereUniqueInput
+    update: XOR<AdminUpdateWithoutHospitalInput, AdminUncheckedUpdateWithoutHospitalInput>
+    create: XOR<AdminCreateWithoutHospitalInput, AdminUncheckedCreateWithoutHospitalInput>
+  }
+
+  export type AdminUpdateWithWhereUniqueWithoutHospitalInput = {
+    where: AdminWhereUniqueInput
+    data: XOR<AdminUpdateWithoutHospitalInput, AdminUncheckedUpdateWithoutHospitalInput>
+  }
+
+  export type AdminUpdateManyWithWhereWithoutHospitalInput = {
+    where: AdminScalarWhereInput
+    data: XOR<AdminUpdateManyMutationInput, AdminUncheckedUpdateManyWithoutHospitalInput>
+  }
+
+  export type AdminScalarWhereInput = {
+    AND?: AdminScalarWhereInput | AdminScalarWhereInput[]
+    OR?: AdminScalarWhereInput[]
+    NOT?: AdminScalarWhereInput | AdminScalarWhereInput[]
+    id?: StringFilter<"Admin"> | string
+    email?: StringFilter<"Admin"> | string
+    name?: StringFilter<"Admin"> | string
+    password?: StringFilter<"Admin"> | string
+    hospitalCode?: StringFilter<"Admin"> | string
+  }
+
   export type MedicalRecordCreateWithoutPatientInput = {
     id?: string
     hospitalName: string
     recordDate?: Date | string
     visitReason: string
-    medicationsPrescribed: string
+    medicationsPrescribed: JsonNullValueInput | InputJsonValue
     treatmentSummary: string
     doctorName: string
     followUpInstructions?: string | null
@@ -8506,7 +9878,7 @@ export namespace Prisma {
     hospitalName: string
     recordDate?: Date | string
     visitReason: string
-    medicationsPrescribed: string
+    medicationsPrescribed: JsonNullValueInput | InputJsonValue
     treatmentSummary: string
     doctorName: string
     followUpInstructions?: string | null
@@ -8550,7 +9922,7 @@ export namespace Prisma {
     hospitalName?: StringFilter<"MedicalRecord"> | string
     recordDate?: DateTimeFilter<"MedicalRecord"> | Date | string
     visitReason?: StringFilter<"MedicalRecord"> | string
-    medicationsPrescribed?: StringFilter<"MedicalRecord"> | string
+    medicationsPrescribed?: JsonFilter<"MedicalRecord">
     treatmentSummary?: StringFilter<"MedicalRecord"> | string
     doctorName?: StringFilter<"MedicalRecord"> | string
     followUpInstructions?: StringNullableFilter<"MedicalRecord"> | string | null
@@ -8565,7 +9937,8 @@ export namespace Prisma {
     contact: string
     address: string
     gender: string
-    Age: number
+    DOB: string
+    emergencyContact: string
   }
 
   export type PatientUncheckedCreateWithoutMedicalRecordsInput = {
@@ -8574,7 +9947,8 @@ export namespace Prisma {
     contact: string
     address: string
     gender: string
-    Age: number
+    DOB: string
+    emergencyContact: string
   }
 
   export type PatientCreateOrConnectWithoutMedicalRecordsInput = {
@@ -8599,7 +9973,8 @@ export namespace Prisma {
     contact?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     gender?: StringFieldUpdateOperationsInput | string
-    Age?: IntFieldUpdateOperationsInput | number
+    DOB?: StringFieldUpdateOperationsInput | string
+    emergencyContact?: StringFieldUpdateOperationsInput | string
   }
 
   export type PatientUncheckedUpdateWithoutMedicalRecordsInput = {
@@ -8608,7 +9983,36 @@ export namespace Prisma {
     contact?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     gender?: StringFieldUpdateOperationsInput | string
-    Age?: IntFieldUpdateOperationsInput | number
+    DOB?: StringFieldUpdateOperationsInput | string
+    emergencyContact?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AdminCreateManyHospitalInput = {
+    id?: string
+    email: string
+    name?: string
+    password: string
+  }
+
+  export type AdminUpdateWithoutHospitalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AdminUncheckedUpdateWithoutHospitalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AdminUncheckedUpdateManyWithoutHospitalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
   }
 
   export type MedicalRecordCreateManyPatientInput = {
@@ -8616,7 +10020,7 @@ export namespace Prisma {
     hospitalName: string
     recordDate?: Date | string
     visitReason: string
-    medicationsPrescribed: string
+    medicationsPrescribed: JsonNullValueInput | InputJsonValue
     treatmentSummary: string
     doctorName: string
     followUpInstructions?: string | null
@@ -8630,7 +10034,7 @@ export namespace Prisma {
     hospitalName?: StringFieldUpdateOperationsInput | string
     recordDate?: DateTimeFieldUpdateOperationsInput | Date | string
     visitReason?: StringFieldUpdateOperationsInput | string
-    medicationsPrescribed?: StringFieldUpdateOperationsInput | string
+    medicationsPrescribed?: JsonNullValueInput | InputJsonValue
     treatmentSummary?: StringFieldUpdateOperationsInput | string
     doctorName?: StringFieldUpdateOperationsInput | string
     followUpInstructions?: NullableStringFieldUpdateOperationsInput | string | null
@@ -8644,7 +10048,7 @@ export namespace Prisma {
     hospitalName?: StringFieldUpdateOperationsInput | string
     recordDate?: DateTimeFieldUpdateOperationsInput | Date | string
     visitReason?: StringFieldUpdateOperationsInput | string
-    medicationsPrescribed?: StringFieldUpdateOperationsInput | string
+    medicationsPrescribed?: JsonNullValueInput | InputJsonValue
     treatmentSummary?: StringFieldUpdateOperationsInput | string
     doctorName?: StringFieldUpdateOperationsInput | string
     followUpInstructions?: NullableStringFieldUpdateOperationsInput | string | null
@@ -8658,7 +10062,7 @@ export namespace Prisma {
     hospitalName?: StringFieldUpdateOperationsInput | string
     recordDate?: DateTimeFieldUpdateOperationsInput | Date | string
     visitReason?: StringFieldUpdateOperationsInput | string
-    medicationsPrescribed?: StringFieldUpdateOperationsInput | string
+    medicationsPrescribed?: JsonNullValueInput | InputJsonValue
     treatmentSummary?: StringFieldUpdateOperationsInput | string
     doctorName?: StringFieldUpdateOperationsInput | string
     followUpInstructions?: NullableStringFieldUpdateOperationsInput | string | null
@@ -8672,6 +10076,10 @@ export namespace Prisma {
   /**
    * Aliases for legacy arg types
    */
+    /**
+     * @deprecated Use HospitalCountOutputTypeDefaultArgs instead
+     */
+    export type HospitalCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = HospitalCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use PatientCountOutputTypeDefaultArgs instead
      */
@@ -8692,6 +10100,10 @@ export namespace Prisma {
      * @deprecated Use MedicalRecordDefaultArgs instead
      */
     export type MedicalRecordArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = MedicalRecordDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use ABHANumberDefaultArgs instead
+     */
+    export type ABHANumberArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ABHANumberDefaultArgs<ExtArgs>
     /**
      * @deprecated Use OTPVerificationDefaultArgs instead
      */

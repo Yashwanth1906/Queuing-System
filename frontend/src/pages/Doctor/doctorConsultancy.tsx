@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { SetStateAction, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -7,6 +7,8 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@
 import { Textarea } from "@/components/ui/textarea";
 import axios from "axios";
 import { BACKEND_URL, HOSPITAL_CODE } from "@/config";
+import { Ward } from "../inventory/ward";
+import { AlertTriangle } from "lucide-react";
 
 // Define types for medicine and injection
 type Medicine = {
@@ -30,6 +32,11 @@ type Patient = {
   abhaId: string;
   reason: string;
 };
+interface Ward {
+  id: string;
+  name: string;
+}
+
 
 export function DoctorConsultancy() {
   const [medicines, setMedicines] = useState<Medicine[]>([]);
@@ -37,6 +44,8 @@ export function DoctorConsultancy() {
   const [feedback, setFeedback] = useState<string>("");
   const [showModal, setShowModal] = useState(false);
   const [patient, setPatient] = useState<Patient | undefined>();
+  const [ward,setWard] = useState<Ward[]>([]);
+  const [selectedWardId, setSelectedWardId] = useState<String>('');
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -50,7 +59,22 @@ export function DoctorConsultancy() {
     }).then((data) => {
       setPatient(data.data.patient);
     });
+    axios.get(`${BACKEND_URL}/api/hospital/getward`,{
+      headers:{
+        code:HOSPITAL_CODE
+      }
+    }).then((data)=>{
+      console.log("HI")
+      console.log(data.data.ward);
+      setWard(data.data.ward);
+      console.log(ward)
+    })
   }, []);
+
+  useEffect(() => {
+    console.log('Updated ward:', ward);
+  }, [ward]);
+  const navigate = useNavigate();
 
   const addMedicine = () => {
     setMedicines([...medicines, { name: "", shift: "", morning: 0, afternoon: 0, night: 0, days: 0 }]);
@@ -93,6 +117,10 @@ export function DoctorConsultancy() {
     setShowModal(false);
   };
 
+  const handleWardChange = (value: string) => {
+    setSelectedWardId(value); // Update the state with the selected ward ID
+  };
+
   const handleSubmit = async () => {
     try {
       const abhaid = patient?.abhaId;
@@ -101,12 +129,13 @@ export function DoctorConsultancy() {
 
       const response = await axios.post(`${BACKEND_URL}/api/doctor/addmedications`, data, {
         headers: {
-          code: HOSPITAL_CODE,
+          code: localStorage.getItem("hospitalcode"),
           Authorization: localStorage.getItem("doctortoken"),
         }
       });
       if (response.data.success) {
         alert("Consultation completed successfully!");
+        navigate("/doctordashboard")
       } else {
         alert("Error: " + response.data.message);
       }
@@ -115,21 +144,35 @@ export function DoctorConsultancy() {
       alert("An error occurred while submitting the consultation data.");
     }
   };
+  const handleAdmission = () =>{
+    console.log("SelectedWardId: ",selectedWardId);
+    axios.post(`${BACKEND_URL}/api/doctor/createadmission`,{
+      abhaId:patient?.abhaId,
+      wardId : selectedWardId
+    },
+    {
+      headers:{
+        code:HOSPITAL_CODE,
+        Authorization: localStorage.getItem("doctortoken"),
+      }
+    }
+  ).then((data)=>{
+    alert("Admission is Created, The bed will be Allocated!")
+  })
+  }
 
   return (
-    <div className="w-full max-w-4xl mx-auto p-6 sm:p-8">
+    <div className="w-screen h-screen absolute top-0 left-0 right-0  mx-auto ">
       {/* Header with Back Button */}
-      <div className="flex items-center mb-6">
-        <Link to="/doctordashboard">
-          <Button variant="ghost" className="mr-4">
-            <ArrowLeftIcon className="h-5 w-5" />
-            Back
-          </Button>
-        </Link>
-        <h1 className="text-2xl font-bold">Patient Details</h1>
-      </div>
+      <div className="flex items-center bg-neutral-950 justify-between w-screen p-4 border-b">
+        <h1 className="text-4xl relative bg-clip-text text-transparent bg-no-repeat bg-gradient-to-r from-purple-500 via-violet-500 to-pink-500 font-bold ">Consultancy</h1>
+        <Link to="/doctorsignin"><Button className="ml-auto bg-gradient-to-b from-indigo-500 to-purple-500">Home</Button></Link>
+        </div>
 
       {/* Patient Details */}
+      <div className="px-32 text-2xl">
+        <br></br>
+        <br></br>
       <div className="grid gap-8">
         <div className="grid sm:grid-cols-2 gap-6">
           <div className="grid gap-4">
@@ -150,7 +193,7 @@ export function DoctorConsultancy() {
               <span>{patient?.age}</span>
             </div>
           </div>
-          <div className="grid gap-4">
+          <div className="grid text-2xl gap-4">
             <div className="flex items-center gap-2">
               <span className="font-medium">Reason for Visit:</span>
               <span>{patient?.reason}</span>
@@ -165,10 +208,71 @@ export function DoctorConsultancy() {
               </div>
             </div>
           </div>
-        </div>
+        </div></div>
 
         {/* Medicines */}
-        <div className="grid gap-6">
+        <div className="flex flex-col text-2xl gap-2">
+  <h2 className="text-xl font-bold text-center">Prescriptions</h2>
+  {medicines.map((medicine, index) => (
+    <div key={index} className="flex flex-wrap sm:flex-nowrap gap-4 items-center justify-center">
+      <Button
+        size="icon"
+    
+        onClick={() => removeMedicine(index)}
+        className="flex justify-center"
+      >
+        <TrashIcon className="h-5 w-5" />
+      </Button>
+      <div className="grid gap-2">
+        <Label>Medicine Name</Label>
+        <Input value={medicine.name} onChange={(e) => updateMedicine(index, "name", e.target.value)} />
+      </div>
+      <div className="grid gap-2">
+        <Label>Morning</Label>
+        <Input
+          type="number"
+          value={medicine.morning}
+          onChange={(e) => updateMedicine(index, "morning", parseInt(e.target.value))}
+        />
+      </div>
+      <div className="grid gap-2">
+        <Label>Afternoon</Label>
+        <Input
+          type="number"
+          value={medicine.afternoon}
+          onChange={(e) => updateMedicine(index, "afternoon", parseInt(e.target.value))}
+        />
+      </div>
+      <div className="grid gap-2">
+        <Label>Night</Label>
+        <Input
+          type="number"
+          value={medicine.night}
+          onChange={(e) => updateMedicine(index, "night", parseInt(e.target.value))}
+        />
+      </div>
+      <div className="grid gap-2">
+        <Label>Before/After Food</Label>
+        <Input value={medicine.shift} onChange={(e) => updateMedicine(index, "shift", e.target.value)} />
+      </div>
+      <div className="grid gap-2">
+        <Label>Days</Label>
+        <Input
+          type="number"
+          value={medicine.days}
+          onChange={(e) => updateMedicine(index, "days", parseInt(e.target.value))}
+        />
+      </div></div>
+    
+  ))}
+  <div className="flex justify-center mt-4">
+    <Button onClick={addMedicine} className="flex justify-center text-white">
+      Add Medicine
+    </Button>
+  </div>
+</div>
+
+        {/* <div className="grid gap-6">
           <h2 className="text-xl font-bold">Prescriptions</h2>
           <div className="grid gap-6">
             {medicines.map((medicine, index) => (
@@ -212,6 +316,18 @@ export function DoctorConsultancy() {
                   />
                 </div>
                 <div className="grid gap-2">
+                  <Label>Before/After Food</Label>
+                  <Input value={medicine.shift} onChange={(e) => updateMedicine(index, "shift", e.target.value)} />
+                </div>
+                <div className="grid gap-2">
+                  <Label>Morning</Label>
+                  <Input
+                    type="number"
+                    value={medicine.morning}
+                    onChange={(e) => updateMedicine(index, "morning", parseInt(e.target.value))}
+                  />
+                </div>
+                <div className="grid gap-2">
                   <Label>Days</Label>
                   <Input
                     type="number"
@@ -227,9 +343,10 @@ export function DoctorConsultancy() {
               </Button>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* Injections */}
+        <br></br>
         <div className="grid gap-6">
           <h2 className="text-xl font-bold">Injections</h2>
           <div className="grid gap-6">
@@ -238,7 +355,7 @@ export function DoctorConsultancy() {
                 <div className="flex items-center justify-end">
                   <Button
                     size="icon"
-                    variant="ghost"
+                   
                     onClick={() => removeInjection(index)}
                     className="flex justify-center"
                   >
@@ -258,7 +375,7 @@ export function DoctorConsultancy() {
               </div>
             ))}
             <div className="flex justify-center">
-              <Button onClick={addInjection} className="flex justify-center">
+              <Button onClick={addInjection} className="flex justify-center ">
                 Add Injection
               </Button>
             </div>
@@ -266,9 +383,11 @@ export function DoctorConsultancy() {
         </div>
 
         {/* Request Admission Modal */}
+        <br></br>
         <div className="grid gap-6">
+        <h2 className="text-xl font-bold">Admission</h2>
           <div className="flex justify-center">
-            <Button onClick={openModal} className="flex justify-center">
+            <Button onClick={openModal} className="flex justify-center ">
               Request Admission
             </Button>
           </div>
@@ -279,29 +398,31 @@ export function DoctorConsultancy() {
                   <h2 className="text-lg font-bold">Request Admission</h2>
                   <Button variant="ghost" onClick={closeModal} className="flex justify-center">
                     <XIcon className="h-5 w-5" />
-                    Close
+                   
                   </Button>
                 </div>
                 <div className="grid gap-6">
                   <div className="grid gap-2">
                     <Label htmlFor="ward">Ward</Label>
-                    <Select>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select Ward" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="general">General Ward</SelectItem>
-                        <SelectItem value="icu">ICU</SelectItem>
-                        <SelectItem value="pediatric">Pediatric</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <Select onValueChange={handleWardChange}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select Ward" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {ward.map((item) => (
+                      <SelectItem key={item.id} value={item.id}>
+                        {item.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
                   </div>
                 </div>
                 <div className="flex justify-between mt-6">
                   <Button onClick={closeModal} className="flex justify-center">
                     Cancel
                   </Button>
-                  <Button className="flex justify-center">Request Bed</Button>
+                  <Button className="flex justify-center" onClick={handleAdmission}>Request Bed</Button>
                 </div>
               </div>
             </div>
@@ -309,7 +430,10 @@ export function DoctorConsultancy() {
         </div>
 
         {/* Feedback Summary */}
+        <br></br>
         <div className="grid gap-6">
+          <h2 className="text-xl font-bold">Feed Back</h2>
+
           <Textarea
             placeholder="Feedback Summary"
             className="min-h-[100px]"

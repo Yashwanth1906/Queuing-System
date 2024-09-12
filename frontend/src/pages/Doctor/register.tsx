@@ -4,6 +4,10 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import axios from 'axios';
+import { ShootingStars } from '@/components/ui/shooting-stars';
+import { StarsBackground } from "@/components/ui/stars-background";
+import { Meteors } from '@/components/ui/meteors';
+
 import { BACKEND_URL } from '@/config';
 import { HOSPITAL_CODE } from '@/config';
 import { useNavigate } from 'react-router-dom';
@@ -122,19 +126,28 @@ export function RegisterComponent() {
   };
 
   return (
-    <div className="mx-auto max-w-md space-y-6 py-12">
+    <div className='bg-neutral-900 h-screen w-screen absolute top-0 right-0 left-0'>
+      
+      <ShootingStars/>
+      <StarsBackground /> 
+
+      <div className="mx-auto w-1/3 relative py-12">
+      
+     
       <div className="space-y-2 text-center">
-        <h1 className="text-3xl font-bold">Sign Up for Doctors</h1>
+        <h1 className="text-3xl relative bg-clip-text text-transparent bg-no-repeat bg-gradient-to-r from-purple-500 via-violet-500 to-pink-500 font-bold ">Sign Up for Doctors</h1>
         <p className="text-muted-foreground">Enter your information to create a new account.</p>
-      </div>
+        </div>
+        <br></br>
+        <br></br>
       <form className="space-y-4" onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div className="space-y-2">
-            <Label htmlFor="name">Name</Label>
+            <Label  className="text-white"htmlFor="name">Name</Label>
             <Input id="name" placeholder="John Doe" required value={formState.name} onChange={handleChange} />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
+            <Label className="text-white"htmlFor="email">Email</Label>
             <Input id="email" type="email" placeholder="m@example.com" required value={email} onChange={handleEmailChange} />
             <div className="flex gap-2">
               <Button type="button" className="w-full" onClick={handleSendOTP} disabled={isOTPSent}>
@@ -145,20 +158,20 @@ export function RegisterComponent() {
         </div>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div className="space-y-2">
-            <Label htmlFor="otp">OTP</Label>
+            <Label className="text-white "htmlFor="otp">OTP</Label>
             <Input id="otp" placeholder="Enter OTP" required value={otp} onChange={handleOtpChange} />
             <Button type="button" className="w-full" onClick={handleVerifyOTP} disabled={isOTPVerified}>
               {isOTPVerified ? 'OTP Verified' : 'Verify OTP'}
             </Button>
           </div>
           <div className="space-y-2">
-            <Label htmlFor="contact">Contact</Label>
+            <Label className="text-white"htmlFor="contact">Contact</Label>
             <Input id="contact" placeholder="123456789" required value={formState.contact} onChange={handleChange} />
           </div>
         </div>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div className="space-y-2">
-            <Label htmlFor="department">Department</Label>
+            <Label className="text-white "htmlFor="department">Department</Label>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" className="w-full">
@@ -176,7 +189,7 @@ export function RegisterComponent() {
             </DropdownMenu>
           </div>
           <div className="space-y-2">
-            <Label htmlFor="gender">Gender</Label>
+            <Label className="text-white" htmlFor="gender">Gender</Label>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" className="w-full">
@@ -194,7 +207,7 @@ export function RegisterComponent() {
         </div>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div className="space-y-2">
-            <Label htmlFor="designation">Designation</Label>
+            <Label className="text-white" htmlFor="designation">Designation</Label>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" className="w-full">
@@ -211,14 +224,20 @@ export function RegisterComponent() {
             </DropdownMenu>
           </div>
           <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
+            <Label className="text-white" htmlFor="password">Password</Label>
             <Input id="password" type="password" required value={formState.password} onChange={handleChange} />
           </div>
-        </div>
-        <Button type="submit" className="w-full" disabled={!isOTPVerified}>
+          </div>
+          <br></br>
+          <br></br>
+        <Button type="submit" className=" bg-purple-500 w-full" disabled={!isOTPVerified}>
           Sign Up
         </Button>
-      </form>
+        </form>
+        
+        </div>
+    
+      
     </div>
   );
 }
