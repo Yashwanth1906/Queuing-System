@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { BACKEND_URL, HOSPITAL_CODE } from "@/config";
 import axios from "axios";
+import { BarChartIcon, ClipboardIcon, UserIcon } from "lucide-react";
 
 // Types
 type Patient = {
@@ -107,7 +108,7 @@ export function DoctorDashBoard() {
               <span className="flex items-center gap-2 rounded-md px-3 py-2 text-muted-foreground">
                 <Button className="ml-auto w-60 bg-purple-500 hover:bg-purple-800"><UserIcon className="h-5 w-5" />
             IPs</Button>
-           
+          
           </span>
           <span className="flex items-center gap-2 rounded-md px-3 py-2 text-muted-foreground">
             
