@@ -30,3 +30,7 @@ app.use("/api/doctor",doctorRouter)
 app.use("/api/patient",patientRouter)
 app.post("/api/sendotp",sendOTP)
 app.post("/api/verifyotp",verifyotp)
+
+app.get("/check",(req,res)=>{
+    res.send("Running");
+})
