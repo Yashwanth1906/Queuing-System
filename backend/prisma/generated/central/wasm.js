@@ -139,12 +139,22 @@ exports.Prisma.HospitalScalarFieldEnum = {
 
 exports.Prisma.PatientScalarFieldEnum = {
   abhaId: 'abhaId',
+  email: 'email',
+  password: 'password',
   name: 'name',
   contact: 'contact',
   address: 'address',
   gender: 'gender',
   DOB: 'DOB',
   emergencyContact: 'emergencyContact'
+};
+
+exports.Prisma.PatientBookingScalarFieldEnum = {
+  id: 'id',
+  hospitalCode: 'hospitalCode',
+  date: 'date',
+  time: 'time',
+  department: 'department'
 };
 
 exports.Prisma.MedicalRecordScalarFieldEnum = {
@@ -218,6 +228,7 @@ exports.Prisma.ModelName = {
   Admin: 'Admin',
   Hospital: 'Hospital',
   Patient: 'Patient',
+  PatientBooking: 'PatientBooking',
   MedicalRecord: 'MedicalRecord',
   ABHANumber: 'ABHANumber',
   OTPVerification: 'OTPVerification',

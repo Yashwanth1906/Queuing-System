@@ -1,6 +1,6 @@
 import express from "express"
 import { getHospitalPrismaClient } from "../middleware/prismaProvider.js";
-import { addDepartments, addWard, allocateBed, createPatientInstance, getAdmissionsBedNotAllocated, getDepartments, getDoctors, getPatient, getWard } from "../controllers/hospitalController.js";
+import { addDepartments, addWard, allocateBed, createPatientInstance, getAdmissionsBedNotAllocated, getDepartments, getDoctors, getHosCodes, getPatient, getWard } from "../controllers/hospitalController.js";
 // import { createPatient } from "../controllers/adminController.js";
 
 
@@ -15,5 +15,6 @@ hospitalRouter.get("/getunallocated",getHospitalPrismaClient,getAdmissionsBedNot
 hospitalRouter.post("/allocate",getHospitalPrismaClient,allocateBed)
 hospitalRouter.get("/getpatientdetails",getHospitalPrismaClient,getPatient)
 hospitalRouter.get("/getward",getHospitalPrismaClient,getWard)
+hospitalRouter.get("/gethoscodes",getHosCodes)
 
 export {hospitalRouter}

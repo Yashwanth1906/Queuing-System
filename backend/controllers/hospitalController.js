@@ -244,6 +244,24 @@ const getWard = async(req,res) =>{
     }
 }
 
+export const getHosCodes = async(req,res)=>{
+    try{
+        const hosCodes = await centralPrisma.hospital.findMany({
+            select:{
+                code:true
+            }
+        })
+        let hoscode = [];
+        for(let i of hosCodes){
+            hoscode.push(i.code)
+        }
+        console.log(hoscode)
+        return res.status(200).json({hosCodes:hoscode})
+    }catch(err){
+        console.log(err);
+        return res.status(500).json({message:err})
+    }
+}
 
 // const bedRequest = async(req,res)=>{
 //     try{

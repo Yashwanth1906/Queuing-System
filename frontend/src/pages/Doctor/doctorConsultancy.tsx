@@ -271,163 +271,89 @@ export function DoctorConsultancy() {
     </Button>
   </div>
 </div>
-
-        {/* <div className="grid gap-6">
-          <h2 className="text-xl font-bold">Prescriptions</h2>
-          <div className="grid gap-6">
-            {medicines.map((medicine, index) => (
-              <div key={index} className="grid sm:grid-cols-6 gap-4 items-center">
-                <div className="flex items-center justify-end">
-                  <Button
-                    size="icon"
-                    variant="ghost"
-                    onClick={() => removeMedicine(index)}
-                    className="flex justify-center"
-                  >
-                    <TrashIcon className="h-5 w-5" />
-                  </Button>
-                </div>
-                <div className="grid gap-2">
-                  <Label>Medicine Name</Label>
-                  <Input value={medicine.name} onChange={(e) => updateMedicine(index, "name", e.target.value)} />
-                </div>
-                <div className="grid gap-2">
-                  <Label>Morning</Label>
-                  <Input
-                    type="number"
-                    value={medicine.morning}
-                    onChange={(e) => updateMedicine(index, "morning", parseInt(e.target.value))}
-                  />
-                </div>
-                <div className="grid gap-2">
-                  <Label>Afternoon</Label>
-                  <Input
-                    type="number"
-                    value={medicine.afternoon}
-                    onChange={(e) => updateMedicine(index, "afternoon", parseInt(e.target.value))}
-                  />
-                </div>
-                <div className="grid gap-2">
-                  <Label>Night</Label>
-                  <Input
-                    type="number"
-                    value={medicine.night}
-                    onChange={(e) => updateMedicine(index, "night", parseInt(e.target.value))}
-                  />
-                </div>
-                <div className="grid gap-2">
-                  <Label>Before/After Food</Label>
-                  <Input value={medicine.shift} onChange={(e) => updateMedicine(index, "shift", e.target.value)} />
-                </div>
-                <div className="grid gap-2">
-                  <Label>Morning</Label>
-                  <Input
-                    type="number"
-                    value={medicine.morning}
-                    onChange={(e) => updateMedicine(index, "morning", parseInt(e.target.value))}
-                  />
-                </div>
-                <div className="grid gap-2">
-                  <Label>Days</Label>
-                  <Input
-                    type="number"
-                    value={medicine.days}
-                    onChange={(e) => updateMedicine(index, "days", parseInt(e.target.value))}
-                  />
-                </div>
-              </div>
-            ))}
-            <div className="flex justify-center">
-              <Button onClick={addMedicine} className="flex justify-center">
-                Add Medicine
-              </Button>
-            </div>
+{/* Injections */}
+<br></br>
+<div className="grid gap-6">
+  <h2 className="text-xl font-bold">Injections</h2>
+  <div className="grid gap-6">
+    {injections.map((injection, index) => (
+      <div key={index} className="grid sm:grid-cols-3 gap-4 items-center">
+        <div className="flex items-center justify-end">
+          <Button
+            size="icon"
+            
+            onClick={() => removeInjection(index)}
+            className="flex justify-center"
+          >
+            <TrashIcon className="h-5 w-5" />
+          </Button>
+        </div>
+        <div className="flex items-center gap-4">
+          <div className="grid gap-2">
+            <Label>Injection Name</Label>
+            <Input value={injection.name} onChange={(e) => updateInjection(index, "name", e.target.value)} />
           </div>
-        </div> */}
-
-        {/* Injections */}
-        <br></br>
-        <div className="grid gap-6">
-          <h2 className="text-xl font-bold">Injections</h2>
-          <div className="grid gap-6">
-            {injections.map((injection, index) => (
-              <div key={index} className="grid sm:grid-cols-3 gap-4 items-center">
-                <div className="flex items-center justify-end">
-                  <Button
-                    size="icon"
-                   
-                    onClick={() => removeInjection(index)}
-                    className="flex justify-center"
-                  >
-                    <TrashIcon className="h-5 w-5" />
-                  </Button>
-                </div>
-                <div className="flex items-center gap-4">
-                  <div className="grid gap-2">
-                    <Label>Injection Name</Label>
-                    <Input value={injection.name} onChange={(e) => updateInjection(index, "name", e.target.value)} />
-                  </div>
-                  <div className="grid gap-2">
-                    <Label>Dosage</Label>
-                    <Input value={injection.dosage} onChange={(e) => updateInjection(index, "dosage", e.target.value)} />
-                  </div>
-                </div>
-              </div>
-            ))}
-            <div className="flex justify-center">
-              <Button onClick={addInjection} className="flex justify-center ">
-                Add Injection
-              </Button>
-            </div>
+          <div className="grid gap-2">
+            <Label>Dosage</Label>
+            <Input value={injection.dosage} onChange={(e) => updateInjection(index, "dosage", e.target.value)} />
           </div>
         </div>
+      </div>
+    ))}
+    <div className="flex justify-center">
+      <Button onClick={addInjection} className="flex justify-center ">
+        Add Injection
+      </Button>
+    </div>
+  </div>
+</div>
 
-        {/* Request Admission Modal */}
-        <br></br>
-        <div className="grid gap-6">
-        <h2 className="text-xl font-bold">Admission</h2>
-          <div className="flex justify-center">
-            <Button onClick={openModal} className="flex justify-center ">
-              Request Admission
-            </Button>
-          </div>
-          {showModal && (
-            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-              <div className="bg-white p-6 rounded-lg shadow-lg">
-                <div className="flex justify-between items-center mb-4">
-                  <h2 className="text-lg font-bold">Request Admission</h2>
-                  <Button variant="ghost" onClick={closeModal} className="flex justify-center">
-                    <XIcon className="h-5 w-5" />
-                   
-                  </Button>
-                </div>
-                <div className="grid gap-6">
-                  <div className="grid gap-2">
-                    <Label htmlFor="ward">Ward</Label>
-                    <Select onValueChange={handleWardChange}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select Ward" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {ward.map((item) => (
-                      <SelectItem key={item.id} value={item.id}>
-                        {item.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                  </div>
-                </div>
-                <div className="flex justify-between mt-6">
-                  <Button onClick={closeModal} className="flex justify-center">
-                    Cancel
-                  </Button>
-                  <Button className="flex justify-center" onClick={handleAdmission}>Request Bed</Button>
-                </div>
-              </div>
-            </div>
-          )}
+{/* Request Admission Modal */}
+<br></br>
+<div className="grid gap-6">
+<h2 className="text-xl font-bold">Admission</h2>
+  <div className="flex justify-center">
+    <Button onClick={openModal} className="flex justify-center ">
+      Request Admission
+    </Button>
+  </div>
+  {showModal && (
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="bg-white p-6 rounded-lg shadow-lg">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-lg font-bold">Request Admission</h2>
+          <Button variant="ghost" onClick={closeModal} className="flex justify-center">
+            <XIcon className="h-5 w-5" />
+            
+          </Button>
         </div>
+        <div className="grid gap-6">
+          <div className="grid gap-2">
+            <Label htmlFor="ward">Ward</Label>
+            <Select onValueChange={handleWardChange}>
+          <SelectTrigger>
+            <SelectValue placeholder="Select Ward" />
+          </SelectTrigger>
+          <SelectContent>
+            {ward.map((item) => (
+              <SelectItem key={item.id} value={item.id}>
+                {item.name}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+          </div>
+        </div>
+        <div className="flex justify-between mt-6">
+          <Button onClick={closeModal} className="flex justify-center">
+            Cancel
+          </Button>
+          <Button className="flex justify-center" onClick={handleAdmission}>Request Bed</Button>
+        </div>
+      </div>
+    </div>
+  )}
+</div>
 
         {/* Feedback Summary */}
         <br></br>

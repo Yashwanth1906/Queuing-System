@@ -29,6 +29,11 @@ export type Hospital = $Result.DefaultSelection<Prisma.$HospitalPayload>
  */
 export type Patient = $Result.DefaultSelection<Prisma.$PatientPayload>
 /**
+ * Model PatientBooking
+ * 
+ */
+export type PatientBooking = $Result.DefaultSelection<Prisma.$PatientBookingPayload>
+/**
  * Model MedicalRecord
  * 
  */
@@ -200,6 +205,16 @@ export class PrismaClient<
     * ```
     */
   get patient(): Prisma.PatientDelegate<ExtArgs>;
+
+  /**
+   * `prisma.patientBooking`: Exposes CRUD operations for the **PatientBooking** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PatientBookings
+    * const patientBookings = await prisma.patientBooking.findMany()
+    * ```
+    */
+  get patientBooking(): Prisma.PatientBookingDelegate<ExtArgs>;
 
   /**
    * `prisma.medicalRecord`: Exposes CRUD operations for the **MedicalRecord** model.
@@ -720,6 +735,7 @@ export namespace Prisma {
     Admin: 'Admin',
     Hospital: 'Hospital',
     Patient: 'Patient',
+    PatientBooking: 'PatientBooking',
     MedicalRecord: 'MedicalRecord',
     ABHANumber: 'ABHANumber',
     OTPVerification: 'OTPVerification',
@@ -739,7 +755,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "admin" | "hospital" | "patient" | "medicalRecord" | "aBHANumber" | "oTPVerification" | "bedRequest"
+      modelProps: "admin" | "hospital" | "patient" | "patientBooking" | "medicalRecord" | "aBHANumber" | "oTPVerification" | "bedRequest"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -950,6 +966,76 @@ export namespace Prisma {
           count: {
             args: Prisma.PatientCountArgs<ExtArgs>
             result: $Utils.Optional<PatientCountAggregateOutputType> | number
+          }
+        }
+      }
+      PatientBooking: {
+        payload: Prisma.$PatientBookingPayload<ExtArgs>
+        fields: Prisma.PatientBookingFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PatientBookingFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PatientBookingPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PatientBookingFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PatientBookingPayload>
+          }
+          findFirst: {
+            args: Prisma.PatientBookingFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PatientBookingPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PatientBookingFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PatientBookingPayload>
+          }
+          findMany: {
+            args: Prisma.PatientBookingFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PatientBookingPayload>[]
+          }
+          create: {
+            args: Prisma.PatientBookingCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PatientBookingPayload>
+          }
+          createMany: {
+            args: Prisma.PatientBookingCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PatientBookingCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PatientBookingPayload>[]
+          }
+          delete: {
+            args: Prisma.PatientBookingDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PatientBookingPayload>
+          }
+          update: {
+            args: Prisma.PatientBookingUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PatientBookingPayload>
+          }
+          deleteMany: {
+            args: Prisma.PatientBookingDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PatientBookingUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.PatientBookingUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PatientBookingPayload>
+          }
+          aggregate: {
+            args: Prisma.PatientBookingAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePatientBooking>
+          }
+          groupBy: {
+            args: Prisma.PatientBookingGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PatientBookingGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PatientBookingCountArgs<ExtArgs>
+            result: $Utils.Optional<PatientBookingCountAggregateOutputType> | number
           }
         }
       }
@@ -1395,10 +1481,12 @@ export namespace Prisma {
 
   export type HospitalCountOutputType = {
     admin: number
+    patientBooking: number
   }
 
   export type HospitalCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     admin?: boolean | HospitalCountOutputTypeCountAdminArgs
+    patientBooking?: boolean | HospitalCountOutputTypeCountPatientBookingArgs
   }
 
   // Custom InputTypes
@@ -1419,6 +1507,13 @@ export namespace Prisma {
     where?: AdminWhereInput
   }
 
+  /**
+   * HospitalCountOutputType without action
+   */
+  export type HospitalCountOutputTypeCountPatientBookingArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PatientBookingWhereInput
+  }
+
 
   /**
    * Count Type PatientCountOutputType
@@ -1426,10 +1521,12 @@ export namespace Prisma {
 
   export type PatientCountOutputType = {
     medicalRecords: number
+    patientBooking: number
   }
 
   export type PatientCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     medicalRecords?: boolean | PatientCountOutputTypeCountMedicalRecordsArgs
+    patientBooking?: boolean | PatientCountOutputTypeCountPatientBookingArgs
   }
 
   // Custom InputTypes
@@ -1448,6 +1545,13 @@ export namespace Prisma {
    */
   export type PatientCountOutputTypeCountMedicalRecordsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MedicalRecordWhereInput
+  }
+
+  /**
+   * PatientCountOutputType without action
+   */
+  export type PatientCountOutputTypeCountPatientBookingArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PatientBookingWhereInput
   }
 
 
@@ -2569,6 +2673,7 @@ export namespace Prisma {
     state?: boolean
     dbURL?: boolean
     admin?: boolean | Hospital$adminArgs<ExtArgs>
+    patientBooking?: boolean | Hospital$patientBookingArgs<ExtArgs>
     _count?: boolean | HospitalCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["hospital"]>
 
@@ -2594,6 +2699,7 @@ export namespace Prisma {
 
   export type HospitalInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     admin?: boolean | Hospital$adminArgs<ExtArgs>
+    patientBooking?: boolean | Hospital$patientBookingArgs<ExtArgs>
     _count?: boolean | HospitalCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type HospitalIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2602,6 +2708,7 @@ export namespace Prisma {
     name: "Hospital"
     objects: {
       admin: Prisma.$AdminPayload<ExtArgs>[]
+      patientBooking: Prisma.$PatientBookingPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2976,6 +3083,7 @@ export namespace Prisma {
   export interface Prisma__HospitalClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     admin<T extends Hospital$adminArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$adminArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findMany"> | Null>
+    patientBooking<T extends Hospital$patientBookingArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$patientBookingArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PatientBookingPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3346,6 +3454,26 @@ export namespace Prisma {
   }
 
   /**
+   * Hospital.patientBooking
+   */
+  export type Hospital$patientBookingArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PatientBooking
+     */
+    select?: PatientBookingSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PatientBookingInclude<ExtArgs> | null
+    where?: PatientBookingWhereInput
+    orderBy?: PatientBookingOrderByWithRelationInput | PatientBookingOrderByWithRelationInput[]
+    cursor?: PatientBookingWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PatientBookingScalarFieldEnum | PatientBookingScalarFieldEnum[]
+  }
+
+  /**
    * Hospital without action
    */
   export type HospitalDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3372,6 +3500,8 @@ export namespace Prisma {
 
   export type PatientMinAggregateOutputType = {
     abhaId: string | null
+    email: string | null
+    password: string | null
     name: string | null
     contact: string | null
     address: string | null
@@ -3382,6 +3512,8 @@ export namespace Prisma {
 
   export type PatientMaxAggregateOutputType = {
     abhaId: string | null
+    email: string | null
+    password: string | null
     name: string | null
     contact: string | null
     address: string | null
@@ -3392,6 +3524,8 @@ export namespace Prisma {
 
   export type PatientCountAggregateOutputType = {
     abhaId: number
+    email: number
+    password: number
     name: number
     contact: number
     address: number
@@ -3404,6 +3538,8 @@ export namespace Prisma {
 
   export type PatientMinAggregateInputType = {
     abhaId?: true
+    email?: true
+    password?: true
     name?: true
     contact?: true
     address?: true
@@ -3414,6 +3550,8 @@ export namespace Prisma {
 
   export type PatientMaxAggregateInputType = {
     abhaId?: true
+    email?: true
+    password?: true
     name?: true
     contact?: true
     address?: true
@@ -3424,6 +3562,8 @@ export namespace Prisma {
 
   export type PatientCountAggregateInputType = {
     abhaId?: true
+    email?: true
+    password?: true
     name?: true
     contact?: true
     address?: true
@@ -3507,6 +3647,8 @@ export namespace Prisma {
 
   export type PatientGroupByOutputType = {
     abhaId: string
+    email: string
+    password: string
     name: string
     contact: string
     address: string
@@ -3534,6 +3676,8 @@ export namespace Prisma {
 
   export type PatientSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     abhaId?: boolean
+    email?: boolean
+    password?: boolean
     name?: boolean
     contact?: boolean
     address?: boolean
@@ -3541,11 +3685,14 @@ export namespace Prisma {
     DOB?: boolean
     emergencyContact?: boolean
     medicalRecords?: boolean | Patient$medicalRecordsArgs<ExtArgs>
+    patientBooking?: boolean | Patient$patientBookingArgs<ExtArgs>
     _count?: boolean | PatientCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["patient"]>
 
   export type PatientSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     abhaId?: boolean
+    email?: boolean
+    password?: boolean
     name?: boolean
     contact?: boolean
     address?: boolean
@@ -3556,6 +3703,8 @@ export namespace Prisma {
 
   export type PatientSelectScalar = {
     abhaId?: boolean
+    email?: boolean
+    password?: boolean
     name?: boolean
     contact?: boolean
     address?: boolean
@@ -3566,6 +3715,7 @@ export namespace Prisma {
 
   export type PatientInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     medicalRecords?: boolean | Patient$medicalRecordsArgs<ExtArgs>
+    patientBooking?: boolean | Patient$patientBookingArgs<ExtArgs>
     _count?: boolean | PatientCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type PatientIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -3574,9 +3724,12 @@ export namespace Prisma {
     name: "Patient"
     objects: {
       medicalRecords: Prisma.$MedicalRecordPayload<ExtArgs>[]
+      patientBooking: Prisma.$PatientBookingPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       abhaId: string
+      email: string
+      password: string
       name: string
       contact: string
       address: string
@@ -3948,6 +4101,7 @@ export namespace Prisma {
   export interface Prisma__PatientClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     medicalRecords<T extends Patient$medicalRecordsArgs<ExtArgs> = {}>(args?: Subset<T, Patient$medicalRecordsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MedicalRecordPayload<ExtArgs>, T, "findMany"> | Null>
+    patientBooking<T extends Patient$patientBookingArgs<ExtArgs> = {}>(args?: Subset<T, Patient$patientBookingArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PatientBookingPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3978,6 +4132,8 @@ export namespace Prisma {
    */ 
   interface PatientFieldRefs {
     readonly abhaId: FieldRef<"Patient", 'String'>
+    readonly email: FieldRef<"Patient", 'String'>
+    readonly password: FieldRef<"Patient", 'String'>
     readonly name: FieldRef<"Patient", 'String'>
     readonly contact: FieldRef<"Patient", 'String'>
     readonly address: FieldRef<"Patient", 'String'>
@@ -4318,6 +4474,26 @@ export namespace Prisma {
   }
 
   /**
+   * Patient.patientBooking
+   */
+  export type Patient$patientBookingArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PatientBooking
+     */
+    select?: PatientBookingSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PatientBookingInclude<ExtArgs> | null
+    where?: PatientBookingWhereInput
+    orderBy?: PatientBookingOrderByWithRelationInput | PatientBookingOrderByWithRelationInput[]
+    cursor?: PatientBookingWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PatientBookingScalarFieldEnum | PatientBookingScalarFieldEnum[]
+  }
+
+  /**
    * Patient without action
    */
   export type PatientDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4329,6 +4505,945 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: PatientInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PatientBooking
+   */
+
+  export type AggregatePatientBooking = {
+    _count: PatientBookingCountAggregateOutputType | null
+    _min: PatientBookingMinAggregateOutputType | null
+    _max: PatientBookingMaxAggregateOutputType | null
+  }
+
+  export type PatientBookingMinAggregateOutputType = {
+    id: string | null
+    hospitalCode: string | null
+    date: string | null
+    time: string | null
+    department: string | null
+  }
+
+  export type PatientBookingMaxAggregateOutputType = {
+    id: string | null
+    hospitalCode: string | null
+    date: string | null
+    time: string | null
+    department: string | null
+  }
+
+  export type PatientBookingCountAggregateOutputType = {
+    id: number
+    hospitalCode: number
+    date: number
+    time: number
+    department: number
+    _all: number
+  }
+
+
+  export type PatientBookingMinAggregateInputType = {
+    id?: true
+    hospitalCode?: true
+    date?: true
+    time?: true
+    department?: true
+  }
+
+  export type PatientBookingMaxAggregateInputType = {
+    id?: true
+    hospitalCode?: true
+    date?: true
+    time?: true
+    department?: true
+  }
+
+  export type PatientBookingCountAggregateInputType = {
+    id?: true
+    hospitalCode?: true
+    date?: true
+    time?: true
+    department?: true
+    _all?: true
+  }
+
+  export type PatientBookingAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PatientBooking to aggregate.
+     */
+    where?: PatientBookingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PatientBookings to fetch.
+     */
+    orderBy?: PatientBookingOrderByWithRelationInput | PatientBookingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PatientBookingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PatientBookings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PatientBookings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PatientBookings
+    **/
+    _count?: true | PatientBookingCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PatientBookingMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PatientBookingMaxAggregateInputType
+  }
+
+  export type GetPatientBookingAggregateType<T extends PatientBookingAggregateArgs> = {
+        [P in keyof T & keyof AggregatePatientBooking]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePatientBooking[P]>
+      : GetScalarType<T[P], AggregatePatientBooking[P]>
+  }
+
+
+
+
+  export type PatientBookingGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PatientBookingWhereInput
+    orderBy?: PatientBookingOrderByWithAggregationInput | PatientBookingOrderByWithAggregationInput[]
+    by: PatientBookingScalarFieldEnum[] | PatientBookingScalarFieldEnum
+    having?: PatientBookingScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PatientBookingCountAggregateInputType | true
+    _min?: PatientBookingMinAggregateInputType
+    _max?: PatientBookingMaxAggregateInputType
+  }
+
+  export type PatientBookingGroupByOutputType = {
+    id: string
+    hospitalCode: string
+    date: string
+    time: string
+    department: string
+    _count: PatientBookingCountAggregateOutputType | null
+    _min: PatientBookingMinAggregateOutputType | null
+    _max: PatientBookingMaxAggregateOutputType | null
+  }
+
+  type GetPatientBookingGroupByPayload<T extends PatientBookingGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PatientBookingGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PatientBookingGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PatientBookingGroupByOutputType[P]>
+            : GetScalarType<T[P], PatientBookingGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PatientBookingSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hospitalCode?: boolean
+    date?: boolean
+    time?: boolean
+    department?: boolean
+    patient?: boolean | PatientDefaultArgs<ExtArgs>
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["patientBooking"]>
+
+  export type PatientBookingSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hospitalCode?: boolean
+    date?: boolean
+    time?: boolean
+    department?: boolean
+    patient?: boolean | PatientDefaultArgs<ExtArgs>
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["patientBooking"]>
+
+  export type PatientBookingSelectScalar = {
+    id?: boolean
+    hospitalCode?: boolean
+    date?: boolean
+    time?: boolean
+    department?: boolean
+  }
+
+  export type PatientBookingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    patient?: boolean | PatientDefaultArgs<ExtArgs>
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+  }
+  export type PatientBookingIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    patient?: boolean | PatientDefaultArgs<ExtArgs>
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+  }
+
+  export type $PatientBookingPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PatientBooking"
+    objects: {
+      patient: Prisma.$PatientPayload<ExtArgs>
+      hospital: Prisma.$HospitalPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      hospitalCode: string
+      date: string
+      time: string
+      department: string
+    }, ExtArgs["result"]["patientBooking"]>
+    composites: {}
+  }
+
+  type PatientBookingGetPayload<S extends boolean | null | undefined | PatientBookingDefaultArgs> = $Result.GetResult<Prisma.$PatientBookingPayload, S>
+
+  type PatientBookingCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<PatientBookingFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: PatientBookingCountAggregateInputType | true
+    }
+
+  export interface PatientBookingDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PatientBooking'], meta: { name: 'PatientBooking' } }
+    /**
+     * Find zero or one PatientBooking that matches the filter.
+     * @param {PatientBookingFindUniqueArgs} args - Arguments to find a PatientBooking
+     * @example
+     * // Get one PatientBooking
+     * const patientBooking = await prisma.patientBooking.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PatientBookingFindUniqueArgs>(args: SelectSubset<T, PatientBookingFindUniqueArgs<ExtArgs>>): Prisma__PatientBookingClient<$Result.GetResult<Prisma.$PatientBookingPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one PatientBooking that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {PatientBookingFindUniqueOrThrowArgs} args - Arguments to find a PatientBooking
+     * @example
+     * // Get one PatientBooking
+     * const patientBooking = await prisma.patientBooking.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PatientBookingFindUniqueOrThrowArgs>(args: SelectSubset<T, PatientBookingFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PatientBookingClient<$Result.GetResult<Prisma.$PatientBookingPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first PatientBooking that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PatientBookingFindFirstArgs} args - Arguments to find a PatientBooking
+     * @example
+     * // Get one PatientBooking
+     * const patientBooking = await prisma.patientBooking.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PatientBookingFindFirstArgs>(args?: SelectSubset<T, PatientBookingFindFirstArgs<ExtArgs>>): Prisma__PatientBookingClient<$Result.GetResult<Prisma.$PatientBookingPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first PatientBooking that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PatientBookingFindFirstOrThrowArgs} args - Arguments to find a PatientBooking
+     * @example
+     * // Get one PatientBooking
+     * const patientBooking = await prisma.patientBooking.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PatientBookingFindFirstOrThrowArgs>(args?: SelectSubset<T, PatientBookingFindFirstOrThrowArgs<ExtArgs>>): Prisma__PatientBookingClient<$Result.GetResult<Prisma.$PatientBookingPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more PatientBookings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PatientBookingFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PatientBookings
+     * const patientBookings = await prisma.patientBooking.findMany()
+     * 
+     * // Get first 10 PatientBookings
+     * const patientBookings = await prisma.patientBooking.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const patientBookingWithIdOnly = await prisma.patientBooking.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PatientBookingFindManyArgs>(args?: SelectSubset<T, PatientBookingFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PatientBookingPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a PatientBooking.
+     * @param {PatientBookingCreateArgs} args - Arguments to create a PatientBooking.
+     * @example
+     * // Create one PatientBooking
+     * const PatientBooking = await prisma.patientBooking.create({
+     *   data: {
+     *     // ... data to create a PatientBooking
+     *   }
+     * })
+     * 
+     */
+    create<T extends PatientBookingCreateArgs>(args: SelectSubset<T, PatientBookingCreateArgs<ExtArgs>>): Prisma__PatientBookingClient<$Result.GetResult<Prisma.$PatientBookingPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many PatientBookings.
+     * @param {PatientBookingCreateManyArgs} args - Arguments to create many PatientBookings.
+     * @example
+     * // Create many PatientBookings
+     * const patientBooking = await prisma.patientBooking.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PatientBookingCreateManyArgs>(args?: SelectSubset<T, PatientBookingCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PatientBookings and returns the data saved in the database.
+     * @param {PatientBookingCreateManyAndReturnArgs} args - Arguments to create many PatientBookings.
+     * @example
+     * // Create many PatientBookings
+     * const patientBooking = await prisma.patientBooking.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PatientBookings and only return the `id`
+     * const patientBookingWithIdOnly = await prisma.patientBooking.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PatientBookingCreateManyAndReturnArgs>(args?: SelectSubset<T, PatientBookingCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PatientBookingPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a PatientBooking.
+     * @param {PatientBookingDeleteArgs} args - Arguments to delete one PatientBooking.
+     * @example
+     * // Delete one PatientBooking
+     * const PatientBooking = await prisma.patientBooking.delete({
+     *   where: {
+     *     // ... filter to delete one PatientBooking
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PatientBookingDeleteArgs>(args: SelectSubset<T, PatientBookingDeleteArgs<ExtArgs>>): Prisma__PatientBookingClient<$Result.GetResult<Prisma.$PatientBookingPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one PatientBooking.
+     * @param {PatientBookingUpdateArgs} args - Arguments to update one PatientBooking.
+     * @example
+     * // Update one PatientBooking
+     * const patientBooking = await prisma.patientBooking.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PatientBookingUpdateArgs>(args: SelectSubset<T, PatientBookingUpdateArgs<ExtArgs>>): Prisma__PatientBookingClient<$Result.GetResult<Prisma.$PatientBookingPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more PatientBookings.
+     * @param {PatientBookingDeleteManyArgs} args - Arguments to filter PatientBookings to delete.
+     * @example
+     * // Delete a few PatientBookings
+     * const { count } = await prisma.patientBooking.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PatientBookingDeleteManyArgs>(args?: SelectSubset<T, PatientBookingDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PatientBookings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PatientBookingUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PatientBookings
+     * const patientBooking = await prisma.patientBooking.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PatientBookingUpdateManyArgs>(args: SelectSubset<T, PatientBookingUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one PatientBooking.
+     * @param {PatientBookingUpsertArgs} args - Arguments to update or create a PatientBooking.
+     * @example
+     * // Update or create a PatientBooking
+     * const patientBooking = await prisma.patientBooking.upsert({
+     *   create: {
+     *     // ... data to create a PatientBooking
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PatientBooking we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PatientBookingUpsertArgs>(args: SelectSubset<T, PatientBookingUpsertArgs<ExtArgs>>): Prisma__PatientBookingClient<$Result.GetResult<Prisma.$PatientBookingPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of PatientBookings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PatientBookingCountArgs} args - Arguments to filter PatientBookings to count.
+     * @example
+     * // Count the number of PatientBookings
+     * const count = await prisma.patientBooking.count({
+     *   where: {
+     *     // ... the filter for the PatientBookings we want to count
+     *   }
+     * })
+    **/
+    count<T extends PatientBookingCountArgs>(
+      args?: Subset<T, PatientBookingCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PatientBookingCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PatientBooking.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PatientBookingAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PatientBookingAggregateArgs>(args: Subset<T, PatientBookingAggregateArgs>): Prisma.PrismaPromise<GetPatientBookingAggregateType<T>>
+
+    /**
+     * Group by PatientBooking.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PatientBookingGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PatientBookingGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PatientBookingGroupByArgs['orderBy'] }
+        : { orderBy?: PatientBookingGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PatientBookingGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPatientBookingGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PatientBooking model
+   */
+  readonly fields: PatientBookingFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PatientBooking.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PatientBookingClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    patient<T extends PatientDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PatientDefaultArgs<ExtArgs>>): Prisma__PatientClient<$Result.GetResult<Prisma.$PatientPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    hospital<T extends HospitalDefaultArgs<ExtArgs> = {}>(args?: Subset<T, HospitalDefaultArgs<ExtArgs>>): Prisma__HospitalClient<$Result.GetResult<Prisma.$HospitalPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PatientBooking model
+   */ 
+  interface PatientBookingFieldRefs {
+    readonly id: FieldRef<"PatientBooking", 'String'>
+    readonly hospitalCode: FieldRef<"PatientBooking", 'String'>
+    readonly date: FieldRef<"PatientBooking", 'String'>
+    readonly time: FieldRef<"PatientBooking", 'String'>
+    readonly department: FieldRef<"PatientBooking", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PatientBooking findUnique
+   */
+  export type PatientBookingFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PatientBooking
+     */
+    select?: PatientBookingSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PatientBookingInclude<ExtArgs> | null
+    /**
+     * Filter, which PatientBooking to fetch.
+     */
+    where: PatientBookingWhereUniqueInput
+  }
+
+  /**
+   * PatientBooking findUniqueOrThrow
+   */
+  export type PatientBookingFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PatientBooking
+     */
+    select?: PatientBookingSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PatientBookingInclude<ExtArgs> | null
+    /**
+     * Filter, which PatientBooking to fetch.
+     */
+    where: PatientBookingWhereUniqueInput
+  }
+
+  /**
+   * PatientBooking findFirst
+   */
+  export type PatientBookingFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PatientBooking
+     */
+    select?: PatientBookingSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PatientBookingInclude<ExtArgs> | null
+    /**
+     * Filter, which PatientBooking to fetch.
+     */
+    where?: PatientBookingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PatientBookings to fetch.
+     */
+    orderBy?: PatientBookingOrderByWithRelationInput | PatientBookingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PatientBookings.
+     */
+    cursor?: PatientBookingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PatientBookings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PatientBookings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PatientBookings.
+     */
+    distinct?: PatientBookingScalarFieldEnum | PatientBookingScalarFieldEnum[]
+  }
+
+  /**
+   * PatientBooking findFirstOrThrow
+   */
+  export type PatientBookingFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PatientBooking
+     */
+    select?: PatientBookingSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PatientBookingInclude<ExtArgs> | null
+    /**
+     * Filter, which PatientBooking to fetch.
+     */
+    where?: PatientBookingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PatientBookings to fetch.
+     */
+    orderBy?: PatientBookingOrderByWithRelationInput | PatientBookingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PatientBookings.
+     */
+    cursor?: PatientBookingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PatientBookings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PatientBookings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PatientBookings.
+     */
+    distinct?: PatientBookingScalarFieldEnum | PatientBookingScalarFieldEnum[]
+  }
+
+  /**
+   * PatientBooking findMany
+   */
+  export type PatientBookingFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PatientBooking
+     */
+    select?: PatientBookingSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PatientBookingInclude<ExtArgs> | null
+    /**
+     * Filter, which PatientBookings to fetch.
+     */
+    where?: PatientBookingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PatientBookings to fetch.
+     */
+    orderBy?: PatientBookingOrderByWithRelationInput | PatientBookingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PatientBookings.
+     */
+    cursor?: PatientBookingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PatientBookings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PatientBookings.
+     */
+    skip?: number
+    distinct?: PatientBookingScalarFieldEnum | PatientBookingScalarFieldEnum[]
+  }
+
+  /**
+   * PatientBooking create
+   */
+  export type PatientBookingCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PatientBooking
+     */
+    select?: PatientBookingSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PatientBookingInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PatientBooking.
+     */
+    data: XOR<PatientBookingCreateInput, PatientBookingUncheckedCreateInput>
+  }
+
+  /**
+   * PatientBooking createMany
+   */
+  export type PatientBookingCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PatientBookings.
+     */
+    data: PatientBookingCreateManyInput | PatientBookingCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PatientBooking createManyAndReturn
+   */
+  export type PatientBookingCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PatientBooking
+     */
+    select?: PatientBookingSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many PatientBookings.
+     */
+    data: PatientBookingCreateManyInput | PatientBookingCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PatientBookingIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PatientBooking update
+   */
+  export type PatientBookingUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PatientBooking
+     */
+    select?: PatientBookingSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PatientBookingInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PatientBooking.
+     */
+    data: XOR<PatientBookingUpdateInput, PatientBookingUncheckedUpdateInput>
+    /**
+     * Choose, which PatientBooking to update.
+     */
+    where: PatientBookingWhereUniqueInput
+  }
+
+  /**
+   * PatientBooking updateMany
+   */
+  export type PatientBookingUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PatientBookings.
+     */
+    data: XOR<PatientBookingUpdateManyMutationInput, PatientBookingUncheckedUpdateManyInput>
+    /**
+     * Filter which PatientBookings to update
+     */
+    where?: PatientBookingWhereInput
+  }
+
+  /**
+   * PatientBooking upsert
+   */
+  export type PatientBookingUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PatientBooking
+     */
+    select?: PatientBookingSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PatientBookingInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PatientBooking to update in case it exists.
+     */
+    where: PatientBookingWhereUniqueInput
+    /**
+     * In case the PatientBooking found by the `where` argument doesn't exist, create a new PatientBooking with this data.
+     */
+    create: XOR<PatientBookingCreateInput, PatientBookingUncheckedCreateInput>
+    /**
+     * In case the PatientBooking was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PatientBookingUpdateInput, PatientBookingUncheckedUpdateInput>
+  }
+
+  /**
+   * PatientBooking delete
+   */
+  export type PatientBookingDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PatientBooking
+     */
+    select?: PatientBookingSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PatientBookingInclude<ExtArgs> | null
+    /**
+     * Filter which PatientBooking to delete.
+     */
+    where: PatientBookingWhereUniqueInput
+  }
+
+  /**
+   * PatientBooking deleteMany
+   */
+  export type PatientBookingDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PatientBookings to delete
+     */
+    where?: PatientBookingWhereInput
+  }
+
+  /**
+   * PatientBooking without action
+   */
+  export type PatientBookingDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PatientBooking
+     */
+    select?: PatientBookingSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PatientBookingInclude<ExtArgs> | null
   }
 
 
@@ -7979,6 +9094,8 @@ export namespace Prisma {
 
   export const PatientScalarFieldEnum: {
     abhaId: 'abhaId',
+    email: 'email',
+    password: 'password',
     name: 'name',
     contact: 'contact',
     address: 'address',
@@ -7988,6 +9105,17 @@ export namespace Prisma {
   };
 
   export type PatientScalarFieldEnum = (typeof PatientScalarFieldEnum)[keyof typeof PatientScalarFieldEnum]
+
+
+  export const PatientBookingScalarFieldEnum: {
+    id: 'id',
+    hospitalCode: 'hospitalCode',
+    date: 'date',
+    time: 'time',
+    department: 'department'
+  };
+
+  export type PatientBookingScalarFieldEnum = (typeof PatientBookingScalarFieldEnum)[keyof typeof PatientBookingScalarFieldEnum]
 
 
   export const MedicalRecordScalarFieldEnum: {
@@ -8210,6 +9338,7 @@ export namespace Prisma {
     state?: StringFilter<"Hospital"> | string
     dbURL?: StringFilter<"Hospital"> | string
     admin?: AdminListRelationFilter
+    patientBooking?: PatientBookingListRelationFilter
   }
 
   export type HospitalOrderByWithRelationInput = {
@@ -8221,6 +9350,7 @@ export namespace Prisma {
     state?: SortOrder
     dbURL?: SortOrder
     admin?: AdminOrderByRelationAggregateInput
+    patientBooking?: PatientBookingOrderByRelationAggregateInput
   }
 
   export type HospitalWhereUniqueInput = Prisma.AtLeast<{
@@ -8235,6 +9365,7 @@ export namespace Prisma {
     state?: StringFilter<"Hospital"> | string
     dbURL?: StringFilter<"Hospital"> | string
     admin?: AdminListRelationFilter
+    patientBooking?: PatientBookingListRelationFilter
   }, "id" | "code">
 
   export type HospitalOrderByWithAggregationInput = {
@@ -8268,6 +9399,8 @@ export namespace Prisma {
     OR?: PatientWhereInput[]
     NOT?: PatientWhereInput | PatientWhereInput[]
     abhaId?: StringFilter<"Patient"> | string
+    email?: StringFilter<"Patient"> | string
+    password?: StringFilter<"Patient"> | string
     name?: StringFilter<"Patient"> | string
     contact?: StringFilter<"Patient"> | string
     address?: StringFilter<"Patient"> | string
@@ -8275,10 +9408,13 @@ export namespace Prisma {
     DOB?: StringFilter<"Patient"> | string
     emergencyContact?: StringFilter<"Patient"> | string
     medicalRecords?: MedicalRecordListRelationFilter
+    patientBooking?: PatientBookingListRelationFilter
   }
 
   export type PatientOrderByWithRelationInput = {
     abhaId?: SortOrder
+    email?: SortOrder
+    password?: SortOrder
     name?: SortOrder
     contact?: SortOrder
     address?: SortOrder
@@ -8286,13 +9422,16 @@ export namespace Prisma {
     DOB?: SortOrder
     emergencyContact?: SortOrder
     medicalRecords?: MedicalRecordOrderByRelationAggregateInput
+    patientBooking?: PatientBookingOrderByRelationAggregateInput
   }
 
   export type PatientWhereUniqueInput = Prisma.AtLeast<{
     abhaId?: string
+    email?: string
     AND?: PatientWhereInput | PatientWhereInput[]
     OR?: PatientWhereInput[]
     NOT?: PatientWhereInput | PatientWhereInput[]
+    password?: StringFilter<"Patient"> | string
     name?: StringFilter<"Patient"> | string
     contact?: StringFilter<"Patient"> | string
     address?: StringFilter<"Patient"> | string
@@ -8300,10 +9439,13 @@ export namespace Prisma {
     DOB?: StringFilter<"Patient"> | string
     emergencyContact?: StringFilter<"Patient"> | string
     medicalRecords?: MedicalRecordListRelationFilter
-  }, "abhaId" | "abhaId">
+    patientBooking?: PatientBookingListRelationFilter
+  }, "abhaId" | "abhaId" | "email">
 
   export type PatientOrderByWithAggregationInput = {
     abhaId?: SortOrder
+    email?: SortOrder
+    password?: SortOrder
     name?: SortOrder
     contact?: SortOrder
     address?: SortOrder
@@ -8320,12 +9462,72 @@ export namespace Prisma {
     OR?: PatientScalarWhereWithAggregatesInput[]
     NOT?: PatientScalarWhereWithAggregatesInput | PatientScalarWhereWithAggregatesInput[]
     abhaId?: StringWithAggregatesFilter<"Patient"> | string
+    email?: StringWithAggregatesFilter<"Patient"> | string
+    password?: StringWithAggregatesFilter<"Patient"> | string
     name?: StringWithAggregatesFilter<"Patient"> | string
     contact?: StringWithAggregatesFilter<"Patient"> | string
     address?: StringWithAggregatesFilter<"Patient"> | string
     gender?: StringWithAggregatesFilter<"Patient"> | string
     DOB?: StringWithAggregatesFilter<"Patient"> | string
     emergencyContact?: StringWithAggregatesFilter<"Patient"> | string
+  }
+
+  export type PatientBookingWhereInput = {
+    AND?: PatientBookingWhereInput | PatientBookingWhereInput[]
+    OR?: PatientBookingWhereInput[]
+    NOT?: PatientBookingWhereInput | PatientBookingWhereInput[]
+    id?: StringFilter<"PatientBooking"> | string
+    hospitalCode?: StringFilter<"PatientBooking"> | string
+    date?: StringFilter<"PatientBooking"> | string
+    time?: StringFilter<"PatientBooking"> | string
+    department?: StringFilter<"PatientBooking"> | string
+    patient?: XOR<PatientRelationFilter, PatientWhereInput>
+    hospital?: XOR<HospitalRelationFilter, HospitalWhereInput>
+  }
+
+  export type PatientBookingOrderByWithRelationInput = {
+    id?: SortOrder
+    hospitalCode?: SortOrder
+    date?: SortOrder
+    time?: SortOrder
+    department?: SortOrder
+    patient?: PatientOrderByWithRelationInput
+    hospital?: HospitalOrderByWithRelationInput
+  }
+
+  export type PatientBookingWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: PatientBookingWhereInput | PatientBookingWhereInput[]
+    OR?: PatientBookingWhereInput[]
+    NOT?: PatientBookingWhereInput | PatientBookingWhereInput[]
+    hospitalCode?: StringFilter<"PatientBooking"> | string
+    date?: StringFilter<"PatientBooking"> | string
+    time?: StringFilter<"PatientBooking"> | string
+    department?: StringFilter<"PatientBooking"> | string
+    patient?: XOR<PatientRelationFilter, PatientWhereInput>
+    hospital?: XOR<HospitalRelationFilter, HospitalWhereInput>
+  }, "id">
+
+  export type PatientBookingOrderByWithAggregationInput = {
+    id?: SortOrder
+    hospitalCode?: SortOrder
+    date?: SortOrder
+    time?: SortOrder
+    department?: SortOrder
+    _count?: PatientBookingCountOrderByAggregateInput
+    _max?: PatientBookingMaxOrderByAggregateInput
+    _min?: PatientBookingMinOrderByAggregateInput
+  }
+
+  export type PatientBookingScalarWhereWithAggregatesInput = {
+    AND?: PatientBookingScalarWhereWithAggregatesInput | PatientBookingScalarWhereWithAggregatesInput[]
+    OR?: PatientBookingScalarWhereWithAggregatesInput[]
+    NOT?: PatientBookingScalarWhereWithAggregatesInput | PatientBookingScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PatientBooking"> | string
+    hospitalCode?: StringWithAggregatesFilter<"PatientBooking"> | string
+    date?: StringWithAggregatesFilter<"PatientBooking"> | string
+    time?: StringWithAggregatesFilter<"PatientBooking"> | string
+    department?: StringWithAggregatesFilter<"PatientBooking"> | string
   }
 
   export type MedicalRecordWhereInput = {
@@ -8623,6 +9825,7 @@ export namespace Prisma {
     state: string
     dbURL: string
     admin?: AdminCreateNestedManyWithoutHospitalInput
+    patientBooking?: PatientBookingCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateInput = {
@@ -8634,6 +9837,7 @@ export namespace Prisma {
     state: string
     dbURL: string
     admin?: AdminUncheckedCreateNestedManyWithoutHospitalInput
+    patientBooking?: PatientBookingUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUpdateInput = {
@@ -8645,6 +9849,7 @@ export namespace Prisma {
     state?: StringFieldUpdateOperationsInput | string
     dbURL?: StringFieldUpdateOperationsInput | string
     admin?: AdminUpdateManyWithoutHospitalNestedInput
+    patientBooking?: PatientBookingUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateInput = {
@@ -8656,6 +9861,7 @@ export namespace Prisma {
     state?: StringFieldUpdateOperationsInput | string
     dbURL?: StringFieldUpdateOperationsInput | string
     admin?: AdminUncheckedUpdateManyWithoutHospitalNestedInput
+    patientBooking?: PatientBookingUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalCreateManyInput = {
@@ -8690,6 +9896,8 @@ export namespace Prisma {
 
   export type PatientCreateInput = {
     abhaId: string
+    email: string
+    password: string
     name: string
     contact: string
     address: string
@@ -8697,10 +9905,13 @@ export namespace Prisma {
     DOB: string
     emergencyContact: string
     medicalRecords?: MedicalRecordCreateNestedManyWithoutPatientInput
+    patientBooking?: PatientBookingCreateNestedManyWithoutPatientInput
   }
 
   export type PatientUncheckedCreateInput = {
     abhaId: string
+    email: string
+    password: string
     name: string
     contact: string
     address: string
@@ -8708,10 +9919,13 @@ export namespace Prisma {
     DOB: string
     emergencyContact: string
     medicalRecords?: MedicalRecordUncheckedCreateNestedManyWithoutPatientInput
+    patientBooking?: PatientBookingUncheckedCreateNestedManyWithoutPatientInput
   }
 
   export type PatientUpdateInput = {
     abhaId?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
@@ -8719,10 +9933,13 @@ export namespace Prisma {
     DOB?: StringFieldUpdateOperationsInput | string
     emergencyContact?: StringFieldUpdateOperationsInput | string
     medicalRecords?: MedicalRecordUpdateManyWithoutPatientNestedInput
+    patientBooking?: PatientBookingUpdateManyWithoutPatientNestedInput
   }
 
   export type PatientUncheckedUpdateInput = {
     abhaId?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
@@ -8730,10 +9947,13 @@ export namespace Prisma {
     DOB?: StringFieldUpdateOperationsInput | string
     emergencyContact?: StringFieldUpdateOperationsInput | string
     medicalRecords?: MedicalRecordUncheckedUpdateManyWithoutPatientNestedInput
+    patientBooking?: PatientBookingUncheckedUpdateManyWithoutPatientNestedInput
   }
 
   export type PatientCreateManyInput = {
     abhaId: string
+    email: string
+    password: string
     name: string
     contact: string
     address: string
@@ -8744,6 +9964,8 @@ export namespace Prisma {
 
   export type PatientUpdateManyMutationInput = {
     abhaId?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
@@ -8754,12 +9976,68 @@ export namespace Prisma {
 
   export type PatientUncheckedUpdateManyInput = {
     abhaId?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     gender?: StringFieldUpdateOperationsInput | string
     DOB?: StringFieldUpdateOperationsInput | string
     emergencyContact?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PatientBookingCreateInput = {
+    date: string
+    time: string
+    department: string
+    patient: PatientCreateNestedOneWithoutPatientBookingInput
+    hospital: HospitalCreateNestedOneWithoutPatientBookingInput
+  }
+
+  export type PatientBookingUncheckedCreateInput = {
+    id: string
+    hospitalCode: string
+    date: string
+    time: string
+    department: string
+  }
+
+  export type PatientBookingUpdateInput = {
+    date?: StringFieldUpdateOperationsInput | string
+    time?: StringFieldUpdateOperationsInput | string
+    department?: StringFieldUpdateOperationsInput | string
+    patient?: PatientUpdateOneRequiredWithoutPatientBookingNestedInput
+    hospital?: HospitalUpdateOneRequiredWithoutPatientBookingNestedInput
+  }
+
+  export type PatientBookingUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospitalCode?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
+    time?: StringFieldUpdateOperationsInput | string
+    department?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PatientBookingCreateManyInput = {
+    id: string
+    hospitalCode: string
+    date: string
+    time: string
+    department: string
+  }
+
+  export type PatientBookingUpdateManyMutationInput = {
+    date?: StringFieldUpdateOperationsInput | string
+    time?: StringFieldUpdateOperationsInput | string
+    department?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PatientBookingUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospitalCode?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
+    time?: StringFieldUpdateOperationsInput | string
+    department?: StringFieldUpdateOperationsInput | string
   }
 
   export type MedicalRecordCreateInput = {
@@ -9081,7 +10359,17 @@ export namespace Prisma {
     none?: AdminWhereInput
   }
 
+  export type PatientBookingListRelationFilter = {
+    every?: PatientBookingWhereInput
+    some?: PatientBookingWhereInput
+    none?: PatientBookingWhereInput
+  }
+
   export type AdminOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PatientBookingOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -9127,6 +10415,8 @@ export namespace Prisma {
 
   export type PatientCountOrderByAggregateInput = {
     abhaId?: SortOrder
+    email?: SortOrder
+    password?: SortOrder
     name?: SortOrder
     contact?: SortOrder
     address?: SortOrder
@@ -9137,6 +10427,8 @@ export namespace Prisma {
 
   export type PatientMaxOrderByAggregateInput = {
     abhaId?: SortOrder
+    email?: SortOrder
+    password?: SortOrder
     name?: SortOrder
     contact?: SortOrder
     address?: SortOrder
@@ -9147,12 +10439,43 @@ export namespace Prisma {
 
   export type PatientMinOrderByAggregateInput = {
     abhaId?: SortOrder
+    email?: SortOrder
+    password?: SortOrder
     name?: SortOrder
     contact?: SortOrder
     address?: SortOrder
     gender?: SortOrder
     DOB?: SortOrder
     emergencyContact?: SortOrder
+  }
+
+  export type PatientRelationFilter = {
+    is?: PatientWhereInput
+    isNot?: PatientWhereInput
+  }
+
+  export type PatientBookingCountOrderByAggregateInput = {
+    id?: SortOrder
+    hospitalCode?: SortOrder
+    date?: SortOrder
+    time?: SortOrder
+    department?: SortOrder
+  }
+
+  export type PatientBookingMaxOrderByAggregateInput = {
+    id?: SortOrder
+    hospitalCode?: SortOrder
+    date?: SortOrder
+    time?: SortOrder
+    department?: SortOrder
+  }
+
+  export type PatientBookingMinOrderByAggregateInput = {
+    id?: SortOrder
+    hospitalCode?: SortOrder
+    date?: SortOrder
+    time?: SortOrder
+    department?: SortOrder
   }
 
   export type DateTimeFilter<$PrismaModel = never> = {
@@ -9234,11 +10557,6 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
-  export type PatientRelationFilter = {
-    is?: PatientWhereInput
-    isNot?: PatientWhereInput
   }
 
   export type SortOrderInput = {
@@ -9471,11 +10789,25 @@ export namespace Prisma {
     connect?: AdminWhereUniqueInput | AdminWhereUniqueInput[]
   }
 
+  export type PatientBookingCreateNestedManyWithoutHospitalInput = {
+    create?: XOR<PatientBookingCreateWithoutHospitalInput, PatientBookingUncheckedCreateWithoutHospitalInput> | PatientBookingCreateWithoutHospitalInput[] | PatientBookingUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: PatientBookingCreateOrConnectWithoutHospitalInput | PatientBookingCreateOrConnectWithoutHospitalInput[]
+    createMany?: PatientBookingCreateManyHospitalInputEnvelope
+    connect?: PatientBookingWhereUniqueInput | PatientBookingWhereUniqueInput[]
+  }
+
   export type AdminUncheckedCreateNestedManyWithoutHospitalInput = {
     create?: XOR<AdminCreateWithoutHospitalInput, AdminUncheckedCreateWithoutHospitalInput> | AdminCreateWithoutHospitalInput[] | AdminUncheckedCreateWithoutHospitalInput[]
     connectOrCreate?: AdminCreateOrConnectWithoutHospitalInput | AdminCreateOrConnectWithoutHospitalInput[]
     createMany?: AdminCreateManyHospitalInputEnvelope
     connect?: AdminWhereUniqueInput | AdminWhereUniqueInput[]
+  }
+
+  export type PatientBookingUncheckedCreateNestedManyWithoutHospitalInput = {
+    create?: XOR<PatientBookingCreateWithoutHospitalInput, PatientBookingUncheckedCreateWithoutHospitalInput> | PatientBookingCreateWithoutHospitalInput[] | PatientBookingUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: PatientBookingCreateOrConnectWithoutHospitalInput | PatientBookingCreateOrConnectWithoutHospitalInput[]
+    createMany?: PatientBookingCreateManyHospitalInputEnvelope
+    connect?: PatientBookingWhereUniqueInput | PatientBookingWhereUniqueInput[]
   }
 
   export type AdminUpdateManyWithoutHospitalNestedInput = {
@@ -9492,6 +10824,20 @@ export namespace Prisma {
     deleteMany?: AdminScalarWhereInput | AdminScalarWhereInput[]
   }
 
+  export type PatientBookingUpdateManyWithoutHospitalNestedInput = {
+    create?: XOR<PatientBookingCreateWithoutHospitalInput, PatientBookingUncheckedCreateWithoutHospitalInput> | PatientBookingCreateWithoutHospitalInput[] | PatientBookingUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: PatientBookingCreateOrConnectWithoutHospitalInput | PatientBookingCreateOrConnectWithoutHospitalInput[]
+    upsert?: PatientBookingUpsertWithWhereUniqueWithoutHospitalInput | PatientBookingUpsertWithWhereUniqueWithoutHospitalInput[]
+    createMany?: PatientBookingCreateManyHospitalInputEnvelope
+    set?: PatientBookingWhereUniqueInput | PatientBookingWhereUniqueInput[]
+    disconnect?: PatientBookingWhereUniqueInput | PatientBookingWhereUniqueInput[]
+    delete?: PatientBookingWhereUniqueInput | PatientBookingWhereUniqueInput[]
+    connect?: PatientBookingWhereUniqueInput | PatientBookingWhereUniqueInput[]
+    update?: PatientBookingUpdateWithWhereUniqueWithoutHospitalInput | PatientBookingUpdateWithWhereUniqueWithoutHospitalInput[]
+    updateMany?: PatientBookingUpdateManyWithWhereWithoutHospitalInput | PatientBookingUpdateManyWithWhereWithoutHospitalInput[]
+    deleteMany?: PatientBookingScalarWhereInput | PatientBookingScalarWhereInput[]
+  }
+
   export type AdminUncheckedUpdateManyWithoutHospitalNestedInput = {
     create?: XOR<AdminCreateWithoutHospitalInput, AdminUncheckedCreateWithoutHospitalInput> | AdminCreateWithoutHospitalInput[] | AdminUncheckedCreateWithoutHospitalInput[]
     connectOrCreate?: AdminCreateOrConnectWithoutHospitalInput | AdminCreateOrConnectWithoutHospitalInput[]
@@ -9506,6 +10852,20 @@ export namespace Prisma {
     deleteMany?: AdminScalarWhereInput | AdminScalarWhereInput[]
   }
 
+  export type PatientBookingUncheckedUpdateManyWithoutHospitalNestedInput = {
+    create?: XOR<PatientBookingCreateWithoutHospitalInput, PatientBookingUncheckedCreateWithoutHospitalInput> | PatientBookingCreateWithoutHospitalInput[] | PatientBookingUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: PatientBookingCreateOrConnectWithoutHospitalInput | PatientBookingCreateOrConnectWithoutHospitalInput[]
+    upsert?: PatientBookingUpsertWithWhereUniqueWithoutHospitalInput | PatientBookingUpsertWithWhereUniqueWithoutHospitalInput[]
+    createMany?: PatientBookingCreateManyHospitalInputEnvelope
+    set?: PatientBookingWhereUniqueInput | PatientBookingWhereUniqueInput[]
+    disconnect?: PatientBookingWhereUniqueInput | PatientBookingWhereUniqueInput[]
+    delete?: PatientBookingWhereUniqueInput | PatientBookingWhereUniqueInput[]
+    connect?: PatientBookingWhereUniqueInput | PatientBookingWhereUniqueInput[]
+    update?: PatientBookingUpdateWithWhereUniqueWithoutHospitalInput | PatientBookingUpdateWithWhereUniqueWithoutHospitalInput[]
+    updateMany?: PatientBookingUpdateManyWithWhereWithoutHospitalInput | PatientBookingUpdateManyWithWhereWithoutHospitalInput[]
+    deleteMany?: PatientBookingScalarWhereInput | PatientBookingScalarWhereInput[]
+  }
+
   export type MedicalRecordCreateNestedManyWithoutPatientInput = {
     create?: XOR<MedicalRecordCreateWithoutPatientInput, MedicalRecordUncheckedCreateWithoutPatientInput> | MedicalRecordCreateWithoutPatientInput[] | MedicalRecordUncheckedCreateWithoutPatientInput[]
     connectOrCreate?: MedicalRecordCreateOrConnectWithoutPatientInput | MedicalRecordCreateOrConnectWithoutPatientInput[]
@@ -9513,11 +10873,25 @@ export namespace Prisma {
     connect?: MedicalRecordWhereUniqueInput | MedicalRecordWhereUniqueInput[]
   }
 
+  export type PatientBookingCreateNestedManyWithoutPatientInput = {
+    create?: XOR<PatientBookingCreateWithoutPatientInput, PatientBookingUncheckedCreateWithoutPatientInput> | PatientBookingCreateWithoutPatientInput[] | PatientBookingUncheckedCreateWithoutPatientInput[]
+    connectOrCreate?: PatientBookingCreateOrConnectWithoutPatientInput | PatientBookingCreateOrConnectWithoutPatientInput[]
+    createMany?: PatientBookingCreateManyPatientInputEnvelope
+    connect?: PatientBookingWhereUniqueInput | PatientBookingWhereUniqueInput[]
+  }
+
   export type MedicalRecordUncheckedCreateNestedManyWithoutPatientInput = {
     create?: XOR<MedicalRecordCreateWithoutPatientInput, MedicalRecordUncheckedCreateWithoutPatientInput> | MedicalRecordCreateWithoutPatientInput[] | MedicalRecordUncheckedCreateWithoutPatientInput[]
     connectOrCreate?: MedicalRecordCreateOrConnectWithoutPatientInput | MedicalRecordCreateOrConnectWithoutPatientInput[]
     createMany?: MedicalRecordCreateManyPatientInputEnvelope
     connect?: MedicalRecordWhereUniqueInput | MedicalRecordWhereUniqueInput[]
+  }
+
+  export type PatientBookingUncheckedCreateNestedManyWithoutPatientInput = {
+    create?: XOR<PatientBookingCreateWithoutPatientInput, PatientBookingUncheckedCreateWithoutPatientInput> | PatientBookingCreateWithoutPatientInput[] | PatientBookingUncheckedCreateWithoutPatientInput[]
+    connectOrCreate?: PatientBookingCreateOrConnectWithoutPatientInput | PatientBookingCreateOrConnectWithoutPatientInput[]
+    createMany?: PatientBookingCreateManyPatientInputEnvelope
+    connect?: PatientBookingWhereUniqueInput | PatientBookingWhereUniqueInput[]
   }
 
   export type MedicalRecordUpdateManyWithoutPatientNestedInput = {
@@ -9534,6 +10908,20 @@ export namespace Prisma {
     deleteMany?: MedicalRecordScalarWhereInput | MedicalRecordScalarWhereInput[]
   }
 
+  export type PatientBookingUpdateManyWithoutPatientNestedInput = {
+    create?: XOR<PatientBookingCreateWithoutPatientInput, PatientBookingUncheckedCreateWithoutPatientInput> | PatientBookingCreateWithoutPatientInput[] | PatientBookingUncheckedCreateWithoutPatientInput[]
+    connectOrCreate?: PatientBookingCreateOrConnectWithoutPatientInput | PatientBookingCreateOrConnectWithoutPatientInput[]
+    upsert?: PatientBookingUpsertWithWhereUniqueWithoutPatientInput | PatientBookingUpsertWithWhereUniqueWithoutPatientInput[]
+    createMany?: PatientBookingCreateManyPatientInputEnvelope
+    set?: PatientBookingWhereUniqueInput | PatientBookingWhereUniqueInput[]
+    disconnect?: PatientBookingWhereUniqueInput | PatientBookingWhereUniqueInput[]
+    delete?: PatientBookingWhereUniqueInput | PatientBookingWhereUniqueInput[]
+    connect?: PatientBookingWhereUniqueInput | PatientBookingWhereUniqueInput[]
+    update?: PatientBookingUpdateWithWhereUniqueWithoutPatientInput | PatientBookingUpdateWithWhereUniqueWithoutPatientInput[]
+    updateMany?: PatientBookingUpdateManyWithWhereWithoutPatientInput | PatientBookingUpdateManyWithWhereWithoutPatientInput[]
+    deleteMany?: PatientBookingScalarWhereInput | PatientBookingScalarWhereInput[]
+  }
+
   export type MedicalRecordUncheckedUpdateManyWithoutPatientNestedInput = {
     create?: XOR<MedicalRecordCreateWithoutPatientInput, MedicalRecordUncheckedCreateWithoutPatientInput> | MedicalRecordCreateWithoutPatientInput[] | MedicalRecordUncheckedCreateWithoutPatientInput[]
     connectOrCreate?: MedicalRecordCreateOrConnectWithoutPatientInput | MedicalRecordCreateOrConnectWithoutPatientInput[]
@@ -9546,6 +10934,48 @@ export namespace Prisma {
     update?: MedicalRecordUpdateWithWhereUniqueWithoutPatientInput | MedicalRecordUpdateWithWhereUniqueWithoutPatientInput[]
     updateMany?: MedicalRecordUpdateManyWithWhereWithoutPatientInput | MedicalRecordUpdateManyWithWhereWithoutPatientInput[]
     deleteMany?: MedicalRecordScalarWhereInput | MedicalRecordScalarWhereInput[]
+  }
+
+  export type PatientBookingUncheckedUpdateManyWithoutPatientNestedInput = {
+    create?: XOR<PatientBookingCreateWithoutPatientInput, PatientBookingUncheckedCreateWithoutPatientInput> | PatientBookingCreateWithoutPatientInput[] | PatientBookingUncheckedCreateWithoutPatientInput[]
+    connectOrCreate?: PatientBookingCreateOrConnectWithoutPatientInput | PatientBookingCreateOrConnectWithoutPatientInput[]
+    upsert?: PatientBookingUpsertWithWhereUniqueWithoutPatientInput | PatientBookingUpsertWithWhereUniqueWithoutPatientInput[]
+    createMany?: PatientBookingCreateManyPatientInputEnvelope
+    set?: PatientBookingWhereUniqueInput | PatientBookingWhereUniqueInput[]
+    disconnect?: PatientBookingWhereUniqueInput | PatientBookingWhereUniqueInput[]
+    delete?: PatientBookingWhereUniqueInput | PatientBookingWhereUniqueInput[]
+    connect?: PatientBookingWhereUniqueInput | PatientBookingWhereUniqueInput[]
+    update?: PatientBookingUpdateWithWhereUniqueWithoutPatientInput | PatientBookingUpdateWithWhereUniqueWithoutPatientInput[]
+    updateMany?: PatientBookingUpdateManyWithWhereWithoutPatientInput | PatientBookingUpdateManyWithWhereWithoutPatientInput[]
+    deleteMany?: PatientBookingScalarWhereInput | PatientBookingScalarWhereInput[]
+  }
+
+  export type PatientCreateNestedOneWithoutPatientBookingInput = {
+    create?: XOR<PatientCreateWithoutPatientBookingInput, PatientUncheckedCreateWithoutPatientBookingInput>
+    connectOrCreate?: PatientCreateOrConnectWithoutPatientBookingInput
+    connect?: PatientWhereUniqueInput
+  }
+
+  export type HospitalCreateNestedOneWithoutPatientBookingInput = {
+    create?: XOR<HospitalCreateWithoutPatientBookingInput, HospitalUncheckedCreateWithoutPatientBookingInput>
+    connectOrCreate?: HospitalCreateOrConnectWithoutPatientBookingInput
+    connect?: HospitalWhereUniqueInput
+  }
+
+  export type PatientUpdateOneRequiredWithoutPatientBookingNestedInput = {
+    create?: XOR<PatientCreateWithoutPatientBookingInput, PatientUncheckedCreateWithoutPatientBookingInput>
+    connectOrCreate?: PatientCreateOrConnectWithoutPatientBookingInput
+    upsert?: PatientUpsertWithoutPatientBookingInput
+    connect?: PatientWhereUniqueInput
+    update?: XOR<XOR<PatientUpdateToOneWithWhereWithoutPatientBookingInput, PatientUpdateWithoutPatientBookingInput>, PatientUncheckedUpdateWithoutPatientBookingInput>
+  }
+
+  export type HospitalUpdateOneRequiredWithoutPatientBookingNestedInput = {
+    create?: XOR<HospitalCreateWithoutPatientBookingInput, HospitalUncheckedCreateWithoutPatientBookingInput>
+    connectOrCreate?: HospitalCreateOrConnectWithoutPatientBookingInput
+    upsert?: HospitalUpsertWithoutPatientBookingInput
+    connect?: HospitalWhereUniqueInput
+    update?: XOR<XOR<HospitalUpdateToOneWithWhereWithoutPatientBookingInput, HospitalUpdateWithoutPatientBookingInput>, HospitalUncheckedUpdateWithoutPatientBookingInput>
   }
 
   export type PatientCreateNestedOneWithoutMedicalRecordsInput = {
@@ -9760,6 +11190,7 @@ export namespace Prisma {
     city: string
     state: string
     dbURL: string
+    patientBooking?: PatientBookingCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutAdminInput = {
@@ -9770,6 +11201,7 @@ export namespace Prisma {
     city: string
     state: string
     dbURL: string
+    patientBooking?: PatientBookingUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutAdminInput = {
@@ -9796,6 +11228,7 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     state?: StringFieldUpdateOperationsInput | string
     dbURL?: StringFieldUpdateOperationsInput | string
+    patientBooking?: PatientBookingUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutAdminInput = {
@@ -9806,6 +11239,7 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     state?: StringFieldUpdateOperationsInput | string
     dbURL?: StringFieldUpdateOperationsInput | string
+    patientBooking?: PatientBookingUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type AdminCreateWithoutHospitalInput = {
@@ -9829,6 +11263,30 @@ export namespace Prisma {
 
   export type AdminCreateManyHospitalInputEnvelope = {
     data: AdminCreateManyHospitalInput | AdminCreateManyHospitalInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PatientBookingCreateWithoutHospitalInput = {
+    date: string
+    time: string
+    department: string
+    patient: PatientCreateNestedOneWithoutPatientBookingInput
+  }
+
+  export type PatientBookingUncheckedCreateWithoutHospitalInput = {
+    id: string
+    date: string
+    time: string
+    department: string
+  }
+
+  export type PatientBookingCreateOrConnectWithoutHospitalInput = {
+    where: PatientBookingWhereUniqueInput
+    create: XOR<PatientBookingCreateWithoutHospitalInput, PatientBookingUncheckedCreateWithoutHospitalInput>
+  }
+
+  export type PatientBookingCreateManyHospitalInputEnvelope = {
+    data: PatientBookingCreateManyHospitalInput | PatientBookingCreateManyHospitalInput[]
     skipDuplicates?: boolean
   }
 
@@ -9857,6 +11315,33 @@ export namespace Prisma {
     name?: StringFilter<"Admin"> | string
     password?: StringFilter<"Admin"> | string
     hospitalCode?: StringFilter<"Admin"> | string
+  }
+
+  export type PatientBookingUpsertWithWhereUniqueWithoutHospitalInput = {
+    where: PatientBookingWhereUniqueInput
+    update: XOR<PatientBookingUpdateWithoutHospitalInput, PatientBookingUncheckedUpdateWithoutHospitalInput>
+    create: XOR<PatientBookingCreateWithoutHospitalInput, PatientBookingUncheckedCreateWithoutHospitalInput>
+  }
+
+  export type PatientBookingUpdateWithWhereUniqueWithoutHospitalInput = {
+    where: PatientBookingWhereUniqueInput
+    data: XOR<PatientBookingUpdateWithoutHospitalInput, PatientBookingUncheckedUpdateWithoutHospitalInput>
+  }
+
+  export type PatientBookingUpdateManyWithWhereWithoutHospitalInput = {
+    where: PatientBookingScalarWhereInput
+    data: XOR<PatientBookingUpdateManyMutationInput, PatientBookingUncheckedUpdateManyWithoutHospitalInput>
+  }
+
+  export type PatientBookingScalarWhereInput = {
+    AND?: PatientBookingScalarWhereInput | PatientBookingScalarWhereInput[]
+    OR?: PatientBookingScalarWhereInput[]
+    NOT?: PatientBookingScalarWhereInput | PatientBookingScalarWhereInput[]
+    id?: StringFilter<"PatientBooking"> | string
+    hospitalCode?: StringFilter<"PatientBooking"> | string
+    date?: StringFilter<"PatientBooking"> | string
+    time?: StringFilter<"PatientBooking"> | string
+    department?: StringFilter<"PatientBooking"> | string
   }
 
   export type MedicalRecordCreateWithoutPatientInput = {
@@ -9897,6 +11382,30 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type PatientBookingCreateWithoutPatientInput = {
+    date: string
+    time: string
+    department: string
+    hospital: HospitalCreateNestedOneWithoutPatientBookingInput
+  }
+
+  export type PatientBookingUncheckedCreateWithoutPatientInput = {
+    hospitalCode: string
+    date: string
+    time: string
+    department: string
+  }
+
+  export type PatientBookingCreateOrConnectWithoutPatientInput = {
+    where: PatientBookingWhereUniqueInput
+    create: XOR<PatientBookingCreateWithoutPatientInput, PatientBookingUncheckedCreateWithoutPatientInput>
+  }
+
+  export type PatientBookingCreateManyPatientInputEnvelope = {
+    data: PatientBookingCreateManyPatientInput | PatientBookingCreateManyPatientInput[]
+    skipDuplicates?: boolean
+  }
+
   export type MedicalRecordUpsertWithWhereUniqueWithoutPatientInput = {
     where: MedicalRecordWhereUniqueInput
     update: XOR<MedicalRecordUpdateWithoutPatientInput, MedicalRecordUncheckedUpdateWithoutPatientInput>
@@ -9931,24 +11440,174 @@ export namespace Prisma {
     updatedAt?: DateTimeNullableFilter<"MedicalRecord"> | Date | string | null
   }
 
-  export type PatientCreateWithoutMedicalRecordsInput = {
+  export type PatientBookingUpsertWithWhereUniqueWithoutPatientInput = {
+    where: PatientBookingWhereUniqueInput
+    update: XOR<PatientBookingUpdateWithoutPatientInput, PatientBookingUncheckedUpdateWithoutPatientInput>
+    create: XOR<PatientBookingCreateWithoutPatientInput, PatientBookingUncheckedCreateWithoutPatientInput>
+  }
+
+  export type PatientBookingUpdateWithWhereUniqueWithoutPatientInput = {
+    where: PatientBookingWhereUniqueInput
+    data: XOR<PatientBookingUpdateWithoutPatientInput, PatientBookingUncheckedUpdateWithoutPatientInput>
+  }
+
+  export type PatientBookingUpdateManyWithWhereWithoutPatientInput = {
+    where: PatientBookingScalarWhereInput
+    data: XOR<PatientBookingUpdateManyMutationInput, PatientBookingUncheckedUpdateManyWithoutPatientInput>
+  }
+
+  export type PatientCreateWithoutPatientBookingInput = {
     abhaId: string
+    email: string
+    password: string
     name: string
     contact: string
     address: string
     gender: string
     DOB: string
     emergencyContact: string
+    medicalRecords?: MedicalRecordCreateNestedManyWithoutPatientInput
+  }
+
+  export type PatientUncheckedCreateWithoutPatientBookingInput = {
+    abhaId: string
+    email: string
+    password: string
+    name: string
+    contact: string
+    address: string
+    gender: string
+    DOB: string
+    emergencyContact: string
+    medicalRecords?: MedicalRecordUncheckedCreateNestedManyWithoutPatientInput
+  }
+
+  export type PatientCreateOrConnectWithoutPatientBookingInput = {
+    where: PatientWhereUniqueInput
+    create: XOR<PatientCreateWithoutPatientBookingInput, PatientUncheckedCreateWithoutPatientBookingInput>
+  }
+
+  export type HospitalCreateWithoutPatientBookingInput = {
+    id?: string
+    code: string
+    name: string
+    location: string
+    city: string
+    state: string
+    dbURL: string
+    admin?: AdminCreateNestedManyWithoutHospitalInput
+  }
+
+  export type HospitalUncheckedCreateWithoutPatientBookingInput = {
+    id?: string
+    code: string
+    name: string
+    location: string
+    city: string
+    state: string
+    dbURL: string
+    admin?: AdminUncheckedCreateNestedManyWithoutHospitalInput
+  }
+
+  export type HospitalCreateOrConnectWithoutPatientBookingInput = {
+    where: HospitalWhereUniqueInput
+    create: XOR<HospitalCreateWithoutPatientBookingInput, HospitalUncheckedCreateWithoutPatientBookingInput>
+  }
+
+  export type PatientUpsertWithoutPatientBookingInput = {
+    update: XOR<PatientUpdateWithoutPatientBookingInput, PatientUncheckedUpdateWithoutPatientBookingInput>
+    create: XOR<PatientCreateWithoutPatientBookingInput, PatientUncheckedCreateWithoutPatientBookingInput>
+    where?: PatientWhereInput
+  }
+
+  export type PatientUpdateToOneWithWhereWithoutPatientBookingInput = {
+    where?: PatientWhereInput
+    data: XOR<PatientUpdateWithoutPatientBookingInput, PatientUncheckedUpdateWithoutPatientBookingInput>
+  }
+
+  export type PatientUpdateWithoutPatientBookingInput = {
+    abhaId?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    contact?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
+    DOB?: StringFieldUpdateOperationsInput | string
+    emergencyContact?: StringFieldUpdateOperationsInput | string
+    medicalRecords?: MedicalRecordUpdateManyWithoutPatientNestedInput
+  }
+
+  export type PatientUncheckedUpdateWithoutPatientBookingInput = {
+    abhaId?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    contact?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
+    DOB?: StringFieldUpdateOperationsInput | string
+    emergencyContact?: StringFieldUpdateOperationsInput | string
+    medicalRecords?: MedicalRecordUncheckedUpdateManyWithoutPatientNestedInput
+  }
+
+  export type HospitalUpsertWithoutPatientBookingInput = {
+    update: XOR<HospitalUpdateWithoutPatientBookingInput, HospitalUncheckedUpdateWithoutPatientBookingInput>
+    create: XOR<HospitalCreateWithoutPatientBookingInput, HospitalUncheckedCreateWithoutPatientBookingInput>
+    where?: HospitalWhereInput
+  }
+
+  export type HospitalUpdateToOneWithWhereWithoutPatientBookingInput = {
+    where?: HospitalWhereInput
+    data: XOR<HospitalUpdateWithoutPatientBookingInput, HospitalUncheckedUpdateWithoutPatientBookingInput>
+  }
+
+  export type HospitalUpdateWithoutPatientBookingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    state?: StringFieldUpdateOperationsInput | string
+    dbURL?: StringFieldUpdateOperationsInput | string
+    admin?: AdminUpdateManyWithoutHospitalNestedInput
+  }
+
+  export type HospitalUncheckedUpdateWithoutPatientBookingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    state?: StringFieldUpdateOperationsInput | string
+    dbURL?: StringFieldUpdateOperationsInput | string
+    admin?: AdminUncheckedUpdateManyWithoutHospitalNestedInput
+  }
+
+  export type PatientCreateWithoutMedicalRecordsInput = {
+    abhaId: string
+    email: string
+    password: string
+    name: string
+    contact: string
+    address: string
+    gender: string
+    DOB: string
+    emergencyContact: string
+    patientBooking?: PatientBookingCreateNestedManyWithoutPatientInput
   }
 
   export type PatientUncheckedCreateWithoutMedicalRecordsInput = {
     abhaId: string
+    email: string
+    password: string
     name: string
     contact: string
     address: string
     gender: string
     DOB: string
     emergencyContact: string
+    patientBooking?: PatientBookingUncheckedCreateNestedManyWithoutPatientInput
   }
 
   export type PatientCreateOrConnectWithoutMedicalRecordsInput = {
@@ -9969,22 +11628,28 @@ export namespace Prisma {
 
   export type PatientUpdateWithoutMedicalRecordsInput = {
     abhaId?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     gender?: StringFieldUpdateOperationsInput | string
     DOB?: StringFieldUpdateOperationsInput | string
     emergencyContact?: StringFieldUpdateOperationsInput | string
+    patientBooking?: PatientBookingUpdateManyWithoutPatientNestedInput
   }
 
   export type PatientUncheckedUpdateWithoutMedicalRecordsInput = {
     abhaId?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     gender?: StringFieldUpdateOperationsInput | string
     DOB?: StringFieldUpdateOperationsInput | string
     emergencyContact?: StringFieldUpdateOperationsInput | string
+    patientBooking?: PatientBookingUncheckedUpdateManyWithoutPatientNestedInput
   }
 
   export type AdminCreateManyHospitalInput = {
@@ -9992,6 +11657,13 @@ export namespace Prisma {
     email: string
     name?: string
     password: string
+  }
+
+  export type PatientBookingCreateManyHospitalInput = {
+    id: string
+    date: string
+    time: string
+    department: string
   }
 
   export type AdminUpdateWithoutHospitalInput = {
@@ -10015,6 +11687,27 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
   }
 
+  export type PatientBookingUpdateWithoutHospitalInput = {
+    date?: StringFieldUpdateOperationsInput | string
+    time?: StringFieldUpdateOperationsInput | string
+    department?: StringFieldUpdateOperationsInput | string
+    patient?: PatientUpdateOneRequiredWithoutPatientBookingNestedInput
+  }
+
+  export type PatientBookingUncheckedUpdateWithoutHospitalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
+    time?: StringFieldUpdateOperationsInput | string
+    department?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PatientBookingUncheckedUpdateManyWithoutHospitalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
+    time?: StringFieldUpdateOperationsInput | string
+    department?: StringFieldUpdateOperationsInput | string
+  }
+
   export type MedicalRecordCreateManyPatientInput = {
     id?: string
     hospitalName: string
@@ -10027,6 +11720,13 @@ export namespace Prisma {
     documents?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string | null
+  }
+
+  export type PatientBookingCreateManyPatientInput = {
+    hospitalCode: string
+    date: string
+    time: string
+    department: string
   }
 
   export type MedicalRecordUpdateWithoutPatientInput = {
@@ -10071,6 +11771,27 @@ export namespace Prisma {
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
+  export type PatientBookingUpdateWithoutPatientInput = {
+    date?: StringFieldUpdateOperationsInput | string
+    time?: StringFieldUpdateOperationsInput | string
+    department?: StringFieldUpdateOperationsInput | string
+    hospital?: HospitalUpdateOneRequiredWithoutPatientBookingNestedInput
+  }
+
+  export type PatientBookingUncheckedUpdateWithoutPatientInput = {
+    hospitalCode?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
+    time?: StringFieldUpdateOperationsInput | string
+    department?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PatientBookingUncheckedUpdateManyWithoutPatientInput = {
+    hospitalCode?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
+    time?: StringFieldUpdateOperationsInput | string
+    department?: StringFieldUpdateOperationsInput | string
+  }
+
 
 
   /**
@@ -10096,6 +11817,10 @@ export namespace Prisma {
      * @deprecated Use PatientDefaultArgs instead
      */
     export type PatientArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PatientDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use PatientBookingDefaultArgs instead
+     */
+    export type PatientBookingArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PatientBookingDefaultArgs<ExtArgs>
     /**
      * @deprecated Use MedicalRecordDefaultArgs instead
      */

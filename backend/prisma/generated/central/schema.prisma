@@ -18,18 +18,21 @@ model Admin {
 }
 
 model Hospital {
-  id       String  @id @default(uuid())
-  code     String  @unique
-  name     String
-  location String
-  city     String
-  state    String
-  dbURL    String
-  admin    Admin[]
+  id             String           @id @default(uuid())
+  code           String           @unique
+  name           String
+  location       String
+  city           String
+  state          String
+  dbURL          String
+  admin          Admin[]
+  patientBooking PatientBooking[]
 }
 
 model Patient {
-  abhaId           String          @id @unique
+  abhaId           String           @id @unique
+  email            String           @unique
+  password         String
   name             String
   contact          String
   address          String
@@ -37,6 +40,17 @@ model Patient {
   DOB              String
   emergencyContact String
   medicalRecords   MedicalRecord[]
+  patientBooking   PatientBooking[]
+}
+
+model PatientBooking {
+  id           String   @id
+  patient      Patient  @relation(fields: [id], references: [abhaId])
+  hospitalCode String
+  hospital     Hospital @relation(fields: [hospitalCode], references: [code])
+  date         String
+  time         String
+  department   String
 }
 
 model MedicalRecord {

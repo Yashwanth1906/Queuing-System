@@ -1,101 +1,130 @@
-import { useState, FormEvent } from "react";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
+interface HospitalCode {
+  hosCode: string;
+}
+
 import { Button } from "@/components/ui/button";
-
-import { Link ,useNavigate} from "react-router-dom";
-
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { BACKEND_URL } from "@/config";
-import { Meteors } from "@/components/ui/meteors";
-import { AnimeatedButton } from "@/components/component/buttonss";
-import { StarsBackground } from "@/components/ui/stars-background";
-import { ShootingStars } from "@/components/ui/shooting-stars";
-
 import axios from "axios";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
+export function AdminSigninPage() {
+  const [email, setEmail] = useState<string>("");
+  const [passwd, setPasswd] = useState<string>("");
+  const [hosCodes, setHosCodes] = useState<HospitalCode[]>([]); 
+  const [selectedHosCode, setSelectedHosCode] = useState<string>(""); 
+  const [loading, setLoading] = useState<boolean>(true);
+  const navigate = useNavigate();
+  useEffect(() => {
+    const fetchHospitalCodes = async () => {
+      try {
+        const { data } = await axios.get(`${BACKEND_URL}/api/hospital/gethoscodes`);
+        if (data && data.hosCodes) {
+          setHosCodes(data.hosCodes); 
+        } else {
+          console.error("Invalid response structure:", data);
+        }
+        setLoading(false); 
+      } catch (error) {
+        console.error("Error fetching hospital codes", error);
+        setLoading(false); 
+      }
+    };
+    fetchHospitalCodes();
+  }, []);
 
-
-export function SignAdmin() {
-
-
-  const [email,setEmail]=useState<String>();
-  const [passwd,setPasswd]=useState<String>();
-  const [hosCode,setHosCode]=useState<String>();
-  const navigate=useNavigate();
-
-
-
-
+  useEffect(() => {
+    if (hosCodes.length > 0) {
+      console.log("Hospital codes updated:", hosCodes);
+    }
+  }, [hosCodes]); 
 
   const handleSubmit = async () => {
-  
-
-    if (email==="" || passwd==="") {
-      alert("error")
+    if (email === "" || passwd === "" || selectedHosCode === "") {
+      alert("Please fill in all fields");
       return;
     }
-
     try {
-      console.log(email,passwd,hosCode)
-      const res = await axios.post(`${BACKEND_URL}/api/admin/adminlogin`, {
+      const res = await axios.post(`${BACKEND_URL}/api/doctor/login`, {
         email,
-        password:passwd,
-        hosCode
-      }) as { data:{success: boolean, token: string,hosCode:string} };
+        password: passwd,
+        hosCode: selectedHosCode,
+      }) as { data: { success: boolean; token: string; hosCode: string } };
+
       localStorage.setItem("admintoken", res.data.token);
-      localStorage.setItem("hospitalcode",res.data.hosCode);
-      navigate("/admindashboard")
+      localStorage.setItem("hospitalcode", res.data.hosCode);
+      navigate("/admindashboard");
     } catch (err: any) {
-      alert("error")
-     
+      alert("Login error");
     }
   };
 
+  const handleHosCodeChange = (value: string) => {
+    setSelectedHosCode(value);
+  };
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (!hosCodes.length) {
+    return <p>No hospital codes available.</p>;
+  }
+
   return (
-
-       
-        
-    <div className=" rounded-md bg-neutral-900 flex flex-col items-center justify-center w-screen absolute left-0 top-0 h-screen"> 
-          <ShootingStars/>
-                <StarsBackground/>
-        
-        <div className=" w-1/3 relative">
-        
-    <div className="absolute inset-0 h-full w-full bg-gradient-to-r from-blue-500 to-teal-500 transform scale-[0.90] bg-red-500 rounded-full blur-2xl" />
-    <div className="relative shadow-xl bg-gray-900 border border-gray-800  px-4 py-8 h-full overflow-hidden rounded-2xl flex flex-col justify-end items-start">
-      
-      <h1 className="font-bold text-xl text-white mb-4 relative z-50 w-full text-center">
-        
-      </h1><br></br>
-                
-                
-      <h2 className="font-bold text-xl text-white  w-full text-center"> LOGIN</h2>
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-            <div className=" py-8 px-4 shadow sm:rounded-lg sm:px-10">
-                <div className="grid w-full max-w-sm items-center gap-1.5">
-                     <label htmlFor="email" className=" flex justify-start text-white">Email</label>
-                     <Input type="text" id="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
-                 </div>
-                
-                 <div className="grid w-full max-w-sm items-center gap-1.5 py-5  ">
-                     <label htmlFor="email" className=" flex justify-start text-white">Password</label>
-                     <Input type="text" id="email" placeholder="Password" onChange={(e) => setPasswd(e.target.value)} />
-                 </div>
-
-                 <div className="grid w-full max-w-sm items-center gap-1.5 py-5  ">
-                     <label htmlFor="hosCode" className=" flex justify-start text-white">Hospital Code</label>
-                     <Input type="text" id="hosCode" placeholder="Hospital Code" onChange={(e) => setPasswd(e.target.value)} />
-                 </div>
-              <AnimeatedButton className="" val={"Signin"} onClicked={handleSubmit}>Sign In</AnimeatedButton>
+    <div>
+    <div className="min-h-screen bg-blue-50 flex items-center justify-center p-4">
+      <Card className="w-full max-w-md">
+        <CardHeader className="space-y-1">
+          <CardTitle className="text-2xl font-bold text-center">Sign in</CardTitle>
+          <CardDescription className="text-center">
+            Enter your email and password to access your account
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="email">Email</Label>
+            <Input
+              id="email"
+              type="email"
+              placeholder="m@example.com"
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
           </div>
+          <div className="space-y-2">
+            <Label htmlFor="password">Password</Label>
+            <Input id="password" type="password" required onChange={(e) => setPasswd(e.target.value)} />
           </div>
-               
+          <div className="space-y-2">
+            <Label htmlFor="hospital-code">Hospital Code</Label>
+            {/* <Select onValueChange={handleHosCodeChange}>
+              <SelectTrigger id="hospital-code">
+                <SelectValue placeholder="Select hospital code" />
+              </SelectTrigger>
+              <SelectContent>
+                {hosCodes.map((hoscode, index) => (
+                  <SelectItem key={`${hoscode.hosCode}-${index}`} value={hoscode.hosCode}>
+                    {hoscode.hosCode}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+
+            </Select> */}
+            <Input id="hoscode" type="hoscode" required onChange={(e) => setSelectedHosCode(e.target.value)} />
+          </div>
+        </CardContent>
+        <CardFooter>
+          <Button onClick={handleSubmit} className="w-full bg-blue-600 hover:bg-blue-700">
+            Sign in
+          </Button>
+        </CardFooter>
+      </Card>
     </div>
-        </div>
-</div>
-    
-
-)
-
+    </div>
+  );
 }

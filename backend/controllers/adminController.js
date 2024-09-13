@@ -1,9 +1,6 @@
-import { stringify } from "querystring";
-import { PrismaClient } from "../prisma/generated/central/index.js";
-import { centralprisma } from "../util.js";
-import { exec } from 'child_process';
 import bcrypt from "bcryptjs"
-import validator from "validator";
+
+import jwt from "jsonwebtoken";
 // const centralprisma = new PrismaClient({
 //     datasources:{
 //         db:{
@@ -119,7 +116,7 @@ const getMedicalRecords = async(req,res)=>{
 }
 
 const createPatient = async(req,res)=>{
-    const {name,contact,address,gender,dob,emergencyContact} = req.body;
+    const {name,contact,address,gender,dob,emergencyContact,email,password} = req.body;
     let abhaid = await centralprisma.aBHANumber.findFirst();
     if(abhaid==null){
         abhaid = "999999999999"
@@ -137,6 +134,11 @@ const createPatient = async(req,res)=>{
         }
     })
     try{
+        if (password.length<8){
+            res.json({success:false,message:"password small"})
+        }
+        const salt = await bcrypt.genSalt(10)
+        const hashpass=await bcrypt.hash(password,salt)
         const patient = await centralprisma.patient.create({
             data:{
                 abhaId:abhaid,
@@ -145,7 +147,9 @@ const createPatient = async(req,res)=>{
                 address:address,
                 gender:gender,
                 DOB:dob,
-                emergencyContact:emergencyContact
+                emergencyContact:emergencyContact,
+                email:email,
+                password:hashpass
             }
         })
         console.log(patient);
@@ -157,16 +161,14 @@ const createPatient = async(req,res)=>{
 }
 
 const adminregister=async(req,res)=>{
-    const {name,email,pass}=req.body
+    const {name,email,password,hosCode}=req.body
     try{
         if (password.length<8){
             res.json({success:false,message:"password small"})
         }
         const salt = await bcrypt.genSalt(10)
         const hashpass=await bcrypt.hash(password,salt)
-
-
-        const admin=await prisma.admin.create(
+        const admin=await centralprisma.admin.create(
             {
                 data:{
                     name,
@@ -189,11 +191,10 @@ const adminlogin=async(req,res)=>{
         const prisma=req.prisma
         try{
         const {email,password}=req.body
-        const admin=await prisma.admin.findUnique({
+        const admin=await centralprisma.admin.findUnique({
             where:{
                 email,
                 hospitalCode:hosCode
-    
             }
         })   
         if(!admin)
