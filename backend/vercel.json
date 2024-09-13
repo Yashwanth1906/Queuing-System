@@ -11,6 +11,7 @@
         "src": "/(.*)",
         "dest": "index.js"
       }
-    ]
+    ],
+    "buildCommand": "npx prisma generate --schema=./prisma/generated/central/schema.prisma && npx prisma generate --schema=./prisma/generated/hospitalClient/schema.prisma"
   }
   
