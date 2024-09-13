@@ -3,23 +3,37 @@ import { Link } from 'react-router-dom'
 export function HomePageComponent() {
   return (
     <div className="h-screen w-screen absolute top-0 right-0 left-0 bg-gray-50">
-      {/* Hero Section */}
-      <section className="w-full bg-blue-600 text-white py-20">
-        <div className="container mx-auto px-4 flex flex-col md:flex-row items-center">
-          <div className="md:w-1/2 mb-10 md:mb-0">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">Welcome to Our Hospital Management System</h1>
-            <p className="text-xl">Providing efficient healthcare solutions</p>
-          </div>
-          <div className="md:w-1/2">
-          </div>
-        </div>
-      </section>
+  {/* Hero Section */}
+  <section className="w-full bg-blue-600 text-white py-20 relative">
+    <div className="absolute top-0 left-0 p-4">
+      <h1 className="text-2xl md:text-4xl font-bold">Svaasth</h1>
+    </div><br></br><br></br><br></br><br></br>
+    <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-center">
+      <div className="md:w-1/2 flex flex-col justify-center items-center text-center">
+        <h1 className="text-4xl md:text-5xl font-bold mb-4">Welcome to Our Hospital Management System</h1>
+        <p className="text-xl">Providing efficient healthcare solutions</p>
+      </div>
+      <div className="md:w-1/2 flex justify-center items-center">
+  <img 
+    src="https://cmkt-image-prd.freetls.fastly.net/0.1.0/ps/5260308/1160/774/m1/fpnw/wm0/health-care-.jpg?1540457127&s=3b6e89ad77e169678f91198be0b1f24d" 
+    alt="Patient" 
+    width={300} 
+    height={300} 
+    className="rounded-full mb-4 md:mb-0 object-cover" 
+  />
+</div>
+
+    </div><br></br><br></br><br></br>
+  </section>
+
+
+
 
       {/* Services Section */}
       <section className="py-20">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto py-8 px-4">
           <h2 className="text-3xl font-bold text-center mb-12">Our Services</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {/* {[
               { title: 'Patient', link: '/patient', image: '/placeholder.svg?height=200&width=200' },
               { title: 'Doctor', link: '/doctor', image: '/placeholder.svg?height=200&width=200' },
@@ -46,6 +60,10 @@ export function HomePageComponent() {
               <Link to="/doctorssignin">
                 <img src="https://static.vecteezy.com/system/resources/previews/015/271/788/non_2x/doctor-with-stethoscope-icon-design-physician-doctor-flat-icon-for-apps-and-websites-doctor-logo-illustration-vector.jpg" alt="Patient" width={200} height={200} className='mx-auto mb-4'/>
                 <h3 className="text-xl font-semibold">Doctor</h3>
+              </Link>
+              <Link to="/inventorysignin">
+                <img src="https://www.osculati.com/SupplyImages/WF-0048/ico-distribuzione-08.png" alt="Patient" width={200} height={200} className='mx-auto mb-4'/>
+                <h3 className="text-xl font-semibold">Inventory</h3>
               </Link>
           </div>
         </div>

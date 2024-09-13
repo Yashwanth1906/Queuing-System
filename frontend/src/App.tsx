@@ -1,6 +1,5 @@
 
 import './App.css'
-import LandingPage from './pages/Landing'
 import { RegisterComponent } from './pages/Doctor/register'
 import { SigninDoctor } from './pages/Doctor/signin'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
