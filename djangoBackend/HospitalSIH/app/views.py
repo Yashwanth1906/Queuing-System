@@ -152,3 +152,7 @@ class PredictDepartmentAndDoctorAPIView(APIView):
             return Response({'department': department, 'doctor': doctor}, status=status.HTTP_200_OK)
         print(symptom_serializer.errors)
         return Response(symptom_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+def test(r):
+    return "Running"

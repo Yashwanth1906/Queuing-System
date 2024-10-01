@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { UserPlus, BedDouble, UserCheck, Activity, BarChart, Bell, Search, Settings} from 'lucide-react'
-import { BACKEND_URL, HOSPITAL_CODE } from '@/config'
+import { BACKEND_URL, HOSPITAL_CODE,DJANGO_URL } from '@/config'
 import axios from 'axios'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
 // import { Dialog, DialogContent } from './ui/dialog'
@@ -246,8 +246,7 @@ export function AdminDashboard() {
         setDoctors(doctorsResponse);
         console.log(doctorsResponse);
       });
-
-      await axios.post("http://localhost:8000/predict/", {
+      await axios.post(`{DJANGO_URL}/predict/`, {
         symptom: find?.reason,
         doctors: doctorsResponse,
       }).then((data) => {
