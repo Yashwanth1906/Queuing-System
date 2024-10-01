@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { Card, CardHeader, CardContent } from "@/components/ui/card";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
-import { BACKEND_URL, HOSPITAL_CODE } from "@/config";
-import axios from "axios";
-import { BarChartIcon, ClipboardIcon, UserIcon } from "lucide-react";
+import { useEffect, useState } from 'react'
+import { Bell, Search, Settings, UserCircle } from 'lucide-react'
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Link } from 'react-router-dom'
+import axios from 'axios'
+import { BACKEND_URL, HOSPITAL_CODE } from '@/config'
 
-// Types
 type Patient = {
   id: number;
   name: string;
@@ -17,7 +17,6 @@ type Patient = {
   status: "Waiting" | "In Progress" | "Completed";
 };
 
-// PatientCard Component
 function PatientCard({ patient }: { patient: Patient }) {
   const statusColors = {
     Waiting: "bg-red-500 text-red-50",
@@ -34,8 +33,8 @@ function PatientCard({ patient }: { patient: Patient }) {
           </div>
           <div className="flex items-center gap-2">
             <Avatar className="border-2 border-white">
-              <AvatarImage src="/placeholder-user.jpg" alt={patient.name} />
-              <AvatarFallback>{patient.name[0] + patient.name[1]}</AvatarFallback>
+              <AvatarImage src="/placeholder.svg?height=40&width=40" alt={patient.name} />
+              <AvatarFallback>{patient.name.slice(0, 2).toUpperCase()}</AvatarFallback>
             </Avatar>
             <div>
               <div className="font-medium">{patient.name}</div>
@@ -53,11 +52,11 @@ function PatientCard({ patient }: { patient: Patient }) {
   );
 }
 
-// DoctorDashBoard Component
-export function DoctorDashBoard() {
+export function DoctorDashboard() {
+  const [activeTab, setActiveTab] = useState('');
   const [patients, setPatients] = useState<Patient[]>([]);
-
   useEffect(() => {
+    console.log(localStorage.getItem("doctortoken"))
     axios
       .get(`${BACKEND_URL}/api/doctor/getPatients`, {
         headers: {
@@ -84,52 +83,65 @@ export function DoctorDashBoard() {
         console.error("Error fetching patients:", error);
       });
   }, []);
-
   return (
-    <div className="flex h-screen w-screen absolute top-0 left-0 right-0">
-      <div>
-        
-        {/* <div className="flex items-center gap-2 border-b pb-4"> */}
-          {/* <div className="rounded-full bg-primary p-2 text-primary-foreground">
-            <StethoscopeIcon className="h-6 w-6" />
-          </div> */}
-          {/* <h2 className="text-xl font-semibold">Dashboard</h2> */}
-        <div className="flex items-center bg-neutral-950 justify-between w-screen p-4 border-b">
-        <h1 className="text-4xl relative bg-clip-text text-transparent bg-no-repeat bg-gradient-to-r from-purple-500 via-violet-500 to-pink-500 font-bold ">Doctor Dashboard</h1>
-        <Link to="/"><Button className="ml-auto bg-gradient-to-b from-indigo-500 to-purple-500">Home</Button></Link>
+    <div className="flex h-screen w-screen absolute top-0 left-0 bg-gray-100">
+      <aside className="w-64 bg-white shadow-md">
+        <div className="p-4">
+          <h2 className="text-2xl font-bold text-purple-600">Doctor Dashboard</h2>
         </div>
-        <div className="flex">
-      <aside className="flex flex-col bg-neutral-950 h-screen w-72 border-r bg-background p-4 sm:p-6">
-        <nav className="mt-6 flex flex-col gap-2">
-          <span className="flex items-center gap-2 rounded-md px-3 py-2  text-muted-foreground">
-          <Button className="ml-auto w-60 bg-purple-500 hover:bg-purple-800"> <ClipboardIcon className="h-5 w-5" /> 
-            Ops</Button>
-          </span>
-              <span className="flex items-center gap-2 rounded-md px-3 py-2 text-muted-foreground">
-                <Button className="ml-auto w-60 bg-purple-500 hover:bg-purple-800"><UserIcon className="h-5 w-5" />
-            IPs</Button>
-          
-          </span>
-          <span className="flex items-center gap-2 rounded-md px-3 py-2 text-muted-foreground">
-            
-            <Button className="ml-auto w-60 bg-purple-500 hover:bg-purple-800"><BarChartIcon className="h-5 w-5" />
-            Analysis</Button>
-          </span>
+        <nav className="mt-6">
+          {['OutPatient', 'InPatient', 'Analysis'].map((item) => (
+            <Button
+              key={item}
+              variant={activeTab === item.toLowerCase() ? "secondary" : "ghost"}
+              className="w-full justify-start"
+              onClick={() => setActiveTab(item.toLowerCase())}
+            >
+              {item}
+            </Button>
+          ))}
         </nav>
       </aside>
-      <div className="flex-1 p-4 sm:p-6">
-        <div className="grid gap-4">
-          <div className="grid gap-2">
-            <h3 className="text-lg font-semibold">Ops</h3>
-            <div className="grid gap-4">
-              {patients.map((patient) => (
+      <main className="flex-1 overflow-y-auto">
+        <header className="bg-white shadow-sm">
+          <div className="flex items-center justify-between px-4 py-3">
+            <Input className="w-64" placeholder="Search..." />
+            <div className="flex items-center space-x-4">
+              <Button size="icon" variant="ghost">
+                <Bell className="h-5 w-5" />
+              </Button>
+              <Button size="icon" variant="ghost">
+                <Search className="h-5 w-5" />
+              </Button>
+              <Button size="icon" variant="ghost">
+                <Settings className="h-5 w-5" />
+              </Button>
+              <Avatar>
+                <AvatarImage src="/placeholder.svg?height=32&width=32" alt="User" />
+                <AvatarFallback>
+                  <UserCircle className="h-5 w-5" />
+                </AvatarFallback>
+              </Avatar>
+            </div>
+          </div>
+        </header>
+        <div className="p-6">
+          <h1 className="text-2xl font-semibold mb-4">{activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}</h1>
+          {activeTab === 'outpatient' && (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {patients.map(patient => (
                 <PatientCard key={patient.id} patient={patient} />
               ))}
             </div>
-          </div>
-          {/* Additional sections omitted for brevity */}
+          )}
+          {activeTab === 'inpatient' && (
+            <p>InPatient content goes here</p>
+          )}
+          {activeTab === 'analysis' && (
+            <p>Analysis content goes here</p>
+          )}
         </div>
-      </div>
-    </div></div></div>
-  );
+      </main>
+    </div>
+  )
 }

@@ -1,28 +1,17 @@
-import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardContent, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Link } from "react-router-dom";
-
-import axios from "axios";
-import { Navbar } from "@/components/component/navbar";
-import { BACKEND_URL, HOSPITAL_CODE } from "@/config";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-
-
-
-
-
-import { AlertTriangle, Bed, ClipboardIcon, HomeIcon, HospitalIcon, InfoIcon, UserCheck, UserIcon, UserMinus, UserPlus } from "lucide-react";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Calendar } from "@/components/ui/calendar";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { Separator } from "@radix-ui/react-dropdown-menu";
-
+import { useEffect, useState } from 'react'
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Textarea } from "@/components/ui/textarea"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Badge } from "@/components/ui/badge"
+import { LayoutDashboard, UserPlus, BedDouble, UserCheck, Activity, BarChart, Bell, Search, Settings, Bed } from 'lucide-react'
+import { BACKEND_URL, HOSPITAL_CODE } from '@/config'
+import axios from 'axios'
+import { Dialog, DialogContent } from '@/components/ui/dialog'
+// import { Dialog, DialogContent } from './ui/dialog'
 
 interface PatientDetails {
   abhaId :string,
@@ -78,17 +67,33 @@ interface UnallocatedPatient {
   ward: WardforUnallocated;
 }
 
-export function Admindashboard() {
-  const [activeView, setActiveView] = useState<"activeDoctors" | "inactiveDoctors" | "newPatientForm" | "createABHA" | "popupcard" | "bedAllocation" | "bedPopUp"| "main" >("main");
+type Appointment = {
+  id: number;
+  abhaId:string;
+  name:string;
+  gender:string;
+  age:string
+  date: string;
+  time: string;
+  reason: string;
+
+};
+
+
+export function AdminDashboard() {
+  const [activeView, setActiveView] = useState<"activeDoctors" | "inactiveDoctors" | "newPatientForm" | "createABHA" | "popupcard" | "bedAllocation" | "bedPopUp"|"patientCheckin" | "analysis" |"main" | "getPatient" >("main");
   const [patientDetails, setPatientDetails] = useState<PatientDetails | null>(null);
   const [reason, setReason] = useState('');
+  const [appointments,setAppointments] = useState<Appointment[]>([])
   const [abhaId, setAbhaId] = useState("");
   const [selectedPatient, setSelectedPatient] = useState<UnallocatedPatient | null>(null);
   const [bedNumber, setBedNumber] = useState<string>('');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [unallocatedPatients, setUnallocatedPatients] = useState<UnallocatedPatient[]>([]);
   const [doctors, setDoctors] = useState<Doctor[]>([]);
-  const [allocatedDoctor, setAllocatedDoctor] = useState<Doctor | null>(null); // State for the allocated doctor
+  const [allocatedDoctor, setAllocatedDoctor] = useState<Doctor | null>(null);
+  const [selectedCheckIn,setSelectedCheckIn] = useState(null);
+  const [allocatedDoctorForCheckIn, setAllocatedDoctorForCheckIn] = useState<Doctor | null>(null);
   const [formState, setFormState] = useState<FormState>({
     name: '',
     contact: '',
@@ -97,8 +102,18 @@ export function Admindashboard() {
     dob: undefined,
     emergencyContact: '',
     abhaid:undefined,
+    email:"",
+    password:""
   });
-  
+  const [searchQuery, setSearchQuery] = useState('')
+
+  // Mock data for patient check-ins
+  const [patientCheckIns, setPatientCheckIns] = useState([
+    { id: 1, name: "John Doe", abhaId: "ABHA1234", symptom: "Fever", timeSlot: "10:00 AM", date: "2023-06-15" },
+    { id: 2, name: "Jane Smith", abhaId: "ABHA5678", symptom: "Headache", timeSlot: "11:30 AM", date: "2023-06-15" },
+    { id: 3, name: "Alice Johnson", abhaId: "ABHA9012", symptom: "Cough", timeSlot: "2:00 PM", date: "2023-06-15" },
+  ])
+
   const handleReasonChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setReason(e.target.value);
   };
@@ -191,6 +206,78 @@ export function Admindashboard() {
     }
   }, [selectedPatient]);
 
+  const  handleOPDUpdateForCheckIn = async() =>{
+    const find = appointments.find((item) => item.id === selectedCheckIn);
+    await axios.post(`${BACKEND_URL}/api/hospital/createpatient`,{
+      abhaId:find?.abhaId,
+      doctorId : allocatedDoctorForCheckIn?.id,
+      queueNumber:allocatedDoctorForCheckIn?._count.opdQueue,
+      visitType:"FreshVisit",
+      age:find?.age,
+      gender:find?.gender,
+      reason:find?.reason,
+      name:find?.name
+  },
+  {
+    headers:{
+      code: HOSPITAL_CODE,
+    }
+  }
+).then((data)=>{
+    if(data.data.message!=null){
+      alert(data.data.message);
+    }
+    setAllocatedDoctorForCheckIn(null);
+    setActiveView("main");
+  })
+  }
+
+  const handleCheckIn = async(patientId:any) => {
+    const find = appointments.find((item) => item.id === patientId)
+    setSelectedCheckIn(patientId);
+    try {
+      let doctorsResponse: Doctor[] = [];
+      await axios.get(`${BACKEND_URL}/api/doctor/alldoctors`, {
+        headers: {
+          code: HOSPITAL_CODE,
+        }
+      }).then((data) => {
+        doctorsResponse = data.data.doctors;
+        setDoctors(doctorsResponse);
+        console.log(doctorsResponse);
+      });
+
+      await axios.post("http://localhost:8000/predict/", {
+        symptom: find?.reason,
+        doctors: doctorsResponse,
+      }).then((data) => {
+        if (data.data.error != null) {
+          alert(data.data.error);
+        } else {
+          console.log(data.data.doctor);
+          const doctor = doctorsResponse.find(doc => doc.id === data.data.doctor);
+          console.log(allocatedDoctor)
+          setAllocatedDoctorForCheckIn(doctor || null);
+          console.log(allocatedDoctor);
+        }
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  const handleCancel = (patientId:any) => {
+    // Handle cancellation of patient check-in
+    console.log(`Cancelling check-in for patient with ID: ${patientId}`)
+  }
+
+  const handleSearch = (e:any) => {
+    setSearchQuery(e.target.value)
+  }
+
+  const filteredPatients = patientCheckIns.filter(patient =>
+    patient.abhaId.toLowerCase().includes(searchQuery.toLowerCase())
+  )
   const bedAllocatedPopUp = () => {
     if (!selectedPatient || !bedNumber) return null;
     console.log(selectedPatient)
@@ -226,41 +313,253 @@ export function Admindashboard() {
     );
   };
 
-  const renderActiveDoctors = () => (
-    <Card>
+  const renderNewPatientForm = () => (
+    <div className="max-w-2xl mx-auto">
+      <Card className="bg-gradient-to-br from-blue-50 to-indigo-100 shadow-lg">
+        <CardHeader className="text-center">
+          <CardTitle className="text-2xl font-bold text-indigo-700">New Patient</CardTitle>
+          <CardDescription className="text-indigo-600">Enter the patient's Abha ID to get their details.</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="grid grid-cols-[auto_1fr] gap-4 items-center">
+            <Label htmlFor="abha-id" className="text-indigo-700">Abha ID</Label>
+            <Input
+              id="abha-id"
+              placeholder="Enter Abha ID"
+              value={abhaId}
+              onChange={handleAbhaIdChange}
+              className="border-indigo-300 focus:border-indigo-500 focus:ring-indigo-500"
+            />
+          </div>
+          <div className="flex flex-col items-center gap-2">
+            <Button type="submit" onClick={() => {
+              axios
+              .get(`${BACKEND_URL}/api/admin/getpatient`, {
+                headers: {
+                  abhaid: abhaId,
+                },
+              })
+              .then((data) => {
+                console.log(data.data.patient);
+                setPatientDetails(data.data.patient);
+                setActiveView("getPatient");
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+            }} className="bg-indigo-600 hover:bg-indigo-700 text-white">
+              Get Details
+            </Button>
+            <span className="text-indigo-600 font-medium">OR</span>
+            <Button className="bg-sky-500 hover:bg-sky-600 text-white" onClick={() => setActiveView("createABHA")}>
+              Create ABHA ID
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  )
+
+  const createABHA = () => (
+    <Card className="w-full max-w-2xl mx-auto bg-white shadow-lg">
       <CardHeader>
-        <CardTitle>Active Doctors</CardTitle>
+        <CardTitle className="text-2xl font-bold text-gray-800">Create ABHA ID</CardTitle>
+        <CardDescription className="text-gray-600">
+          Enter your personal information to generate your Ayushman Bharat Health Account (ABHA) ID.
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-6">
+        <form onSubmit={handleSubmit}>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="name" className="text-gray-700">Name</Label>
+              <Input
+                id="name"
+                value={formState.name}
+                onChange={handleInputChange}
+                placeholder="Enter your full name"
+                className="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="contact" className="text-gray-700">Contact</Label>
+              <Input
+                id="contact"
+                type="tel"
+                value={formState.contact}
+                onChange={handleInputChange}
+                placeholder="Enter your phone number"
+                className="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+              />
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-4 mt-4">
+            <div className="space-y-2">
+              <Label htmlFor="email" className="text-gray-700">Email</Label>
+              <Input
+                id="email"
+                type="email"
+                value={formState.email}
+                onChange={handleInputChange}
+                placeholder="Enter your email"
+                className="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="password" className="text-gray-700">Password</Label>
+              <Input
+                id="password"
+                type="password"
+                value={formState.password}
+                onChange={handleInputChange}
+                placeholder="Enter your password"
+                className="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+              />
+            </div>
+          </div>
+          <div className="space-y-2 mt-4">
+            <Label htmlFor="address" className="text-gray-700">Address</Label>
+            <Textarea
+              id="address"
+              value={formState.address}
+              onChange={handleInputChange}
+              placeholder="Enter your address"
+              className="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+            />
+          </div>
+          <div className="grid grid-cols-2 gap-4 mt-4">
+            <div className="space-y-2">
+              <Label htmlFor="gender" className="text-gray-700">Gender</Label>
+              <Select value={formState.gender} onValueChange={handleGenderChange}>
+                <SelectTrigger className="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500">
+                  <SelectValue placeholder="Select gender" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="male">Male</SelectItem>
+                  <SelectItem value="female">Female</SelectItem>
+                  <SelectItem value="other">Other</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="dob" className="text-gray-700">Date of Birth</Label>
+              <Input
+                type="date"
+                id="dob"
+                name="dob"
+                className="w-full p-2 border rounded outline-none border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                value={formState.dob ? formState.dob.toISOString().substring(0, 10) : ''}
+                onChange={(e) => handleDateChange(new Date(e.target.value))}
+              />
+            </div>
+          </div>
+          <div className="space-y-2 mt-4">
+            <Label htmlFor="emergencyContact" className="text-gray-700">Emergency Contact Address</Label>
+            <Textarea
+              id="emergencyContact"
+              value={formState.emergencyContact}
+              onChange={handleInputChange}
+              placeholder="Enter emergency contact address"
+              className="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+            />
+          </div>
+          <Button type="submit" className="w-full mt-6 bg-indigo-600 hover:bg-indigo-700 text-white">
+            Generate ABHA ID
+          </Button>
+        </form>
+      </CardContent>
+    </Card>
+  )
+
+  const renderBedAllocation = () => (
+    <div className="space-y-6 max-w-3xl mx-auto">
+      {unallocatedPatients.map((patient, index) => (
+        <Card className="w-full bg-white shadow-md" key={index}>
+          <CardContent className="grid grid-cols-[1fr_1fr_1fr] gap-4 p-4">
+            <div className="space-y-1.5">
+              <Label htmlFor="patient-name" className="text-gray-600">Patient Name</Label>
+              <div className="flex items-center">
+                <Avatar className="mr-2">
+                  <AvatarImage src="/placeholder-user.jpg" alt="Patient" />
+                  <AvatarFallback>{patient?.patinet?.name ? patient.patinet.name[0] : 'N/A'}</AvatarFallback>
+                </Avatar>
+                <span className="text-gray-800">{patient?.patinet?.name || 'Unknown'}</span>
+              </div>
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="abha-id" className="text-gray-600">Abha ID</Label>
+              <div className="text-gray-800">{patient?.patientId || 'N/A'}</div>
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="doctor-name" className="text-gray-600">Doctor Name</Label>
+              <div className="flex items-center">
+                <Avatar className="mr-2">
+                  <AvatarImage src="/placeholder-user.jpg" alt="Doctor" />
+                  <AvatarFallback>{patient?.doctor?.name ? patient.doctor.name[0] : 'N/A'}</AvatarFallback>
+                </Avatar>
+                <span className="text-gray-800">{patient?.doctor?.name || 'Unknown'}</span>
+              </div>
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="reason" className="text-gray-600">Reason</Label>
+              <div className="text-gray-800">{patient?.patient?.reason || 'No reason provided'}</div>
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="ward-name" className="text-gray-600">Ward Name</Label>
+              <div className="text-gray-800">{patient?.ward?.name || 'No ward assigned'}</div>
+            </div>
+            <div className="flex items-end justify-end">
+              <Button size="lg" onClick={() => handlePatientSelect(patient)} className="bg-green-500 hover:bg-green-600 text-white">
+                Allocate Bed
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      ))}
+    </div>
+  )
+
+  const renderActiveDoctors = () => (
+    <Card className="max-w-md mx-auto bg-white shadow-md">
+      <CardHeader>
+        <CardTitle className="text-xl font-bold text-gray-800">Active Doctors</CardTitle>
       </CardHeader>
       <CardContent>
         <ul className="space-y-2">
-          {/* {getActiveDoctors().map((doctor) => (
-            <li key={doctor.name} className="flex items-center justify-between cursor-pointer hover:bg-muted/50 rounded-md p-2">
-              <div className="font-medium">{doctor.name}</div>
-              <Badge variant="secondary">Online</Badge>
-            </li>
-          ))} */}
+          {/* Placeholder for active doctors list */}
+          <li className="flex items-center justify-between cursor-pointer hover:bg-gray-100 rounded-md p-2">
+            <div className="font-medium text-gray-700">Dr. John Doe</div>
+            <Badge variant="secondary" className="bg-green-100 text-green-800">Online</Badge>
+          </li>
+          <li className="flex items-center justify-between cursor-pointer hover:bg-gray-100 rounded-md p-2">
+            <div className="font-medium text-gray-700">Dr. Jane Smith</div>
+            <Badge variant="secondary" className="bg-green-100 text-green-800">Online</Badge>
+          </li>
         </ul>
       </CardContent>
     </Card>
-  );
+  )
 
   const renderInactiveDoctors = () => (
-    <Card>
+    <Card className="max-w-md mx-auto bg-white shadow-md mt-6">
       <CardHeader>
-        <CardTitle>Inactive Doctors</CardTitle>
+        <CardTitle className="text-xl font-bold text-gray-800">Inactive Doctors</CardTitle>
       </CardHeader>
       <CardContent>
         <ul className="space-y-2">
-          {/* {getInactiveDoctors().map((doctor) => (
-            <li key={doctor.name} className="flex items-center justify-between cursor-pointer hover:bg-muted/50 rounded-md p-2">
-              <div className="font-medium">{doctor.name}</div>
-              <Badge variant="outline">Offline</Badge>
-            </li>
-          ))} */}
+          {/* Placeholder for inactive doctors list */}
+          <li className="flex items-center justify-between cursor-pointer hover:bg-gray-100 rounded-md p-2">
+            <div className="font-medium text-gray-700">Dr. Alice Johnson</div>
+            <Badge variant="outline" className="text-gray-600">Offline</Badge>
+          </li>
+          <li className="flex items-center justify-between cursor-pointer hover:bg-gray-100 rounded-md p-2">
+            <div className="font-medium text-gray-700">Dr. Bob Williams</div>
+            <Badge variant="outline" className="text-gray-600">Offline</Badge>
+          </li>
         </ul>
       </CardContent>
     </Card>
-  );
+  )
 
   const popUpCard = ()=>(
     <Dialog defaultOpen>
@@ -291,209 +590,59 @@ export function Admindashboard() {
       </DialogContent>
     </Dialog>
   )
-
-
-  const renderBedAllocation = () =>(
+  const renderPatientCheckIn = () => (
     <div className="space-y-6">
-      {unallocatedPatients.map((patient, index) => (
-  <Card className="w-full max-w-3xl" key={index}>
-    <CardContent className="grid grid-cols-[1fr_1fr_1fr] gap-4 p-4">
-      <div className="space-y-1.5">
-        <Label htmlFor="patient-name">Patient Name</Label>
-        <div className="flex items-center">
-          <Avatar className="mr-2">
-            <AvatarImage src="/placeholder-user.jpg" alt="Patient" />
-            <AvatarFallback>{patient?.patinet?.name ? patient.patinet.name[0] : 'N/A'}</AvatarFallback>
-          </Avatar>
-          <span>{patient?.patinet?.name || 'Unknown'}</span>
-        </div>
+      <div className="mb-4">
+        <Input
+          type="text"
+          placeholder="Search by ABHA ID"
+          value={searchQuery}
+          onChange={handleSearch}
+          className="w-full max-w-md"
+        />
       </div>
-      <div className="space-y-1.5">
-        <Label htmlFor="abha-id">Abha ID</Label>
-        <div>{patient?.patientId || 'N/A'}</div>
-      </div>
-      <div className="space-y-1.5">
-        <Label htmlFor="doctor-name">Doctor Name</Label>
-        <div className="flex items-center">
-          <Avatar className="mr-2">
-            <AvatarImage src="/placeholder-user.jpg" alt="Doctor" />
-            <AvatarFallback>{patient?.doctor?.name ? patient.doctor.name[0] : 'N/A'}</AvatarFallback>
-          </Avatar>
-          <span>{patient?.doctor?.name || 'Unknown'}</span>
-        </div>
-      </div>
-      <div className="space-y-1.5">
-        <Label htmlFor="reason">Reason</Label>
-        <div>{patient?.patinet?.reason || 'No reason provided'}</div>
-      </div>
-      <div className="space-y-1.5">
-        <Label htmlFor="ward-name">Ward Name</Label>
-        <div>{patient?.ward?.name || 'No ward assigned'}</div>
-      </div>
-      <div className="flex items-end justify-end">
-        <Button size="lg" onClick={() => handlePatientSelect(patient)} >Allocate Bed</Button>
-      </div>
-    </CardContent>
-  </Card>
-))}
-
+      {appointments.map((item) => (
+        <Card key={item.id} className="w-full bg-white shadow-sm">
+          <CardContent className="p-6">
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <div className="grid grid-cols-2 gap-4 flex-grow">
+                <div>
+                  <Label className="text-sm font-medium text-gray-500">Name</Label>
+                  <div className="text-lg font-semibold text-gray-900">{item.name}</div>
+                </div>
+                <div>
+                  <Label className="text-sm font-medium text-gray-500">ABHA ID</Label>
+                  <div className="text-lg font-semibold text-gray-900">{item.abhaId}</div>
+                </div>
+                <div>
+                  <Label className="text-sm font-medium text-gray-500">Symptom</Label>
+                  <div className="text-lg font-semibold text-gray-900">{item.reason}</div>
+                </div>
+                <div>
+                  <Label className="text-sm font-medium text-gray-500">Time Slot</Label>
+                  <div className="text-lg font-semibold text-gray-900">{item.time}</div>
+                </div>
+                <div>
+                  <Label className="text-sm font-medium text-gray-500">Date</Label>
+                  <div className="text-lg font-semibold text-gray-900">{item.date}</div>
+                </div>
+              </div>
+              <div className="flex gap-2">
+                <Button onClick={() => handleCheckIn(item.id)} className="bg-green-500 hover:bg-green-600 text-white">
+                  Check In
+                </Button>
+                <Button onClick={() => handleCancel(item.id)} variant="outline" className="border-red-500 text-red-500 hover:bg-red-50">
+                  Cancel
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      ))}
     </div>
   )
 
-
-  const renderNewPatientForm = () => (
-    <Card>
-      <CardHeader>
-        <CardTitle>New Patient</CardTitle>
-        <CardDescription>Enter the patient's Abha ID to get their details.</CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="grid grid-cols-[auto_1fr] gap-4">
-          <Label htmlFor="abha-id">Abha ID</Label>
-          <Input id="abha-id" placeholder="Enter Abha ID" value={abhaId} onChange={handleAbhaIdChange} />
-        </div>
-        <div className="flex flex-col items-center gap-2">
-  <Button
-    type="submit"
-    onClick={() => {
-      axios
-        .get(`${BACKEND_URL}/api/admin/getpatient`, {
-          headers: {
-            abhaid: abhaId,
-          },
-        })
-        .then((data) => {
-          console.log(data.data.patient);
-          setPatientDetails(data.data.patient);
-          setActiveView(null);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }}
-  >
-    Get Details
-  </Button>
-  OR
-  <Button className="bg-sky-500"
-    onClick={() => {
-      setActiveView("createABHA");
-    }}
-  >
-    Create ABHA ID
-  </Button>
-</div>
-
-      </CardContent>
-    </Card>
-  );
-
-  const createABHA = () =>(
-    <Card className="w-full max-w-2xl">
-  <CardHeader>
-    <CardTitle>Create ABHA ID</CardTitle>
-    <CardDescription>
-      Enter your personal information to generate your Ayushman Bharat Health Account (ABHA) ID.
-    </CardDescription>
-  </CardHeader>
-  <CardContent className="space-y-6">
-    <form onSubmit={handleSubmit}>
-      <div className="grid grid-cols-2 gap-4">
-        <div className="space-y-2">
-          <Label htmlFor="name">Name</Label>
-          <Input
-            id="name"
-            value={formState.name}
-            onChange={handleInputChange}
-            placeholder="Enter your full name"
-          />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="contact">Contact</Label>
-          <Input
-            id="contact"
-            type="tel"
-            value={formState.contact}
-            onChange={handleInputChange}
-            placeholder="Enter your phone number"
-          />
-        </div>
-      </div>
-      <div className="grid grid-cols-2 gap-4">
-        <div className="space-y-2">
-          <Label htmlFor="email">Email</Label>
-          <Input
-            id="email"
-            value={formState.email}
-            onChange={handleInputChange}
-            placeholder="Enter your full name"
-          />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="contact">Password</Label>
-          <Input
-            id="password"
-            type="tel"
-            value={formState.password}
-            onChange={handleInputChange}
-            placeholder="Enter your phone number"
-          />
-        </div>
-      </div>
-      <div className="space-y-2">
-        <Label htmlFor="address">Address</Label>
-        <Textarea
-          id="address"
-          value={formState.address}
-          onChange={handleInputChange}
-          placeholder="Enter your address"
-        />
-      </div>
-      <div className="grid grid-cols-2 gap-4">
-        <div className="space-y-2">
-          <Label htmlFor="gender">Gender</Label>
-          <Select  value={formState.gender} onValueChange={handleGenderChange}>
-            <SelectTrigger>
-              <SelectValue placeholder="Select gender" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="male">Male</SelectItem>
-              <SelectItem value="female">Female</SelectItem>
-              <SelectItem value="other">Other</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="dob">Date of Birth</Label>
-            <input
-              type="date"
-              id="dob"
-              name="dob"
-              className="w-full p-2 border rounded outline-none"
-              value={formState.dob ? formState.dob.toISOString().substring(0, 10) : ''} // Format date to YYYY-MM-DD for the input
-              onChange={(e) => handleDateChange(new Date(e.target.value))}
-            />
-      </div>
-      </div>
-      <div className="space-y-2">
-        <Label htmlFor="emergency-contact">Emergency Contact Address</Label>
-        <Textarea
-          id="emergencyContact"
-          value={formState.emergencyContact}
-          onChange={handleInputChange}
-          placeholder="Enter emergency contact address"
-        />
-      </div>
-      <CardFooter>
-        <Button type="submit" className="w-full">
-          Generate ABHA ID
-        </Button>
-      </CardFooter>
-        </form>
-      </CardContent>
-    </Card>
-  )
-
+  
   const handleAllocateDoctor = async () => {
     try {
       let doctorsResponse: Doctor[] = [];
@@ -525,6 +674,38 @@ export function Admindashboard() {
       console.error(error);
     }
   };
+  const renderPatientDetails = () =>(
+    <Card>
+            <CardHeader>
+              <CardTitle>Patient Details</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="name">Name</Label>
+                  <Input id="name" defaultValue={patientDetails?.name} />
+                </div>
+                <div>
+                  <Label htmlFor="age">Age</Label>
+                  <Input id="age" type="number" defaultValue={patientDetails?.Age} />
+                </div>
+                <div>
+                  <Label htmlFor="gender">Gender</Label>
+                  <Input id="gender" defaultValue={patientDetails?.gender} />
+                </div>
+                <div>
+                  <Label htmlFor="reason">Reason</Label>
+                  <Textarea id="reason" placeholder="Enter reason for visit" value={reason} onChange={handleReasonChange} />
+                </div>
+              </div>
+              <div className="flex justify-center gap-2">
+                <Button type="submit" className="align-center" onClick={handleAllocateDoctor}>
+                  Allocate Doctor
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+  )
 
   const getBedAllocationRequests = async()=>{
     await axios.get(`${BACKEND_URL}/api/hospital/getunallocated`,{
@@ -561,113 +742,112 @@ export function Admindashboard() {
           alert(data.data.message);
         }
         setAllocatedDoctor(null);
-        setActiveView(null);
+        setActiveView("main");
       })
   }
 
-  const renderMain = ()=>(
-    <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Total Patients</CardTitle>
-                  <UserPlus className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">1,259</div>
-                  <p className="text-xs text-muted-foreground">+20.1% from last month</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Available Beds</CardTitle>
-                  <Bed className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">45</div>
-                  <p className="text-xs text-muted-foreground">-3 from yesterday</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Active Doctors</CardTitle>
-                  <UserCheck className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">89</div>
-                  <p className="text-xs text-muted-foreground">+2 new this week</p>
-                </CardContent>
-              </Card>
-            </div>
-  )
+
+  const getAllAdmissions = async()=>{
+    await axios.get(`${BACKEND_URL}/api/hospital/getcheckins`,{
+      headers:{
+        code:HOSPITAL_CODE
+      }
+    }).then((data)=>{
+      console.log(data.data.checkins)
+      setAppointments(data.data.checkins)
+    })
+  }
   return (
-    <div className="flex h-screen bg-gray-100 dark:bg-gray-900">
-      {/* Sidebar */}
-      <aside className={`${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-gray-800 transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0`}>
-        <div className="flex items-center justify-center h-16 px-6 bg-blue-600 dark:bg-blue-800">
-          <h1 className="text-xl font-semibold text-white">Admin Dashboard</h1>
+    <div className="flex w-screen absolute top-0 left-0 flex-col h-screen bg-gray-100">
+      {/* Top Bar */}
+      <header className="bg-white shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center py-6 md:justify-start md:space-x-10">
+            <div className="flex justify-start lg:w-0 lg:flex-1">
+              <span className="text-2xl font-bold text-indigo-600">Admin Dashboard</span>
+            </div>
+            <div className="flex items-center space-x-4">
+              <Button variant="ghost" size="sm">
+                <Bell className="h-5 w-5 text-gray-500" />
+              </Button>
+              <Button variant="ghost" size="sm">
+                <Search className="h-5 w-5 text-gray-500" />
+              </Button>
+              <Button variant="ghost" size="sm">
+                <Settings className="h-5 w-5 text-gray-500" />
+              </Button>
+              <Avatar>
+                <AvatarImage src="/placeholder-user.jpg" alt="Admin" />
+                <AvatarFallback>AD</AvatarFallback>
+              </Avatar>
+            </div>
+          </div>
         </div>
-        <nav className="mt-6">
-          <Button variant="ghost" className="w-full justify-start mb-2" onClick={() => setActiveView("newPatientForm")}>
-            <UserPlus className="mr-2 h-4 w-4" />
-            New Patient
-          </Button>
-          <Button variant="ghost" className="w-full justify-start mb-2" onClick={() => {setActiveView("bedAllocation")}}>
-            <Bed className="mr-2 h-4 w-4" />
-            Bed Allocation Request
-          </Button>
-          <Button variant="ghost" className="w-full justify-start mb-2" onClick={() => {setActiveView("activeDoctors")}}>
-            <UserCheck className="mr-2 h-4 w-4" />
-            Active Doctors
-          </Button>
-          <Button variant="ghost" className="w-full justify-start mb-2" onClick={() => {setActiveView("inactiveDoctors")}}>
-            <UserMinus className="mr-2 h-4 w-4" />
-            Inactive Doctors
-          </Button>
-        </nav>
-      </aside>
-      <div className="flex flex-col p-6">
-        {activeView === "activeDoctors" && renderActiveDoctors()}
-        {activeView === "inactiveDoctors" && renderInactiveDoctors()}
-        {activeView === "newPatientForm" && renderNewPatientForm()}
-        {activeView === "createABHA" && createABHA()}
-        {activeView === "popupcard" && popUpCard()}
-        {activeView === "bedAllocation" && renderBedAllocation()}
-        {activeView === "bedPopUp" && bedAllocatedPopUp()}
-        {activeView === "main" && renderMain()}
-        {patientDetails && (
-          <Card>
-            <CardHeader>
-              <CardTitle>Patient Details</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="name">Name</Label>
-                  <Input id="name" defaultValue={patientDetails.name} />
-                </div>
-                <div>
-                  <Label htmlFor="age">Age</Label>
-                  <Input id="age" type="number" defaultValue={patientDetails.Age} />
-                </div>
-                <div>
-                  <Label htmlFor="gender">Gender</Label>
-                  <Input id="gender" defaultValue={patientDetails.gender} />
-                </div>
-                <div>
-                  <Label htmlFor="reason">Reason</Label>
-                  <Textarea id="reason" placeholder="Enter reason for visit" value={reason} onChange={handleReasonChange} />
-                </div>
-              </div>
-              <div className="flex justify-center gap-2">
-                <Button type="submit" className="align-center" onClick={handleAllocateDoctor}>
-                  Allocate Doctor
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        )}
-      </div>
-      {allocatedDoctor && (
+      </header>
+
+      <div className="flex flex-1 overflow-hidden">
+        {/* Sidebar */}
+        <div className="w-64 bg-white shadow-md">
+          <nav className="mt-5 px-2">
+            <Button
+              variant="ghost"
+              className="w-full justify-start mb-1 text-left font-normal"
+              onClick={() => setActiveView('newPatientForm')}
+            >
+              <UserPlus className="mr-2 h-4 w-4" />
+              New Patient
+            </Button>
+            <Button
+              variant="ghost"
+              className="w-full justify-start mb-1 text-left font-normal"
+              onClick={() => setActiveView('bedAllocation')}
+            >
+              <BedDouble className="mr-2 h-4 w-4" />
+              Bed Allocation
+            </Button>
+            <Button
+              variant="ghost"
+              className="w-full justify-start mb-1 text-left font-normal"
+              onClick={() =>{
+                getAllAdmissions();
+                setActiveView('patientCheckin')
+              }}
+            >
+              <UserCheck className="mr-2 h-4 w-4" />
+              Patient Checkin
+            </Button>
+            <Button
+              variant="ghost"
+              className="w-full justify-start mb-1 text-left font-normal"
+              onClick={() => setActiveView('activeDoctors')}
+            >
+              <Activity className="mr-2 h-4 w-4" />
+              Active Doctors
+            </Button>
+            <Button
+              variant="ghost"
+              className="w-full justify-start mb-1 text-left font-normal"
+              onClick={() => setActiveView('analysis')}
+            >
+              <BarChart className="mr-2 h-4 w-4" />
+              Analysis
+            </Button>
+          </nav>
+        </div>
+
+        {/* Main Content */}
+        <main className="flex-1 overflow-auto bg-gray-50 p-8">
+          <div className="max-w-4xl mx-auto">
+          {activeView === "activeDoctors" && renderActiveDoctors()}
+          {activeView === "inactiveDoctors" && renderInactiveDoctors()}
+          {activeView === "newPatientForm" && renderNewPatientForm()}
+          {activeView === "createABHA" && createABHA()}
+          {activeView === "popupcard" && popUpCard()}
+          {activeView === "bedAllocation" && renderBedAllocation()}
+          {activeView === "bedPopUp" && bedAllocatedPopUp()}
+          {activeView === "patientCheckin" && renderPatientCheckIn()}
+          {activeView === "getPatient" && renderPatientDetails()} 
+          {allocatedDoctor && (
         <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-80 backdrop-blur-sm z-50">
           <Card className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
             <div className="flex items-center gap-4">
@@ -692,6 +872,34 @@ export function Admindashboard() {
           </Card>
         </div>
       )}
+      {allocatedDoctorForCheckIn && (
+        <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-80 backdrop-blur-sm z-50">
+          <Card className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
+            <div className="flex items-center gap-4">
+              <Avatar>
+                <AvatarImage src="/placeholder-user.jpg" alt="Doctor Avatar" />
+                <AvatarFallback>DR</AvatarFallback>
+              </Avatar>
+              <div className="grid gap-1 flex-1">
+                <h3 className="text-xl font-semibold">{allocatedDoctorForCheckIn.name}</h3>
+                <div className="text-muted-foreground">
+                  <span className="font-medium">Department:</span> {allocatedDoctorForCheckIn.department.name}
+                </div>
+                <div className="text-muted-foreground">
+                  <span className="font-medium">Queue Length:</span> {allocatedDoctorForCheckIn._count.opdQueue}
+                </div>
+              </div>
+            </div>
+            <div className="mt-4 flex justify-between">
+              <Button onClick={() => setAllocatedDoctor(null)}>Close</Button>
+              <Button className="bg-blue-500 text-white hover:bg-blue-600" onClick={handleOPDUpdateForCheckIn}>Allocate</Button>
+            </div>
+          </Card>
+        </div>
+      )}
+          </div>
+        </main>
+      </div>
     </div>
-  );  
+  )
 }

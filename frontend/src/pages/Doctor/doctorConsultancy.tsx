@@ -164,9 +164,9 @@ export function DoctorConsultancy() {
   return (
     <div className="w-screen h-screen absolute top-0 left-0 right-0  mx-auto ">
       {/* Header with Back Button */}
-      <div className="flex items-center bg-neutral-950 justify-between w-screen p-4 border-b">
-        <h1 className="text-4xl relative bg-clip-text text-transparent bg-no-repeat bg-gradient-to-r from-purple-500 via-violet-500 to-pink-500 font-bold ">Consultancy</h1>
-        <Link to="/doctorsignin"><Button className="ml-auto bg-gradient-to-b from-indigo-500 to-purple-500">Home</Button></Link>
+      <div className="flex items-center bg-white justify-between w-screen p-4 border-b">
+        <h1 className="text-4xl relative  font-bold text-black">Consultancy</h1>
+        <Link to="/doctorssignin"><Button className="ml-auto bg-gradient-to-b from-indigo-500 to-purple-500">Home</Button></Link>
         </div>
 
       {/* Patient Details */}

@@ -183,6 +183,17 @@ exports.Prisma.AdmissionScalarFieldEnum = {
   doctorId: 'doctorId'
 };
 
+exports.Prisma.IntimationScalarFieldEnum = {
+  id: 'id',
+  abhaId: 'abhaId',
+  name: 'name',
+  gender: 'gender',
+  age: 'age',
+  reason: 'reason',
+  date: 'date',
+  time: 'time'
+};
+
 exports.Prisma.MainStoreScalarFieldEnum = {
   id: 'id',
   name: 'name'
@@ -277,6 +288,7 @@ exports.Prisma.ModelName = {
   Ward: 'Ward',
   PatientInstance: 'PatientInstance',
   Admission: 'Admission',
+  Intimation: 'Intimation',
   MainStore: 'MainStore',
   SubStore: 'SubStore',
   Pharmacy: 'Pharmacy',

@@ -151,16 +151,18 @@ exports.Prisma.PatientScalarFieldEnum = {
 
 exports.Prisma.PatientBookingScalarFieldEnum = {
   id: 'id',
+  abhaId: 'abhaId',
   hospitalCode: 'hospitalCode',
   date: 'date',
   time: 'time',
-  department: 'department'
+  status: 'status',
+  reason: 'reason'
 };
 
 exports.Prisma.MedicalRecordScalarFieldEnum = {
   id: 'id',
   patientId: 'patientId',
-  hospitalName: 'hospitalName',
+  hospitalCode: 'hospitalCode',
   recordDate: 'recordDate',
   visitReason: 'visitReason',
   medicationsPrescribed: 'medicationsPrescribed',

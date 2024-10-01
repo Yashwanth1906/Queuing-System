@@ -25,9 +25,9 @@ model Hospital {
   city    String
   state   String
   dbURL   String
+  records MedicalRecord[]
   admin Admin[]
   patientBooking PatientBooking[]
-
 }
 
 model Patient{
@@ -45,21 +45,23 @@ model Patient{
 }
 
 model PatientBooking{
-  id String @id
-  patient Patient @relation(fields: [id],references: [abhaId])
+  id Int @id @default(autoincrement())
+  abhaId String
+  patient Patient @relation(fields: [abhaId],references: [abhaId])
   hospitalCode String
   hospital Hospital @relation(fields: [hospitalCode],references: [code])
   date String
   time String
-  department String
+  status String @default("Upcoming")
+  reason String
 }
-
 
 model MedicalRecord {
   id String @id @default(uuid())
   patientId String
   patient Patient @relation(fields: [patientId], references: [abhaId])
-  hospitalName String
+  hospitalCode String
+  hospital Hospital @relation(fields: [hospitalCode],references: [id])
   recordDate DateTime @default(now())
   visitReason String
   medicationsPrescribed Json

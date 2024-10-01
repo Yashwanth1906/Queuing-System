@@ -1,12 +1,13 @@
 import bcrypt from "bcryptjs"
-
 import jwt from "jsonwebtoken";
-// const centralprisma = new PrismaClient({
-//     datasources:{
-//         db:{
-//             url:process.env.CENTRAL_DB_URL,
-//         }
-//     }});
+import { PrismaClient as centralPrismaClient } from "../prisma/generated/central/index.js";
+const centralprisma = new centralPrismaClient({
+    datasources:{
+        db:{
+            url:process.env.CENTRAL_DB_URL
+        }
+    }
+})
 const addHospital = async(req,res)=>{
     console.log(req.body)
     const {name,location,city,state,dbURL,code} = req.body;
@@ -178,8 +179,9 @@ const adminregister=async(req,res)=>{
                 }
             }
         )
+        const token = createtoken(admin.hospitalCode)
         console.log(admin)
-        res.json({success:true,message:admin})
+        res.json({success:true,message:admin,token:token})
     }
     catch (err){
         console.log(err)
@@ -190,7 +192,7 @@ const adminregister=async(req,res)=>{
 const adminlogin=async(req,res)=>{
         const prisma=req.prisma
         try{
-        const {email,password}=req.body
+        const {email,password,hosCode}=req.body
         const admin=await centralprisma.admin.findUnique({
             where:{
                 email,
@@ -206,10 +208,11 @@ const adminlogin=async(req,res)=>{
         if(!passVerify){
             res.json({success:false,message:"pass dont match"})
         }
-        const token = createtoken(admin.id)
-        res.json({success:true,token,hosCode:admin.hospitalCode})
+        const token = createtoken(admin.hospitalCode)
+        res.json({success:true,token:"Bearer "+token,hosCode:admin.hospitalCode})
         }
     catch(err){
+        console.log(err)
         res.json({success:false,message:err})
     }
 }
@@ -217,8 +220,13 @@ const adminlogin=async(req,res)=>{
 
 function createtoken(id)
 {
-    const token=jwt.sign({id},"hospitaladmin");
+    const token=jwt.sign({id},process.env.JWT_SECRET);
     return token
 }
+
+function vim(){
+console.log("HI");
+}
+vim();
 
 export {addHospital,migratealldbs,createPatient,getPatientabhaId,adminregister,adminlogin}

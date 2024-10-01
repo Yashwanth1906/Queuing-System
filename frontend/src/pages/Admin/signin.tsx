@@ -49,10 +49,14 @@ export function AdminSigninPage() {
       return;
     }
     try {
-      const res = await axios.post(`${BACKEND_URL}/api/doctor/login`, {
+      const res = await axios.post(`${BACKEND_URL}/api/admin/adminlogin`, {
         email,
         password: passwd,
         hosCode: selectedHosCode,
+      },{
+        headers:{
+          code:selectedHosCode
+        }
       }) as { data: { success: boolean; token: string; hosCode: string } };
 
       localStorage.setItem("admintoken", res.data.token);
@@ -77,7 +81,7 @@ export function AdminSigninPage() {
 
   return (
     <div>
-    <div className="min-h-screen bg-blue-50 flex items-center justify-center p-4">
+    <div className="min-h-screen w-screen absolute top-0 left-0 bg-blue-50 flex items-center justify-center p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold text-center">Sign in</CardTitle>
@@ -91,14 +95,14 @@ export function AdminSigninPage() {
             <Input
               id="email"
               type="email"
-              placeholder="m@example.com"
+              placeholder="Enter your email"
               onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
           <div className="space-y-2">
             <Label htmlFor="password">Password</Label>
-            <Input id="password" type="password" required onChange={(e) => setPasswd(e.target.value)} />
+            <Input id="password" type="password" placeholder="Enter your password" required onChange={(e) => setPasswd(e.target.value)} />
           </div>
           <div className="space-y-2">
             <Label htmlFor="hospital-code">Hospital Code</Label>
@@ -115,7 +119,7 @@ export function AdminSigninPage() {
               </SelectContent>
 
             </Select> */}
-            <Input id="hoscode" type="hoscode" required onChange={(e) => setSelectedHosCode(e.target.value)} />
+            <Input id="hoscode" type="hoscode" placeholder="Enter the Hospital Code" required onChange={(e) => setSelectedHosCode(e.target.value)} />
           </div>
         </CardContent>
         <CardFooter>

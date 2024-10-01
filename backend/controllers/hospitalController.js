@@ -69,7 +69,7 @@ const createPatientInstance = async(req,res)=>{
                 doctorId:doctorId,
                 queueNumber:queueNumber + 1,
                 visitType: (visitType === "FreshVisit") ? VisitType.FreshVisit : VisitType.Revisit,
-                age:age,
+                age:parseInt(age),
                 Gender:gender,
                 reason:reason,
                 name:name
@@ -248,15 +248,16 @@ export const getHosCodes = async(req,res)=>{
     try{
         const hosCodes = await centralPrisma.hospital.findMany({
             select:{
-                code:true
+                code:true,
+                name:true
             }
         })
-        let hoscode = [];
+        let hospital = [];
         for(let i of hosCodes){
-            hoscode.push(i.code)
+            hospital.push(i)
         }
-        console.log(hoscode)
-        return res.status(200).json({hosCodes:hoscode})
+        console.log(hospital)
+        return res.status(200).json({hosCodes:hospital})
     }catch(err){
         console.log(err);
         return res.status(500).json({message:err})
@@ -271,5 +272,45 @@ export const getHosCodes = async(req,res)=>{
 //         res.json({success:false,message:err})
 //     }
 // }
+
+
+export const getIntimated = async(req,res)=>{
+    const prisma = req.prisma;
+    try{
+        const currentDate = new Date();
+        const currentDateString = currentDate.toISOString().split('T')[0];
+        const currentTimeString = currentDate.toTimeString().split(' ')[0];
+        const checkins = await prisma.intimation.findMany({
+            where: {
+                OR: [
+                    {
+                        date: {
+                            gt: currentDateString,
+                        }
+                    },
+                    {
+                        date: currentDateString,
+                        time: {
+                            gte: currentTimeString,
+                        }
+                    }
+                ]
+            },
+            orderBy: [
+                {
+                    date: 'asc'
+                },
+                {
+                    time: 'asc'
+                }
+            ]
+        });
+        console.log(checkins)
+        return res.status(200).json({checkins})
+    }catch(err){
+        console.log(err);
+        return res.status(500).json({message:err})
+    }
+}
 
 export {getDoctors,addDepartments,getDepartments,createPatientInstance,addWard,getAdmissionsBedNotAllocated,allocateBed,getPatient,getWard}

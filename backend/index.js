@@ -7,8 +7,17 @@ import { doctorRouter } from "./routes/doctorRoute.js";
 import { sendOTP, verifyotp } from "./middleware/auth.js";
 import cors from "cors"
 import { patientRouter } from "./routes/patientRoute.js";
+import { PrismaClient as hospitalprisma } from "./prisma/generated/hospitalClient/index.js";
 
 const centralprisma = new PrismaClient();
+const prisma = new hospitalprisma({
+    datasources:{
+        db:{
+            url:process.env.DYNAMIC_DB_URL
+        }
+    }
+})
+
 
 dotenv.config();
 
@@ -22,6 +31,11 @@ app.listen(process.env.BACKEND_PORT,()=>{
 })
 app.delete("/delete",async(req,res)=>{
     await centralprisma.patient.deleteMany({})
+    res.json({success:true})
+})
+
+app.delete("/delete1",async(req,res)=>{
+    await prisma.intimation.deleteMany({});
     res.json({success:true})
 })
 app.use("/api/admin",adminRouter)

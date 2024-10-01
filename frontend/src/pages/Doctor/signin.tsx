@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { BACKEND_URL } from "@/config";
+import { BACKEND_URL, HOSPITAL_CODE } from "@/config";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -49,14 +49,17 @@ export function SigninDoctor() {
       return;
     }
     try {
-      const res = await axios.post(`${BACKEND_URL}/api/admin/adminlogin`, {
+      const res = await axios.post(`${BACKEND_URL}/api/doctor/login`, {
         email,
         password: passwd,
         hosCode: selectedHosCode,
+      },{
+        headers:{
+          code: HOSPITAL_CODE
+        }
       }) as { data: { success: boolean; token: string; hosCode: string } };
-
-      localStorage.setItem("admintoken", res.data.token);
-      localStorage.setItem("hospitalcode", res.data.hosCode);
+      console.log(res.data.token)
+      localStorage.setItem("doctortoken", res.data.token);
       navigate("/doctordashboard");
     } catch (err: any) {
       alert("Login error");
@@ -76,7 +79,7 @@ export function SigninDoctor() {
   }
 
   return (
-    <div className="min-h-screen bg-blue-50 flex items-center justify-center p-4">
+    <div className="min-h-screen w-screen absolute top-0 left-0 bg-blue-50 flex items-center justify-center p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold text-center">Sign in</CardTitle>

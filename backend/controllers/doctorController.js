@@ -33,6 +33,8 @@ const doctorRegister = async(req,res)=>{
             design = DesignationType.HeadOfDepartment;
             hod = true;
         }
+        const salt = await bcrypt.genSalt(10)
+        const hashedPass=await bcrypt.hash(password,salt)
         const newDoctor = await prisma.doctors.create({
             data:{
                 name,contact,email,password:hashedPass,departmentId,active:true,
@@ -59,7 +61,7 @@ const doctorRegister = async(req,res)=>{
 const doctorLogin = async(req,res)=>{
     const prisma = req.prisma;
     try{
-        const {email,passwd,hosCode} = req.body;
+        const {email,password,hosCode} = req.body;
         const doctor = await prisma.doctors.findUnique({
             where:{
                 email :email,
@@ -68,14 +70,16 @@ const doctorLogin = async(req,res)=>{
                 id:true,password:true
             }
         })
+        console.log(doctor)
         if(!doctor){
-            res.json({success:false,message:"Doctor not found"})
+            return res.json({success:false,message:"Doctor not found"})
         }
-        const passVerify = await bcrypt.compare(passwd,doctor.password);
+        const passVerify = await bcrypt.compare(password,doctor.password);
         if(!passVerify){
             res.json({success:false,message:"Incorrect Password"});
         }
         const token = createToken(doctor.id);
+        console.log(token)
         res.json({success:true,token:`Bearer ${token}`,hosCode})
     }catch(err){
         console.log(err);
@@ -86,6 +90,7 @@ const doctorLogin = async(req,res)=>{
 const getQueuedPatients = async(req,res) =>{
     const prisma = req.prisma;
     const doctorId = req.headers.id;
+    console.log(doctorId)
     try{
         const patients = await prisma.oPDQueue.findMany({
             where:{
@@ -104,6 +109,7 @@ const getQueuedPatients = async(req,res) =>{
                 queueNumber:true
             }
         })
+        console.log(patients)
         res.json({success:true,patients:patients})
     }catch(err){
         console.log(err);
