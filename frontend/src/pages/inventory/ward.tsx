@@ -3,8 +3,8 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
-import { CartesianGrid, XAxis, Line, LineChart, Pie, PieChart } from "recharts"
-import { ChartTooltipContent, ChartTooltip, ChartContainer } from "@/components/ui/chart"
+import {  Pie, PieChart } from "recharts"
+import {  ChartTooltip,} from "@/components/ui/chart"
 
 interface InventoryItem {
   id: number
@@ -20,7 +20,7 @@ interface InventoryItem {
 
 export function Ward() {
   const [searchTerm, setSearchTerm] = useState<string>("")
-  const [inventory, setInventory] = useState<InventoryItem[]>([
+  const [inventory, ] = useState<InventoryItem[]>([
     {
       id: 1,
       name: "Widget A",
@@ -77,7 +77,7 @@ export function Ward() {
       expiryDate: "2024-03-31",
     },
   ])
-  const [showWard, setShowWard] = useState<boolean>(false)
+  const [, setShowWard] = useState<boolean>(false)
   const [selectedItem, setSelectedItem] = useState<InventoryItem | null>(null)
 
   const filteredInventory = useMemo(() => {
@@ -86,9 +86,9 @@ export function Ward() {
     )
   }, [inventory, searchTerm])
 
-  const totalItems = inventory.length
-  const availableItems = inventory.filter((item) => item.inStock).length
-  const outOfStockItems = inventory.filter((item) => !item.inStock).length
+  // const totalItems = inventory.length
+  // const availableItems = inventory.filter((item) => item.inStock).length
+  // const outOfStockItems = inventory.filter((item) => !item.inStock).length
   const subStoreAvailableItems = filteredInventory.filter((item) => item.inStock).length
   const subStoreOutOfStockItems = filteredInventory.filter((item) => !item.inStock).length
 
@@ -240,6 +240,7 @@ function SearchIcon(props: React.SVGProps<SVGSVGElement>) {
 }
 
 function PieChartCustomChart(props: React.SVGProps<SVGSVGElement>) {
+  console.log(props)
   const data = [
     { name: 'In Stock', value: 60 },
     { name: 'Out of Stock', value: 40 },

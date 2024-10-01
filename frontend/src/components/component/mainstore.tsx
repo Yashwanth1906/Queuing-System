@@ -6,7 +6,7 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
-import { CartesianGrid, XAxis, Line, LineChart, Pie, PieChart } from "recharts"
+import { Pie, PieChart } from "recharts"
 import { ChartTooltipContent, ChartTooltip, ChartContainer } from "@/components/ui/chart"
 
 export function mainstore() {
@@ -73,7 +73,7 @@ export function mainstore() {
   const [showWard, setShowWard] = useState(false)
   const [showCategoryForm, setShowCategoryForm] = useState(false)
   const [selectedItem, setSelectedItem] = useState(null)
-  const [newCategory, setNewCategory] = useState("")
+  // const [newCategory, setNewCategory] = useState("")
   const [newItem, setNewItem] = useState({
     name: "",
     category: "Medicine",
@@ -101,11 +101,11 @@ export function mainstore() {
       )
     }
   }, [inventory, searchTerm, showMainStore, showPharmacy, showWard])
-  const totalItems = inventory.length
+  // const totalItems = inventory.length
   const availableItems = inventory.filter((item) => item.inStock).length
   const outOfStockItems = inventory.filter((item) => !item.inStock).length
-  const subStoreAvailableItems = filteredInventory.filter((item) => item.inStock).length
-  const subStoreOutOfStockItems = filteredInventory.filter((item) => !item.inStock).length
+  // const subStoreAvailableItems = filteredInventory.filter((item) => item.inStock).length
+  // const subStoreOutOfStockItems = filteredInventory.filter((item) => !item.inStock).length
   const handleAddItem = () => {
     setInventory([
       ...inventory,
@@ -133,18 +133,18 @@ export function mainstore() {
     })
     setShowCategoryForm(false)
   }
-  const handleCategorySelect = (category) => {
+  const handleCategorySelect = (category:any) => {
     setNewItem({ ...newItem, category })
   }
   const [showPieChart, setShowPieChart] = useState(false)
-  const [pieChartData, setPieChartData] = useState([])
-  const handleItemClick = (item) => {
+  // const [pieChartData, setPieChartData] = useState([])
+  const handleItemClick = (item:any) => {
     setSelectedItem(item)
     setShowPieChart(true)
-    setPieChartData([
-      { name: "In Stock", value: item.inStock ? item.quantity : 0 },
-      { name: "Out of Stock", value: item.inStock ? 0 : item.quantity },
-    ])
+    // setPieChartData([
+    //   { name: "In Stock", value: item.inStock ? item.quantity : 0 },
+    //   { name: "Out of Stock", value: item.inStock ? 0 : item.quantity },
+    // ])
   }
   return (
     <div className="flex h-screen">
@@ -247,9 +247,8 @@ export function mainstore() {
                 <div className="grid gap-2">
                   <Label htmlFor="category">Category</Label>
                   <Select
-                    id="category"
                     value={newItem.category}
-                    onValueChange={(e) => handleCategorySelect(e.target.value)}
+                    onValueChange={(e) => handleCategorySelect(e)}
                   >
                     <SelectTrigger>
                       <SelectValue placeholder="Select category" />
@@ -384,7 +383,7 @@ export function mainstore() {
             </div>
             {showPieChart && selectedItem && (
               <div className="mt-4 max-w-md">
-                <h2 className="text-xl font-bold mb-4">{selectedItem.name} - Inventory Analysis</h2>
+                <h2 className="text-xl font-bold mb-4">{selectedItem} - Inventory Analysis</h2>
                 <Card>
                   <CardContent>
                     <PiechartcustomChart className="aspect-square w-full" />
@@ -399,7 +398,7 @@ export function mainstore() {
   )
 }
 
-function InboxIcon(props) {
+function InboxIcon(props:any) {
   return (
     <svg
       {...props}
@@ -420,50 +419,50 @@ function InboxIcon(props) {
 }
 
 
-function LinechartChart(props) {
-  return (
-    <div {...props}>
-      <ChartContainer
-        config={{
-          desktop: {
-            label: "Desktop",
-            color: "hsl(var(--chart-1))",
-          },
-        }}
-      >
-        <LineChart
-          accessibilityLayer
-          data={[
-            { month: "January", desktop: 186 },
-            { month: "February", desktop: 305 },
-            { month: "March", desktop: 237 },
-            { month: "April", desktop: 73 },
-            { month: "May", desktop: 209 },
-            { month: "June", desktop: 214 },
-          ]}
-          margin={{
-            left: 12,
-            right: 12,
-          }}
-        >
-          <CartesianGrid vertical={false} />
-          <XAxis
-            dataKey="month"
-            tickLine={false}
-            axisLine={false}
-            tickMargin={8}
-            tickFormatter={(value) => value.slice(0, 3)}
-          />
-          <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
-          <Line dataKey="desktop" type="natural" stroke="var(--color-desktop)" strokeWidth={2} dot={false} />
-        </LineChart>
-      </ChartContainer>
-    </div>
-  )
-}
+// function LinechartChart(props:any) {
+//   return (
+//     <div {...props}>
+//       <ChartContainer
+//         config={{
+//           desktop: {
+//             label: "Desktop",
+//             color: "hsl(var(--chart-1))",
+//           },
+//         }}
+//       >
+//         <LineChart
+//           accessibilityLayer
+//           data={[
+//             { month: "January", desktop: 186 },
+//             { month: "February", desktop: 305 },
+//             { month: "March", desktop: 237 },
+//             { month: "April", desktop: 73 },
+//             { month: "May", desktop: 209 },
+//             { month: "June", desktop: 214 },
+//           ]}
+//           margin={{
+//             left: 12,
+//             right: 12,
+//           }}
+//         >
+//           <CartesianGrid vertical={false} />
+//           <XAxis
+//             dataKey="month"
+//             tickLine={false}
+//             axisLine={false}
+//             tickMargin={8}
+//             tickFormatter={(value) => value.slice(0, 3)}
+//           />
+//           <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
+//           <Line dataKey="desktop" type="natural" stroke="var(--color-desktop)" strokeWidth={2} dot={false} />
+//         </LineChart>
+//       </ChartContainer>
+//     </div>
+//   )
+// }
 
 
-function PiechartcustomChart(props) {
+function PiechartcustomChart(props:any) {
   return (
     <div {...props}>
       <ChartContainer
@@ -513,7 +512,7 @@ function PiechartcustomChart(props) {
 }
 
 
-function PillBottleIcon(props) {
+function PillBottleIcon(props:any) {
   return (
     <svg
       {...props}
@@ -535,7 +534,7 @@ function PillBottleIcon(props) {
 }
 
 
-function PlusIcon(props) {
+function PlusIcon(props:any) {
   return (
     <svg
       {...props}
@@ -556,7 +555,7 @@ function PlusIcon(props) {
 }
 
 
-function SearchIcon(props) {
+function SearchIcon(props:any) {
   return (
     <svg
       {...props}
@@ -577,7 +576,7 @@ function SearchIcon(props) {
 }
 
 
-function WandIcon(props) {
+function WandIcon(props:any) {
   return (
     <svg
       {...props}

@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { CartesianGrid, XAxis, Line, LineChart, Pie, PieChart, Tooltip } from "recharts";
+import { Pie, PieChart, Tooltip } from "recharts";
 
 interface InventoryItem {
   id: number;
@@ -19,7 +19,7 @@ interface InventoryItem {
 
 export function Substore() {
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [inventory, setInventory] = useState<InventoryItem[]>([
+  const [inventory,] = useState<InventoryItem[]>([
     {
       id: 1,
       name: "Widget A",

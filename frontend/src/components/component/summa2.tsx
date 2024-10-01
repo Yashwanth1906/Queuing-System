@@ -17,8 +17,8 @@ To read more about using these font, please visit the Next.js documentation:
 - App Directory: https://nextjs.org/docs/app/building-your-application/optimizing/fonts
 - Pages Directory: https://nextjs.org/docs/pages/building-your-application/optimizing/fonts
 **/
-import Link from "next/link"
 import { Label } from "@/components/ui/label"
+import { Link } from "react-router-dom"
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
@@ -31,7 +31,7 @@ export function InventoryRegister() {
           <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-foreground">Create your account</h2>
           <p className="mt-2 text-center text-sm text-muted-foreground">
             Or{" "}
-            <Link href="#" className="font-medium text-primary hover:text-primary/80" prefetch={false}>
+            <Link to="/" className="font-medium text-primary hover:text-primary/80">
               sign in to your existing account
             </Link>
           </p>

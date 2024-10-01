@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { BACKEND_URL, HOSPITAL_CODE } from "@/config";
 import axios from "axios";
 import { useState, useEffect } from "react";
@@ -66,9 +65,9 @@ export function SigninDoctor() {
     }
   };
 
-  const handleHosCodeChange = (value: string) => {
-    setSelectedHosCode(value);
-  };
+  // const handleHosCodeChange = (value: string) => {
+  //   setSelectedHosCode(value);
+  // };
 
   if (loading) {
     return <p>Loading...</p>;

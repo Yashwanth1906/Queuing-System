@@ -1,4 +1,4 @@
-import { SetStateAction, useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -8,7 +8,6 @@ import { Textarea } from "@/components/ui/textarea";
 import axios from "axios";
 import { BACKEND_URL, HOSPITAL_CODE } from "@/config";
 import { Ward } from "../inventory/ward";
-import { AlertTriangle } from "lucide-react";
 
 
 type Medicine = {
@@ -157,6 +156,7 @@ export function DoctorConsultancy() {
       }
     }
   ).then((data)=>{
+    console.log(data)
     alert("Admission is Created, The bed will be Allocated!")
   })
   }
@@ -398,24 +398,24 @@ function TrashIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-function ArrowLeftIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M15 18l-6-6 6-6" />
-    </svg>
-  );
-}
+// function ArrowLeftIcon(props: React.SVGProps<SVGSVGElement>) {
+//   return (
+//     <svg
+//       {...props}
+//       xmlns="http://www.w3.org/2000/svg"
+//       width="24"
+//       height="24"
+//       viewBox="0 0 24 24"
+//       fill="none"
+//       stroke="currentColor"
+//       strokeWidth="2"
+//       strokeLinecap="round"
+//       strokeLinejoin="round"
+//     >
+//       <path d="M15 18l-6-6 6-6" />
+//     </svg>
+//   );
+// }
 
 function XIcon(props: React.SVGProps<SVGSVGElement>) {
   return (

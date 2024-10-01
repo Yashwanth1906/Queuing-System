@@ -61,12 +61,12 @@ export function PatientDashboard() {
   const [selectedHospital, setSelectedHospital] = useState<Hospital | undefined>(undefined);
   const [reason,setReason] = useState("");
   const [appointments,setAppointments] = useState<Appointment[]>([])
-  const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined)
+  const [selectedDate, setSelectedDate] = useState<String>("");
   const [patientDetails, setPatientDetails] = useState<PatientDetails | null>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedSlot, setSelectedSlot] = useState<TimeSlot | null>(null)
   const [showQR, setShowQR] = useState(false)
-  const [queueNumber, setQueueNumber] = useState<number | null>(null)
+  const [queueNumber,] = useState<number | null>(null)
 
   useEffect(()=>{
     axios.get(`${BACKEND_URL}/api/patient/getdetails`,{
@@ -121,11 +121,11 @@ export function PatientDashboard() {
     setSelectedHospital(hospital); // Save the selected hospital (both name and code) to state
   };
 
-  const handleNewAppointment = () => {
-    // Simulating queue number assignment
-    setQueueNumber(Math.floor(Math.random() * 100) + 1);
-    setShowQR(true);
-  };
+  // const handleNewAppointment = () => {
+  //   // Simulating queue number assignment
+  //   setQueueNumber(Math.floor(Math.random() * 100) + 1);
+  //   setShowQR(true);
+  // };
   const getAppointmentCancelation = () =>{
     axios.get(`${BACKEND_URL}/api/patient/appointments`,{
       headers:{
@@ -133,7 +133,7 @@ export function PatientDashboard() {
       }
     }).then((data)=>{
       console.log(data.data)
-      data.data.appointments.map((i)=>{
+      data.data.appointments.map((i:any)=>{
         i.status = "Upcoming"
       })
       setAppointments(data.data.appointments);
@@ -248,8 +248,8 @@ export function PatientDashboard() {
                   <Label>Date</Label><br />
                   <input 
                       type="date" 
-                      id="date" 
-                      value={selectedDate} 
+                      id="date"
+                      // value={selectedDate} 
                       onChange={(e) => setSelectedDate(e.target.value)} 
                       className="p-2 border rounded-md" width={20}
                     />
@@ -344,7 +344,7 @@ export function PatientDashboard() {
                 <Card key={appointment.id} className="mb-4">
                   <CardContent className="p-4">
                     <p className="font-semibold">{appointment.date} at {appointment.time}</p>
-                    <p>{appointment.doctor}</p>
+                    <p>{appointment.hospital.name}</p>
                     <p>Status: {appointment.status}</p>
                   </CardContent>
                 </Card>

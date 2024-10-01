@@ -6,7 +6,6 @@ import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuIte
 import axios from 'axios';
 import { ShootingStars } from '@/components/ui/shooting-stars';
 import { StarsBackground } from "@/components/ui/stars-background";
-import { Meteors } from '@/components/ui/meteors';
 
 import { BACKEND_URL } from '@/config';
 import { HOSPITAL_CODE } from '@/config';
@@ -84,6 +83,7 @@ export function RegisterComponent() {
 
   const handleSendOTP = async () => {
     const response = await axios.post(`${BACKEND_URL}/api/sendotp`, { email });
+    console.log(response)
     setIsOTPSent(true);
   };
 

@@ -4,8 +4,8 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
-import { BACKEND_URL, HOSPITAL_CODE } from "@/config";
-import { AlertTriangle } from "lucide-react";
+import { BACKEND_URL } from "@/config";
+
 
 // Define the shape of the sign-up form state
 interface SignUpFormState {

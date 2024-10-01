@@ -21,7 +21,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { PieChart, Pie, Cell, Tooltip } from "recharts";
 // Use react-icons or any other valid icon library
-import { FaInbox, FaPills, FaMagic, FaPlus, FaSearch } from "react-icons/fa";
+import { FaInbox, FaPills, FaMagic, FaPlus } from "react-icons/fa";
 
 type InventoryItem = {
   id: number;
@@ -71,7 +71,7 @@ export function MainStore() {
   const [showWard, setShowWard] = useState(false);
   const [showCategoryForm, setShowCategoryForm] = useState(false);
   const [selectedItem, setSelectedItem] = useState<InventoryItem | null>(null);
-  const [newCategory, setNewCategory] = useState("");
+  // const [newCategory, setNewCategory] = useState("");
   const [newItem, setNewItem] = useState<InventoryItem>({
     id: 0,
     name: "",
@@ -98,9 +98,9 @@ export function MainStore() {
     return filtered;
   }, [inventory, searchTerm, showPharmacy, showWard]);
 
-  const totalItems = inventory.length;
-  const availableItems = inventory.filter((item) => item.inStock).length;
-  const outOfStockItems = inventory.filter((item) => !item.inStock).length;
+  // const totalItems = inventory.length;
+  // const availableItems = inventory.filter((item) => item.inStock).length;
+  // const outOfStockItems = inventory.filter((item) => !item.inStock).length;
 
   const handleAddItem = () => {
     setInventory([...inventory, { ...newItem, id: inventory.length + 1 }]);
