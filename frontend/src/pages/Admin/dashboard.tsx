@@ -246,7 +246,7 @@ export function AdminDashboard() {
         setDoctors(doctorsResponse);
         console.log(doctorsResponse);
       });
-      await axios.post(`{DJANGO_URL}/predict/`, {
+      await axios.post(`${DJANGO_URL}/predict/`, {
         symptom: find?.reason,
         doctors: doctorsResponse,
       }).then((data) => {
