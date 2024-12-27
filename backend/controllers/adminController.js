@@ -224,9 +224,5 @@ function createtoken(id)
     return token
 }
 
-function vim(){
-console.log("HI");
-}
-vim();
 
 export {addHospital,migratealldbs,createPatient,getPatientabhaId,adminregister,adminlogin}

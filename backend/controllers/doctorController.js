@@ -2,12 +2,6 @@ import bcrypt from "bcryptjs"
 import validator from "validator";
 import jwt from "jsonwebtoken";
 import { DesignationType, PrismaClient, QueueStatus } from "../prisma/generated/hospitalClient/index.js";
-import { centralprisma } from "../util.js";
-// prisma.oPDQueue.create({
-//     data:{
-//         status:QueueStatus
-//     }
-// })
 const createToken = (id)=>{
     return jwt.sign({id},process.env.JWT_SECRET);
 }
