@@ -10,4 +10,8 @@ adminRouter.post("/createpatient",createPatient)
 adminRouter.post("/adminregister",getHospitalPrismaClient,adminregister)
 adminRouter.post("/adminlogin",getHospitalPrismaClient,adminlogin)
 
+
+
+
+
 export {adminRouter}
