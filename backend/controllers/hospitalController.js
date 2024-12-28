@@ -20,6 +20,25 @@ const getDoctors = async(req,res)=>{
     }
 }
 
+export const addSlot=async(req,res)=>{
+	try{
+		const prisma=req.prisma;
+		const {startDate,endDate,slots,deptid}=req.body;
+		const slot=await prisma.OPSlots.create({
+			data:{
+				startDate,
+				endDate,slots,
+				count:0,
+				deptid
+			}
+		})
+		return res.status(200).json({slot});
+	}
+	catch{
+		return res.status(500).json({msg:"error"});
+	}
+}
+
 const addDepartments = async(req,res)=>{
     console.log("hi")
     const prisma = req.prisma;
@@ -30,7 +49,6 @@ const addDepartments = async(req,res)=>{
             const department = await prisma.departments.create({
                 data: {
                     name: x.name,
-                    headOfDepartmentId: "1",
                 },
             });
             return department;
@@ -38,7 +56,7 @@ const addDepartments = async(req,res)=>{
         res.json({success:true,data:added})
     }catch(er){
         console.log(er);
-        res.json({success:false,message:err})
+        res.json({success:false,message:er})
     }
 }
 

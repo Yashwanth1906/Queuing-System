@@ -49,6 +49,23 @@ export const getHospitals=async(req,res)=>{
 	
 }
 
+export const getHosp=async(req,res)=>{
+	try{
+		const {code}=req.body;
+		const hosp=await centralprisma.hospital.findUnique({
+			where:{
+				code
+			}
+		})
+
+		return res.status(200).json({hosp});
+
+	}
+	catch{
+		return res.status(500).json({msg:"error"});
+	}
+}
+
 const migratealldbs = async(req,res) =>{
     try{
     const hospitalDBURLS = await centralprisma.hospital.findMany({

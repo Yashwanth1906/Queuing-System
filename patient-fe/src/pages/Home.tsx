@@ -47,6 +47,7 @@ function HomePage() {
 	}).then((res)=>{
 		console.log(res);
 		setHospitals(res.data.hospitals);
+		setLoading(false);
         
 	}).catch(()=>{
 		alert("error");
@@ -54,7 +55,16 @@ function HomePage() {
 	})
 
 
-  })
+  },[]);
+
+  if(loading)
+  {
+	  return(
+		  <div>
+		  Loading...
+		  </div>
+	  )
+  }
   
   const handleViewDetails = (id: string) => {
     // Handle navigation to detail page
