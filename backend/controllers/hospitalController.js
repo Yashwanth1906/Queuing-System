@@ -40,10 +40,8 @@ export const addSlot=async(req,res)=>{
 }
 
 const addDepartments = async(req,res)=>{
-    console.log("hi")
+    // console.log("hi")
     const prisma = req.prisma;
-    const deparmentss = req.body.departments;
-    console.log(deparmentss)
     try{
         const added = await Promise.all(deparmentss.map(async (x) => {
             const department = await prisma.departments.create({
@@ -54,6 +52,7 @@ const addDepartments = async(req,res)=>{
             return department;
         }));
         res.json({success:true,data:added})
+
     }catch(er){
         console.log(er);
         res.json({success:false,message:er})
@@ -68,7 +67,7 @@ const getDepartments = async(req,res)=>{
                 id:true,
                 name:true
             }
-        })
+        });
         res.json({success:true,departments:depts})
 
     }catch(err){
@@ -330,5 +329,89 @@ export const getIntimated = async(req,res)=>{
         return res.status(500).json({message:err})
     }
 }
+
+
+export const getHospital = async(req,res) =>{
+    try{
+        const hospitals = await centralPrisma.hospital.findMany({
+            select:{
+                name:true,
+                code:true,
+                location:true,
+                city:true,
+                state:true
+            }
+        });
+        return res.json({hospitals:hospitals,success:true})
+    } catch(e){
+        console.log(e);
+        return res.json({success:false,error:e})
+    }
+}
+
+export const getHospitalDetails = async (req, res) => {
+  try {
+    const prisma = req.prisma;
+    const { hospitalCode } = req.params;
+
+    const departments = await prisma.departments.findMany({
+      select: {
+        id: true,
+        name: true,
+        doctors: {
+          select: { id: true },
+        },
+      },
+    });
+
+    const departmentDetails = departments.map((department) => ({
+      id: department.id,
+      name: department.name,
+      doctors: department.doctors.length,
+    }));
+
+    const doctors = await prisma.doctors.findMany({
+      select: {
+        id: true,
+        name: true,
+        designation: true,
+      },
+    });
+
+    const doctorDetails = doctors.map((doctor) => ({
+      id: doctor.id,
+      name: doctor.name,
+      specialization: doctor.designation,
+    }));
+
+    const wards = await prisma.ward.findMany({
+      select: {
+        id: true,
+        name: true,
+        totalBeds: true,
+        availableBeds: true,
+      },
+    });
+
+    const wardDetails = wards.map((ward) => ({
+      id: ward.id,
+      name: ward.name,
+      totalBeds: ward.totalBeds,
+      availableBeds: ward.availableBeds,
+    }));
+    res.json({
+      success: true,
+        departments: departmentDetails,
+        doctors: doctorDetails,
+        wards: wardDetails,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: "Failed to fetch hospital details.",
+    });
+  }
+};
+
 
 export {getDoctors,addDepartments,getDepartments,createPatientInstance,addWard,getAdmissionsBedNotAllocated,allocateBed,getPatient,getWard}

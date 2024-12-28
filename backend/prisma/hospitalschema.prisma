@@ -181,6 +181,5 @@ model Inventory {
 enum InventoryCategory {
   Medicine
   Surgical_Tools
-  Others
+  Others
 }
-
