@@ -36,20 +36,20 @@ export function InventoryRegister() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4 py-12 sm:px-6 lg:px-8">
+    <div className="flex min-h-screen items-center justify-center bg-[#CFFFDC] px-4 py-12 sm:px-6 lg:px-8">
       <div className="w-full max-w-md space-y-8">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-foreground">Create your account</h2>
-          <p className="mt-2 text-center text-sm text-muted-foreground">
+          <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-[#2E6F40]">Create your account</h2>
+          <p className="mt-2 text-center text-sm text-[#253D2C]">
             Or{" "}
-            <Link to="/inventorysignin" className="font-medium text-primary hover:text-primary/80">
+            <Link to="/inventorysignin" className="font-medium text-[#68BA7F] hover:text-[#2E6F40]">
               sign in to your existing account
             </Link>
           </p>
         </div>
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
-            <Label htmlFor="account-type" className="block text-sm font-medium text-muted-foreground">
+            <Label htmlFor="account-type" className="block text-sm font-medium text-[#253D2C]">
               Account Type
             </Label>
             <div className="mt-1">
@@ -67,7 +67,7 @@ export function InventoryRegister() {
             </div>
           </div>
           <div>
-            <Label htmlFor="email" className="block text-sm font-medium text-muted-foreground">
+            <Label htmlFor="email" className="block text-sm font-medium text-[#253D2C]">
               Email address
             </Label>
             <div className="mt-1">
@@ -79,12 +79,12 @@ export function InventoryRegister() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="block w-full appearance-none rounded-md border border-input bg-background px-3 py-2 placeholder-muted-foreground shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
+                className="block w-full appearance-none rounded-md border border-[#68BA7F] bg-[#CFFFDC] px-3 py-2 placeholder-[#253D2C] shadow-sm focus:border-[#2E6F40] focus:outline-none focus:ring-1 focus:ring-[#2E6F40] sm:text-sm"
               />
             </div>
           </div>
           <div>
-            <Label htmlFor="password" className="block text-sm font-medium text-muted-foreground">
+            <Label htmlFor="password" className="block text-sm font-medium text-[#253D2C]">
               Password
             </Label>
             <div className="mt-1">
@@ -96,12 +96,12 @@ export function InventoryRegister() {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="block w-full appearance-none rounded-md border border-input bg-background px-3 py-2 placeholder-muted-foreground shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
+                className="block w-full appearance-none rounded-md border border-[#68BA7F] bg-[#CFFFDC] px-3 py-2 placeholder-[#253D2C] shadow-sm focus:border-[#2E6F40] focus:outline-none focus:ring-1 focus:ring-[#2E6F40] sm:text-sm"
               />
             </div>
           </div>
           <div>
-            <Label htmlFor="confirm-password" className="block text-sm font-medium text-muted-foreground">
+            <Label htmlFor="confirm-password" className="block text-sm font-medium text-[#253D2C]">
               Confirm Password
             </Label>
             <div className="mt-1">
@@ -113,7 +113,7 @@ export function InventoryRegister() {
                 required
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className="block w-full appearance-none rounded-md border border-input bg-background px-3 py-2 placeholder-muted-foreground shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
+                className="block w-full appearance-none rounded-md border border-[#68BA7F] bg-[#CFFFDC] px-3 py-2 placeholder-[#253D2C] shadow-sm focus:border-[#2E6F40] focus:outline-none focus:ring-1 focus:ring-[#2E6F40] sm:text-sm"
               />
             </div>
           </div>
@@ -121,7 +121,7 @@ export function InventoryRegister() {
             <Link to={getRedirectLink()}>
               <Button
                 type="submit"
-                className="flex w-full justify-center rounded-md bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground shadow-sm hover:bg-primary/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                className="flex w-full justify-center rounded-md bg-[#2E6F40] px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#234F30] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2E6F40] focus-visible:ring-offset-2"
               >
                 Sign up
               </Button>

@@ -6,66 +6,59 @@ import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { BACKEND_URL } from "@/config";
 
-
-// Define the shape of the sign-up form state
 interface SignUpFormState {
-  name: string; // Added 'name' field
+  name: string;
   email: string;
   password: string;
   confirmPassword: string;
 }
 
 export function Register() {
-  // State to manage form input values
   const [formState, setFormState] = useState<SignUpFormState>({
-    name: "", // Initialize 'name'
+    name: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
   const [otp, setOtp] = useState<string>("");
-  
-  const [isOTPSent, setIsOTPSent] = useState<boolean>(false); // To track if OTP has been sent
-  const [isOTPVerified, setIsOTPVerified] = useState<boolean>(false); // To track if OTP has been verified
-  const [error, setError] = useState<string | null>(null); // State for error messages
+  const [isOTPSent, setIsOTPSent] = useState<boolean>(false);
+  const [isOTPVerified, setIsOTPVerified] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const navigate = useNavigate(); // Hook for navigation
+  const navigate = useNavigate();
 
-  // Function to handle sending OTP to the provided email
   const handleSendOTP = async () => {
     try {
-      console.log(formState.email)
       await axios.post(`${BACKEND_URL}/api/sendotp`, {
-          email:formState.email
+        email: formState.email
       }).then((data) => {
-        console.log(data.data.message);
         alert(data.data.message);
       });
-      setIsOTPSent(true); // Mark OTP as sent
+      setIsOTPSent(true);
     } catch (err) {
-      setError("Failed to send OTP. Please try again."); // Handle OTP sending errors
+      setError("Failed to send OTP. Please try again.");
     }
   };
 
   const handleVerifyOTP = async () => {
     try {
-      const response = await axios.post(`${BACKEND_URL}/api/verifyotp`,{
-        email:formState.email,
-        otp:otp
+      const response = await axios.post(`${BACKEND_URL}/api/verifyotp`, {
+        email: formState.email,
+        otp: otp
       });
-      alert(response.data.message); 
+      alert(response.data.message);
       if (response.data.message === "OTP verified") {
-        setIsOTPVerified(true); 
+        setIsOTPVerified(true);
       } else {
-        setIsOTPVerified(false); 
+        setIsOTPVerified(false);
       }
     } catch (err) {
-      setError("OTP verification failed. Please try again."); // Handle OTP verification errors
+      setError("OTP verification failed. Please try again.");
     }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault(); 
+    e.preventDefault();
     if (formState.password !== formState.confirmPassword) {
       setError("Passwords don't match");
       return;
@@ -77,15 +70,14 @@ export function Register() {
 
     try {
       const response = await axios.post(`${BACKEND_URL}/api/admin/adminregister`, {
-        name:formState.name,
+        name: formState.name,
         email: formState.email,
         password: formState.password,
-      }
-    );
+      });
       localStorage.setItem("admintoken", response.data.token);
       navigate("/admindashboard");
     } catch (err) {
-      setError("Registration failed. Please try again."); // Handle registration errors
+      setError("Registration failed. Please try again.");
     }
   };
 
@@ -96,28 +88,29 @@ export function Register() {
       [id]: value,
     }));
   };
+
   const handleOtpChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setOtp(e.target.value);
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4 py-12 sm:px-6 lg:px-8">
-      <div className="w-full max-w-md space-y-8">
+    <div className="flex min-h-screen items-center justify-center bg-[#CFFFDC] px-4 py-12 sm:px-6 lg:px-8">
+      <div className="w-full max-w-md space-y-8 bg-white p-8 rounded-lg shadow-lg">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-foreground">
+          <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-[#2E6F40]">
             Create your account
           </h2>
-          <p className="mt-2 text-center text-sm text-muted-foreground">
+          <p className="mt-2 text-center text-sm text-[#253D2C]">
             Or{" "}
-            <Link to="/adminsignin" className="font-medium text-primary hover:text-primary/80">
+            <Link to="/adminsignin" className="font-medium text-[#68BA7F] hover:text-[#2E6F40]">
               sign in to your existing account
             </Link>
           </p>
         </div>
-        {error && <div className="text-red-500 text-center">{error}</div>} {/* Display error message */}
+        {error && <div className="text-red-500 text-center">{error}</div>}
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
-            <Label htmlFor="name" className="block text-sm font-medium text-muted-foreground">
+            <Label htmlFor="name" className="block text-sm font-medium text-[#253D2C]">
               Name
             </Label>
             <div className="mt-1">
@@ -129,13 +122,13 @@ export function Register() {
                 required
                 placeholder="Name"
                 value={formState.name}
-                onChange={handleChange} // Update form state on change
-                className="block w-full appearance-none rounded-md border border-input bg-background px-3 py-2 placeholder-muted-foreground shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
+                onChange={handleChange}
+                className="block w-full appearance-none rounded-md border border-[#68BA7F] bg-white px-3 py-2 placeholder-[#253D2C] shadow-sm focus:border-[#2E6F40] focus:outline-none focus:ring-1 focus:ring-[#2E6F40] sm:text-sm"
               />
             </div>
           </div>
           <div>
-            <Label htmlFor="email" className="block text-sm font-medium text-muted-foreground">
+            <Label htmlFor="email" className="block text-sm font-medium text-[#253D2C]">
               Email address
             </Label>
             <div className="mt-1">
@@ -147,25 +140,42 @@ export function Register() {
                 required
                 placeholder="Email"
                 value={formState.email}
-                onChange={handleChange} // Update email state on change
-                className="block w-full appearance-none rounded-md border border-input bg-background px-3 py-2 placeholder-muted-foreground shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
+                onChange={handleChange}
+                className="block w-full appearance-none rounded-md border border-[#68BA7F] bg-white px-3 py-2 placeholder-[#253D2C] shadow-sm focus:border-[#2E6F40] focus:outline-none focus:ring-1 focus:ring-[#2E6F40] sm:text-sm"
               />
-              <div className="flex gap-2">
-                <Button type="button" className="w-full" onClick={handleSendOTP} disabled={isOTPSent}>
+              <div className="flex gap-2 mt-2">
+                <Button 
+                  type="button" 
+                  className="w-full bg-[#2E6F40] text-white hover:bg-[#253D2C]" 
+                  onClick={handleSendOTP} 
+                  disabled={isOTPSent}
+                >
                   {isOTPSent ? 'OTP Sent' : 'Send OTP'}
                 </Button>
               </div>
             </div>
           </div>
           <div className="space-y-2">
-            <Label htmlFor="otp">OTP</Label>
-            <Input id="otp" placeholder="Enter OTP" required value={otp} onChange={handleOtpChange} />
-            <Button type="button" className="w-full" onClick={handleVerifyOTP} disabled={isOTPVerified}>
+            <Label htmlFor="otp" className="block text-sm font-medium text-[#253D2C]">OTP</Label>
+            <Input 
+              id="otp" 
+              placeholder="Enter OTP" 
+              required 
+              value={otp} 
+              onChange={handleOtpChange}
+              className="block w-full appearance-none rounded-md border border-[#68BA7F] bg-white px-3 py-2 placeholder-[#253D2C] shadow-sm focus:border-[#2E6F40] focus:outline-none focus:ring-1 focus:ring-[#2E6F40] sm:text-sm"
+            />
+            <Button 
+              type="button" 
+              className="w-full bg-[#68BA7F] text-white hover:bg-[#2E6F40]" 
+              onClick={handleVerifyOTP} 
+              disabled={isOTPVerified}
+            >
               {isOTPVerified ? 'OTP Verified' : 'Verify OTP'}
             </Button>
           </div>
           <div>
-            <Label htmlFor="password" className="block text-sm font-medium text-muted-foreground">
+            <Label htmlFor="password" className="block text-sm font-medium text-[#253D2C]">
               Password
             </Label>
             <div className="mt-1">
@@ -177,13 +187,13 @@ export function Register() {
                 required
                 placeholder="Password"
                 value={formState.password}
-                onChange={handleChange} // Update form state on change
-                className="block w-full appearance-none rounded-md border border-input bg-background px-3 py-2 placeholder-muted-foreground shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
+                onChange={handleChange}
+                className="block w-full appearance-none rounded-md border border-[#68BA7F] bg-white px-3 py-2 placeholder-[#253D2C] shadow-sm focus:border-[#2E6F40] focus:outline-none focus:ring-1 focus:ring-[#2E6F40] sm:text-sm"
               />
             </div>
           </div>
           <div>
-            <Label htmlFor="confirm-password" className="block text-sm font-medium text-muted-foreground">
+            <Label htmlFor="confirm-password" className="block text-sm font-medium text-[#253D2C]">
               Confirm Password
             </Label>
             <div className="mt-1">
@@ -195,15 +205,15 @@ export function Register() {
                 required
                 placeholder="Confirm Password"
                 value={formState.confirmPassword}
-                onChange={handleChange} // Update form state on change
-                className="block w-full appearance-none rounded-md border border-input bg-background px-3 py-2 placeholder-muted-foreground shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
+                onChange={handleChange}
+                className="block w-full appearance-none rounded-md border border-[#68BA7F] bg-white px-3 py-2 placeholder-[#253D2C] shadow-sm focus:border-[#2E6F40] focus:outline-none focus:ring-1 focus:ring-[#2E6F40] sm:text-sm"
               />
             </div>
           </div>
           <div>
             <Button
               type="submit"
-              className="flex w-full justify-center rounded-md bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground shadow-sm hover:bg-primary/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+              className="flex w-full justify-center rounded-md bg-[#2E6F40] px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#253D2C] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#68BA7F] focus-visible:ring-offset-2"
             >
               Sign up
             </Button>
@@ -213,3 +223,4 @@ export function Register() {
     </div>
   );
 }
+
