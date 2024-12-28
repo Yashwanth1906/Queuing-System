@@ -45,7 +45,7 @@ export function SlotSelection({ deptId, onSelect, code }: SlotSelectionProps) {
   useEffect(() => {
     axios.post(`${BACKEND_URL}/api/patient/getslots`, { deptId }, {
       headers: {
-        code
+        code,deptId,Authorization:localStorage.getItem("patienttoken")
       }
     }).then((res) => {
       setSlot1(res.data.date);
@@ -74,7 +74,7 @@ export function SlotSelection({ deptId, onSelect, code }: SlotSelectionProps) {
 	     slotid
      },{
 	     headers:{
-		     code
+		     code,Authorization:localStorage.getItem("patienttoken")
 	     }
 
      })

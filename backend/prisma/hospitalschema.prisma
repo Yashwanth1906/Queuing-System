@@ -20,11 +20,15 @@ model Doctors {
   departmentId   String
   hospitalCode   String           @default("0001")
   department     Departments      @relation("DepartmentDoctors", fields: [departmentId], references: [id])
-  headOfDepartmentOf Departments? @relation("DepartmentHead")
+  // headOfDepartmentOf Departments? @relation("DepartmentHead")
   opdQueue       OPDQueue[]
   admissions     Admission[]
   patientInstances PatientInstance[]
 }
+
+
+
+
 
 enum DesignationType {
   Trainee
@@ -43,21 +47,19 @@ model OPSlots {
 }
 
 model Departments {
-<<<<<<< HEAD
-  id                  String       @id @default(uuid())
-  name                String
-  headOfDepartmentId  String?      @unique
-  headOfDepartment    Doctors?     @relation("DepartmentHead", fields: [headOfDepartmentId], references: [id])
-  doctors             Doctors[]    @relation("DepartmentDoctors")
-  slots               OPSlots[]
-=======
   id String @id @default(uuid())
   name String
-  doctors Doctors[]
+  //  headOfDepartmentId  String?      @unique
+  // headOfDepartment    Doctors?     @relation("DepartmentHead", fields: [headOfDepartmentId], references: [id])
+  doctors Doctors[] @relation("DepartmentDoctors")
   slots OPSlots[]
   intimation Intimation[]
->>>>>>> 83da4f7 (patient-book)
 }
+
+
+
+
+
 
 
 

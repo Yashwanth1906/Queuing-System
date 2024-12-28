@@ -67,7 +67,27 @@ export const getSlots=async (req,res)=>{
 		const nextDate=getNextDateFormatted((new Date()));
 		console.log(deptId)
 		console.log(date)
-		console.log(nextDate)
+		console.log(nextDate);
+		
+		let check;
+		try{
+			check=await prisma.Intimation.findMany({
+				where:{
+					deptId,
+					date,
+					abhaId:req.headers.id
+
+				}
+			})
+		}
+		catch{
+			return res.status(500).json({msg:"error"});
+
+		}
+
+
+
+
 		let slot1;
 		let slot2;
 
@@ -106,13 +126,24 @@ export const getSlots=async (req,res)=>{
 
 }
 
+function formatTimeToHHMM(date) {
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0'); 
+
+    return `${hours}:${minutes}`;
+}
+
+
 
 export const bookSlot=async(req,res)=>{
 	try{
 		const prisma=req.prisma;
 		console.log(req.body)
-		const {slotid,abhaId}=req.body;
+		const {slotid,abhaId,deptId}=req.body;
 		console.log(slotid)
+		const date=formatDateToDDMMYYYY(new Date());
+		const time=formatTimeToHHMM(new Date());
+
 		await prisma.$transaction(async (tx)=>{
 
 			const result=await tx.OPSlots.update({
@@ -126,16 +157,16 @@ export const bookSlot=async(req,res)=>{
 
 			const temp=await tx.Intimation.create({
 				data:{
-					abhaId,
+					abhaId:req.headers.id,
 					date,
 					time,
+					deptId
 
 				}
 			})
 
 
 		})
-		
 		return res.status(200).json({msg:"done"})
 
 
