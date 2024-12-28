@@ -10,19 +10,18 @@ interface SlotSelectionProps {
   onSelect: (slotId: string) => void;
 }
 
-// Generate next 7 days for date selection
+
 const generateDateSlots = (): DateSlot[] => {
   return Array.from({ length: 7 }, (_, i) => {
     const date = addDays(new Date(), i);
     return {
       date: format(date, 'yyyy-MM-dd'),
       day: format(date, 'EEE, MMM d'),
-      isAvailable: Math.random() > 0.3 // Simulate availability
+      isAvailable: Math.random() > 0.3 
     };
   });
 };
 
-// Sample OP slot data
 const sampleOPSlot: OPSlot = {
   id: 1,
   date: format(new Date(), 'yyyy-MM-dd'),

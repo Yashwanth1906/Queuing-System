@@ -71,6 +71,7 @@ const departmentIcons = {
 };
 
 export function DepartmentSelection({ depts, onSelect }:any) {
+	console.log(depts)
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -85,7 +86,7 @@ export function DepartmentSelection({ depts, onSelect }:any) {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {depts.map((dept:any) => {
-          const Icon = departmentIcons[dept.name as keyof typeof departmentIcons];
+         // const Icon = departmentIcons[dept.name as keyof typeof departmentIcons];
           return (
             <Button
               key={dept.id}
@@ -94,14 +95,11 @@ export function DepartmentSelection({ depts, onSelect }:any) {
               className="h-auto p-4 flex items-start gap-3 border-[#68BA7F]/20 hover:border-[#2E6F40] hover:bg-[#CFFFDC]/10"
             >
               <div className="w-10 h-10 bg-[#2E6F40]/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                <Icon className="w-5 h-5 text-[#2E6F40]" />
+	      {/*<Icon className="w-5 h-5 text-[#2E6F40]" />*/}
               </div>
-              <div className="text-left">
-                <h3 className="font-medium text-[#253D2C]">{dept.name}</h3>
-		{dept.doctors.map((doct:any)=>{
-			<p>{doct}</p>
-
-		})}
+	      <div className="text-left">
+	      <h3 className="font-medium text-[#253D2C]">{dept.name}</h3>
+	
               </div>
             </Button>
           );
