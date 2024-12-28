@@ -45,7 +45,7 @@ const getDepartments = async(req,res)=>{
                 id:true,
                 name:true
             }
-        })
+        });
         res.json({success:true,departments:depts})
 
     }catch(err){
