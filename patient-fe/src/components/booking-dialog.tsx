@@ -29,7 +29,8 @@ export function BookingDialog({ open, onOpenChange, hospitalId }: BookingDialogP
   useEffect(()=>{
 	  axios.get(`${BACKEND_URL}/api/hospital/getdepartments`,{
 		  headers:{
-			code:hospitalId	
+			code:hospitalId	,
+			Authorization:localStorage.getItem("patienttoken")
 		  }
 	  }).then((res)=>{
 
@@ -100,6 +101,7 @@ export function BookingDialog({ open, onOpenChange, hospitalId }: BookingDialogP
           )}
           {step === 'slots' && (
             <SlotSelection
+	      deptId={selectedDepartment}
               code={hospitalId}
               onSelect={handleSlotSelect}
             />

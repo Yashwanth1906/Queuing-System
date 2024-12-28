@@ -2031,11 +2031,13 @@ export namespace Prisma {
   export type DepartmentsCountOutputType = {
     doctors: number
     slots: number
+    intimation: number
   }
 
   export type DepartmentsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     doctors?: boolean | DepartmentsCountOutputTypeCountDoctorsArgs
     slots?: boolean | DepartmentsCountOutputTypeCountSlotsArgs
+    intimation?: boolean | DepartmentsCountOutputTypeCountIntimationArgs
   }
 
   // Custom InputTypes
@@ -2061,6 +2063,13 @@ export namespace Prisma {
    */
   export type DepartmentsCountOutputTypeCountSlotsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: OPSlotsWhereInput
+  }
+
+  /**
+   * DepartmentsCountOutputType without action
+   */
+  export type DepartmentsCountOutputTypeCountIntimationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: IntimationWhereInput
   }
 
 
@@ -2495,7 +2504,6 @@ export namespace Prisma {
     departmentId?: boolean
     hospitalCode?: boolean
     department?: boolean | DepartmentsDefaultArgs<ExtArgs>
-    headOfDepartmentOf?: boolean | Doctors$headOfDepartmentOfArgs<ExtArgs>
     opdQueue?: boolean | Doctors$opdQueueArgs<ExtArgs>
     admissions?: boolean | Doctors$admissionsArgs<ExtArgs>
     patientInstances?: boolean | Doctors$patientInstancesArgs<ExtArgs>
@@ -2531,7 +2539,6 @@ export namespace Prisma {
 
   export type DoctorsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     department?: boolean | DepartmentsDefaultArgs<ExtArgs>
-    headOfDepartmentOf?: boolean | Doctors$headOfDepartmentOfArgs<ExtArgs>
     opdQueue?: boolean | Doctors$opdQueueArgs<ExtArgs>
     admissions?: boolean | Doctors$admissionsArgs<ExtArgs>
     patientInstances?: boolean | Doctors$patientInstancesArgs<ExtArgs>
@@ -2545,7 +2552,6 @@ export namespace Prisma {
     name: "Doctors"
     objects: {
       department: Prisma.$DepartmentsPayload<ExtArgs>
-      headOfDepartmentOf: Prisma.$DepartmentsPayload<ExtArgs> | null
       opdQueue: Prisma.$OPDQueuePayload<ExtArgs>[]
       admissions: Prisma.$AdmissionPayload<ExtArgs>[]
       patientInstances: Prisma.$PatientInstancePayload<ExtArgs>[]
@@ -2926,7 +2932,6 @@ export namespace Prisma {
   export interface Prisma__DoctorsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     department<T extends DepartmentsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DepartmentsDefaultArgs<ExtArgs>>): Prisma__DepartmentsClient<$Result.GetResult<Prisma.$DepartmentsPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
-    headOfDepartmentOf<T extends Doctors$headOfDepartmentOfArgs<ExtArgs> = {}>(args?: Subset<T, Doctors$headOfDepartmentOfArgs<ExtArgs>>): Prisma__DepartmentsClient<$Result.GetResult<Prisma.$DepartmentsPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     opdQueue<T extends Doctors$opdQueueArgs<ExtArgs> = {}>(args?: Subset<T, Doctors$opdQueueArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OPDQueuePayload<ExtArgs>, T, "findMany"> | Null>
     admissions<T extends Doctors$admissionsArgs<ExtArgs> = {}>(args?: Subset<T, Doctors$admissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdmissionPayload<ExtArgs>, T, "findMany"> | Null>
     patientInstances<T extends Doctors$patientInstancesArgs<ExtArgs> = {}>(args?: Subset<T, Doctors$patientInstancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PatientInstancePayload<ExtArgs>, T, "findMany"> | Null>
@@ -3284,21 +3289,6 @@ export namespace Prisma {
      * Filter which Doctors to delete
      */
     where?: DoctorsWhereInput
-  }
-
-  /**
-   * Doctors.headOfDepartmentOf
-   */
-  export type Doctors$headOfDepartmentOfArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Departments
-     */
-    select?: DepartmentsSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: DepartmentsInclude<ExtArgs> | null
-    where?: DepartmentsWhereInput
   }
 
   /**
@@ -4360,19 +4350,16 @@ export namespace Prisma {
   export type DepartmentsMinAggregateOutputType = {
     id: string | null
     name: string | null
-    headOfDepartmentId: string | null
   }
 
   export type DepartmentsMaxAggregateOutputType = {
     id: string | null
     name: string | null
-    headOfDepartmentId: string | null
   }
 
   export type DepartmentsCountAggregateOutputType = {
     id: number
     name: number
-    headOfDepartmentId: number
     _all: number
   }
 
@@ -4380,19 +4367,16 @@ export namespace Prisma {
   export type DepartmentsMinAggregateInputType = {
     id?: true
     name?: true
-    headOfDepartmentId?: true
   }
 
   export type DepartmentsMaxAggregateInputType = {
     id?: true
     name?: true
-    headOfDepartmentId?: true
   }
 
   export type DepartmentsCountAggregateInputType = {
     id?: true
     name?: true
-    headOfDepartmentId?: true
     _all?: true
   }
 
@@ -4471,7 +4455,6 @@ export namespace Prisma {
   export type DepartmentsGroupByOutputType = {
     id: string
     name: string
-    headOfDepartmentId: string | null
     _count: DepartmentsCountAggregateOutputType | null
     _min: DepartmentsMinAggregateOutputType | null
     _max: DepartmentsMaxAggregateOutputType | null
@@ -4494,47 +4477,40 @@ export namespace Prisma {
   export type DepartmentsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    headOfDepartmentId?: boolean
-    headOfDepartment?: boolean | Departments$headOfDepartmentArgs<ExtArgs>
     doctors?: boolean | Departments$doctorsArgs<ExtArgs>
     slots?: boolean | Departments$slotsArgs<ExtArgs>
+    intimation?: boolean | Departments$intimationArgs<ExtArgs>
     _count?: boolean | DepartmentsCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["departments"]>
 
   export type DepartmentsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    headOfDepartmentId?: boolean
-    headOfDepartment?: boolean | Departments$headOfDepartmentArgs<ExtArgs>
   }, ExtArgs["result"]["departments"]>
 
   export type DepartmentsSelectScalar = {
     id?: boolean
     name?: boolean
-    headOfDepartmentId?: boolean
   }
 
   export type DepartmentsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    headOfDepartment?: boolean | Departments$headOfDepartmentArgs<ExtArgs>
     doctors?: boolean | Departments$doctorsArgs<ExtArgs>
     slots?: boolean | Departments$slotsArgs<ExtArgs>
+    intimation?: boolean | Departments$intimationArgs<ExtArgs>
     _count?: boolean | DepartmentsCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type DepartmentsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    headOfDepartment?: boolean | Departments$headOfDepartmentArgs<ExtArgs>
-  }
+  export type DepartmentsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $DepartmentsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Departments"
     objects: {
-      headOfDepartment: Prisma.$DoctorsPayload<ExtArgs> | null
       doctors: Prisma.$DoctorsPayload<ExtArgs>[]
       slots: Prisma.$OPSlotsPayload<ExtArgs>[]
+      intimation: Prisma.$IntimationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
-      headOfDepartmentId: string | null
     }, ExtArgs["result"]["departments"]>
     composites: {}
   }
@@ -4899,9 +4875,9 @@ export namespace Prisma {
    */
   export interface Prisma__DepartmentsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    headOfDepartment<T extends Departments$headOfDepartmentArgs<ExtArgs> = {}>(args?: Subset<T, Departments$headOfDepartmentArgs<ExtArgs>>): Prisma__DoctorsClient<$Result.GetResult<Prisma.$DoctorsPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     doctors<T extends Departments$doctorsArgs<ExtArgs> = {}>(args?: Subset<T, Departments$doctorsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DoctorsPayload<ExtArgs>, T, "findMany"> | Null>
     slots<T extends Departments$slotsArgs<ExtArgs> = {}>(args?: Subset<T, Departments$slotsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OPSlotsPayload<ExtArgs>, T, "findMany"> | Null>
+    intimation<T extends Departments$intimationArgs<ExtArgs> = {}>(args?: Subset<T, Departments$intimationArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IntimationPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4933,7 +4909,6 @@ export namespace Prisma {
   interface DepartmentsFieldRefs {
     readonly id: FieldRef<"Departments", 'String'>
     readonly name: FieldRef<"Departments", 'String'>
-    readonly headOfDepartmentId: FieldRef<"Departments", 'String'>
   }
     
 
@@ -5155,10 +5130,6 @@ export namespace Prisma {
      */
     data: DepartmentsCreateManyInput | DepartmentsCreateManyInput[]
     skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: DepartmentsIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -5252,21 +5223,6 @@ export namespace Prisma {
   }
 
   /**
-   * Departments.headOfDepartment
-   */
-  export type Departments$headOfDepartmentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Doctors
-     */
-    select?: DoctorsSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: DoctorsInclude<ExtArgs> | null
-    where?: DoctorsWhereInput
-  }
-
-  /**
    * Departments.doctors
    */
   export type Departments$doctorsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5304,6 +5260,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: OPSlotsScalarFieldEnum | OPSlotsScalarFieldEnum[]
+  }
+
+  /**
+   * Departments.intimation
+   */
+  export type Departments$intimationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Intimation
+     */
+    select?: IntimationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IntimationInclude<ExtArgs> | null
+    where?: IntimationWhereInput
+    orderBy?: IntimationOrderByWithRelationInput | IntimationOrderByWithRelationInput[]
+    cursor?: IntimationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: IntimationScalarFieldEnum | IntimationScalarFieldEnum[]
   }
 
   /**
@@ -10344,10 +10320,8 @@ export namespace Prisma {
   export type IntimationMinAggregateOutputType = {
     id: number | null
     abhaId: string | null
-    name: string | null
-    gender: string | null
-    age: string | null
     reason: string | null
+    deptId: string | null
     date: string | null
     time: string | null
   }
@@ -10355,10 +10329,8 @@ export namespace Prisma {
   export type IntimationMaxAggregateOutputType = {
     id: number | null
     abhaId: string | null
-    name: string | null
-    gender: string | null
-    age: string | null
     reason: string | null
+    deptId: string | null
     date: string | null
     time: string | null
   }
@@ -10366,10 +10338,8 @@ export namespace Prisma {
   export type IntimationCountAggregateOutputType = {
     id: number
     abhaId: number
-    name: number
-    gender: number
-    age: number
     reason: number
+    deptId: number
     date: number
     time: number
     _all: number
@@ -10387,10 +10357,8 @@ export namespace Prisma {
   export type IntimationMinAggregateInputType = {
     id?: true
     abhaId?: true
-    name?: true
-    gender?: true
-    age?: true
     reason?: true
+    deptId?: true
     date?: true
     time?: true
   }
@@ -10398,10 +10366,8 @@ export namespace Prisma {
   export type IntimationMaxAggregateInputType = {
     id?: true
     abhaId?: true
-    name?: true
-    gender?: true
-    age?: true
     reason?: true
+    deptId?: true
     date?: true
     time?: true
   }
@@ -10409,10 +10375,8 @@ export namespace Prisma {
   export type IntimationCountAggregateInputType = {
     id?: true
     abhaId?: true
-    name?: true
-    gender?: true
-    age?: true
     reason?: true
+    deptId?: true
     date?: true
     time?: true
     _all?: true
@@ -10507,10 +10471,8 @@ export namespace Prisma {
   export type IntimationGroupByOutputType = {
     id: number
     abhaId: string
-    name: string
-    gender: string
-    age: string
-    reason: string
+    reason: string | null
+    deptId: string
     date: string
     time: string
     _count: IntimationCountAggregateOutputType | null
@@ -10537,47 +10499,49 @@ export namespace Prisma {
   export type IntimationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     abhaId?: boolean
-    name?: boolean
-    gender?: boolean
-    age?: boolean
     reason?: boolean
+    deptId?: boolean
     date?: boolean
     time?: boolean
+    department?: boolean | DepartmentsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["intimation"]>
 
   export type IntimationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     abhaId?: boolean
-    name?: boolean
-    gender?: boolean
-    age?: boolean
     reason?: boolean
+    deptId?: boolean
     date?: boolean
     time?: boolean
+    department?: boolean | DepartmentsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["intimation"]>
 
   export type IntimationSelectScalar = {
     id?: boolean
     abhaId?: boolean
-    name?: boolean
-    gender?: boolean
-    age?: boolean
     reason?: boolean
+    deptId?: boolean
     date?: boolean
     time?: boolean
   }
 
+  export type IntimationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    department?: boolean | DepartmentsDefaultArgs<ExtArgs>
+  }
+  export type IntimationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    department?: boolean | DepartmentsDefaultArgs<ExtArgs>
+  }
 
   export type $IntimationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Intimation"
-    objects: {}
+    objects: {
+      department: Prisma.$DepartmentsPayload<ExtArgs>
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       abhaId: string
-      name: string
-      gender: string
-      age: string
-      reason: string
+      reason: string | null
+      deptId: string
       date: string
       time: string
     }, ExtArgs["result"]["intimation"]>
@@ -10944,6 +10908,7 @@ export namespace Prisma {
    */
   export interface Prisma__IntimationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    department<T extends DepartmentsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DepartmentsDefaultArgs<ExtArgs>>): Prisma__DepartmentsClient<$Result.GetResult<Prisma.$DepartmentsPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10975,10 +10940,8 @@ export namespace Prisma {
   interface IntimationFieldRefs {
     readonly id: FieldRef<"Intimation", 'Int'>
     readonly abhaId: FieldRef<"Intimation", 'String'>
-    readonly name: FieldRef<"Intimation", 'String'>
-    readonly gender: FieldRef<"Intimation", 'String'>
-    readonly age: FieldRef<"Intimation", 'String'>
     readonly reason: FieldRef<"Intimation", 'String'>
+    readonly deptId: FieldRef<"Intimation", 'String'>
     readonly date: FieldRef<"Intimation", 'String'>
     readonly time: FieldRef<"Intimation", 'String'>
   }
@@ -10994,6 +10957,10 @@ export namespace Prisma {
      */
     select?: IntimationSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IntimationInclude<ExtArgs> | null
+    /**
      * Filter, which Intimation to fetch.
      */
     where: IntimationWhereUniqueInput
@@ -11008,6 +10975,10 @@ export namespace Prisma {
      */
     select?: IntimationSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IntimationInclude<ExtArgs> | null
+    /**
      * Filter, which Intimation to fetch.
      */
     where: IntimationWhereUniqueInput
@@ -11021,6 +10992,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Intimation
      */
     select?: IntimationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IntimationInclude<ExtArgs> | null
     /**
      * Filter, which Intimation to fetch.
      */
@@ -11066,6 +11041,10 @@ export namespace Prisma {
      */
     select?: IntimationSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IntimationInclude<ExtArgs> | null
+    /**
      * Filter, which Intimation to fetch.
      */
     where?: IntimationWhereInput
@@ -11110,6 +11089,10 @@ export namespace Prisma {
      */
     select?: IntimationSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IntimationInclude<ExtArgs> | null
+    /**
      * Filter, which Intimations to fetch.
      */
     where?: IntimationWhereInput
@@ -11149,6 +11132,10 @@ export namespace Prisma {
      */
     select?: IntimationSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IntimationInclude<ExtArgs> | null
+    /**
      * The data needed to create a Intimation.
      */
     data: XOR<IntimationCreateInput, IntimationUncheckedCreateInput>
@@ -11178,6 +11165,10 @@ export namespace Prisma {
      */
     data: IntimationCreateManyInput | IntimationCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IntimationIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -11188,6 +11179,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Intimation
      */
     select?: IntimationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IntimationInclude<ExtArgs> | null
     /**
      * The data needed to update a Intimation.
      */
@@ -11221,6 +11216,10 @@ export namespace Prisma {
      */
     select?: IntimationSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IntimationInclude<ExtArgs> | null
+    /**
      * The filter to search for the Intimation to update in case it exists.
      */
     where: IntimationWhereUniqueInput
@@ -11242,6 +11241,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Intimation
      */
     select?: IntimationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IntimationInclude<ExtArgs> | null
     /**
      * Filter which Intimation to delete.
      */
@@ -11266,6 +11269,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Intimation
      */
     select?: IntimationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IntimationInclude<ExtArgs> | null
   }
 
 
@@ -15242,8 +15249,7 @@ export namespace Prisma {
 
   export const DepartmentsScalarFieldEnum: {
     id: 'id',
-    name: 'name',
-    headOfDepartmentId: 'headOfDepartmentId'
+    name: 'name'
   };
 
   export type DepartmentsScalarFieldEnum = (typeof DepartmentsScalarFieldEnum)[keyof typeof DepartmentsScalarFieldEnum]
@@ -15312,10 +15318,8 @@ export namespace Prisma {
   export const IntimationScalarFieldEnum: {
     id: 'id',
     abhaId: 'abhaId',
-    name: 'name',
-    gender: 'gender',
-    age: 'age',
     reason: 'reason',
+    deptId: 'deptId',
     date: 'date',
     time: 'time'
   };
@@ -15577,7 +15581,6 @@ export namespace Prisma {
     departmentId?: StringFilter<"Doctors"> | string
     hospitalCode?: StringFilter<"Doctors"> | string
     department?: XOR<DepartmentsRelationFilter, DepartmentsWhereInput>
-    headOfDepartmentOf?: XOR<DepartmentsNullableRelationFilter, DepartmentsWhereInput> | null
     opdQueue?: OPDQueueListRelationFilter
     admissions?: AdmissionListRelationFilter
     patientInstances?: PatientInstanceListRelationFilter
@@ -15595,7 +15598,6 @@ export namespace Prisma {
     departmentId?: SortOrder
     hospitalCode?: SortOrder
     department?: DepartmentsOrderByWithRelationInput
-    headOfDepartmentOf?: DepartmentsOrderByWithRelationInput
     opdQueue?: OPDQueueOrderByRelationAggregateInput
     admissions?: AdmissionOrderByRelationAggregateInput
     patientInstances?: PatientInstanceOrderByRelationAggregateInput
@@ -15616,7 +15618,6 @@ export namespace Prisma {
     departmentId?: StringFilter<"Doctors"> | string
     hospitalCode?: StringFilter<"Doctors"> | string
     department?: XOR<DepartmentsRelationFilter, DepartmentsWhereInput>
-    headOfDepartmentOf?: XOR<DepartmentsNullableRelationFilter, DepartmentsWhereInput> | null
     opdQueue?: OPDQueueListRelationFilter
     admissions?: AdmissionListRelationFilter
     patientInstances?: PatientInstanceListRelationFilter
@@ -15717,37 +15718,33 @@ export namespace Prisma {
     NOT?: DepartmentsWhereInput | DepartmentsWhereInput[]
     id?: StringFilter<"Departments"> | string
     name?: StringFilter<"Departments"> | string
-    headOfDepartmentId?: StringNullableFilter<"Departments"> | string | null
-    headOfDepartment?: XOR<DoctorsNullableRelationFilter, DoctorsWhereInput> | null
     doctors?: DoctorsListRelationFilter
     slots?: OPSlotsListRelationFilter
+    intimation?: IntimationListRelationFilter
   }
 
   export type DepartmentsOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
-    headOfDepartmentId?: SortOrderInput | SortOrder
-    headOfDepartment?: DoctorsOrderByWithRelationInput
     doctors?: DoctorsOrderByRelationAggregateInput
     slots?: OPSlotsOrderByRelationAggregateInput
+    intimation?: IntimationOrderByRelationAggregateInput
   }
 
   export type DepartmentsWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    headOfDepartmentId?: string
     AND?: DepartmentsWhereInput | DepartmentsWhereInput[]
     OR?: DepartmentsWhereInput[]
     NOT?: DepartmentsWhereInput | DepartmentsWhereInput[]
     name?: StringFilter<"Departments"> | string
-    headOfDepartment?: XOR<DoctorsNullableRelationFilter, DoctorsWhereInput> | null
     doctors?: DoctorsListRelationFilter
     slots?: OPSlotsListRelationFilter
-  }, "id" | "headOfDepartmentId">
+    intimation?: IntimationListRelationFilter
+  }, "id">
 
   export type DepartmentsOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
-    headOfDepartmentId?: SortOrderInput | SortOrder
     _count?: DepartmentsCountOrderByAggregateInput
     _max?: DepartmentsMaxOrderByAggregateInput
     _min?: DepartmentsMinOrderByAggregateInput
@@ -15759,7 +15756,6 @@ export namespace Prisma {
     NOT?: DepartmentsScalarWhereWithAggregatesInput | DepartmentsScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Departments"> | string
     name?: StringWithAggregatesFilter<"Departments"> | string
-    headOfDepartmentId?: StringNullableWithAggregatesFilter<"Departments"> | string | null
   }
 
   export type OPDQueueWhereInput = {
@@ -16098,23 +16094,21 @@ export namespace Prisma {
     NOT?: IntimationWhereInput | IntimationWhereInput[]
     id?: IntFilter<"Intimation"> | number
     abhaId?: StringFilter<"Intimation"> | string
-    name?: StringFilter<"Intimation"> | string
-    gender?: StringFilter<"Intimation"> | string
-    age?: StringFilter<"Intimation"> | string
-    reason?: StringFilter<"Intimation"> | string
+    reason?: StringNullableFilter<"Intimation"> | string | null
+    deptId?: StringFilter<"Intimation"> | string
     date?: StringFilter<"Intimation"> | string
     time?: StringFilter<"Intimation"> | string
+    department?: XOR<DepartmentsRelationFilter, DepartmentsWhereInput>
   }
 
   export type IntimationOrderByWithRelationInput = {
     id?: SortOrder
     abhaId?: SortOrder
-    name?: SortOrder
-    gender?: SortOrder
-    age?: SortOrder
-    reason?: SortOrder
+    reason?: SortOrderInput | SortOrder
+    deptId?: SortOrder
     date?: SortOrder
     time?: SortOrder
+    department?: DepartmentsOrderByWithRelationInput
   }
 
   export type IntimationWhereUniqueInput = Prisma.AtLeast<{
@@ -16123,21 +16117,18 @@ export namespace Prisma {
     OR?: IntimationWhereInput[]
     NOT?: IntimationWhereInput | IntimationWhereInput[]
     abhaId?: StringFilter<"Intimation"> | string
-    name?: StringFilter<"Intimation"> | string
-    gender?: StringFilter<"Intimation"> | string
-    age?: StringFilter<"Intimation"> | string
-    reason?: StringFilter<"Intimation"> | string
+    reason?: StringNullableFilter<"Intimation"> | string | null
+    deptId?: StringFilter<"Intimation"> | string
     date?: StringFilter<"Intimation"> | string
     time?: StringFilter<"Intimation"> | string
+    department?: XOR<DepartmentsRelationFilter, DepartmentsWhereInput>
   }, "id">
 
   export type IntimationOrderByWithAggregationInput = {
     id?: SortOrder
     abhaId?: SortOrder
-    name?: SortOrder
-    gender?: SortOrder
-    age?: SortOrder
-    reason?: SortOrder
+    reason?: SortOrderInput | SortOrder
+    deptId?: SortOrder
     date?: SortOrder
     time?: SortOrder
     _count?: IntimationCountOrderByAggregateInput
@@ -16153,10 +16144,8 @@ export namespace Prisma {
     NOT?: IntimationScalarWhereWithAggregatesInput | IntimationScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Intimation"> | number
     abhaId?: StringWithAggregatesFilter<"Intimation"> | string
-    name?: StringWithAggregatesFilter<"Intimation"> | string
-    gender?: StringWithAggregatesFilter<"Intimation"> | string
-    age?: StringWithAggregatesFilter<"Intimation"> | string
-    reason?: StringWithAggregatesFilter<"Intimation"> | string
+    reason?: StringNullableWithAggregatesFilter<"Intimation"> | string | null
+    deptId?: StringWithAggregatesFilter<"Intimation"> | string
     date?: StringWithAggregatesFilter<"Intimation"> | string
     time?: StringWithAggregatesFilter<"Intimation"> | string
   }
@@ -16407,7 +16396,6 @@ export namespace Prisma {
     active: boolean
     hospitalCode?: string
     department: DepartmentsCreateNestedOneWithoutDoctorsInput
-    headOfDepartmentOf?: DepartmentsCreateNestedOneWithoutHeadOfDepartmentInput
     opdQueue?: OPDQueueCreateNestedManyWithoutDoctorInput
     admissions?: AdmissionCreateNestedManyWithoutDoctorInput
     patientInstances?: PatientInstanceCreateNestedManyWithoutDoctorInput
@@ -16424,7 +16412,6 @@ export namespace Prisma {
     active: boolean
     departmentId: string
     hospitalCode?: string
-    headOfDepartmentOf?: DepartmentsUncheckedCreateNestedOneWithoutHeadOfDepartmentInput
     opdQueue?: OPDQueueUncheckedCreateNestedManyWithoutDoctorInput
     admissions?: AdmissionUncheckedCreateNestedManyWithoutDoctorInput
     patientInstances?: PatientInstanceUncheckedCreateNestedManyWithoutDoctorInput
@@ -16441,7 +16428,6 @@ export namespace Prisma {
     active?: BoolFieldUpdateOperationsInput | boolean
     hospitalCode?: StringFieldUpdateOperationsInput | string
     department?: DepartmentsUpdateOneRequiredWithoutDoctorsNestedInput
-    headOfDepartmentOf?: DepartmentsUpdateOneWithoutHeadOfDepartmentNestedInput
     opdQueue?: OPDQueueUpdateManyWithoutDoctorNestedInput
     admissions?: AdmissionUpdateManyWithoutDoctorNestedInput
     patientInstances?: PatientInstanceUpdateManyWithoutDoctorNestedInput
@@ -16458,7 +16444,6 @@ export namespace Prisma {
     active?: BoolFieldUpdateOperationsInput | boolean
     departmentId?: StringFieldUpdateOperationsInput | string
     hospitalCode?: StringFieldUpdateOperationsInput | string
-    headOfDepartmentOf?: DepartmentsUncheckedUpdateOneWithoutHeadOfDepartmentNestedInput
     opdQueue?: OPDQueueUncheckedUpdateManyWithoutDoctorNestedInput
     admissions?: AdmissionUncheckedUpdateManyWithoutDoctorNestedInput
     patientInstances?: PatientInstanceUncheckedUpdateManyWithoutDoctorNestedInput
@@ -16557,39 +16542,38 @@ export namespace Prisma {
   export type DepartmentsCreateInput = {
     id?: string
     name: string
-    headOfDepartment?: DoctorsCreateNestedOneWithoutHeadOfDepartmentOfInput
     doctors?: DoctorsCreateNestedManyWithoutDepartmentInput
     slots?: OPSlotsCreateNestedManyWithoutDeptInput
+    intimation?: IntimationCreateNestedManyWithoutDepartmentInput
   }
 
   export type DepartmentsUncheckedCreateInput = {
     id?: string
     name: string
-    headOfDepartmentId?: string | null
     doctors?: DoctorsUncheckedCreateNestedManyWithoutDepartmentInput
     slots?: OPSlotsUncheckedCreateNestedManyWithoutDeptInput
+    intimation?: IntimationUncheckedCreateNestedManyWithoutDepartmentInput
   }
 
   export type DepartmentsUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    headOfDepartment?: DoctorsUpdateOneWithoutHeadOfDepartmentOfNestedInput
     doctors?: DoctorsUpdateManyWithoutDepartmentNestedInput
     slots?: OPSlotsUpdateManyWithoutDeptNestedInput
+    intimation?: IntimationUpdateManyWithoutDepartmentNestedInput
   }
 
   export type DepartmentsUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    headOfDepartmentId?: NullableStringFieldUpdateOperationsInput | string | null
     doctors?: DoctorsUncheckedUpdateManyWithoutDepartmentNestedInput
     slots?: OPSlotsUncheckedUpdateManyWithoutDeptNestedInput
+    intimation?: IntimationUncheckedUpdateManyWithoutDepartmentNestedInput
   }
 
   export type DepartmentsCreateManyInput = {
     id?: string
     name: string
-    headOfDepartmentId?: string | null
   }
 
   export type DepartmentsUpdateManyMutationInput = {
@@ -16600,7 +16584,6 @@ export namespace Prisma {
   export type DepartmentsUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    headOfDepartmentId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type OPDQueueCreateInput = {
@@ -16932,42 +16915,34 @@ export namespace Prisma {
 
   export type IntimationCreateInput = {
     abhaId: string
-    name: string
-    gender: string
-    age: string
-    reason: string
+    reason?: string | null
     date: string
     time: string
+    department: DepartmentsCreateNestedOneWithoutIntimationInput
   }
 
   export type IntimationUncheckedCreateInput = {
     id?: number
     abhaId: string
-    name: string
-    gender: string
-    age: string
-    reason: string
+    reason?: string | null
+    deptId: string
     date: string
     time: string
   }
 
   export type IntimationUpdateInput = {
     abhaId?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    gender?: StringFieldUpdateOperationsInput | string
-    age?: StringFieldUpdateOperationsInput | string
-    reason?: StringFieldUpdateOperationsInput | string
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
     date?: StringFieldUpdateOperationsInput | string
     time?: StringFieldUpdateOperationsInput | string
+    department?: DepartmentsUpdateOneRequiredWithoutIntimationNestedInput
   }
 
   export type IntimationUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     abhaId?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    gender?: StringFieldUpdateOperationsInput | string
-    age?: StringFieldUpdateOperationsInput | string
-    reason?: StringFieldUpdateOperationsInput | string
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    deptId?: StringFieldUpdateOperationsInput | string
     date?: StringFieldUpdateOperationsInput | string
     time?: StringFieldUpdateOperationsInput | string
   }
@@ -16975,20 +16950,15 @@ export namespace Prisma {
   export type IntimationCreateManyInput = {
     id?: number
     abhaId: string
-    name: string
-    gender: string
-    age: string
-    reason: string
+    reason?: string | null
+    deptId: string
     date: string
     time: string
   }
 
   export type IntimationUpdateManyMutationInput = {
     abhaId?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    gender?: StringFieldUpdateOperationsInput | string
-    age?: StringFieldUpdateOperationsInput | string
-    reason?: StringFieldUpdateOperationsInput | string
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
     date?: StringFieldUpdateOperationsInput | string
     time?: StringFieldUpdateOperationsInput | string
   }
@@ -16996,10 +16966,8 @@ export namespace Prisma {
   export type IntimationUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     abhaId?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    gender?: StringFieldUpdateOperationsInput | string
-    age?: StringFieldUpdateOperationsInput | string
-    reason?: StringFieldUpdateOperationsInput | string
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    deptId?: StringFieldUpdateOperationsInput | string
     date?: StringFieldUpdateOperationsInput | string
     time?: StringFieldUpdateOperationsInput | string
   }
@@ -17268,11 +17236,6 @@ export namespace Prisma {
     isNot?: DepartmentsWhereInput
   }
 
-  export type DepartmentsNullableRelationFilter = {
-    is?: DepartmentsWhereInput | null
-    isNot?: DepartmentsWhereInput | null
-  }
-
   export type OPDQueueListRelationFilter = {
     every?: OPDQueueWhereInput
     some?: OPDQueueWhereInput
@@ -17439,26 +17402,6 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type DoctorsNullableRelationFilter = {
-    is?: DoctorsWhereInput | null
-    isNot?: DoctorsWhereInput | null
-  }
-
   export type DoctorsListRelationFilter = {
     every?: DoctorsWhereInput
     some?: DoctorsWhereInput
@@ -17471,9 +17414,10 @@ export namespace Prisma {
     none?: OPSlotsWhereInput
   }
 
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
+  export type IntimationListRelationFilter = {
+    every?: IntimationWhereInput
+    some?: IntimationWhereInput
+    none?: IntimationWhereInput
   }
 
   export type DoctorsOrderByRelationAggregateInput = {
@@ -17484,40 +17428,23 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type IntimationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type DepartmentsCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    headOfDepartmentId?: SortOrder
   }
 
   export type DepartmentsMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    headOfDepartmentId?: SortOrder
   }
 
   export type DepartmentsMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    headOfDepartmentId?: SortOrder
-  }
-
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type EnumQueueStatusFilter<$PrismaModel = never> = {
@@ -17546,6 +17473,11 @@ export namespace Prisma {
   export type DoctorsRelationFilter = {
     is?: DoctorsWhereInput
     isNot?: DoctorsWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
   }
 
   export type OPDQueueCountOrderByAggregateInput = {
@@ -17724,6 +17656,21 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type EnumVisitTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.VisitType | EnumVisitTypeFieldRefInput<$PrismaModel>
     in?: $Enums.VisitType[] | ListEnumVisitTypeFieldRefInput<$PrismaModel>
@@ -17822,6 +17769,24 @@ export namespace Prisma {
     _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
   export type EnumVisitTypeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.VisitType | EnumVisitTypeFieldRefInput<$PrismaModel>
     in?: $Enums.VisitType[] | ListEnumVisitTypeFieldRefInput<$PrismaModel>
@@ -17869,10 +17834,8 @@ export namespace Prisma {
   export type IntimationCountOrderByAggregateInput = {
     id?: SortOrder
     abhaId?: SortOrder
-    name?: SortOrder
-    gender?: SortOrder
-    age?: SortOrder
     reason?: SortOrder
+    deptId?: SortOrder
     date?: SortOrder
     time?: SortOrder
   }
@@ -17884,10 +17847,8 @@ export namespace Prisma {
   export type IntimationMaxOrderByAggregateInput = {
     id?: SortOrder
     abhaId?: SortOrder
-    name?: SortOrder
-    gender?: SortOrder
-    age?: SortOrder
     reason?: SortOrder
+    deptId?: SortOrder
     date?: SortOrder
     time?: SortOrder
   }
@@ -17895,10 +17856,8 @@ export namespace Prisma {
   export type IntimationMinOrderByAggregateInput = {
     id?: SortOrder
     abhaId?: SortOrder
-    name?: SortOrder
-    gender?: SortOrder
-    age?: SortOrder
     reason?: SortOrder
+    deptId?: SortOrder
     date?: SortOrder
     time?: SortOrder
   }
@@ -18154,12 +18113,6 @@ export namespace Prisma {
     connect?: DepartmentsWhereUniqueInput
   }
 
-  export type DepartmentsCreateNestedOneWithoutHeadOfDepartmentInput = {
-    create?: XOR<DepartmentsCreateWithoutHeadOfDepartmentInput, DepartmentsUncheckedCreateWithoutHeadOfDepartmentInput>
-    connectOrCreate?: DepartmentsCreateOrConnectWithoutHeadOfDepartmentInput
-    connect?: DepartmentsWhereUniqueInput
-  }
-
   export type OPDQueueCreateNestedManyWithoutDoctorInput = {
     create?: XOR<OPDQueueCreateWithoutDoctorInput, OPDQueueUncheckedCreateWithoutDoctorInput> | OPDQueueCreateWithoutDoctorInput[] | OPDQueueUncheckedCreateWithoutDoctorInput[]
     connectOrCreate?: OPDQueueCreateOrConnectWithoutDoctorInput | OPDQueueCreateOrConnectWithoutDoctorInput[]
@@ -18179,12 +18132,6 @@ export namespace Prisma {
     connectOrCreate?: PatientInstanceCreateOrConnectWithoutDoctorInput | PatientInstanceCreateOrConnectWithoutDoctorInput[]
     createMany?: PatientInstanceCreateManyDoctorInputEnvelope
     connect?: PatientInstanceWhereUniqueInput | PatientInstanceWhereUniqueInput[]
-  }
-
-  export type DepartmentsUncheckedCreateNestedOneWithoutHeadOfDepartmentInput = {
-    create?: XOR<DepartmentsCreateWithoutHeadOfDepartmentInput, DepartmentsUncheckedCreateWithoutHeadOfDepartmentInput>
-    connectOrCreate?: DepartmentsCreateOrConnectWithoutHeadOfDepartmentInput
-    connect?: DepartmentsWhereUniqueInput
   }
 
   export type OPDQueueUncheckedCreateNestedManyWithoutDoctorInput = {
@@ -18228,16 +18175,6 @@ export namespace Prisma {
     update?: XOR<XOR<DepartmentsUpdateToOneWithWhereWithoutDoctorsInput, DepartmentsUpdateWithoutDoctorsInput>, DepartmentsUncheckedUpdateWithoutDoctorsInput>
   }
 
-  export type DepartmentsUpdateOneWithoutHeadOfDepartmentNestedInput = {
-    create?: XOR<DepartmentsCreateWithoutHeadOfDepartmentInput, DepartmentsUncheckedCreateWithoutHeadOfDepartmentInput>
-    connectOrCreate?: DepartmentsCreateOrConnectWithoutHeadOfDepartmentInput
-    upsert?: DepartmentsUpsertWithoutHeadOfDepartmentInput
-    disconnect?: DepartmentsWhereInput | boolean
-    delete?: DepartmentsWhereInput | boolean
-    connect?: DepartmentsWhereUniqueInput
-    update?: XOR<XOR<DepartmentsUpdateToOneWithWhereWithoutHeadOfDepartmentInput, DepartmentsUpdateWithoutHeadOfDepartmentInput>, DepartmentsUncheckedUpdateWithoutHeadOfDepartmentInput>
-  }
-
   export type OPDQueueUpdateManyWithoutDoctorNestedInput = {
     create?: XOR<OPDQueueCreateWithoutDoctorInput, OPDQueueUncheckedCreateWithoutDoctorInput> | OPDQueueCreateWithoutDoctorInput[] | OPDQueueUncheckedCreateWithoutDoctorInput[]
     connectOrCreate?: OPDQueueCreateOrConnectWithoutDoctorInput | OPDQueueCreateOrConnectWithoutDoctorInput[]
@@ -18278,16 +18215,6 @@ export namespace Prisma {
     update?: PatientInstanceUpdateWithWhereUniqueWithoutDoctorInput | PatientInstanceUpdateWithWhereUniqueWithoutDoctorInput[]
     updateMany?: PatientInstanceUpdateManyWithWhereWithoutDoctorInput | PatientInstanceUpdateManyWithWhereWithoutDoctorInput[]
     deleteMany?: PatientInstanceScalarWhereInput | PatientInstanceScalarWhereInput[]
-  }
-
-  export type DepartmentsUncheckedUpdateOneWithoutHeadOfDepartmentNestedInput = {
-    create?: XOR<DepartmentsCreateWithoutHeadOfDepartmentInput, DepartmentsUncheckedCreateWithoutHeadOfDepartmentInput>
-    connectOrCreate?: DepartmentsCreateOrConnectWithoutHeadOfDepartmentInput
-    upsert?: DepartmentsUpsertWithoutHeadOfDepartmentInput
-    disconnect?: DepartmentsWhereInput | boolean
-    delete?: DepartmentsWhereInput | boolean
-    connect?: DepartmentsWhereUniqueInput
-    update?: XOR<XOR<DepartmentsUpdateToOneWithWhereWithoutHeadOfDepartmentInput, DepartmentsUpdateWithoutHeadOfDepartmentInput>, DepartmentsUncheckedUpdateWithoutHeadOfDepartmentInput>
   }
 
   export type OPDQueueUncheckedUpdateManyWithoutDoctorNestedInput = {
@@ -18354,12 +18281,6 @@ export namespace Prisma {
     update?: XOR<XOR<DepartmentsUpdateToOneWithWhereWithoutSlotsInput, DepartmentsUpdateWithoutSlotsInput>, DepartmentsUncheckedUpdateWithoutSlotsInput>
   }
 
-  export type DoctorsCreateNestedOneWithoutHeadOfDepartmentOfInput = {
-    create?: XOR<DoctorsCreateWithoutHeadOfDepartmentOfInput, DoctorsUncheckedCreateWithoutHeadOfDepartmentOfInput>
-    connectOrCreate?: DoctorsCreateOrConnectWithoutHeadOfDepartmentOfInput
-    connect?: DoctorsWhereUniqueInput
-  }
-
   export type DoctorsCreateNestedManyWithoutDepartmentInput = {
     create?: XOR<DoctorsCreateWithoutDepartmentInput, DoctorsUncheckedCreateWithoutDepartmentInput> | DoctorsCreateWithoutDepartmentInput[] | DoctorsUncheckedCreateWithoutDepartmentInput[]
     connectOrCreate?: DoctorsCreateOrConnectWithoutDepartmentInput | DoctorsCreateOrConnectWithoutDepartmentInput[]
@@ -18372,6 +18293,13 @@ export namespace Prisma {
     connectOrCreate?: OPSlotsCreateOrConnectWithoutDeptInput | OPSlotsCreateOrConnectWithoutDeptInput[]
     createMany?: OPSlotsCreateManyDeptInputEnvelope
     connect?: OPSlotsWhereUniqueInput | OPSlotsWhereUniqueInput[]
+  }
+
+  export type IntimationCreateNestedManyWithoutDepartmentInput = {
+    create?: XOR<IntimationCreateWithoutDepartmentInput, IntimationUncheckedCreateWithoutDepartmentInput> | IntimationCreateWithoutDepartmentInput[] | IntimationUncheckedCreateWithoutDepartmentInput[]
+    connectOrCreate?: IntimationCreateOrConnectWithoutDepartmentInput | IntimationCreateOrConnectWithoutDepartmentInput[]
+    createMany?: IntimationCreateManyDepartmentInputEnvelope
+    connect?: IntimationWhereUniqueInput | IntimationWhereUniqueInput[]
   }
 
   export type DoctorsUncheckedCreateNestedManyWithoutDepartmentInput = {
@@ -18388,14 +18316,11 @@ export namespace Prisma {
     connect?: OPSlotsWhereUniqueInput | OPSlotsWhereUniqueInput[]
   }
 
-  export type DoctorsUpdateOneWithoutHeadOfDepartmentOfNestedInput = {
-    create?: XOR<DoctorsCreateWithoutHeadOfDepartmentOfInput, DoctorsUncheckedCreateWithoutHeadOfDepartmentOfInput>
-    connectOrCreate?: DoctorsCreateOrConnectWithoutHeadOfDepartmentOfInput
-    upsert?: DoctorsUpsertWithoutHeadOfDepartmentOfInput
-    disconnect?: DoctorsWhereInput | boolean
-    delete?: DoctorsWhereInput | boolean
-    connect?: DoctorsWhereUniqueInput
-    update?: XOR<XOR<DoctorsUpdateToOneWithWhereWithoutHeadOfDepartmentOfInput, DoctorsUpdateWithoutHeadOfDepartmentOfInput>, DoctorsUncheckedUpdateWithoutHeadOfDepartmentOfInput>
+  export type IntimationUncheckedCreateNestedManyWithoutDepartmentInput = {
+    create?: XOR<IntimationCreateWithoutDepartmentInput, IntimationUncheckedCreateWithoutDepartmentInput> | IntimationCreateWithoutDepartmentInput[] | IntimationUncheckedCreateWithoutDepartmentInput[]
+    connectOrCreate?: IntimationCreateOrConnectWithoutDepartmentInput | IntimationCreateOrConnectWithoutDepartmentInput[]
+    createMany?: IntimationCreateManyDepartmentInputEnvelope
+    connect?: IntimationWhereUniqueInput | IntimationWhereUniqueInput[]
   }
 
   export type DoctorsUpdateManyWithoutDepartmentNestedInput = {
@@ -18426,8 +18351,18 @@ export namespace Prisma {
     deleteMany?: OPSlotsScalarWhereInput | OPSlotsScalarWhereInput[]
   }
 
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
+  export type IntimationUpdateManyWithoutDepartmentNestedInput = {
+    create?: XOR<IntimationCreateWithoutDepartmentInput, IntimationUncheckedCreateWithoutDepartmentInput> | IntimationCreateWithoutDepartmentInput[] | IntimationUncheckedCreateWithoutDepartmentInput[]
+    connectOrCreate?: IntimationCreateOrConnectWithoutDepartmentInput | IntimationCreateOrConnectWithoutDepartmentInput[]
+    upsert?: IntimationUpsertWithWhereUniqueWithoutDepartmentInput | IntimationUpsertWithWhereUniqueWithoutDepartmentInput[]
+    createMany?: IntimationCreateManyDepartmentInputEnvelope
+    set?: IntimationWhereUniqueInput | IntimationWhereUniqueInput[]
+    disconnect?: IntimationWhereUniqueInput | IntimationWhereUniqueInput[]
+    delete?: IntimationWhereUniqueInput | IntimationWhereUniqueInput[]
+    connect?: IntimationWhereUniqueInput | IntimationWhereUniqueInput[]
+    update?: IntimationUpdateWithWhereUniqueWithoutDepartmentInput | IntimationUpdateWithWhereUniqueWithoutDepartmentInput[]
+    updateMany?: IntimationUpdateManyWithWhereWithoutDepartmentInput | IntimationUpdateManyWithWhereWithoutDepartmentInput[]
+    deleteMany?: IntimationScalarWhereInput | IntimationScalarWhereInput[]
   }
 
   export type DoctorsUncheckedUpdateManyWithoutDepartmentNestedInput = {
@@ -18456,6 +18391,20 @@ export namespace Prisma {
     update?: OPSlotsUpdateWithWhereUniqueWithoutDeptInput | OPSlotsUpdateWithWhereUniqueWithoutDeptInput[]
     updateMany?: OPSlotsUpdateManyWithWhereWithoutDeptInput | OPSlotsUpdateManyWithWhereWithoutDeptInput[]
     deleteMany?: OPSlotsScalarWhereInput | OPSlotsScalarWhereInput[]
+  }
+
+  export type IntimationUncheckedUpdateManyWithoutDepartmentNestedInput = {
+    create?: XOR<IntimationCreateWithoutDepartmentInput, IntimationUncheckedCreateWithoutDepartmentInput> | IntimationCreateWithoutDepartmentInput[] | IntimationUncheckedCreateWithoutDepartmentInput[]
+    connectOrCreate?: IntimationCreateOrConnectWithoutDepartmentInput | IntimationCreateOrConnectWithoutDepartmentInput[]
+    upsert?: IntimationUpsertWithWhereUniqueWithoutDepartmentInput | IntimationUpsertWithWhereUniqueWithoutDepartmentInput[]
+    createMany?: IntimationCreateManyDepartmentInputEnvelope
+    set?: IntimationWhereUniqueInput | IntimationWhereUniqueInput[]
+    disconnect?: IntimationWhereUniqueInput | IntimationWhereUniqueInput[]
+    delete?: IntimationWhereUniqueInput | IntimationWhereUniqueInput[]
+    connect?: IntimationWhereUniqueInput | IntimationWhereUniqueInput[]
+    update?: IntimationUpdateWithWhereUniqueWithoutDepartmentInput | IntimationUpdateWithWhereUniqueWithoutDepartmentInput[]
+    updateMany?: IntimationUpdateManyWithWhereWithoutDepartmentInput | IntimationUpdateManyWithWhereWithoutDepartmentInput[]
+    deleteMany?: IntimationScalarWhereInput | IntimationScalarWhereInput[]
   }
 
   export type PatientInstanceCreateNestedOneWithoutOpqueueInput = {
@@ -18680,6 +18629,10 @@ export namespace Prisma {
     divide?: number
   }
 
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
   export type EnumVisitTypeFieldUpdateOperationsInput = {
     set?: $Enums.VisitType
   }
@@ -18806,6 +18759,20 @@ export namespace Prisma {
     upsert?: DoctorsUpsertWithoutAdmissionsInput
     connect?: DoctorsWhereUniqueInput
     update?: XOR<XOR<DoctorsUpdateToOneWithWhereWithoutAdmissionsInput, DoctorsUpdateWithoutAdmissionsInput>, DoctorsUncheckedUpdateWithoutAdmissionsInput>
+  }
+
+  export type DepartmentsCreateNestedOneWithoutIntimationInput = {
+    create?: XOR<DepartmentsCreateWithoutIntimationInput, DepartmentsUncheckedCreateWithoutIntimationInput>
+    connectOrCreate?: DepartmentsCreateOrConnectWithoutIntimationInput
+    connect?: DepartmentsWhereUniqueInput
+  }
+
+  export type DepartmentsUpdateOneRequiredWithoutIntimationNestedInput = {
+    create?: XOR<DepartmentsCreateWithoutIntimationInput, DepartmentsUncheckedCreateWithoutIntimationInput>
+    connectOrCreate?: DepartmentsCreateOrConnectWithoutIntimationInput
+    upsert?: DepartmentsUpsertWithoutIntimationInput
+    connect?: DepartmentsWhereUniqueInput
+    update?: XOR<XOR<DepartmentsUpdateToOneWithWhereWithoutIntimationInput, DepartmentsUpdateWithoutIntimationInput>, DepartmentsUncheckedUpdateWithoutIntimationInput>
   }
 
   export type InventoryCreateNestedManyWithoutMainStoreInput = {
@@ -19218,48 +19185,6 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
   export type NestedEnumQueueStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.QueueStatus | EnumQueueStatusFieldRefInput<$PrismaModel>
     in?: $Enums.QueueStatus[] | ListEnumQueueStatusFieldRefInput<$PrismaModel>
@@ -19302,6 +19227,17 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type NestedEnumBedStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.BedStatus | EnumBedStatusFieldRefInput<$PrismaModel>
     in?: $Enums.BedStatus[] | ListEnumBedStatusFieldRefInput<$PrismaModel>
@@ -19317,6 +19253,20 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumBedStatusFilter<$PrismaModel>
     _max?: NestedEnumBedStatusFilter<$PrismaModel>
+  }
+
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type NestedEnumVisitTypeFilter<$PrismaModel = never> = {
@@ -19373,6 +19323,23 @@ export namespace Prisma {
     gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumVisitTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -19446,39 +19413,20 @@ export namespace Prisma {
   export type DepartmentsCreateWithoutDoctorsInput = {
     id?: string
     name: string
-    headOfDepartment?: DoctorsCreateNestedOneWithoutHeadOfDepartmentOfInput
     slots?: OPSlotsCreateNestedManyWithoutDeptInput
+    intimation?: IntimationCreateNestedManyWithoutDepartmentInput
   }
 
   export type DepartmentsUncheckedCreateWithoutDoctorsInput = {
     id?: string
     name: string
-    headOfDepartmentId?: string | null
     slots?: OPSlotsUncheckedCreateNestedManyWithoutDeptInput
+    intimation?: IntimationUncheckedCreateNestedManyWithoutDepartmentInput
   }
 
   export type DepartmentsCreateOrConnectWithoutDoctorsInput = {
     where: DepartmentsWhereUniqueInput
     create: XOR<DepartmentsCreateWithoutDoctorsInput, DepartmentsUncheckedCreateWithoutDoctorsInput>
-  }
-
-  export type DepartmentsCreateWithoutHeadOfDepartmentInput = {
-    id?: string
-    name: string
-    doctors?: DoctorsCreateNestedManyWithoutDepartmentInput
-    slots?: OPSlotsCreateNestedManyWithoutDeptInput
-  }
-
-  export type DepartmentsUncheckedCreateWithoutHeadOfDepartmentInput = {
-    id?: string
-    name: string
-    doctors?: DoctorsUncheckedCreateNestedManyWithoutDepartmentInput
-    slots?: OPSlotsUncheckedCreateNestedManyWithoutDeptInput
-  }
-
-  export type DepartmentsCreateOrConnectWithoutHeadOfDepartmentInput = {
-    where: DepartmentsWhereUniqueInput
-    create: XOR<DepartmentsCreateWithoutHeadOfDepartmentInput, DepartmentsUncheckedCreateWithoutHeadOfDepartmentInput>
   }
 
   export type OPDQueueCreateWithoutDoctorInput = {
@@ -19585,40 +19533,15 @@ export namespace Prisma {
   export type DepartmentsUpdateWithoutDoctorsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    headOfDepartment?: DoctorsUpdateOneWithoutHeadOfDepartmentOfNestedInput
     slots?: OPSlotsUpdateManyWithoutDeptNestedInput
+    intimation?: IntimationUpdateManyWithoutDepartmentNestedInput
   }
 
   export type DepartmentsUncheckedUpdateWithoutDoctorsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    headOfDepartmentId?: NullableStringFieldUpdateOperationsInput | string | null
     slots?: OPSlotsUncheckedUpdateManyWithoutDeptNestedInput
-  }
-
-  export type DepartmentsUpsertWithoutHeadOfDepartmentInput = {
-    update: XOR<DepartmentsUpdateWithoutHeadOfDepartmentInput, DepartmentsUncheckedUpdateWithoutHeadOfDepartmentInput>
-    create: XOR<DepartmentsCreateWithoutHeadOfDepartmentInput, DepartmentsUncheckedCreateWithoutHeadOfDepartmentInput>
-    where?: DepartmentsWhereInput
-  }
-
-  export type DepartmentsUpdateToOneWithWhereWithoutHeadOfDepartmentInput = {
-    where?: DepartmentsWhereInput
-    data: XOR<DepartmentsUpdateWithoutHeadOfDepartmentInput, DepartmentsUncheckedUpdateWithoutHeadOfDepartmentInput>
-  }
-
-  export type DepartmentsUpdateWithoutHeadOfDepartmentInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    doctors?: DoctorsUpdateManyWithoutDepartmentNestedInput
-    slots?: OPSlotsUpdateManyWithoutDeptNestedInput
-  }
-
-  export type DepartmentsUncheckedUpdateWithoutHeadOfDepartmentInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    doctors?: DoctorsUncheckedUpdateManyWithoutDepartmentNestedInput
-    slots?: OPSlotsUncheckedUpdateManyWithoutDeptNestedInput
+    intimation?: IntimationUncheckedUpdateManyWithoutDepartmentNestedInput
   }
 
   export type OPDQueueUpsertWithWhereUniqueWithoutDoctorInput = {
@@ -19712,15 +19635,15 @@ export namespace Prisma {
   export type DepartmentsCreateWithoutSlotsInput = {
     id?: string
     name: string
-    headOfDepartment?: DoctorsCreateNestedOneWithoutHeadOfDepartmentOfInput
     doctors?: DoctorsCreateNestedManyWithoutDepartmentInput
+    intimation?: IntimationCreateNestedManyWithoutDepartmentInput
   }
 
   export type DepartmentsUncheckedCreateWithoutSlotsInput = {
     id?: string
     name: string
-    headOfDepartmentId?: string | null
     doctors?: DoctorsUncheckedCreateNestedManyWithoutDepartmentInput
+    intimation?: IntimationUncheckedCreateNestedManyWithoutDepartmentInput
   }
 
   export type DepartmentsCreateOrConnectWithoutSlotsInput = {
@@ -19742,52 +19665,15 @@ export namespace Prisma {
   export type DepartmentsUpdateWithoutSlotsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    headOfDepartment?: DoctorsUpdateOneWithoutHeadOfDepartmentOfNestedInput
     doctors?: DoctorsUpdateManyWithoutDepartmentNestedInput
+    intimation?: IntimationUpdateManyWithoutDepartmentNestedInput
   }
 
   export type DepartmentsUncheckedUpdateWithoutSlotsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    headOfDepartmentId?: NullableStringFieldUpdateOperationsInput | string | null
     doctors?: DoctorsUncheckedUpdateManyWithoutDepartmentNestedInput
-  }
-
-  export type DoctorsCreateWithoutHeadOfDepartmentOfInput = {
-    id?: string
-    name: string
-    gender: string
-    designation: $Enums.DesignationType
-    contact: string
-    email: string
-    password: string
-    active: boolean
-    hospitalCode?: string
-    department: DepartmentsCreateNestedOneWithoutDoctorsInput
-    opdQueue?: OPDQueueCreateNestedManyWithoutDoctorInput
-    admissions?: AdmissionCreateNestedManyWithoutDoctorInput
-    patientInstances?: PatientInstanceCreateNestedManyWithoutDoctorInput
-  }
-
-  export type DoctorsUncheckedCreateWithoutHeadOfDepartmentOfInput = {
-    id?: string
-    name: string
-    gender: string
-    designation: $Enums.DesignationType
-    contact: string
-    email: string
-    password: string
-    active: boolean
-    departmentId: string
-    hospitalCode?: string
-    opdQueue?: OPDQueueUncheckedCreateNestedManyWithoutDoctorInput
-    admissions?: AdmissionUncheckedCreateNestedManyWithoutDoctorInput
-    patientInstances?: PatientInstanceUncheckedCreateNestedManyWithoutDoctorInput
-  }
-
-  export type DoctorsCreateOrConnectWithoutHeadOfDepartmentOfInput = {
-    where: DoctorsWhereUniqueInput
-    create: XOR<DoctorsCreateWithoutHeadOfDepartmentOfInput, DoctorsUncheckedCreateWithoutHeadOfDepartmentOfInput>
+    intimation?: IntimationUncheckedUpdateManyWithoutDepartmentNestedInput
   }
 
   export type DoctorsCreateWithoutDepartmentInput = {
@@ -19800,7 +19686,6 @@ export namespace Prisma {
     password: string
     active: boolean
     hospitalCode?: string
-    headOfDepartmentOf?: DepartmentsCreateNestedOneWithoutHeadOfDepartmentInput
     opdQueue?: OPDQueueCreateNestedManyWithoutDoctorInput
     admissions?: AdmissionCreateNestedManyWithoutDoctorInput
     patientInstances?: PatientInstanceCreateNestedManyWithoutDoctorInput
@@ -19816,7 +19701,6 @@ export namespace Prisma {
     password: string
     active: boolean
     hospitalCode?: string
-    headOfDepartmentOf?: DepartmentsUncheckedCreateNestedOneWithoutHeadOfDepartmentInput
     opdQueue?: OPDQueueUncheckedCreateNestedManyWithoutDoctorInput
     admissions?: AdmissionUncheckedCreateNestedManyWithoutDoctorInput
     patientInstances?: PatientInstanceUncheckedCreateNestedManyWithoutDoctorInput
@@ -19855,47 +19739,29 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type DoctorsUpsertWithoutHeadOfDepartmentOfInput = {
-    update: XOR<DoctorsUpdateWithoutHeadOfDepartmentOfInput, DoctorsUncheckedUpdateWithoutHeadOfDepartmentOfInput>
-    create: XOR<DoctorsCreateWithoutHeadOfDepartmentOfInput, DoctorsUncheckedCreateWithoutHeadOfDepartmentOfInput>
-    where?: DoctorsWhereInput
+  export type IntimationCreateWithoutDepartmentInput = {
+    abhaId: string
+    reason?: string | null
+    date: string
+    time: string
   }
 
-  export type DoctorsUpdateToOneWithWhereWithoutHeadOfDepartmentOfInput = {
-    where?: DoctorsWhereInput
-    data: XOR<DoctorsUpdateWithoutHeadOfDepartmentOfInput, DoctorsUncheckedUpdateWithoutHeadOfDepartmentOfInput>
+  export type IntimationUncheckedCreateWithoutDepartmentInput = {
+    id?: number
+    abhaId: string
+    reason?: string | null
+    date: string
+    time: string
   }
 
-  export type DoctorsUpdateWithoutHeadOfDepartmentOfInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    gender?: StringFieldUpdateOperationsInput | string
-    designation?: EnumDesignationTypeFieldUpdateOperationsInput | $Enums.DesignationType
-    contact?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    active?: BoolFieldUpdateOperationsInput | boolean
-    hospitalCode?: StringFieldUpdateOperationsInput | string
-    department?: DepartmentsUpdateOneRequiredWithoutDoctorsNestedInput
-    opdQueue?: OPDQueueUpdateManyWithoutDoctorNestedInput
-    admissions?: AdmissionUpdateManyWithoutDoctorNestedInput
-    patientInstances?: PatientInstanceUpdateManyWithoutDoctorNestedInput
+  export type IntimationCreateOrConnectWithoutDepartmentInput = {
+    where: IntimationWhereUniqueInput
+    create: XOR<IntimationCreateWithoutDepartmentInput, IntimationUncheckedCreateWithoutDepartmentInput>
   }
 
-  export type DoctorsUncheckedUpdateWithoutHeadOfDepartmentOfInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    gender?: StringFieldUpdateOperationsInput | string
-    designation?: EnumDesignationTypeFieldUpdateOperationsInput | $Enums.DesignationType
-    contact?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    active?: BoolFieldUpdateOperationsInput | boolean
-    departmentId?: StringFieldUpdateOperationsInput | string
-    hospitalCode?: StringFieldUpdateOperationsInput | string
-    opdQueue?: OPDQueueUncheckedUpdateManyWithoutDoctorNestedInput
-    admissions?: AdmissionUncheckedUpdateManyWithoutDoctorNestedInput
-    patientInstances?: PatientInstanceUncheckedUpdateManyWithoutDoctorNestedInput
+  export type IntimationCreateManyDepartmentInputEnvelope = {
+    data: IntimationCreateManyDepartmentInput | IntimationCreateManyDepartmentInput[]
+    skipDuplicates?: boolean
   }
 
   export type DoctorsUpsertWithWhereUniqueWithoutDepartmentInput = {
@@ -19957,6 +19823,34 @@ export namespace Prisma {
     deptid?: StringFilter<"OPSlots"> | string
   }
 
+  export type IntimationUpsertWithWhereUniqueWithoutDepartmentInput = {
+    where: IntimationWhereUniqueInput
+    update: XOR<IntimationUpdateWithoutDepartmentInput, IntimationUncheckedUpdateWithoutDepartmentInput>
+    create: XOR<IntimationCreateWithoutDepartmentInput, IntimationUncheckedCreateWithoutDepartmentInput>
+  }
+
+  export type IntimationUpdateWithWhereUniqueWithoutDepartmentInput = {
+    where: IntimationWhereUniqueInput
+    data: XOR<IntimationUpdateWithoutDepartmentInput, IntimationUncheckedUpdateWithoutDepartmentInput>
+  }
+
+  export type IntimationUpdateManyWithWhereWithoutDepartmentInput = {
+    where: IntimationScalarWhereInput
+    data: XOR<IntimationUpdateManyMutationInput, IntimationUncheckedUpdateManyWithoutDepartmentInput>
+  }
+
+  export type IntimationScalarWhereInput = {
+    AND?: IntimationScalarWhereInput | IntimationScalarWhereInput[]
+    OR?: IntimationScalarWhereInput[]
+    NOT?: IntimationScalarWhereInput | IntimationScalarWhereInput[]
+    id?: IntFilter<"Intimation"> | number
+    abhaId?: StringFilter<"Intimation"> | string
+    reason?: StringNullableFilter<"Intimation"> | string | null
+    deptId?: StringFilter<"Intimation"> | string
+    date?: StringFilter<"Intimation"> | string
+    time?: StringFilter<"Intimation"> | string
+  }
+
   export type PatientInstanceCreateWithoutOpqueueInput = {
     id?: string
     abhaId: string
@@ -20003,7 +19897,6 @@ export namespace Prisma {
     active: boolean
     hospitalCode?: string
     department: DepartmentsCreateNestedOneWithoutDoctorsInput
-    headOfDepartmentOf?: DepartmentsCreateNestedOneWithoutHeadOfDepartmentInput
     admissions?: AdmissionCreateNestedManyWithoutDoctorInput
     patientInstances?: PatientInstanceCreateNestedManyWithoutDoctorInput
   }
@@ -20019,7 +19912,6 @@ export namespace Prisma {
     active: boolean
     departmentId: string
     hospitalCode?: string
-    headOfDepartmentOf?: DepartmentsUncheckedCreateNestedOneWithoutHeadOfDepartmentInput
     admissions?: AdmissionUncheckedCreateNestedManyWithoutDoctorInput
     patientInstances?: PatientInstanceUncheckedCreateNestedManyWithoutDoctorInput
   }
@@ -20092,7 +19984,6 @@ export namespace Prisma {
     active?: BoolFieldUpdateOperationsInput | boolean
     hospitalCode?: StringFieldUpdateOperationsInput | string
     department?: DepartmentsUpdateOneRequiredWithoutDoctorsNestedInput
-    headOfDepartmentOf?: DepartmentsUpdateOneWithoutHeadOfDepartmentNestedInput
     admissions?: AdmissionUpdateManyWithoutDoctorNestedInput
     patientInstances?: PatientInstanceUpdateManyWithoutDoctorNestedInput
   }
@@ -20108,7 +19999,6 @@ export namespace Prisma {
     active?: BoolFieldUpdateOperationsInput | boolean
     departmentId?: StringFieldUpdateOperationsInput | string
     hospitalCode?: StringFieldUpdateOperationsInput | string
-    headOfDepartmentOf?: DepartmentsUncheckedUpdateOneWithoutHeadOfDepartmentNestedInput
     admissions?: AdmissionUncheckedUpdateManyWithoutDoctorNestedInput
     patientInstances?: PatientInstanceUncheckedUpdateManyWithoutDoctorNestedInput
   }
@@ -20302,7 +20192,6 @@ export namespace Prisma {
     active: boolean
     hospitalCode?: string
     department: DepartmentsCreateNestedOneWithoutDoctorsInput
-    headOfDepartmentOf?: DepartmentsCreateNestedOneWithoutHeadOfDepartmentInput
     opdQueue?: OPDQueueCreateNestedManyWithoutDoctorInput
     admissions?: AdmissionCreateNestedManyWithoutDoctorInput
   }
@@ -20318,7 +20207,6 @@ export namespace Prisma {
     active: boolean
     departmentId: string
     hospitalCode?: string
-    headOfDepartmentOf?: DepartmentsUncheckedCreateNestedOneWithoutHeadOfDepartmentInput
     opdQueue?: OPDQueueUncheckedCreateNestedManyWithoutDoctorInput
     admissions?: AdmissionUncheckedCreateNestedManyWithoutDoctorInput
   }
@@ -20400,7 +20288,6 @@ export namespace Prisma {
     active?: BoolFieldUpdateOperationsInput | boolean
     hospitalCode?: StringFieldUpdateOperationsInput | string
     department?: DepartmentsUpdateOneRequiredWithoutDoctorsNestedInput
-    headOfDepartmentOf?: DepartmentsUpdateOneWithoutHeadOfDepartmentNestedInput
     opdQueue?: OPDQueueUpdateManyWithoutDoctorNestedInput
     admissions?: AdmissionUpdateManyWithoutDoctorNestedInput
   }
@@ -20416,7 +20303,6 @@ export namespace Prisma {
     active?: BoolFieldUpdateOperationsInput | boolean
     departmentId?: StringFieldUpdateOperationsInput | string
     hospitalCode?: StringFieldUpdateOperationsInput | string
-    headOfDepartmentOf?: DepartmentsUncheckedUpdateOneWithoutHeadOfDepartmentNestedInput
     opdQueue?: OPDQueueUncheckedUpdateManyWithoutDoctorNestedInput
     admissions?: AdmissionUncheckedUpdateManyWithoutDoctorNestedInput
   }
@@ -20539,7 +20425,6 @@ export namespace Prisma {
     active: boolean
     hospitalCode?: string
     department: DepartmentsCreateNestedOneWithoutDoctorsInput
-    headOfDepartmentOf?: DepartmentsCreateNestedOneWithoutHeadOfDepartmentInput
     opdQueue?: OPDQueueCreateNestedManyWithoutDoctorInput
     patientInstances?: PatientInstanceCreateNestedManyWithoutDoctorInput
   }
@@ -20555,7 +20440,6 @@ export namespace Prisma {
     active: boolean
     departmentId: string
     hospitalCode?: string
-    headOfDepartmentOf?: DepartmentsUncheckedCreateNestedOneWithoutHeadOfDepartmentInput
     opdQueue?: OPDQueueUncheckedCreateNestedManyWithoutDoctorInput
     patientInstances?: PatientInstanceUncheckedCreateNestedManyWithoutDoctorInput
   }
@@ -20680,7 +20564,6 @@ export namespace Prisma {
     active?: BoolFieldUpdateOperationsInput | boolean
     hospitalCode?: StringFieldUpdateOperationsInput | string
     department?: DepartmentsUpdateOneRequiredWithoutDoctorsNestedInput
-    headOfDepartmentOf?: DepartmentsUpdateOneWithoutHeadOfDepartmentNestedInput
     opdQueue?: OPDQueueUpdateManyWithoutDoctorNestedInput
     patientInstances?: PatientInstanceUpdateManyWithoutDoctorNestedInput
   }
@@ -20696,9 +20579,52 @@ export namespace Prisma {
     active?: BoolFieldUpdateOperationsInput | boolean
     departmentId?: StringFieldUpdateOperationsInput | string
     hospitalCode?: StringFieldUpdateOperationsInput | string
-    headOfDepartmentOf?: DepartmentsUncheckedUpdateOneWithoutHeadOfDepartmentNestedInput
     opdQueue?: OPDQueueUncheckedUpdateManyWithoutDoctorNestedInput
     patientInstances?: PatientInstanceUncheckedUpdateManyWithoutDoctorNestedInput
+  }
+
+  export type DepartmentsCreateWithoutIntimationInput = {
+    id?: string
+    name: string
+    doctors?: DoctorsCreateNestedManyWithoutDepartmentInput
+    slots?: OPSlotsCreateNestedManyWithoutDeptInput
+  }
+
+  export type DepartmentsUncheckedCreateWithoutIntimationInput = {
+    id?: string
+    name: string
+    doctors?: DoctorsUncheckedCreateNestedManyWithoutDepartmentInput
+    slots?: OPSlotsUncheckedCreateNestedManyWithoutDeptInput
+  }
+
+  export type DepartmentsCreateOrConnectWithoutIntimationInput = {
+    where: DepartmentsWhereUniqueInput
+    create: XOR<DepartmentsCreateWithoutIntimationInput, DepartmentsUncheckedCreateWithoutIntimationInput>
+  }
+
+  export type DepartmentsUpsertWithoutIntimationInput = {
+    update: XOR<DepartmentsUpdateWithoutIntimationInput, DepartmentsUncheckedUpdateWithoutIntimationInput>
+    create: XOR<DepartmentsCreateWithoutIntimationInput, DepartmentsUncheckedCreateWithoutIntimationInput>
+    where?: DepartmentsWhereInput
+  }
+
+  export type DepartmentsUpdateToOneWithWhereWithoutIntimationInput = {
+    where?: DepartmentsWhereInput
+    data: XOR<DepartmentsUpdateWithoutIntimationInput, DepartmentsUncheckedUpdateWithoutIntimationInput>
+  }
+
+  export type DepartmentsUpdateWithoutIntimationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    doctors?: DoctorsUpdateManyWithoutDepartmentNestedInput
+    slots?: OPSlotsUpdateManyWithoutDeptNestedInput
+  }
+
+  export type DepartmentsUncheckedUpdateWithoutIntimationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    doctors?: DoctorsUncheckedUpdateManyWithoutDepartmentNestedInput
+    slots?: OPSlotsUncheckedUpdateManyWithoutDeptNestedInput
   }
 
   export type InventoryCreateWithoutMainStoreInput = {
@@ -21313,6 +21239,14 @@ export namespace Prisma {
     count: number
   }
 
+  export type IntimationCreateManyDepartmentInput = {
+    id?: number
+    abhaId: string
+    reason?: string | null
+    date: string
+    time: string
+  }
+
   export type DoctorsUpdateWithoutDepartmentInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -21323,7 +21257,6 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     hospitalCode?: StringFieldUpdateOperationsInput | string
-    headOfDepartmentOf?: DepartmentsUpdateOneWithoutHeadOfDepartmentNestedInput
     opdQueue?: OPDQueueUpdateManyWithoutDoctorNestedInput
     admissions?: AdmissionUpdateManyWithoutDoctorNestedInput
     patientInstances?: PatientInstanceUpdateManyWithoutDoctorNestedInput
@@ -21339,7 +21272,6 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     hospitalCode?: StringFieldUpdateOperationsInput | string
-    headOfDepartmentOf?: DepartmentsUncheckedUpdateOneWithoutHeadOfDepartmentNestedInput
     opdQueue?: OPDQueueUncheckedUpdateManyWithoutDoctorNestedInput
     admissions?: AdmissionUncheckedUpdateManyWithoutDoctorNestedInput
     patientInstances?: PatientInstanceUncheckedUpdateManyWithoutDoctorNestedInput
@@ -21375,6 +21307,29 @@ export namespace Prisma {
     date?: StringFieldUpdateOperationsInput | string
     slot?: StringFieldUpdateOperationsInput | string
     count?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type IntimationUpdateWithoutDepartmentInput = {
+    abhaId?: StringFieldUpdateOperationsInput | string
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    date?: StringFieldUpdateOperationsInput | string
+    time?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type IntimationUncheckedUpdateWithoutDepartmentInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    abhaId?: StringFieldUpdateOperationsInput | string
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    date?: StringFieldUpdateOperationsInput | string
+    time?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type IntimationUncheckedUpdateManyWithoutDepartmentInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    abhaId?: StringFieldUpdateOperationsInput | string
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    date?: StringFieldUpdateOperationsInput | string
+    time?: StringFieldUpdateOperationsInput | string
   }
 
   export type AdmissionCreateManyBedInput = {

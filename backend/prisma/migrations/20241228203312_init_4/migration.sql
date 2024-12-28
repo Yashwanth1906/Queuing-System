@@ -1,16 +1,3 @@
-/*
-  Warnings:
-
-  - You are about to drop the `ABHANumber` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `Admin` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `BedRequest` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `Hospital` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `MedicalRecord` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `OTPVerification` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `Patient` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `PatientBooking` table. If the table is not empty, all the data it contains will be lost.
-
-*/
 -- CreateEnum
 CREATE TYPE "DesignationType" AS ENUM ('Trainee', 'Assistant', 'Senior', 'HeadOfDepartment');
 
@@ -25,45 +12,6 @@ CREATE TYPE "VisitType" AS ENUM ('FreshVisit', 'Revisit');
 
 -- CreateEnum
 CREATE TYPE "InventoryCategory" AS ENUM ('Medicine', 'Surgical_Tools', 'Others');
-
--- DropForeignKey
-ALTER TABLE "Admin" DROP CONSTRAINT "Admin_hospitalCode_fkey";
-
--- DropForeignKey
-ALTER TABLE "MedicalRecord" DROP CONSTRAINT "MedicalRecord_hospitalCode_fkey";
-
--- DropForeignKey
-ALTER TABLE "MedicalRecord" DROP CONSTRAINT "MedicalRecord_patientId_fkey";
-
--- DropForeignKey
-ALTER TABLE "PatientBooking" DROP CONSTRAINT "PatientBooking_hospitalCode_fkey";
-
--- DropForeignKey
-ALTER TABLE "PatientBooking" DROP CONSTRAINT "PatientBooking_id_fkey";
-
--- DropTable
-DROP TABLE "ABHANumber";
-
--- DropTable
-DROP TABLE "Admin";
-
--- DropTable
-DROP TABLE "BedRequest";
-
--- DropTable
-DROP TABLE "Hospital";
-
--- DropTable
-DROP TABLE "MedicalRecord";
-
--- DropTable
-DROP TABLE "OTPVerification";
-
--- DropTable
-DROP TABLE "Patient";
-
--- DropTable
-DROP TABLE "PatientBooking";
 
 -- CreateTable
 CREATE TABLE "Doctors" (
@@ -82,10 +30,20 @@ CREATE TABLE "Doctors" (
 );
 
 -- CreateTable
+CREATE TABLE "OPSlots" (
+    "id" SERIAL NOT NULL,
+    "date" TEXT NOT NULL,
+    "slot" TEXT NOT NULL,
+    "count" INTEGER NOT NULL,
+    "deptid" TEXT NOT NULL,
+
+    CONSTRAINT "OPSlots_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "Departments" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "headOfDepartmentId" TEXT NOT NULL DEFAULT ' ',
 
     CONSTRAINT "Departments_pkey" PRIMARY KEY ("id")
 );
@@ -154,10 +112,8 @@ CREATE TABLE "Admission" (
 CREATE TABLE "Intimation" (
     "id" SERIAL NOT NULL,
     "abhaId" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
-    "gender" TEXT NOT NULL,
-    "age" TEXT NOT NULL,
-    "reason" TEXT NOT NULL,
+    "reason" TEXT,
+    "deptId" TEXT NOT NULL,
     "date" TEXT NOT NULL,
     "time" TEXT NOT NULL,
 
@@ -223,6 +179,9 @@ CREATE UNIQUE INDEX "PatientInstance_abhaId_key" ON "PatientInstance"("abhaId");
 ALTER TABLE "Doctors" ADD CONSTRAINT "Doctors_departmentId_fkey" FOREIGN KEY ("departmentId") REFERENCES "Departments"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "OPSlots" ADD CONSTRAINT "OPSlots_deptid_fkey" FOREIGN KEY ("deptid") REFERENCES "Departments"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "OPDQueue" ADD CONSTRAINT "OPDQueue_patientInstanceId_fkey" FOREIGN KEY ("patientInstanceId") REFERENCES "PatientInstance"("abhaId") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -245,6 +204,9 @@ ALTER TABLE "Admission" ADD CONSTRAINT "Admission_bedId_fkey" FOREIGN KEY ("bedI
 
 -- AddForeignKey
 ALTER TABLE "Admission" ADD CONSTRAINT "Admission_doctorId_fkey" FOREIGN KEY ("doctorId") REFERENCES "Doctors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Intimation" ADD CONSTRAINT "Intimation_deptId_fkey" FOREIGN KEY ("deptId") REFERENCES "Departments"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "SubStore" ADD CONSTRAINT "SubStore_mainStoreId_fkey" FOREIGN KEY ("mainStoreId") REFERENCES "MainStore"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

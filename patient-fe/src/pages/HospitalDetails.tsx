@@ -41,6 +41,10 @@ export function HospitalDetailsPage() {
      console.log(sp.get('code'))
      axios.post(`${BACKEND_URL}/api/admin/gethosp`,{
 	  code:sp.get('code')
+     },{
+	     headers:{
+		     Authorization:localStorage.getItem("patienttoken")
+	     }
      }).then((res)=>{
 	console.log(res.data)
 	setHosp(res.data.hosp);

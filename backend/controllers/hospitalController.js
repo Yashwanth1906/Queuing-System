@@ -23,18 +23,19 @@ const getDoctors = async(req,res)=>{
 export const addSlot=async(req,res)=>{
 	try{
 		const prisma=req.prisma;
-		const {startDate,endDate,slots,deptid}=req.body;
-		const slot=await prisma.OPSlots.create({
+		const {date,deptid,count}=req.body;
+		const data=await prisma.OPSlots.create({
 			data:{
-				startDate,
-				endDate,slots,
-				count:0,
-				deptid
+				date,
+				slot:"08:00-12:00",
+				count,
+				deptid,
 			}
 		})
-		return res.status(200).json({slot});
+		return res.status(200).json({data});
 	}
-	catch{
+	catch(e){
+		console.log(e)
 		return res.status(500).json({msg:"error"});
 	}
 }
