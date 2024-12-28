@@ -45,9 +45,13 @@ model OPSlots {
 model Departments {
   id         String       @id @default(uuid())
   name       String
+<<<<<<< HEAD
   //  headOfDepartmentId  String?      @unique
   // headOfDepartment    Doctors?     @relation("DepartmentHead", fields: [headOfDepartmentId], references: [id])
   doctors    Doctors[]    @relation("DepartmentDoctors")
+=======
+  doctors    Doctors[]
+>>>>>>> b935e42 (fix-2)
   slots      OPSlots[]
   intimation Intimation[]
 }
