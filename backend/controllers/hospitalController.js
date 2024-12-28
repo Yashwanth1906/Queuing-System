@@ -277,16 +277,6 @@ export const getHosCodes = async(req,res)=>{
     }
 }
 
-// const bedRequest = async(req,res)=>{
-//     try{
-//         const 
-//     }catch(er){
-//         console.log(er);
-//         res.json({success:false,message:err})
-//     }
-// }
-
-
 export const getIntimated = async(req,res)=>{
     const prisma = req.prisma;
     try{

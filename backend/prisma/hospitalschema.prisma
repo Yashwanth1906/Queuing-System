@@ -56,13 +56,6 @@ model Departments {
   intimation Intimation[]
 }
 
-
-
-
-
-
-
-
 model OPDQueue {
   id String @id @default(uuid())
   patientInstanceId String @unique
@@ -194,5 +187,5 @@ model Inventory {
 enum InventoryCategory {
   Medicine
   Surgical_Tools
-  Others
+  Others
 }

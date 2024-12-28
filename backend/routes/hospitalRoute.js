@@ -25,4 +25,3 @@ hospitalRouter.get("/gethospitals",getHospital)
 hospitalRouter.get("/getdetails",getHospitalPrismaClient,getHospitalDetails);
 
 export {hospitalRouter}
-
