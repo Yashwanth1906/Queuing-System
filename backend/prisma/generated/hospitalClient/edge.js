@@ -273,7 +273,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/home/yashwanth-linux/Hospital-SIH/backend/prisma/generated/hospitalClient",
+      "value": "/home/shiva_18/hackathon/Hospital-Management-System/backend/prisma/generated/hospitalClient",
       "fromEnvVar": null
     },
     "config": {
@@ -287,7 +287,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/home/yashwanth-linux/Hospital-SIH/backend/prisma/hospitalschema.prisma",
+    "sourceFilePath": "/home/shiva_18/hackathon/Hospital-Management-System/backend/prisma/hospitalschema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -301,6 +301,7 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {

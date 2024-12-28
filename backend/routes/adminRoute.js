@@ -1,5 +1,5 @@
 import express from "express"
-import { addHospital, createPatient, getPatientabhaId, migratealldbs,adminregister,adminlogin } from "../controllers/adminController.js";
+import { addHospital, createPatient, getPatientabhaId, migratealldbs,adminregister,adminlogin, getHospitals } from "../controllers/adminController.js";
 import { getHospitalPrismaClient } from "../middleware/prismaProvider.js";
 const adminRouter = express.Router();
 
