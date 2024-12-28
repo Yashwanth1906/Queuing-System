@@ -35,7 +35,7 @@ enum DesignationType{
 model Departments {
   id String @id @default(uuid())
   name String
-  headOfDepartmentId String @default(" ")
+  headOfDepartmentId String? @default(" ")
   doctors Doctors[]
 }
 
