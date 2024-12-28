@@ -32,11 +32,21 @@ enum DesignationType{
   HeadOfDepartment
 }
 
+model OPSlots{
+	id Int @id @default(autoincrement())
+	date String
+	slot String
+	count Int
+	deptid String
+	dept Departments @relation(fields:[deptid],references:[id],onDelete: Cascade)
+}
+
+
 model Departments {
   id String @id @default(uuid())
   name String
-  headOfDepartmentId String @default(" ")
   doctors Doctors[]
+  slots OPSlots[]
 }
 
 model OPDQueue {
@@ -171,6 +181,5 @@ model Inventory {
 enum InventoryCategory {
   Medicine
   Surgical_Tools
-  Others
+  Others
 }
-

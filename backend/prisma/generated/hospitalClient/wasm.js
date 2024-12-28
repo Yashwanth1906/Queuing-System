@@ -132,10 +132,17 @@ exports.Prisma.DoctorsScalarFieldEnum = {
   hospitalCode: 'hospitalCode'
 };
 
+exports.Prisma.OPSlotsScalarFieldEnum = {
+  id: 'id',
+  date: 'date',
+  slot: 'slot',
+  count: 'count',
+  deptid: 'deptid'
+};
+
 exports.Prisma.DepartmentsScalarFieldEnum = {
   id: 'id',
-  name: 'name',
-  headOfDepartmentId: 'headOfDepartmentId'
+  name: 'name'
 };
 
 exports.Prisma.OPDQueueScalarFieldEnum = {
@@ -282,6 +289,7 @@ exports.InventoryCategory = exports.$Enums.InventoryCategory = {
 
 exports.Prisma.ModelName = {
   Doctors: 'Doctors',
+  OPSlots: 'OPSlots',
   Departments: 'Departments',
   OPDQueue: 'OPDQueue',
   Bed: 'Bed',

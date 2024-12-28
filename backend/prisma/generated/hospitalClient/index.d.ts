@@ -19,6 +19,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type Doctors = $Result.DefaultSelection<Prisma.$DoctorsPayload>
 /**
+ * Model OPSlots
+ * 
+ */
+export type OPSlots = $Result.DefaultSelection<Prisma.$OPSlotsPayload>
+/**
  * Model Departments
  * 
  */
@@ -275,6 +280,16 @@ export class PrismaClient<
     * ```
     */
   get doctors(): Prisma.DoctorsDelegate<ExtArgs>;
+
+  /**
+   * `prisma.oPSlots`: Exposes CRUD operations for the **OPSlots** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more OPSlots
+    * const oPSlots = await prisma.oPSlots.findMany()
+    * ```
+    */
+  get oPSlots(): Prisma.OPSlotsDelegate<ExtArgs>;
 
   /**
    * `prisma.departments`: Exposes CRUD operations for the **Departments** model.
@@ -863,6 +878,7 @@ export namespace Prisma {
 
   export const ModelName: {
     Doctors: 'Doctors',
+    OPSlots: 'OPSlots',
     Departments: 'Departments',
     OPDQueue: 'OPDQueue',
     Bed: 'Bed',
@@ -889,7 +905,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "doctors" | "departments" | "oPDQueue" | "bed" | "ward" | "patientInstance" | "admission" | "intimation" | "mainStore" | "subStore" | "pharmacy" | "inventory"
+      modelProps: "doctors" | "oPSlots" | "departments" | "oPDQueue" | "bed" | "ward" | "patientInstance" | "admission" | "intimation" | "mainStore" | "subStore" | "pharmacy" | "inventory"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -960,6 +976,76 @@ export namespace Prisma {
           count: {
             args: Prisma.DoctorsCountArgs<ExtArgs>
             result: $Utils.Optional<DoctorsCountAggregateOutputType> | number
+          }
+        }
+      }
+      OPSlots: {
+        payload: Prisma.$OPSlotsPayload<ExtArgs>
+        fields: Prisma.OPSlotsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.OPSlotsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OPSlotsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.OPSlotsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OPSlotsPayload>
+          }
+          findFirst: {
+            args: Prisma.OPSlotsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OPSlotsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.OPSlotsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OPSlotsPayload>
+          }
+          findMany: {
+            args: Prisma.OPSlotsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OPSlotsPayload>[]
+          }
+          create: {
+            args: Prisma.OPSlotsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OPSlotsPayload>
+          }
+          createMany: {
+            args: Prisma.OPSlotsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.OPSlotsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OPSlotsPayload>[]
+          }
+          delete: {
+            args: Prisma.OPSlotsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OPSlotsPayload>
+          }
+          update: {
+            args: Prisma.OPSlotsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OPSlotsPayload>
+          }
+          deleteMany: {
+            args: Prisma.OPSlotsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.OPSlotsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.OPSlotsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OPSlotsPayload>
+          }
+          aggregate: {
+            args: Prisma.OPSlotsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateOPSlots>
+          }
+          groupBy: {
+            args: Prisma.OPSlotsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<OPSlotsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.OPSlotsCountArgs<ExtArgs>
+            result: $Utils.Optional<OPSlotsCountAggregateOutputType> | number
           }
         }
       }
@@ -1944,10 +2030,12 @@ export namespace Prisma {
 
   export type DepartmentsCountOutputType = {
     doctors: number
+    slots: number
   }
 
   export type DepartmentsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     doctors?: boolean | DepartmentsCountOutputTypeCountDoctorsArgs
+    slots?: boolean | DepartmentsCountOutputTypeCountSlotsArgs
   }
 
   // Custom InputTypes
@@ -1966,6 +2054,13 @@ export namespace Prisma {
    */
   export type DepartmentsCountOutputTypeCountDoctorsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: DoctorsWhereInput
+  }
+
+  /**
+   * DepartmentsCountOutputType without action
+   */
+  export type DepartmentsCountOutputTypeCountSlotsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OPSlotsWhereInput
   }
 
 
@@ -3263,6 +3358,977 @@ export namespace Prisma {
 
 
   /**
+   * Model OPSlots
+   */
+
+  export type AggregateOPSlots = {
+    _count: OPSlotsCountAggregateOutputType | null
+    _avg: OPSlotsAvgAggregateOutputType | null
+    _sum: OPSlotsSumAggregateOutputType | null
+    _min: OPSlotsMinAggregateOutputType | null
+    _max: OPSlotsMaxAggregateOutputType | null
+  }
+
+  export type OPSlotsAvgAggregateOutputType = {
+    id: number | null
+    count: number | null
+  }
+
+  export type OPSlotsSumAggregateOutputType = {
+    id: number | null
+    count: number | null
+  }
+
+  export type OPSlotsMinAggregateOutputType = {
+    id: number | null
+    date: string | null
+    slot: string | null
+    count: number | null
+    deptid: string | null
+  }
+
+  export type OPSlotsMaxAggregateOutputType = {
+    id: number | null
+    date: string | null
+    slot: string | null
+    count: number | null
+    deptid: string | null
+  }
+
+  export type OPSlotsCountAggregateOutputType = {
+    id: number
+    date: number
+    slot: number
+    count: number
+    deptid: number
+    _all: number
+  }
+
+
+  export type OPSlotsAvgAggregateInputType = {
+    id?: true
+    count?: true
+  }
+
+  export type OPSlotsSumAggregateInputType = {
+    id?: true
+    count?: true
+  }
+
+  export type OPSlotsMinAggregateInputType = {
+    id?: true
+    date?: true
+    slot?: true
+    count?: true
+    deptid?: true
+  }
+
+  export type OPSlotsMaxAggregateInputType = {
+    id?: true
+    date?: true
+    slot?: true
+    count?: true
+    deptid?: true
+  }
+
+  export type OPSlotsCountAggregateInputType = {
+    id?: true
+    date?: true
+    slot?: true
+    count?: true
+    deptid?: true
+    _all?: true
+  }
+
+  export type OPSlotsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OPSlots to aggregate.
+     */
+    where?: OPSlotsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OPSlots to fetch.
+     */
+    orderBy?: OPSlotsOrderByWithRelationInput | OPSlotsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: OPSlotsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OPSlots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OPSlots.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned OPSlots
+    **/
+    _count?: true | OPSlotsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: OPSlotsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: OPSlotsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: OPSlotsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: OPSlotsMaxAggregateInputType
+  }
+
+  export type GetOPSlotsAggregateType<T extends OPSlotsAggregateArgs> = {
+        [P in keyof T & keyof AggregateOPSlots]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateOPSlots[P]>
+      : GetScalarType<T[P], AggregateOPSlots[P]>
+  }
+
+
+
+
+  export type OPSlotsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OPSlotsWhereInput
+    orderBy?: OPSlotsOrderByWithAggregationInput | OPSlotsOrderByWithAggregationInput[]
+    by: OPSlotsScalarFieldEnum[] | OPSlotsScalarFieldEnum
+    having?: OPSlotsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: OPSlotsCountAggregateInputType | true
+    _avg?: OPSlotsAvgAggregateInputType
+    _sum?: OPSlotsSumAggregateInputType
+    _min?: OPSlotsMinAggregateInputType
+    _max?: OPSlotsMaxAggregateInputType
+  }
+
+  export type OPSlotsGroupByOutputType = {
+    id: number
+    date: string
+    slot: string
+    count: number
+    deptid: string
+    _count: OPSlotsCountAggregateOutputType | null
+    _avg: OPSlotsAvgAggregateOutputType | null
+    _sum: OPSlotsSumAggregateOutputType | null
+    _min: OPSlotsMinAggregateOutputType | null
+    _max: OPSlotsMaxAggregateOutputType | null
+  }
+
+  type GetOPSlotsGroupByPayload<T extends OPSlotsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<OPSlotsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof OPSlotsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], OPSlotsGroupByOutputType[P]>
+            : GetScalarType<T[P], OPSlotsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type OPSlotsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    date?: boolean
+    slot?: boolean
+    count?: boolean
+    deptid?: boolean
+    dept?: boolean | DepartmentsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["oPSlots"]>
+
+  export type OPSlotsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    date?: boolean
+    slot?: boolean
+    count?: boolean
+    deptid?: boolean
+    dept?: boolean | DepartmentsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["oPSlots"]>
+
+  export type OPSlotsSelectScalar = {
+    id?: boolean
+    date?: boolean
+    slot?: boolean
+    count?: boolean
+    deptid?: boolean
+  }
+
+  export type OPSlotsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    dept?: boolean | DepartmentsDefaultArgs<ExtArgs>
+  }
+  export type OPSlotsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    dept?: boolean | DepartmentsDefaultArgs<ExtArgs>
+  }
+
+  export type $OPSlotsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "OPSlots"
+    objects: {
+      dept: Prisma.$DepartmentsPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      date: string
+      slot: string
+      count: number
+      deptid: string
+    }, ExtArgs["result"]["oPSlots"]>
+    composites: {}
+  }
+
+  type OPSlotsGetPayload<S extends boolean | null | undefined | OPSlotsDefaultArgs> = $Result.GetResult<Prisma.$OPSlotsPayload, S>
+
+  type OPSlotsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<OPSlotsFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: OPSlotsCountAggregateInputType | true
+    }
+
+  export interface OPSlotsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['OPSlots'], meta: { name: 'OPSlots' } }
+    /**
+     * Find zero or one OPSlots that matches the filter.
+     * @param {OPSlotsFindUniqueArgs} args - Arguments to find a OPSlots
+     * @example
+     * // Get one OPSlots
+     * const oPSlots = await prisma.oPSlots.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends OPSlotsFindUniqueArgs>(args: SelectSubset<T, OPSlotsFindUniqueArgs<ExtArgs>>): Prisma__OPSlotsClient<$Result.GetResult<Prisma.$OPSlotsPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one OPSlots that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {OPSlotsFindUniqueOrThrowArgs} args - Arguments to find a OPSlots
+     * @example
+     * // Get one OPSlots
+     * const oPSlots = await prisma.oPSlots.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends OPSlotsFindUniqueOrThrowArgs>(args: SelectSubset<T, OPSlotsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__OPSlotsClient<$Result.GetResult<Prisma.$OPSlotsPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first OPSlots that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OPSlotsFindFirstArgs} args - Arguments to find a OPSlots
+     * @example
+     * // Get one OPSlots
+     * const oPSlots = await prisma.oPSlots.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends OPSlotsFindFirstArgs>(args?: SelectSubset<T, OPSlotsFindFirstArgs<ExtArgs>>): Prisma__OPSlotsClient<$Result.GetResult<Prisma.$OPSlotsPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first OPSlots that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OPSlotsFindFirstOrThrowArgs} args - Arguments to find a OPSlots
+     * @example
+     * // Get one OPSlots
+     * const oPSlots = await prisma.oPSlots.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends OPSlotsFindFirstOrThrowArgs>(args?: SelectSubset<T, OPSlotsFindFirstOrThrowArgs<ExtArgs>>): Prisma__OPSlotsClient<$Result.GetResult<Prisma.$OPSlotsPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more OPSlots that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OPSlotsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all OPSlots
+     * const oPSlots = await prisma.oPSlots.findMany()
+     * 
+     * // Get first 10 OPSlots
+     * const oPSlots = await prisma.oPSlots.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const oPSlotsWithIdOnly = await prisma.oPSlots.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends OPSlotsFindManyArgs>(args?: SelectSubset<T, OPSlotsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OPSlotsPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a OPSlots.
+     * @param {OPSlotsCreateArgs} args - Arguments to create a OPSlots.
+     * @example
+     * // Create one OPSlots
+     * const OPSlots = await prisma.oPSlots.create({
+     *   data: {
+     *     // ... data to create a OPSlots
+     *   }
+     * })
+     * 
+     */
+    create<T extends OPSlotsCreateArgs>(args: SelectSubset<T, OPSlotsCreateArgs<ExtArgs>>): Prisma__OPSlotsClient<$Result.GetResult<Prisma.$OPSlotsPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many OPSlots.
+     * @param {OPSlotsCreateManyArgs} args - Arguments to create many OPSlots.
+     * @example
+     * // Create many OPSlots
+     * const oPSlots = await prisma.oPSlots.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends OPSlotsCreateManyArgs>(args?: SelectSubset<T, OPSlotsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many OPSlots and returns the data saved in the database.
+     * @param {OPSlotsCreateManyAndReturnArgs} args - Arguments to create many OPSlots.
+     * @example
+     * // Create many OPSlots
+     * const oPSlots = await prisma.oPSlots.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many OPSlots and only return the `id`
+     * const oPSlotsWithIdOnly = await prisma.oPSlots.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends OPSlotsCreateManyAndReturnArgs>(args?: SelectSubset<T, OPSlotsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OPSlotsPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a OPSlots.
+     * @param {OPSlotsDeleteArgs} args - Arguments to delete one OPSlots.
+     * @example
+     * // Delete one OPSlots
+     * const OPSlots = await prisma.oPSlots.delete({
+     *   where: {
+     *     // ... filter to delete one OPSlots
+     *   }
+     * })
+     * 
+     */
+    delete<T extends OPSlotsDeleteArgs>(args: SelectSubset<T, OPSlotsDeleteArgs<ExtArgs>>): Prisma__OPSlotsClient<$Result.GetResult<Prisma.$OPSlotsPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one OPSlots.
+     * @param {OPSlotsUpdateArgs} args - Arguments to update one OPSlots.
+     * @example
+     * // Update one OPSlots
+     * const oPSlots = await prisma.oPSlots.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends OPSlotsUpdateArgs>(args: SelectSubset<T, OPSlotsUpdateArgs<ExtArgs>>): Prisma__OPSlotsClient<$Result.GetResult<Prisma.$OPSlotsPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more OPSlots.
+     * @param {OPSlotsDeleteManyArgs} args - Arguments to filter OPSlots to delete.
+     * @example
+     * // Delete a few OPSlots
+     * const { count } = await prisma.oPSlots.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends OPSlotsDeleteManyArgs>(args?: SelectSubset<T, OPSlotsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more OPSlots.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OPSlotsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many OPSlots
+     * const oPSlots = await prisma.oPSlots.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends OPSlotsUpdateManyArgs>(args: SelectSubset<T, OPSlotsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one OPSlots.
+     * @param {OPSlotsUpsertArgs} args - Arguments to update or create a OPSlots.
+     * @example
+     * // Update or create a OPSlots
+     * const oPSlots = await prisma.oPSlots.upsert({
+     *   create: {
+     *     // ... data to create a OPSlots
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the OPSlots we want to update
+     *   }
+     * })
+     */
+    upsert<T extends OPSlotsUpsertArgs>(args: SelectSubset<T, OPSlotsUpsertArgs<ExtArgs>>): Prisma__OPSlotsClient<$Result.GetResult<Prisma.$OPSlotsPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of OPSlots.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OPSlotsCountArgs} args - Arguments to filter OPSlots to count.
+     * @example
+     * // Count the number of OPSlots
+     * const count = await prisma.oPSlots.count({
+     *   where: {
+     *     // ... the filter for the OPSlots we want to count
+     *   }
+     * })
+    **/
+    count<T extends OPSlotsCountArgs>(
+      args?: Subset<T, OPSlotsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], OPSlotsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a OPSlots.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OPSlotsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends OPSlotsAggregateArgs>(args: Subset<T, OPSlotsAggregateArgs>): Prisma.PrismaPromise<GetOPSlotsAggregateType<T>>
+
+    /**
+     * Group by OPSlots.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OPSlotsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends OPSlotsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: OPSlotsGroupByArgs['orderBy'] }
+        : { orderBy?: OPSlotsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, OPSlotsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetOPSlotsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the OPSlots model
+   */
+  readonly fields: OPSlotsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for OPSlots.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__OPSlotsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    dept<T extends DepartmentsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DepartmentsDefaultArgs<ExtArgs>>): Prisma__DepartmentsClient<$Result.GetResult<Prisma.$DepartmentsPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the OPSlots model
+   */ 
+  interface OPSlotsFieldRefs {
+    readonly id: FieldRef<"OPSlots", 'Int'>
+    readonly date: FieldRef<"OPSlots", 'String'>
+    readonly slot: FieldRef<"OPSlots", 'String'>
+    readonly count: FieldRef<"OPSlots", 'Int'>
+    readonly deptid: FieldRef<"OPSlots", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * OPSlots findUnique
+   */
+  export type OPSlotsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OPSlots
+     */
+    select?: OPSlotsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OPSlotsInclude<ExtArgs> | null
+    /**
+     * Filter, which OPSlots to fetch.
+     */
+    where: OPSlotsWhereUniqueInput
+  }
+
+  /**
+   * OPSlots findUniqueOrThrow
+   */
+  export type OPSlotsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OPSlots
+     */
+    select?: OPSlotsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OPSlotsInclude<ExtArgs> | null
+    /**
+     * Filter, which OPSlots to fetch.
+     */
+    where: OPSlotsWhereUniqueInput
+  }
+
+  /**
+   * OPSlots findFirst
+   */
+  export type OPSlotsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OPSlots
+     */
+    select?: OPSlotsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OPSlotsInclude<ExtArgs> | null
+    /**
+     * Filter, which OPSlots to fetch.
+     */
+    where?: OPSlotsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OPSlots to fetch.
+     */
+    orderBy?: OPSlotsOrderByWithRelationInput | OPSlotsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OPSlots.
+     */
+    cursor?: OPSlotsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OPSlots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OPSlots.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OPSlots.
+     */
+    distinct?: OPSlotsScalarFieldEnum | OPSlotsScalarFieldEnum[]
+  }
+
+  /**
+   * OPSlots findFirstOrThrow
+   */
+  export type OPSlotsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OPSlots
+     */
+    select?: OPSlotsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OPSlotsInclude<ExtArgs> | null
+    /**
+     * Filter, which OPSlots to fetch.
+     */
+    where?: OPSlotsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OPSlots to fetch.
+     */
+    orderBy?: OPSlotsOrderByWithRelationInput | OPSlotsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OPSlots.
+     */
+    cursor?: OPSlotsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OPSlots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OPSlots.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OPSlots.
+     */
+    distinct?: OPSlotsScalarFieldEnum | OPSlotsScalarFieldEnum[]
+  }
+
+  /**
+   * OPSlots findMany
+   */
+  export type OPSlotsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OPSlots
+     */
+    select?: OPSlotsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OPSlotsInclude<ExtArgs> | null
+    /**
+     * Filter, which OPSlots to fetch.
+     */
+    where?: OPSlotsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OPSlots to fetch.
+     */
+    orderBy?: OPSlotsOrderByWithRelationInput | OPSlotsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing OPSlots.
+     */
+    cursor?: OPSlotsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OPSlots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OPSlots.
+     */
+    skip?: number
+    distinct?: OPSlotsScalarFieldEnum | OPSlotsScalarFieldEnum[]
+  }
+
+  /**
+   * OPSlots create
+   */
+  export type OPSlotsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OPSlots
+     */
+    select?: OPSlotsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OPSlotsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a OPSlots.
+     */
+    data: XOR<OPSlotsCreateInput, OPSlotsUncheckedCreateInput>
+  }
+
+  /**
+   * OPSlots createMany
+   */
+  export type OPSlotsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many OPSlots.
+     */
+    data: OPSlotsCreateManyInput | OPSlotsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * OPSlots createManyAndReturn
+   */
+  export type OPSlotsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OPSlots
+     */
+    select?: OPSlotsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many OPSlots.
+     */
+    data: OPSlotsCreateManyInput | OPSlotsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OPSlotsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * OPSlots update
+   */
+  export type OPSlotsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OPSlots
+     */
+    select?: OPSlotsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OPSlotsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a OPSlots.
+     */
+    data: XOR<OPSlotsUpdateInput, OPSlotsUncheckedUpdateInput>
+    /**
+     * Choose, which OPSlots to update.
+     */
+    where: OPSlotsWhereUniqueInput
+  }
+
+  /**
+   * OPSlots updateMany
+   */
+  export type OPSlotsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update OPSlots.
+     */
+    data: XOR<OPSlotsUpdateManyMutationInput, OPSlotsUncheckedUpdateManyInput>
+    /**
+     * Filter which OPSlots to update
+     */
+    where?: OPSlotsWhereInput
+  }
+
+  /**
+   * OPSlots upsert
+   */
+  export type OPSlotsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OPSlots
+     */
+    select?: OPSlotsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OPSlotsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the OPSlots to update in case it exists.
+     */
+    where: OPSlotsWhereUniqueInput
+    /**
+     * In case the OPSlots found by the `where` argument doesn't exist, create a new OPSlots with this data.
+     */
+    create: XOR<OPSlotsCreateInput, OPSlotsUncheckedCreateInput>
+    /**
+     * In case the OPSlots was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<OPSlotsUpdateInput, OPSlotsUncheckedUpdateInput>
+  }
+
+  /**
+   * OPSlots delete
+   */
+  export type OPSlotsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OPSlots
+     */
+    select?: OPSlotsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OPSlotsInclude<ExtArgs> | null
+    /**
+     * Filter which OPSlots to delete.
+     */
+    where: OPSlotsWhereUniqueInput
+  }
+
+  /**
+   * OPSlots deleteMany
+   */
+  export type OPSlotsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OPSlots to delete
+     */
+    where?: OPSlotsWhereInput
+  }
+
+  /**
+   * OPSlots without action
+   */
+  export type OPSlotsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OPSlots
+     */
+    select?: OPSlotsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OPSlotsInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model Departments
    */
 
@@ -3275,19 +4341,16 @@ export namespace Prisma {
   export type DepartmentsMinAggregateOutputType = {
     id: string | null
     name: string | null
-    headOfDepartmentId: string | null
   }
 
   export type DepartmentsMaxAggregateOutputType = {
     id: string | null
     name: string | null
-    headOfDepartmentId: string | null
   }
 
   export type DepartmentsCountAggregateOutputType = {
     id: number
     name: number
-    headOfDepartmentId: number
     _all: number
   }
 
@@ -3295,19 +4358,16 @@ export namespace Prisma {
   export type DepartmentsMinAggregateInputType = {
     id?: true
     name?: true
-    headOfDepartmentId?: true
   }
 
   export type DepartmentsMaxAggregateInputType = {
     id?: true
     name?: true
-    headOfDepartmentId?: true
   }
 
   export type DepartmentsCountAggregateInputType = {
     id?: true
     name?: true
-    headOfDepartmentId?: true
     _all?: true
   }
 
@@ -3386,7 +4446,6 @@ export namespace Prisma {
   export type DepartmentsGroupByOutputType = {
     id: string
     name: string
-    headOfDepartmentId: string
     _count: DepartmentsCountAggregateOutputType | null
     _min: DepartmentsMinAggregateOutputType | null
     _max: DepartmentsMaxAggregateOutputType | null
@@ -3409,25 +4468,24 @@ export namespace Prisma {
   export type DepartmentsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    headOfDepartmentId?: boolean
     doctors?: boolean | Departments$doctorsArgs<ExtArgs>
+    slots?: boolean | Departments$slotsArgs<ExtArgs>
     _count?: boolean | DepartmentsCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["departments"]>
 
   export type DepartmentsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    headOfDepartmentId?: boolean
   }, ExtArgs["result"]["departments"]>
 
   export type DepartmentsSelectScalar = {
     id?: boolean
     name?: boolean
-    headOfDepartmentId?: boolean
   }
 
   export type DepartmentsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     doctors?: boolean | Departments$doctorsArgs<ExtArgs>
+    slots?: boolean | Departments$slotsArgs<ExtArgs>
     _count?: boolean | DepartmentsCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type DepartmentsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -3436,11 +4494,11 @@ export namespace Prisma {
     name: "Departments"
     objects: {
       doctors: Prisma.$DoctorsPayload<ExtArgs>[]
+      slots: Prisma.$OPSlotsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
-      headOfDepartmentId: string
     }, ExtArgs["result"]["departments"]>
     composites: {}
   }
@@ -3806,6 +4864,7 @@ export namespace Prisma {
   export interface Prisma__DepartmentsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     doctors<T extends Departments$doctorsArgs<ExtArgs> = {}>(args?: Subset<T, Departments$doctorsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DoctorsPayload<ExtArgs>, T, "findMany"> | Null>
+    slots<T extends Departments$slotsArgs<ExtArgs> = {}>(args?: Subset<T, Departments$slotsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OPSlotsPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3837,7 +4896,6 @@ export namespace Prisma {
   interface DepartmentsFieldRefs {
     readonly id: FieldRef<"Departments", 'String'>
     readonly name: FieldRef<"Departments", 'String'>
-    readonly headOfDepartmentId: FieldRef<"Departments", 'String'>
   }
     
 
@@ -4169,6 +5227,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: DoctorsScalarFieldEnum | DoctorsScalarFieldEnum[]
+  }
+
+  /**
+   * Departments.slots
+   */
+  export type Departments$slotsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OPSlots
+     */
+    select?: OPSlotsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OPSlotsInclude<ExtArgs> | null
+    where?: OPSlotsWhereInput
+    orderBy?: OPSlotsOrderByWithRelationInput | OPSlotsOrderByWithRelationInput[]
+    cursor?: OPSlotsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: OPSlotsScalarFieldEnum | OPSlotsScalarFieldEnum[]
   }
 
   /**
@@ -14094,10 +15172,20 @@ export namespace Prisma {
   export type DoctorsScalarFieldEnum = (typeof DoctorsScalarFieldEnum)[keyof typeof DoctorsScalarFieldEnum]
 
 
+  export const OPSlotsScalarFieldEnum: {
+    id: 'id',
+    date: 'date',
+    slot: 'slot',
+    count: 'count',
+    deptid: 'deptid'
+  };
+
+  export type OPSlotsScalarFieldEnum = (typeof OPSlotsScalarFieldEnum)[keyof typeof OPSlotsScalarFieldEnum]
+
+
   export const DepartmentsScalarFieldEnum: {
     id: 'id',
-    name: 'name',
-    headOfDepartmentId: 'headOfDepartmentId'
+    name: 'name'
   };
 
   export type DepartmentsScalarFieldEnum = (typeof DepartmentsScalarFieldEnum)[keyof typeof DepartmentsScalarFieldEnum]
@@ -14302,20 +15390,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'QueueStatus'
-   */
-  export type EnumQueueStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueueStatus'>
-    
-
-
-  /**
-   * Reference to a field of type 'QueueStatus[]'
-   */
-  export type ListEnumQueueStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueueStatus[]'>
-    
-
-
-  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -14326,6 +15400,20 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueueStatus'
+   */
+  export type EnumQueueStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueueStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueueStatus[]'
+   */
+  export type ListEnumQueueStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueueStatus[]'>
     
 
 
@@ -14505,21 +15593,78 @@ export namespace Prisma {
     hospitalCode?: StringWithAggregatesFilter<"Doctors"> | string
   }
 
+  export type OPSlotsWhereInput = {
+    AND?: OPSlotsWhereInput | OPSlotsWhereInput[]
+    OR?: OPSlotsWhereInput[]
+    NOT?: OPSlotsWhereInput | OPSlotsWhereInput[]
+    id?: IntFilter<"OPSlots"> | number
+    date?: StringFilter<"OPSlots"> | string
+    slot?: StringFilter<"OPSlots"> | string
+    count?: IntFilter<"OPSlots"> | number
+    deptid?: StringFilter<"OPSlots"> | string
+    dept?: XOR<DepartmentsRelationFilter, DepartmentsWhereInput>
+  }
+
+  export type OPSlotsOrderByWithRelationInput = {
+    id?: SortOrder
+    date?: SortOrder
+    slot?: SortOrder
+    count?: SortOrder
+    deptid?: SortOrder
+    dept?: DepartmentsOrderByWithRelationInput
+  }
+
+  export type OPSlotsWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: OPSlotsWhereInput | OPSlotsWhereInput[]
+    OR?: OPSlotsWhereInput[]
+    NOT?: OPSlotsWhereInput | OPSlotsWhereInput[]
+    date?: StringFilter<"OPSlots"> | string
+    slot?: StringFilter<"OPSlots"> | string
+    count?: IntFilter<"OPSlots"> | number
+    deptid?: StringFilter<"OPSlots"> | string
+    dept?: XOR<DepartmentsRelationFilter, DepartmentsWhereInput>
+  }, "id">
+
+  export type OPSlotsOrderByWithAggregationInput = {
+    id?: SortOrder
+    date?: SortOrder
+    slot?: SortOrder
+    count?: SortOrder
+    deptid?: SortOrder
+    _count?: OPSlotsCountOrderByAggregateInput
+    _avg?: OPSlotsAvgOrderByAggregateInput
+    _max?: OPSlotsMaxOrderByAggregateInput
+    _min?: OPSlotsMinOrderByAggregateInput
+    _sum?: OPSlotsSumOrderByAggregateInput
+  }
+
+  export type OPSlotsScalarWhereWithAggregatesInput = {
+    AND?: OPSlotsScalarWhereWithAggregatesInput | OPSlotsScalarWhereWithAggregatesInput[]
+    OR?: OPSlotsScalarWhereWithAggregatesInput[]
+    NOT?: OPSlotsScalarWhereWithAggregatesInput | OPSlotsScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"OPSlots"> | number
+    date?: StringWithAggregatesFilter<"OPSlots"> | string
+    slot?: StringWithAggregatesFilter<"OPSlots"> | string
+    count?: IntWithAggregatesFilter<"OPSlots"> | number
+    deptid?: StringWithAggregatesFilter<"OPSlots"> | string
+  }
+
   export type DepartmentsWhereInput = {
     AND?: DepartmentsWhereInput | DepartmentsWhereInput[]
     OR?: DepartmentsWhereInput[]
     NOT?: DepartmentsWhereInput | DepartmentsWhereInput[]
     id?: StringFilter<"Departments"> | string
     name?: StringFilter<"Departments"> | string
-    headOfDepartmentId?: StringFilter<"Departments"> | string
     doctors?: DoctorsListRelationFilter
+    slots?: OPSlotsListRelationFilter
   }
 
   export type DepartmentsOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
-    headOfDepartmentId?: SortOrder
     doctors?: DoctorsOrderByRelationAggregateInput
+    slots?: OPSlotsOrderByRelationAggregateInput
   }
 
   export type DepartmentsWhereUniqueInput = Prisma.AtLeast<{
@@ -14528,14 +15673,13 @@ export namespace Prisma {
     OR?: DepartmentsWhereInput[]
     NOT?: DepartmentsWhereInput | DepartmentsWhereInput[]
     name?: StringFilter<"Departments"> | string
-    headOfDepartmentId?: StringFilter<"Departments"> | string
     doctors?: DoctorsListRelationFilter
+    slots?: OPSlotsListRelationFilter
   }, "id">
 
   export type DepartmentsOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
-    headOfDepartmentId?: SortOrder
     _count?: DepartmentsCountOrderByAggregateInput
     _max?: DepartmentsMaxOrderByAggregateInput
     _min?: DepartmentsMinOrderByAggregateInput
@@ -14547,7 +15691,6 @@ export namespace Prisma {
     NOT?: DepartmentsScalarWhereWithAggregatesInput | DepartmentsScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Departments"> | string
     name?: StringWithAggregatesFilter<"Departments"> | string
-    headOfDepartmentId?: StringWithAggregatesFilter<"Departments"> | string
   }
 
   export type OPDQueueWhereInput = {
@@ -15286,50 +16429,99 @@ export namespace Prisma {
     hospitalCode?: StringFieldUpdateOperationsInput | string
   }
 
+  export type OPSlotsCreateInput = {
+    date: string
+    slot: string
+    count: number
+    dept: DepartmentsCreateNestedOneWithoutSlotsInput
+  }
+
+  export type OPSlotsUncheckedCreateInput = {
+    id?: number
+    date: string
+    slot: string
+    count: number
+    deptid: string
+  }
+
+  export type OPSlotsUpdateInput = {
+    date?: StringFieldUpdateOperationsInput | string
+    slot?: StringFieldUpdateOperationsInput | string
+    count?: IntFieldUpdateOperationsInput | number
+    dept?: DepartmentsUpdateOneRequiredWithoutSlotsNestedInput
+  }
+
+  export type OPSlotsUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    date?: StringFieldUpdateOperationsInput | string
+    slot?: StringFieldUpdateOperationsInput | string
+    count?: IntFieldUpdateOperationsInput | number
+    deptid?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type OPSlotsCreateManyInput = {
+    id?: number
+    date: string
+    slot: string
+    count: number
+    deptid: string
+  }
+
+  export type OPSlotsUpdateManyMutationInput = {
+    date?: StringFieldUpdateOperationsInput | string
+    slot?: StringFieldUpdateOperationsInput | string
+    count?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type OPSlotsUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    date?: StringFieldUpdateOperationsInput | string
+    slot?: StringFieldUpdateOperationsInput | string
+    count?: IntFieldUpdateOperationsInput | number
+    deptid?: StringFieldUpdateOperationsInput | string
+  }
+
   export type DepartmentsCreateInput = {
     id?: string
     name: string
-    headOfDepartmentId?: string
     doctors?: DoctorsCreateNestedManyWithoutDepartmentInput
+    slots?: OPSlotsCreateNestedManyWithoutDeptInput
   }
 
   export type DepartmentsUncheckedCreateInput = {
     id?: string
     name: string
-    headOfDepartmentId?: string
     doctors?: DoctorsUncheckedCreateNestedManyWithoutDepartmentInput
+    slots?: OPSlotsUncheckedCreateNestedManyWithoutDeptInput
   }
 
   export type DepartmentsUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    headOfDepartmentId?: StringFieldUpdateOperationsInput | string
     doctors?: DoctorsUpdateManyWithoutDepartmentNestedInput
+    slots?: OPSlotsUpdateManyWithoutDeptNestedInput
   }
 
   export type DepartmentsUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    headOfDepartmentId?: StringFieldUpdateOperationsInput | string
     doctors?: DoctorsUncheckedUpdateManyWithoutDepartmentNestedInput
+    slots?: OPSlotsUncheckedUpdateManyWithoutDeptNestedInput
   }
 
   export type DepartmentsCreateManyInput = {
     id?: string
     name: string
-    headOfDepartmentId?: string
   }
 
   export type DepartmentsUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    headOfDepartmentId?: StringFieldUpdateOperationsInput | string
   }
 
   export type DepartmentsUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    headOfDepartmentId?: StringFieldUpdateOperationsInput | string
   }
 
   export type OPDQueueCreateInput = {
@@ -16102,41 +17294,6 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
-  export type DoctorsListRelationFilter = {
-    every?: DoctorsWhereInput
-    some?: DoctorsWhereInput
-    none?: DoctorsWhereInput
-  }
-
-  export type DoctorsOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type DepartmentsCountOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    headOfDepartmentId?: SortOrder
-  }
-
-  export type DepartmentsMaxOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    headOfDepartmentId?: SortOrder
-  }
-
-  export type DepartmentsMinOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    headOfDepartmentId?: SortOrder
-  }
-
-  export type EnumQueueStatusFilter<$PrismaModel = never> = {
-    equals?: $Enums.QueueStatus | EnumQueueStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.QueueStatus[] | ListEnumQueueStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.QueueStatus[] | ListEnumQueueStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumQueueStatusFilter<$PrismaModel> | $Enums.QueueStatus
-  }
-
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -16146,6 +17303,98 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type OPSlotsCountOrderByAggregateInput = {
+    id?: SortOrder
+    date?: SortOrder
+    slot?: SortOrder
+    count?: SortOrder
+    deptid?: SortOrder
+  }
+
+  export type OPSlotsAvgOrderByAggregateInput = {
+    id?: SortOrder
+    count?: SortOrder
+  }
+
+  export type OPSlotsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    date?: SortOrder
+    slot?: SortOrder
+    count?: SortOrder
+    deptid?: SortOrder
+  }
+
+  export type OPSlotsMinOrderByAggregateInput = {
+    id?: SortOrder
+    date?: SortOrder
+    slot?: SortOrder
+    count?: SortOrder
+    deptid?: SortOrder
+  }
+
+  export type OPSlotsSumOrderByAggregateInput = {
+    id?: SortOrder
+    count?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type DoctorsListRelationFilter = {
+    every?: DoctorsWhereInput
+    some?: DoctorsWhereInput
+    none?: DoctorsWhereInput
+  }
+
+  export type OPSlotsListRelationFilter = {
+    every?: OPSlotsWhereInput
+    some?: OPSlotsWhereInput
+    none?: OPSlotsWhereInput
+  }
+
+  export type DoctorsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type OPSlotsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DepartmentsCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+  }
+
+  export type DepartmentsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+  }
+
+  export type DepartmentsMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+  }
+
+  export type EnumQueueStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.QueueStatus | EnumQueueStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.QueueStatus[] | ListEnumQueueStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QueueStatus[] | ListEnumQueueStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumQueueStatusFilter<$PrismaModel> | $Enums.QueueStatus
   }
 
   export type DateTimeNullableFilter<$PrismaModel = never> = {
@@ -16217,22 +17466,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumQueueStatusFilter<$PrismaModel>
     _max?: NestedEnumQueueStatusFilter<$PrismaModel>
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -16975,6 +18208,28 @@ export namespace Prisma {
     deleteMany?: PatientInstanceScalarWhereInput | PatientInstanceScalarWhereInput[]
   }
 
+  export type DepartmentsCreateNestedOneWithoutSlotsInput = {
+    create?: XOR<DepartmentsCreateWithoutSlotsInput, DepartmentsUncheckedCreateWithoutSlotsInput>
+    connectOrCreate?: DepartmentsCreateOrConnectWithoutSlotsInput
+    connect?: DepartmentsWhereUniqueInput
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type DepartmentsUpdateOneRequiredWithoutSlotsNestedInput = {
+    create?: XOR<DepartmentsCreateWithoutSlotsInput, DepartmentsUncheckedCreateWithoutSlotsInput>
+    connectOrCreate?: DepartmentsCreateOrConnectWithoutSlotsInput
+    upsert?: DepartmentsUpsertWithoutSlotsInput
+    connect?: DepartmentsWhereUniqueInput
+    update?: XOR<XOR<DepartmentsUpdateToOneWithWhereWithoutSlotsInput, DepartmentsUpdateWithoutSlotsInput>, DepartmentsUncheckedUpdateWithoutSlotsInput>
+  }
+
   export type DoctorsCreateNestedManyWithoutDepartmentInput = {
     create?: XOR<DoctorsCreateWithoutDepartmentInput, DoctorsUncheckedCreateWithoutDepartmentInput> | DoctorsCreateWithoutDepartmentInput[] | DoctorsUncheckedCreateWithoutDepartmentInput[]
     connectOrCreate?: DoctorsCreateOrConnectWithoutDepartmentInput | DoctorsCreateOrConnectWithoutDepartmentInput[]
@@ -16982,11 +18237,25 @@ export namespace Prisma {
     connect?: DoctorsWhereUniqueInput | DoctorsWhereUniqueInput[]
   }
 
+  export type OPSlotsCreateNestedManyWithoutDeptInput = {
+    create?: XOR<OPSlotsCreateWithoutDeptInput, OPSlotsUncheckedCreateWithoutDeptInput> | OPSlotsCreateWithoutDeptInput[] | OPSlotsUncheckedCreateWithoutDeptInput[]
+    connectOrCreate?: OPSlotsCreateOrConnectWithoutDeptInput | OPSlotsCreateOrConnectWithoutDeptInput[]
+    createMany?: OPSlotsCreateManyDeptInputEnvelope
+    connect?: OPSlotsWhereUniqueInput | OPSlotsWhereUniqueInput[]
+  }
+
   export type DoctorsUncheckedCreateNestedManyWithoutDepartmentInput = {
     create?: XOR<DoctorsCreateWithoutDepartmentInput, DoctorsUncheckedCreateWithoutDepartmentInput> | DoctorsCreateWithoutDepartmentInput[] | DoctorsUncheckedCreateWithoutDepartmentInput[]
     connectOrCreate?: DoctorsCreateOrConnectWithoutDepartmentInput | DoctorsCreateOrConnectWithoutDepartmentInput[]
     createMany?: DoctorsCreateManyDepartmentInputEnvelope
     connect?: DoctorsWhereUniqueInput | DoctorsWhereUniqueInput[]
+  }
+
+  export type OPSlotsUncheckedCreateNestedManyWithoutDeptInput = {
+    create?: XOR<OPSlotsCreateWithoutDeptInput, OPSlotsUncheckedCreateWithoutDeptInput> | OPSlotsCreateWithoutDeptInput[] | OPSlotsUncheckedCreateWithoutDeptInput[]
+    connectOrCreate?: OPSlotsCreateOrConnectWithoutDeptInput | OPSlotsCreateOrConnectWithoutDeptInput[]
+    createMany?: OPSlotsCreateManyDeptInputEnvelope
+    connect?: OPSlotsWhereUniqueInput | OPSlotsWhereUniqueInput[]
   }
 
   export type DoctorsUpdateManyWithoutDepartmentNestedInput = {
@@ -17003,6 +18272,20 @@ export namespace Prisma {
     deleteMany?: DoctorsScalarWhereInput | DoctorsScalarWhereInput[]
   }
 
+  export type OPSlotsUpdateManyWithoutDeptNestedInput = {
+    create?: XOR<OPSlotsCreateWithoutDeptInput, OPSlotsUncheckedCreateWithoutDeptInput> | OPSlotsCreateWithoutDeptInput[] | OPSlotsUncheckedCreateWithoutDeptInput[]
+    connectOrCreate?: OPSlotsCreateOrConnectWithoutDeptInput | OPSlotsCreateOrConnectWithoutDeptInput[]
+    upsert?: OPSlotsUpsertWithWhereUniqueWithoutDeptInput | OPSlotsUpsertWithWhereUniqueWithoutDeptInput[]
+    createMany?: OPSlotsCreateManyDeptInputEnvelope
+    set?: OPSlotsWhereUniqueInput | OPSlotsWhereUniqueInput[]
+    disconnect?: OPSlotsWhereUniqueInput | OPSlotsWhereUniqueInput[]
+    delete?: OPSlotsWhereUniqueInput | OPSlotsWhereUniqueInput[]
+    connect?: OPSlotsWhereUniqueInput | OPSlotsWhereUniqueInput[]
+    update?: OPSlotsUpdateWithWhereUniqueWithoutDeptInput | OPSlotsUpdateWithWhereUniqueWithoutDeptInput[]
+    updateMany?: OPSlotsUpdateManyWithWhereWithoutDeptInput | OPSlotsUpdateManyWithWhereWithoutDeptInput[]
+    deleteMany?: OPSlotsScalarWhereInput | OPSlotsScalarWhereInput[]
+  }
+
   export type DoctorsUncheckedUpdateManyWithoutDepartmentNestedInput = {
     create?: XOR<DoctorsCreateWithoutDepartmentInput, DoctorsUncheckedCreateWithoutDepartmentInput> | DoctorsCreateWithoutDepartmentInput[] | DoctorsUncheckedCreateWithoutDepartmentInput[]
     connectOrCreate?: DoctorsCreateOrConnectWithoutDepartmentInput | DoctorsCreateOrConnectWithoutDepartmentInput[]
@@ -17015,6 +18298,20 @@ export namespace Prisma {
     update?: DoctorsUpdateWithWhereUniqueWithoutDepartmentInput | DoctorsUpdateWithWhereUniqueWithoutDepartmentInput[]
     updateMany?: DoctorsUpdateManyWithWhereWithoutDepartmentInput | DoctorsUpdateManyWithWhereWithoutDepartmentInput[]
     deleteMany?: DoctorsScalarWhereInput | DoctorsScalarWhereInput[]
+  }
+
+  export type OPSlotsUncheckedUpdateManyWithoutDeptNestedInput = {
+    create?: XOR<OPSlotsCreateWithoutDeptInput, OPSlotsUncheckedCreateWithoutDeptInput> | OPSlotsCreateWithoutDeptInput[] | OPSlotsUncheckedCreateWithoutDeptInput[]
+    connectOrCreate?: OPSlotsCreateOrConnectWithoutDeptInput | OPSlotsCreateOrConnectWithoutDeptInput[]
+    upsert?: OPSlotsUpsertWithWhereUniqueWithoutDeptInput | OPSlotsUpsertWithWhereUniqueWithoutDeptInput[]
+    createMany?: OPSlotsCreateManyDeptInputEnvelope
+    set?: OPSlotsWhereUniqueInput | OPSlotsWhereUniqueInput[]
+    disconnect?: OPSlotsWhereUniqueInput | OPSlotsWhereUniqueInput[]
+    delete?: OPSlotsWhereUniqueInput | OPSlotsWhereUniqueInput[]
+    connect?: OPSlotsWhereUniqueInput | OPSlotsWhereUniqueInput[]
+    update?: OPSlotsUpdateWithWhereUniqueWithoutDeptInput | OPSlotsUpdateWithWhereUniqueWithoutDeptInput[]
+    updateMany?: OPSlotsUpdateManyWithWhereWithoutDeptInput | OPSlotsUpdateManyWithWhereWithoutDeptInput[]
+    deleteMany?: OPSlotsScalarWhereInput | OPSlotsScalarWhereInput[]
   }
 
   export type PatientInstanceCreateNestedOneWithoutOpqueueInput = {
@@ -17031,14 +18328,6 @@ export namespace Prisma {
 
   export type EnumQueueStatusFieldUpdateOperationsInput = {
     set?: $Enums.QueueStatus
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
@@ -17762,6 +19051,33 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type NestedEnumQueueStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.QueueStatus | EnumQueueStatusFieldRefInput<$PrismaModel>
     in?: $Enums.QueueStatus[] | ListEnumQueueStatusFieldRefInput<$PrismaModel>
@@ -17788,33 +19104,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumQueueStatusFilter<$PrismaModel>
     _max?: NestedEnumQueueStatusFilter<$PrismaModel>
-  }
-
-  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
   }
 
   export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -18017,13 +19306,13 @@ export namespace Prisma {
   export type DepartmentsCreateWithoutDoctorsInput = {
     id?: string
     name: string
-    headOfDepartmentId?: string
+    slots?: OPSlotsCreateNestedManyWithoutDeptInput
   }
 
   export type DepartmentsUncheckedCreateWithoutDoctorsInput = {
     id?: string
     name: string
-    headOfDepartmentId?: string
+    slots?: OPSlotsUncheckedCreateNestedManyWithoutDeptInput
   }
 
   export type DepartmentsCreateOrConnectWithoutDoctorsInput = {
@@ -18135,13 +19424,13 @@ export namespace Prisma {
   export type DepartmentsUpdateWithoutDoctorsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    headOfDepartmentId?: StringFieldUpdateOperationsInput | string
+    slots?: OPSlotsUpdateManyWithoutDeptNestedInput
   }
 
   export type DepartmentsUncheckedUpdateWithoutDoctorsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    headOfDepartmentId?: StringFieldUpdateOperationsInput | string
+    slots?: OPSlotsUncheckedUpdateManyWithoutDeptNestedInput
   }
 
   export type OPDQueueUpsertWithWhereUniqueWithoutDoctorInput = {
@@ -18232,6 +19521,46 @@ export namespace Prisma {
     visitType?: EnumVisitTypeFilter<"PatientInstance"> | $Enums.VisitType
   }
 
+  export type DepartmentsCreateWithoutSlotsInput = {
+    id?: string
+    name: string
+    doctors?: DoctorsCreateNestedManyWithoutDepartmentInput
+  }
+
+  export type DepartmentsUncheckedCreateWithoutSlotsInput = {
+    id?: string
+    name: string
+    doctors?: DoctorsUncheckedCreateNestedManyWithoutDepartmentInput
+  }
+
+  export type DepartmentsCreateOrConnectWithoutSlotsInput = {
+    where: DepartmentsWhereUniqueInput
+    create: XOR<DepartmentsCreateWithoutSlotsInput, DepartmentsUncheckedCreateWithoutSlotsInput>
+  }
+
+  export type DepartmentsUpsertWithoutSlotsInput = {
+    update: XOR<DepartmentsUpdateWithoutSlotsInput, DepartmentsUncheckedUpdateWithoutSlotsInput>
+    create: XOR<DepartmentsCreateWithoutSlotsInput, DepartmentsUncheckedCreateWithoutSlotsInput>
+    where?: DepartmentsWhereInput
+  }
+
+  export type DepartmentsUpdateToOneWithWhereWithoutSlotsInput = {
+    where?: DepartmentsWhereInput
+    data: XOR<DepartmentsUpdateWithoutSlotsInput, DepartmentsUncheckedUpdateWithoutSlotsInput>
+  }
+
+  export type DepartmentsUpdateWithoutSlotsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    doctors?: DoctorsUpdateManyWithoutDepartmentNestedInput
+  }
+
+  export type DepartmentsUncheckedUpdateWithoutSlotsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    doctors?: DoctorsUncheckedUpdateManyWithoutDepartmentNestedInput
+  }
+
   export type DoctorsCreateWithoutDepartmentInput = {
     id?: string
     name: string
@@ -18272,6 +19601,29 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type OPSlotsCreateWithoutDeptInput = {
+    date: string
+    slot: string
+    count: number
+  }
+
+  export type OPSlotsUncheckedCreateWithoutDeptInput = {
+    id?: number
+    date: string
+    slot: string
+    count: number
+  }
+
+  export type OPSlotsCreateOrConnectWithoutDeptInput = {
+    where: OPSlotsWhereUniqueInput
+    create: XOR<OPSlotsCreateWithoutDeptInput, OPSlotsUncheckedCreateWithoutDeptInput>
+  }
+
+  export type OPSlotsCreateManyDeptInputEnvelope = {
+    data: OPSlotsCreateManyDeptInput | OPSlotsCreateManyDeptInput[]
+    skipDuplicates?: boolean
+  }
+
   export type DoctorsUpsertWithWhereUniqueWithoutDepartmentInput = {
     where: DoctorsWhereUniqueInput
     update: XOR<DoctorsUpdateWithoutDepartmentInput, DoctorsUncheckedUpdateWithoutDepartmentInput>
@@ -18302,6 +19654,33 @@ export namespace Prisma {
     active?: BoolFilter<"Doctors"> | boolean
     departmentId?: StringFilter<"Doctors"> | string
     hospitalCode?: StringFilter<"Doctors"> | string
+  }
+
+  export type OPSlotsUpsertWithWhereUniqueWithoutDeptInput = {
+    where: OPSlotsWhereUniqueInput
+    update: XOR<OPSlotsUpdateWithoutDeptInput, OPSlotsUncheckedUpdateWithoutDeptInput>
+    create: XOR<OPSlotsCreateWithoutDeptInput, OPSlotsUncheckedCreateWithoutDeptInput>
+  }
+
+  export type OPSlotsUpdateWithWhereUniqueWithoutDeptInput = {
+    where: OPSlotsWhereUniqueInput
+    data: XOR<OPSlotsUpdateWithoutDeptInput, OPSlotsUncheckedUpdateWithoutDeptInput>
+  }
+
+  export type OPSlotsUpdateManyWithWhereWithoutDeptInput = {
+    where: OPSlotsScalarWhereInput
+    data: XOR<OPSlotsUpdateManyMutationInput, OPSlotsUncheckedUpdateManyWithoutDeptInput>
+  }
+
+  export type OPSlotsScalarWhereInput = {
+    AND?: OPSlotsScalarWhereInput | OPSlotsScalarWhereInput[]
+    OR?: OPSlotsScalarWhereInput[]
+    NOT?: OPSlotsScalarWhereInput | OPSlotsScalarWhereInput[]
+    id?: IntFilter<"OPSlots"> | number
+    date?: StringFilter<"OPSlots"> | string
+    slot?: StringFilter<"OPSlots"> | string
+    count?: IntFilter<"OPSlots"> | number
+    deptid?: StringFilter<"OPSlots"> | string
   }
 
   export type PatientInstanceCreateWithoutOpqueueInput = {
@@ -19641,6 +21020,13 @@ export namespace Prisma {
     hospitalCode?: string
   }
 
+  export type OPSlotsCreateManyDeptInput = {
+    id?: number
+    date: string
+    slot: string
+    count: number
+  }
+
   export type DoctorsUpdateWithoutDepartmentInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -19681,6 +21067,26 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     hospitalCode?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type OPSlotsUpdateWithoutDeptInput = {
+    date?: StringFieldUpdateOperationsInput | string
+    slot?: StringFieldUpdateOperationsInput | string
+    count?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type OPSlotsUncheckedUpdateWithoutDeptInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    date?: StringFieldUpdateOperationsInput | string
+    slot?: StringFieldUpdateOperationsInput | string
+    count?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type OPSlotsUncheckedUpdateManyWithoutDeptInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    date?: StringFieldUpdateOperationsInput | string
+    slot?: StringFieldUpdateOperationsInput | string
+    count?: IntFieldUpdateOperationsInput | number
   }
 
   export type AdmissionCreateManyBedInput = {
@@ -20068,6 +21474,10 @@ export namespace Prisma {
      * @deprecated Use DoctorsDefaultArgs instead
      */
     export type DoctorsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = DoctorsDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use OPSlotsDefaultArgs instead
+     */
+    export type OPSlotsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = OPSlotsDefaultArgs<ExtArgs>
     /**
      * @deprecated Use DepartmentsDefaultArgs instead
      */

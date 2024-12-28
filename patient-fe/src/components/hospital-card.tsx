@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
 import type { Hospital } from '@/lib/types';
+import { useNavigate } from 'react-router-dom';
 
 interface HospitalCardProps {
   hospital: Hospital;
@@ -10,6 +11,8 @@ interface HospitalCardProps {
 }
 
 export function HospitalCard({ hospital, onViewDetails }: HospitalCardProps) {
+
+	const navigate=useNavigate();
 
 return (
     <motion.div
@@ -33,7 +36,7 @@ return (
         </CardContent>
         <CardFooter>
           <Button 
-            onClick={() => onViewDetails(hospital.id)}
+            onClick={() => navigate(`/hospdetails?code=${hospital.code}`)}
             className="w-full bg-[#2E6F40] hover:bg-[#253D2C] text-white"
           >
             View Details

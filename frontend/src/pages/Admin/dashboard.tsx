@@ -11,7 +11,6 @@ import { UserPlus, BedDouble, UserCheck, Activity, BarChart, Bell, Search, Setti
 import { BACKEND_URL, HOSPITAL_CODE,DJANGO_URL } from '@/config'
 import axios from 'axios'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
-// import { Dialog, DialogContent } from './ui/dialog'
 
 interface PatientDetails {
   abhaId :string,
@@ -27,12 +26,6 @@ interface Doctor {
   department: { name: string };
   _count: { opdQueue: number };
 }
-
-// const statusColors = {
-//   Waiting: "bg-red-500 text-red-50",
-//   "In Progress": "bg-yellow-500 text-yellow-50",
-//   Completed: "bg-green-500 text-green-50",
-// };
 
 interface FormState {
   name: string;
@@ -60,10 +53,10 @@ interface WardforUnallocated {
 }
 
 interface UnallocatedPatient {
-  id:String,
+  id:string,
   patientId: string;
   doctor: DoctorforUnallocaetd;
-  patient: PatientforUnallocated;
+  patinet: PatientforUnallocated;
   ward: WardforUnallocated;
 }
 
@@ -82,6 +75,7 @@ type Appointment = {
 
 export function AdminDashboard() {
   const [activeView, setActiveView] = useState<"activeDoctors" | "inactiveDoctors" | "newPatientForm" | "createABHA" | "popupcard" | "bedAllocation" | "bedPopUp"|"patientCheckin" | "analysis" |"main" | "getPatient" >("newPatientForm");
+  const [reload,setReload] = useState<boolean>(false);
   const [patientDetails, setPatientDetails] = useState<PatientDetails | null>(null);
   const [reason, setReason] = useState('');
   const [appointments,setAppointments] = useState<Appointment[]>([])
@@ -89,7 +83,7 @@ export function AdminDashboard() {
   const [selectedPatient, setSelectedPatient] = useState<UnallocatedPatient | null>(null);
   const [bedNumber, setBedNumber] = useState<string>('');
   // const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [unallocatedPatients] = useState<UnallocatedPatient[]>([]);
+  const [unallocatedPatients,setUnallocatedPatients] = useState<UnallocatedPatient[]>([]);
   const [, setDoctors] = useState<Doctor[]>([]);
   const [allocatedDoctor, setAllocatedDoctor] = useState<Doctor | null>(null);
   const [selectedCheckIn,setSelectedCheckIn] = useState(null);
@@ -107,13 +101,6 @@ export function AdminDashboard() {
   });
   const [searchQuery, setSearchQuery] = useState('')
 
-  // Mock data for patient check-ins
-  // const [patientCheckIns, setPatientCheckIns] = useState([
-  //   { id: 1, name: "John Doe", abhaId: "ABHA1234", symptom: "Fever", timeSlot: "10:00 AM", date: "2023-06-15" },
-  //   { id: 2, name: "Jane Smith", abhaId: "ABHA5678", symptom: "Headache", timeSlot: "11:30 AM", date: "2023-06-15" },
-  //   { id: 3, name: "Alice Johnson", abhaId: "ABHA9012", symptom: "Cough", timeSlot: "2:00 PM", date: "2023-06-15" },
-  // ])
-
   const handleReasonChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setReason(e.target.value);
   };
@@ -121,11 +108,7 @@ export function AdminDashboard() {
   const handleAbhaIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAbhaId(e.target.value);
   };
-
-  // const getActiveDoctors = () => doctors.filter((doctor) => doctor.status === "online");
-
-  // const getInactiveDoctors = () => doctors.filter((doctor) => doctor.status === "offline");
-
+  
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
     setFormState((prevState) => ({
@@ -167,7 +150,7 @@ export function AdminDashboard() {
     console.log('Form submitted:', formState);
   };
   
-  const fetchBedNumber = async (id: String) => {
+  const fetchBedNumber = async (id: string) => {
     console.log(id)
     try {
       axios.post(`${BACKEND_URL}/api/hospital/allocate`,{
@@ -193,18 +176,13 @@ export function AdminDashboard() {
     fetchBedNumber(patient.id);
   };
 
-  // const handleClosePopup = () => {
-  //   setSelectedPatient(null);
-  //   setBedNumber('');
-  //   setActiveView("bedAllocation")
-  // };
 
   useEffect(() => {
     if (selectedPatient?.id) {
-      //@ts-ignore
+      //@ts-expect-errorysds
       fetchBedNumber(selectedPatient?.id);
     }
-  }, [selectedPatient]);
+  }, [selectedPatient,reload]);
 
   const  handleOPDUpdateForCheckIn = async() =>{
     const find = appointments.find((item) => item.id === selectedCheckIn);
@@ -480,9 +458,9 @@ export function AdminDashboard() {
               <div className="flex items-center">
                 <Avatar className="mr-2">
                   <AvatarImage src="/placeholder-user.jpg" alt="Patient" />
-                  <AvatarFallback>{patient?.patient.name ? patient.patient.name[0] : 'N/A'}</AvatarFallback>
+                  <AvatarFallback>{patient?.patinet?.name ? patient.patinet.name : 'N/A'}</AvatarFallback>
                 </Avatar>
-                <span className="text-gray-800">{patient?.patient?.name || 'Unknown'}</span>
+                <span className="text-gray-800">{patient?.patinet?.name || 'Unknown'}</span>
               </div>
             </div>
             <div className="space-y-1.5">
@@ -494,14 +472,14 @@ export function AdminDashboard() {
               <div className="flex items-center">
                 <Avatar className="mr-2">
                   <AvatarImage src="/placeholder-user.jpg" alt="Doctor" />
-                  <AvatarFallback>{patient?.doctor?.name ? patient.doctor.name[0] : 'N/A'}</AvatarFallback>
+                  <AvatarFallback>{patient?.doctor?.name ? patient.doctor.name : 'N/A'}</AvatarFallback>
                 </Avatar>
                 <span className="text-gray-800">{patient?.doctor?.name || 'Unknown'}</span>
               </div>
             </div>
             <div className="space-y-1.5">
               <Label htmlFor="reason" className="text-gray-600">Reason</Label>
-              <div className="text-gray-800">{patient?.patient?.reason || 'No reason provided'}</div>
+              <div className="text-gray-800">{patient?.patinet?.reason || 'No reason provided'}</div>
             </div>
             <div className="space-y-1.5">
               <Label htmlFor="ward-name" className="text-gray-600">Ward Name</Label>
@@ -706,18 +684,18 @@ export function AdminDashboard() {
           </Card>
   )
 
-  // const getBedAllocationRequests = async()=>{
-  //   await axios.get(`${BACKEND_URL}/api/hospital/getunallocated`,{
-  //     headers:{
-  //       code:HOSPITAL_CODE
-  //     }
-  //   }).then((data)=>{
-  //       console.log(data.data.patients)
-  //       setUnallocatedPatients(data.data.patients);
-  //       setTimeout(() => setActiveView("bedAllocation"), 0);
-  //       setTimeout(()=>console.log(unallocatedPatients),0);
-  //   })
-  // }
+  const getBedAllocationRequests = async()=>{
+    await axios.get(`${BACKEND_URL}/api/hospital/getunallocated`,{
+      headers:{
+        code:HOSPITAL_CODE
+      }
+    }).then((data)=>{
+        console.log(data.data.patients)
+        setUnallocatedPatients(data.data.patients);
+        setTimeout(() => setActiveView("bedAllocation"), 0);
+        setTimeout(()=>console.log("Unallocated patients :"+unallocatedPatients),0);
+    })
+  }
 
 
   const handleOPDUpdate = async()=>{
@@ -801,7 +779,9 @@ export function AdminDashboard() {
             <Button
               variant="ghost"
               className="w-full justify-start mb-1 text-left font-normal"
-              onClick={() => setActiveView('bedAllocation')}
+              onClick={() =>{
+                getBedAllocationRequests();
+                setActiveView('bedAllocation')}}
             >
               <BedDouble className="mr-2 h-4 w-4" />
               Bed Allocation
