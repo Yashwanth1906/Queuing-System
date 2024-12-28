@@ -7,7 +7,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
-import { UserPlus, BedDouble, UserCheck, Activity, BarChart, Bell, Search, Settings} from 'lucide-react'
+import { UserPlus, BedDouble, UserCheck, Activity, BarChart, Bell, Search, Settings } from 'lucide-react'
 import { BACKEND_URL, HOSPITAL_CODE,DJANGO_URL } from '@/config'
 import axios from 'axios'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
@@ -81,7 +81,7 @@ type Appointment = {
 
 
 export function AdminDashboard() {
-  const [activeView, setActiveView] = useState<"activeDoctors" | "inactiveDoctors" | "newPatientForm" | "createABHA" | "popupcard" | "bedAllocation" | "bedPopUp"|"patientCheckin" | "analysis" |"main" | "getPatient" >("main");
+  const [activeView, setActiveView] = useState<"activeDoctors" | "inactiveDoctors" | "newPatientForm" | "createABHA" | "popupcard" | "bedAllocation" | "bedPopUp"|"patientCheckin" | "analysis" |"main" | "getPatient" >("newPatientForm");
   const [patientDetails, setPatientDetails] = useState<PatientDetails | null>(null);
   const [reason, setReason] = useState('');
   const [appointments,setAppointments] = useState<Appointment[]>([])
@@ -314,20 +314,20 @@ export function AdminDashboard() {
 
   const renderNewPatientForm = () => (
     <div className="max-w-2xl mx-auto">
-      <Card className="bg-gradient-to-br from-blue-50 to-indigo-100 shadow-lg">
+      <Card className="bg-gradient-to-br from-[#CFFFDC] to-[#68BA7F] shadow-lg">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl font-bold text-indigo-700">New Patient</CardTitle>
-          <CardDescription className="text-indigo-600">Enter the patient's Abha ID to get their details.</CardDescription>
+          <CardTitle className="text-2xl font-bold text-[#253D2C]">New Patient</CardTitle>
+          <CardDescription className="text-[#2E6F40]">Enter the patient's Abha ID to get their details.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-[auto_1fr] gap-4 items-center">
-            <Label htmlFor="abha-id" className="text-indigo-700">Abha ID</Label>
+            <Label htmlFor="abha-id" className="text-[#253D2C]">Abha ID</Label>
             <Input
               id="abha-id"
               placeholder="Enter Abha ID"
               value={abhaId}
               onChange={handleAbhaIdChange}
-              className="border-indigo-300 focus:border-indigo-500 focus:ring-indigo-500"
+              className="border-[#68BA7F] focus:border-[#2E6F40] focus:ring-[#2E6F40]"
             />
           </div>
           <div className="flex flex-col items-center gap-2">
@@ -346,11 +346,11 @@ export function AdminDashboard() {
               .catch((err) => {
                 console.log(err);
               });
-            }} className="bg-indigo-600 hover:bg-indigo-700 text-white">
+            }} className="bg-[#2E6F40] hover:bg-[#253D2C] text-[#CFFFDC]">
               Get Details
             </Button>
-            <span className="text-indigo-600 font-medium">OR</span>
-            <Button className="bg-sky-500 hover:bg-sky-600 text-white" onClick={() => setActiveView("createABHA")}>
+            <span className="text-[#2E6F40] font-medium">OR</span>
+            <Button className="bg-[#68BA7F] hover:bg-[#2E6F40] text-[#CFFFDC]" onClick={() => setActiveView("createABHA")}>
               Create ABHA ID
             </Button>
           </div>
@@ -360,10 +360,10 @@ export function AdminDashboard() {
   )
 
   const createABHA = () => (
-    <Card className="w-full max-w-2xl mx-auto bg-white shadow-lg">
+    <Card className="w-full max-w-2xl mx-auto bg-[#CFFFDC] shadow-lg">
       <CardHeader>
-        <CardTitle className="text-2xl font-bold text-gray-800">Create ABHA ID</CardTitle>
-        <CardDescription className="text-gray-600">
+        <CardTitle className="text-2xl font-bold text-[#253D2C]">Create ABHA ID</CardTitle>
+        <CardDescription className="text-[#2E6F40]">
           Enter your personal information to generate your Ayushman Bharat Health Account (ABHA) ID.
         </CardDescription>
       </CardHeader>
@@ -462,7 +462,7 @@ export function AdminDashboard() {
               className="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
             />
           </div>
-          <Button type="submit" className="w-full mt-6 bg-indigo-600 hover:bg-indigo-700 text-white">
+          <Button type="submit" className="w-full mt-6 bg-[#2E6F40] hover:bg-[#253D2C] text-[#CFFFDC]">
             Generate ABHA ID
           </Button>
         </form>
@@ -473,7 +473,7 @@ export function AdminDashboard() {
   const renderBedAllocation = () => (
     <div className="space-y-6 max-w-3xl mx-auto">
       {unallocatedPatients.map((patient, index) => (
-        <Card className="w-full bg-white shadow-md" key={index}>
+        <Card className="w-full bg-[#CFFFDC] shadow-md" key={index}>
           <CardContent className="grid grid-cols-[1fr_1fr_1fr] gap-4 p-4">
             <div className="space-y-1.5">
               <Label htmlFor="patient-name" className="text-gray-600">Patient Name</Label>
@@ -508,7 +508,7 @@ export function AdminDashboard() {
               <div className="text-gray-800">{patient?.ward?.name || 'No ward assigned'}</div>
             </div>
             <div className="flex items-end justify-end">
-              <Button size="lg" onClick={() => handlePatientSelect(patient)} className="bg-green-500 hover:bg-green-600 text-white">
+              <Button size="lg" onClick={() => handlePatientSelect(patient)} className="bg-[#2E6F40] hover:bg-[#253D2C] text-[#CFFFDC]">
                 Allocate Bed
               </Button>
             </div>
@@ -597,11 +597,11 @@ export function AdminDashboard() {
           placeholder="Search by ABHA ID"
           value={searchQuery}
           onChange={handleSearch}
-          className="w-full max-w-md"
+          className="w-full max-w-md border-[#68BA7F] focus:border-[#2E6F40] focus:ring-[#2E6F40]"
         />
       </div>
       {appointments.map((item) => (
-        <Card key={item.id} className="w-full bg-white shadow-sm">
+        <Card key={item.id} className="w-full bg-[#CFFFDC] shadow-sm">
           <CardContent className="p-6">
             <div className="flex flex-wrap items-center justify-between gap-4">
               <div className="grid grid-cols-2 gap-4 flex-grow">
@@ -627,10 +627,10 @@ export function AdminDashboard() {
                 </div>
               </div>
               <div className="flex gap-2">
-                <Button onClick={() => handleCheckIn(item.id)} className="bg-green-500 hover:bg-green-600 text-white">
+                <Button onClick={() => handleCheckIn(item.id)} className="bg-[#2E6F40] hover:bg-[#253D2C] text-[#CFFFDC]">
                   Check In
                 </Button>
-                <Button onClick={() => handleCancel(item.id)} variant="outline" className="border-red-500 text-red-500 hover:bg-red-50">
+                <Button onClick={() => handleCancel(item.id)} variant="outline" className="border-[#2E6F40] text-[#2E6F40] hover:bg-[#68BA7F]">
                   Cancel
                 </Button>
               </div>
@@ -674,9 +674,9 @@ export function AdminDashboard() {
     }
   };
   const renderPatientDetails = () =>(
-    <Card>
+    <Card className="bg-[#CFFFDC]">
             <CardHeader>
-              <CardTitle>Patient Details</CardTitle>
+              <CardTitle className="text-[#253D2C]">Patient Details</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
@@ -698,7 +698,7 @@ export function AdminDashboard() {
                 </div>
               </div>
               <div className="flex justify-center gap-2">
-                <Button type="submit" className="align-center" onClick={handleAllocateDoctor}>
+                <Button type="submit" className="align-center bg-[#2E6F40] hover:bg-[#253D2C] text-[#CFFFDC]" onClick={handleAllocateDoctor}>
                   Allocate Doctor
                 </Button>
               </div>
@@ -757,13 +757,15 @@ export function AdminDashboard() {
     })
   }
   return (
-    <div className="flex w-screen absolute top-0 left-0 flex-col h-screen bg-gray-100">
+    <div className="flex w-screen absolute top-0 left-0 flex-col h-screen bg-gray-100 ">
       {/* Top Bar */}
       <header className="bg-white shadow-sm">
+        
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
           <div className="flex justify-between items-center py-6 md:justify-start md:space-x-10">
-            <div className="flex justify-start lg:w-0 lg:flex-1">
-              <span className="text-2xl font-bold text-indigo-600">Admin Dashboard</span>
+          <div className="flex justify-start lg:w-0 lg:flex-1">
+              <span className="text-2xl font-bold text-[#253D2C] ">Admin Dashboard</span>
             </div>
             <div className="flex items-center space-x-4">
               <Button variant="ghost" size="sm">
@@ -847,58 +849,59 @@ export function AdminDashboard() {
           {activeView === "patientCheckin" && renderPatientCheckIn()}
           {activeView === "getPatient" && renderPatientDetails()} 
           {allocatedDoctor && (
-        <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-80 backdrop-blur-sm z-50">
-          <Card className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
-            <div className="flex items-center gap-4">
-              <Avatar>
-                <AvatarImage src="/placeholder-user.jpg" alt="Doctor Avatar" />
-                <AvatarFallback>DR</AvatarFallback>
-              </Avatar>
-              <div className="grid gap-1 flex-1">
-                <h3 className="text-xl font-semibold">{allocatedDoctor.name}</h3>
-                <div className="text-muted-foreground">
-                  <span className="font-medium">Department:</span> {allocatedDoctor.department.name}
+            <div className="fixed inset-0 flex items-center justify-center bg-[#CFFFDC] bg-opacity-80 backdrop-blur-sm z-50">
+              <Card className="w-full max-w-md p-6 bg-[#CFFFDC] rounded-lg shadow-lg">
+                <div className="flex items-center gap-4">
+                  <Avatar>
+                    <AvatarImage src="/placeholder-user.jpg" alt="Doctor Avatar" />
+                    <AvatarFallback>DR</AvatarFallback>
+                  </Avatar>
+                  <div className="grid gap-1 flex-1">
+                    <h3 className="text-xl font-semibold">{allocatedDoctor.name}</h3>
+                    <div className="text-muted-foreground">
+                      <span className="font-medium">Department:</span> {allocatedDoctor.department.name}
+                    </div>
+                    <div className="text-muted-foreground">
+                      <span className="font-medium">Queue Length:</span> {allocatedDoctor._count.opdQueue}
+                    </div>
+                  </div>
                 </div>
-                <div className="text-muted-foreground">
-                  <span className="font-medium">Queue Length:</span> {allocatedDoctor._count.opdQueue}
+                <div className="mt-4 flex justify-between">
+                  <Button onClick={() => setAllocatedDoctor(null)} className="bg-[#68BA7F] hover:bg-[#2E6F40] text-[#CFFFDC]">Close</Button>
+                  <Button className="bg-[#2E6F40] text-[#CFFFDC] hover:bg-[#253D2C]" onClick={handleOPDUpdate}>Allocate</Button>
                 </div>
-              </div>
+              </Card>
             </div>
-            <div className="mt-4 flex justify-between">
-              <Button onClick={() => setAllocatedDoctor(null)}>Close</Button>
-              <Button className="bg-blue-500 text-white hover:bg-blue-600" onClick={handleOPDUpdate}>Allocate</Button>
-            </div>
-          </Card>
-        </div>
-      )}
-      {allocatedDoctorForCheckIn && (
-        <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-80 backdrop-blur-sm z-50">
-          <Card className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
-            <div className="flex items-center gap-4">
-              <Avatar>
-                <AvatarImage src="/placeholder-user.jpg" alt="Doctor Avatar" />
-                <AvatarFallback>DR</AvatarFallback>
-              </Avatar>
-              <div className="grid gap-1 flex-1">
-                <h3 className="text-xl font-semibold">{allocatedDoctorForCheckIn.name}</h3>
-                <div className="text-muted-foreground">
-                  <span className="font-medium">Department:</span> {allocatedDoctorForCheckIn.department.name}
+          )}
+          {allocatedDoctorForCheckIn && (
+            <div className="fixed inset-0 flex items-center justify-center bg-[#CFFFDC] bg-opacity-80 backdrop-blur-sm z-50">
+              <Card className="w-full max-w-md p-6 bg-[#CFFFDC] rounded-lg shadow-lg">
+                <div className="flex items-center gap-4">
+                  <Avatar>
+                    <AvatarImage src="/placeholder-user.jpg" alt="Doctor Avatar" />
+                    <AvatarFallback>DR</AvatarFallback>
+                  </Avatar>
+                  <div className="grid gap-1 flex-1">
+                    <h3 className="text-xl font-semibold">{allocatedDoctorForCheckIn.name}</h3>
+                    <div className="text-muted-foreground">
+                      <span className="font-medium">Department:</span> {allocatedDoctorForCheckIn.department.name}
+                    </div>
+                    <div className="text-muted-foreground">
+                      <span className="font-medium">Queue Length:</span> {allocatedDoctorForCheckIn._count.opdQueue}
+                    </div>
+                  </div>
                 </div>
-                <div className="text-muted-foreground">
-                  <span className="font-medium">Queue Length:</span> {allocatedDoctorForCheckIn._count.opdQueue}
+                <div className="mt-4 flex justify-between">
+                  <Button onClick={() => setAllocatedDoctor(null)} className="bg-[#68BA7F] hover:bg-[#2E6F40] text-[#CFFFDC]">Close</Button>
+                  <Button className="bg-[#2E6F40] text-[#CFFFDC] hover:bg-[#253D2C]" onClick={handleOPDUpdateForCheckIn}>Allocate</Button>
                 </div>
-              </div>
+              </Card>
             </div>
-            <div className="mt-4 flex justify-between">
-              <Button onClick={() => setAllocatedDoctor(null)}>Close</Button>
-              <Button className="bg-blue-500 text-white hover:bg-blue-600" onClick={handleOPDUpdateForCheckIn}>Allocate</Button>
-            </div>
-          </Card>
-        </div>
-      )}
+          )}
           </div>
         </main>
       </div>
     </div>
   )
 }
+

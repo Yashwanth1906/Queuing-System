@@ -5,7 +5,7 @@ import { SigninDoctor } from './pages/Doctor/signin'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import {RecoilRoot } from "recoil"
 // import { DoctorDashBoard } from './pages/Doctor/dashboard'
-import { Register } from './pages/Admin/register';
+import { Register } from './pages/Admin/register'
 import {InventoryLogin} from './pages/inventory/login';
 import { InventoryRegister } from './pages/inventory/register';
 import {MainStore} from './pages/inventory/mainstore';
@@ -13,13 +13,10 @@ import { Substore } from './pages/inventory/substore';
 import { Pharmacy } from './pages/inventory/pharmacy';
 import { Ward } from './pages/inventory/ward';
 import { DoctorConsultancy } from './pages/Doctor/doctorConsultancy'
-import {PatientDashboard} from './pages/patients/patientsdash'
 import { HomePageComponent } from './pages/LandingPage'
 import { AdminSigninPage } from './pages/Admin/signin'
-import { PatientLogin } from './pages/patients/patientslogin'
 import { AdminDashboard } from './pages/Admin/dashboard'
 import { DoctorDashboard } from './pages/Doctor/dashboard'
-import { PatientRegister } from './pages/patients/patientregister'
 
 function App() {
 
@@ -40,11 +37,9 @@ function App() {
           <Route path="/inventorysignup" element={<InventoryRegister/>}/>
           <Route path="/mainstore" element={<MainStore/>}/>
           <Route path="/substore" element={<Substore/>}/>
-          <Route path="/patientdashboard" element={<PatientDashboard/>}/>
           <Route path="/pharmacy" element={<Pharmacy/>}/>
           <Route path="/ward" element={<Ward/>}/>
-          <Route path='/patientlogin' element={<PatientLogin/>}/>
-          <Route path='/patientregister' element={<PatientRegister/>}/>
+          
         </Routes>
       </BrowserRouter>
     </RecoilRoot>

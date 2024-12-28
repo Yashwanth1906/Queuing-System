@@ -1,7 +1,7 @@
 interface HospitalCode {
   hosCode: string;
 }
-
+import { Select,SelectTrigger,SelectContent,SelectItem,SelectValue} from "@radix-ui/react-select";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -41,9 +41,10 @@ export function SigninDoctor() {
       console.log("Hospital codes updated:", hosCodes);
     }
   }, [hosCodes]); 
-
-  const handleSubmit = async () => {
-    if (email === "" || passwd === "" || selectedHosCode === "") {
+//@ts-ignore
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+      if (email === "" || passwd === "" || selectedHosCode === "") {
       alert("Please fill in all fields");
       return;
     }
@@ -61,13 +62,12 @@ export function SigninDoctor() {
       localStorage.setItem("doctortoken", res.data.token);
       navigate("/doctordashboard");
     } catch (err: any) {
+      console.log("err" , err)
+
       alert("Login error");
     }
   };
 
-  // const handleHosCodeChange = (value: string) => {
-  //   setSelectedHosCode(value);
-  // };
 
   if (loading) {
     return <p>Loading...</p>;
@@ -78,53 +78,66 @@ export function SigninDoctor() {
   }
 
   return (
-    <div className="min-h-screen w-screen absolute top-0 left-0 bg-blue-50 flex items-center justify-center p-4">
-      <Card className="w-full max-w-md">
-        <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl font-bold text-center">Sign in</CardTitle>
-          <CardDescription className="text-center">
-            Enter your email and password to access your account
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
+    <div className="min-h-screen bg-[#CFFFDC] flex items-center justify-center p-4">
+      <div className="bg-white rounded-lg shadow-xl p-8 max-w-md w-full">
+        <h2 className="text-2xl font-bold text-[#2E6F40] text-center mb-6">
+          Doctor Sign In
+        </h2>
+        
+        <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="space-y-2">
+  <Label htmlFor="hospital-code">Hospital Code</Label>
+  <Select onValueChange={(value) => setSelectedHosCode(value)}>
+    
+    <SelectContent>
+      {hosCodes.map((hoscode, index) => (
+        <SelectItem key={`${hoscode.hosCode}-${index}`} value={hoscode.hosCode}>
+          {hoscode.hosCode}
+        </SelectItem>
+      ))}
+    </SelectContent>
+  </Select>
+  <Input
+    id="hoscode"
+    type="text"
+    placeholder="Or enter custom code"
+    onChange={(e) => setSelectedHosCode(e.target.value)}
+  />
+</div>
+          <div>
+            <label className="block text-[#253D2C] font-medium mb-2">
+              Email
+            </label>
+            <input
               type="email"
-              placeholder="m@example.com"
+              value={email}
               onChange={(e) => setEmail(e.target.value)}
+              className="w-full px-4 py-2 rounded-lg border border-[#68BA7F] focus:outline-none focus:ring-2 focus:ring-[#2E6F40]"
               required
             />
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
-            <Input id="password" type="password" required onChange={(e) => setPasswd(e.target.value)} />
+          
+          <div>
+            <label className="block text-[#253D2C] font-medium mb-2">
+              Password
+            </label>
+            <input
+              type="password"
+              value={passwd}
+              onChange={(e) => setPasswd(e.target.value)}
+              className="w-full px-4 py-2 rounded-lg border border-[#68BA7F] focus:outline-none focus:ring-2 focus:ring-[#2E6F40]"
+              required
+            />
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="hospital-code">Hospital Code</Label>
-            {/* <Select onValueChange={handleHosCodeChange}>
-              <SelectTrigger id="hospital-code">
-                <SelectValue placeholder="Select hospital code" />
-              </SelectTrigger>
-              <SelectContent>
-                {hosCodes.map((hoscode, index) => (
-                  <SelectItem key={`${hoscode.hosCode}-${index}`} value={hoscode.hosCode}>
-                    {hoscode.hosCode}
-                  </SelectItem>
-                ))}
-              </SelectContent>
 
-            </Select> */}
-            <Input id="hoscode" type="hoscode" required onChange={(e) => setSelectedHosCode(e.target.value)} />
-          </div>
-        </CardContent>
-        <CardFooter>
-          <Button onClick={handleSubmit} className="w-full bg-blue-600 hover:bg-blue-700">
-            Sign in
-          </Button>
-        </CardFooter>
-      </Card>
+          <button
+            type="submit"
+            className="w-full bg-[#2E6F40] text-white py-3 rounded-lg hover:bg-[#68BA7F] transition-colors"
+          >
+            Sign In
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

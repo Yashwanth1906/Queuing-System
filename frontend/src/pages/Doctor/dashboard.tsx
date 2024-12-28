@@ -19,31 +19,31 @@ type Patient = {
 
 function PatientCard({ patient }: { patient: Patient }) {
   const statusColors = {
-    Waiting: "bg-red-500 text-red-50",
-    "In Progress": "bg-yellow-500 text-yellow-50",
-    Completed: "bg-green-500 text-green-50",
+    Waiting: "bg-[#2E6F40] text-[#CFFFDC]",
+    "In Progress": "bg-[#68BA7F] text-[#253D2C]",
+    Completed: "bg-[#CFFFDC] text-[#2E6F40]",
   };
 
   return (
     <Link to={`/doctorconsultancy?abhaid=${patient.id}`} className="no-underline">
-      <Card key={patient.id} className="relative">
+      <Card key={patient.id} className="relative bg-white">
         <CardHeader className={`${statusColors[patient.status]} px-4 py-2 rounded-t-md`}>
-          <div className="absolute top-2 right-2 rounded-full bg-black px-2 py-1 text-xs font-medium">
+          <div className="absolute top-2 right-2 rounded-full bg-[#253D2C] px-2 py-1 text-xs font-medium text-[#CFFFDC]">
             {patient.status}
           </div>
           <div className="flex items-center gap-2">
-            <Avatar className="border-2 border-white">
+            <Avatar className="border-2 border-[#CFFFDC]">
               <AvatarImage src="/placeholder.svg?height=40&width=40" alt={patient.name} />
               <AvatarFallback>{patient.name.slice(0, 2).toUpperCase()}</AvatarFallback>
             </Avatar>
             <div>
-              <div className="font-medium">{patient.name}</div>
-              <div className="text-sm">{`${patient.age} years old, ${patient.gender}`}</div>
+              <div className="font-medium text-[#253D2C]">{patient.name}</div>
+              <div className="text-sm text-[#253D2C]">{`${patient.age} years old, ${patient.gender}`}</div>
             </div>
           </div>
         </CardHeader>
         <CardContent className="px-4 py-3">
-          <div className="text-sm text-muted-foreground">
+          <div className="text-sm text-[#253D2C]">
             Reason for visit: {patient.reason}
           </div>
         </CardContent>
@@ -84,17 +84,19 @@ export function DoctorDashboard() {
       });
   }, []);
   return (
-    <div className="flex h-screen w-screen absolute top-0 left-0 bg-gray-100">
-      <aside className="w-64 bg-white shadow-md">
+    <div className="flex h-screen w-screen absolute top-0 left-0 bg-[#CFFFDC]">
+      <aside className="w-64 bg-[#CFFFDC] shadow-md">
         <div className="p-4">
-          <h2 className="text-2xl font-bold text-purple-600">Doctor Dashboard</h2>
+          <h2 className="text-2xl font-bold text-[#2E6F40]">Doctor Dashboard</h2>
         </div>
         <nav className="mt-6">
           {['OutPatient', 'InPatient', 'Analysis'].map((item) => (
             <Button
               key={item}
               variant={activeTab === item.toLowerCase() ? "secondary" : "ghost"}
-              className="w-full justify-start"
+              className={`w-full justify-start ${
+                activeTab === item.toLowerCase() ? 'bg-[#68BA7F] text-[#253D2C]' : 'text-[#253D2C]'
+              } hover:bg-[#68BA7F] hover:text-[#253D2C]`}
               onClick={() => setActiveTab(item.toLowerCase())}
             >
               {item}
@@ -103,17 +105,17 @@ export function DoctorDashboard() {
         </nav>
       </aside>
       <main className="flex-1 overflow-y-auto">
-        <header className="bg-white shadow-sm">
+        <header className="bg-[#CFFFDC] shadow-sm">
           <div className="flex items-center justify-between px-4 py-3">
-            <Input className="w-64" placeholder="Search..." />
+            <Input className="w-64 border-[#68BA7F] focus:border-[#2E6F40] focus:ring-[#2E6F40]" placeholder="Search..." />
             <div className="flex items-center space-x-4">
-              <Button size="icon" variant="ghost">
+              <Button size="icon" variant="ghost" className="text-[#2E6F40] hover:bg-[#68BA7F] hover:text-[#253D2C]">
                 <Bell className="h-5 w-5" />
               </Button>
-              <Button size="icon" variant="ghost">
+              <Button size="icon" variant="ghost" className="text-[#2E6F40] hover:bg-[#68BA7F] hover:text-[#253D2C]">
                 <Search className="h-5 w-5" />
               </Button>
-              <Button size="icon" variant="ghost">
+              <Button size="icon" variant="ghost" className="text-[#2E6F40] hover:bg-[#68BA7F] hover:text-[#253D2C]">
                 <Settings className="h-5 w-5" />
               </Button>
               <Avatar>
@@ -126,7 +128,7 @@ export function DoctorDashboard() {
           </div>
         </header>
         <div className="p-6">
-          <h1 className="text-2xl font-semibold mb-4">{activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}</h1>
+          <h1 className="text-2xl font-semibold mb-4 text-[#2E6F40]">{activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}</h1>
           {activeTab === 'outpatient' && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {patients.map(patient => (
@@ -135,13 +137,14 @@ export function DoctorDashboard() {
             </div>
           )}
           {activeTab === 'inpatient' && (
-            <p>InPatient content goes here</p>
+            <p className="text-[#253D2C]">InPatient content goes here</p>
           )}
           {activeTab === 'analysis' && (
-            <p>Analysis content goes here</p>
+            <p className="text-[#253D2C]">Analysis content goes here</p>
           )}
         </div>
       </main>
     </div>
   )
 }
+

@@ -1,262 +1,161 @@
-import { useEffect, useState } from 'react';
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
-import axios from 'axios';
-import { ShootingStars } from '@/components/ui/shooting-stars';
-import { StarsBackground } from "@/components/ui/stars-background";
-
-import { BACKEND_URL } from '@/config';
-import { HOSPITAL_CODE } from '@/config';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { BACKEND_URL, HOSPITAL_CODE } from '@/config';
 
 interface Department {
   id: string;
   name: string;
 }
 
-interface SignUpFormState {
-  name: string;
-  contact: string;
-  departmentId: string;
-  password: string;
-  gender: string;
-  designation: string;
-}
-
 export function RegisterComponent() {
-  const [formState, setFormState] = useState<SignUpFormState>({
+  const [formData, setFormData] = useState({
     name: '',
-    contact: '',
-    departmentId: '',
+    email: '',
     password: '',
+    contact: '',
+    department: '',
     gender: '',
-    designation: '',
+    designation: ''
   });
-  
-  const navigate = useNavigate();
-  const [email, setEmail] = useState<string>('');
-  const [otp, setOtp] = useState<string>('');
-
-  const [isOTPSent, setIsOTPSent] = useState<boolean>(false);
-  const [isOTPVerified, setIsOTPVerified] = useState<boolean>(false);
-
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
   const [departments, setDepartments] = useState<Department[]>([]);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = e.target;
-    setFormState(prevState => ({
-      ...prevState,
-      [id]: value,
-    }));
-  };
-
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
-
-  const handleOtpChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setOtp(e.target.value);
-  };
-
-  const handleDepartmentSelect = (departmentId: string) => {
-    setFormState(prevState => ({
-      ...prevState,
-      departmentId,
-    }));
-  };
-
-  const handleGenderSelect = (gender: string) => {
-    setFormState(prevState => ({
-      ...prevState,
-      gender,
-    }));
-  };
-
-  const handleDesignationSelect = (designation: string) => {
-    setFormState(prevState => ({
-      ...prevState,
-      designation,
-    }));
-  };
-
-  const handleSendOTP = async () => {
-    const response = await axios.post(`${BACKEND_URL}/api/sendotp`, { email });
-    console.log(response)
-    setIsOTPSent(true);
-  };
-
-  const handleVerifyOTP = async () => {
-    const response = await axios.post(`${BACKEND_URL}/api/verifyotp`, { email, otp });
-    alert(response.data.message);
-    if (response.data.message === "OTP verified") {
-      setIsOTPVerified(true);
-    } else {
-      setIsOTPSent(false);
-    }
-  };
+  const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`${BACKEND_URL}/api/hospital/getdepartments`, {
+    axios.get(`${BACKEND_URL}/api/hospital/departments`, {
       headers: { code: HOSPITAL_CODE }
     })
     .then(response => setDepartments(response.data.departments))
-    .catch(error => console.error("Error fetching departments:", error));
+    .catch(console.error);
   }, []);
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (formData.password !== confirmPassword) {
+      setPasswordError('Passwords do not match');
+      return;
+    }
+
     try {
-      const response = await axios.post(`${BACKEND_URL}/api/doctor/register`, {
-        name: formState.name,
-        contact: formState.contact,
-        email: email,
-        password: formState.password,
-        departmentId: formState.departmentId,
-        gender: formState.gender,
-        designation: formState.designation,
-      }, {
-        headers: { code: HOSPITAL_CODE }
-      });
-      localStorage.setItem("doctortoken", response.data.token);
-      navigate("/doctordashboard");
-    } catch (err) {
-      window.alert(err);
+      const response = await axios.post(
+        `${BACKEND_URL}/api/doctor/register`,
+        formData,
+        { headers: { code: HOSPITAL_CODE } }
+      );
+      
+      if (response.data.success) {
+        localStorage.setItem('doctortoken', response.data.token);
+        navigate('/doctordashboard');
+      }
+    } catch (error) {
+      alert('Registration failed');
     }
   };
 
   return (
-    <div className='bg-neutral-900 h-screen w-screen absolute top-0 right-0 left-0'>
-      
-      <ShootingStars/>
-      <StarsBackground /> 
-
-      <div className="mx-auto w-1/3 relative py-12">
-      
-     
-      <div className="space-y-2 text-center">
-        <h1 className="text-3xl relative bg-clip-text text-transparent bg-no-repeat bg-gradient-to-r from-purple-500 via-violet-500 to-pink-500 font-bold ">Sign Up for Doctors</h1>
-        <p className="text-muted-foreground">Enter your information to create a new account.</p>
-        </div>
-        <br></br>
-        <br></br>
-      <form className="space-y-4" onSubmit={handleSubmit}>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <div className="space-y-2">
-            <Label  className="text-white"htmlFor="name">Name</Label>
-            <Input id="name" placeholder="John Doe" required value={formState.name} onChange={handleChange} />
-          </div>
-          <div className="space-y-2">
-            <Label className="text-white"htmlFor="email">Email</Label>
-            <Input id="email" type="email" placeholder="m@example.com" required value={email} onChange={handleEmailChange} />
-            <div className="flex gap-2">
-              <Button type="button" className="w-full" onClick={handleSendOTP} disabled={isOTPSent}>
-                {isOTPSent ? 'OTP Sent' : 'Send OTP'}
-              </Button>
-            </div>
-          </div>
-        </div>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <div className="space-y-2">
-            <Label className="text-white "htmlFor="otp">OTP</Label>
-            <Input id="otp" placeholder="Enter OTP" required value={otp} onChange={handleOtpChange} />
-            <Button type="button" className="w-full" onClick={handleVerifyOTP} disabled={isOTPVerified}>
-              {isOTPVerified ? 'OTP Verified' : 'Verify OTP'}
-            </Button>
-          </div>
-          <div className="space-y-2">
-            <Label className="text-white"htmlFor="contact">Contact</Label>
-            <Input id="contact" placeholder="123456789" required value={formState.contact} onChange={handleChange} />
-          </div>
-        </div>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <div className="space-y-2">
-            <Label className="text-white "htmlFor="department">Department</Label>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="w-full">
-                  {formState.departmentId ? departments.find(dep => dep.id === formState.departmentId)?.name : 'Select Department'}
-                  <ChevronDownIcon className="ml-2 h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                {departments.map(department => (
-                  <DropdownMenuItem key={department.id} onClick={() => handleDepartmentSelect(department.id)}>
-                    {department.name}
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
-          <div className="space-y-2">
-            <Label className="text-white" htmlFor="gender">Gender</Label>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="w-full">
-                  {formState.gender || 'Select Gender'}
-                  <ChevronDownIcon className="ml-2 h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem onClick={() => handleGenderSelect('Male')}>Male</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => handleGenderSelect('Female')}>Female</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => handleGenderSelect('Other')}>Other</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
-        </div>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <div className="space-y-2">
-            <Label className="text-white" htmlFor="designation">Designation</Label>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="w-full">
-                  {formState.designation || 'Select Designation'}
-                  <ChevronDownIcon className="ml-2 h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem onClick={() => handleDesignationSelect('Trainee')}>Trainee</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => handleDesignationSelect('Senior')}>Senior</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => handleDesignationSelect('Head of Department')}>Head of Department</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => handleDesignationSelect('Assistant')}>Assistant</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
-          <div className="space-y-2">
-            <Label className="text-white" htmlFor="password">Password</Label>
-            <Input id="password" type="password" required value={formState.password} onChange={handleChange} />
-          </div>
-          </div>
-          <br></br>
-          <br></br>
-        <Button type="submit" className=" bg-purple-500 w-full" disabled={!isOTPVerified}>
-          Sign Up
-        </Button>
-        </form>
+    <div className="min-h-screen bg-[#CFFFDC] py-12 px-4">
+      <div className="max-w-md mx-auto bg-white rounded-lg shadow-xl p-8">
+        <h2 className="text-2xl font-bold text-[#2E6F40] text-center mb-6">
+          Doctor Registration
+        </h2>
         
-        </div>
-    
-      
-    </div>
-  );
-}
+        <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Name */}
+          <div>
+            <label className="block text-[#253D2C] font-medium mb-2">
+              Full Name
+            </label>
+            <input
+              type="text"
+              placeholder="Enter your full name"
+              value={formData.name}
+              onChange={(e) => setFormData({...formData, name: e.target.value})}
+              className="w-full px-4 py-2 rounded-lg border border-[#68BA7F] focus:outline-none focus:ring-2 focus:ring-[#2E6F40]"
+              required
+            />
+          </div>
 
-function ChevronDownIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="m6 9 6 6 6-6" />
-    </svg>
+          {/* Email */}
+          <div>
+            <label className="block text-[#253D2C] font-medium mb-2">
+              Email
+            </label>
+            <input
+              type="email"
+              placeholder="Enter your email"
+              value={formData.email}
+              onChange={(e) => setFormData({...formData, email: e.target.value})}
+              className="w-full px-4 py-2 rounded-lg border border-[#68BA7F] focus:outline-none focus:ring-2 focus:ring-[#2E6F40]"
+              required
+            />
+          </div>
+
+          {/* Password */}
+          <div>
+            <label className="block text-[#253D2C] font-medium mb-2">
+              Password
+            </label>
+            <input
+              type="password"
+              placeholder="Create a password"
+              value={formData.password}
+              onChange={(e) => setFormData({...formData, password: e.target.value})}
+              className="w-full px-4 py-2 rounded-lg border border-[#68BA7F] focus:outline-none focus:ring-2 focus:ring-[#2E6F40]"
+              required
+            />
+          </div>
+
+          {/* Retype Password */}
+          <div>
+            <label className="block text-[#253D2C] font-medium mb-2">
+              Retype Password
+            </label>
+            <input
+              type="password"
+              placeholder="Retype your password"
+              value={confirmPassword}
+              onChange={(e) => {
+                setConfirmPassword(e.target.value);
+                setPasswordError(e.target.value !== formData.password ? 'Passwords do not match' : '');
+              }}
+              className="w-full px-4 py-2 rounded-lg border border-[#68BA7F] focus:outline-none focus:ring-2 focus:ring-[#2E6F40]"
+              required
+            />
+            {passwordError && (
+              <p className="text-red-600 text-sm mt-2">{passwordError}</p>
+            )}
+          </div>
+
+          {/* Department */}
+          <div>
+            <label className="block text-[#253D2C] font-medium mb-2">
+              Department
+            </label>
+            <select
+              value={formData.department}
+              onChange={(e) => setFormData({...formData, department: e.target.value})}
+              className="w-full px-4 py-2 rounded-lg border border-[#68BA7F] focus:outline-none focus:ring-2 focus:ring-[#2E6F40]"
+              required
+            >
+              <option value="">Select Department</option>
+              {departments.map(dept => (
+                <option key={dept.id} value={dept.id}>
+                  {dept.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <button
+            type="submit"
+            className="w-full bg-[#2E6F40] text-white py-3 rounded-lg hover:bg-[#68BA7F] transition-colors"
+          >
+            Register
+          </button>
+        </form>
+      </div>
+    </div>
   );
 }
