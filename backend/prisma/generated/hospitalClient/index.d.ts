@@ -2495,6 +2495,7 @@ export namespace Prisma {
     departmentId?: boolean
     hospitalCode?: boolean
     department?: boolean | DepartmentsDefaultArgs<ExtArgs>
+    headOfDepartmentOf?: boolean | Doctors$headOfDepartmentOfArgs<ExtArgs>
     opdQueue?: boolean | Doctors$opdQueueArgs<ExtArgs>
     admissions?: boolean | Doctors$admissionsArgs<ExtArgs>
     patientInstances?: boolean | Doctors$patientInstancesArgs<ExtArgs>
@@ -2530,6 +2531,7 @@ export namespace Prisma {
 
   export type DoctorsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     department?: boolean | DepartmentsDefaultArgs<ExtArgs>
+    headOfDepartmentOf?: boolean | Doctors$headOfDepartmentOfArgs<ExtArgs>
     opdQueue?: boolean | Doctors$opdQueueArgs<ExtArgs>
     admissions?: boolean | Doctors$admissionsArgs<ExtArgs>
     patientInstances?: boolean | Doctors$patientInstancesArgs<ExtArgs>
@@ -2543,6 +2545,7 @@ export namespace Prisma {
     name: "Doctors"
     objects: {
       department: Prisma.$DepartmentsPayload<ExtArgs>
+      headOfDepartmentOf: Prisma.$DepartmentsPayload<ExtArgs> | null
       opdQueue: Prisma.$OPDQueuePayload<ExtArgs>[]
       admissions: Prisma.$AdmissionPayload<ExtArgs>[]
       patientInstances: Prisma.$PatientInstancePayload<ExtArgs>[]
@@ -2923,6 +2926,7 @@ export namespace Prisma {
   export interface Prisma__DoctorsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     department<T extends DepartmentsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DepartmentsDefaultArgs<ExtArgs>>): Prisma__DepartmentsClient<$Result.GetResult<Prisma.$DepartmentsPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    headOfDepartmentOf<T extends Doctors$headOfDepartmentOfArgs<ExtArgs> = {}>(args?: Subset<T, Doctors$headOfDepartmentOfArgs<ExtArgs>>): Prisma__DepartmentsClient<$Result.GetResult<Prisma.$DepartmentsPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     opdQueue<T extends Doctors$opdQueueArgs<ExtArgs> = {}>(args?: Subset<T, Doctors$opdQueueArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OPDQueuePayload<ExtArgs>, T, "findMany"> | Null>
     admissions<T extends Doctors$admissionsArgs<ExtArgs> = {}>(args?: Subset<T, Doctors$admissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdmissionPayload<ExtArgs>, T, "findMany"> | Null>
     patientInstances<T extends Doctors$patientInstancesArgs<ExtArgs> = {}>(args?: Subset<T, Doctors$patientInstancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PatientInstancePayload<ExtArgs>, T, "findMany"> | Null>
@@ -3280,6 +3284,21 @@ export namespace Prisma {
      * Filter which Doctors to delete
      */
     where?: DoctorsWhereInput
+  }
+
+  /**
+   * Doctors.headOfDepartmentOf
+   */
+  export type Doctors$headOfDepartmentOfArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Departments
+     */
+    select?: DepartmentsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DepartmentsInclude<ExtArgs> | null
+    where?: DepartmentsWhereInput
   }
 
   /**
@@ -4341,16 +4360,19 @@ export namespace Prisma {
   export type DepartmentsMinAggregateOutputType = {
     id: string | null
     name: string | null
+    headOfDepartmentId: string | null
   }
 
   export type DepartmentsMaxAggregateOutputType = {
     id: string | null
     name: string | null
+    headOfDepartmentId: string | null
   }
 
   export type DepartmentsCountAggregateOutputType = {
     id: number
     name: number
+    headOfDepartmentId: number
     _all: number
   }
 
@@ -4358,16 +4380,19 @@ export namespace Prisma {
   export type DepartmentsMinAggregateInputType = {
     id?: true
     name?: true
+    headOfDepartmentId?: true
   }
 
   export type DepartmentsMaxAggregateInputType = {
     id?: true
     name?: true
+    headOfDepartmentId?: true
   }
 
   export type DepartmentsCountAggregateInputType = {
     id?: true
     name?: true
+    headOfDepartmentId?: true
     _all?: true
   }
 
@@ -4446,6 +4471,7 @@ export namespace Prisma {
   export type DepartmentsGroupByOutputType = {
     id: string
     name: string
+    headOfDepartmentId: string | null
     _count: DepartmentsCountAggregateOutputType | null
     _min: DepartmentsMinAggregateOutputType | null
     _max: DepartmentsMaxAggregateOutputType | null
@@ -4468,6 +4494,8 @@ export namespace Prisma {
   export type DepartmentsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    headOfDepartmentId?: boolean
+    headOfDepartment?: boolean | Departments$headOfDepartmentArgs<ExtArgs>
     doctors?: boolean | Departments$doctorsArgs<ExtArgs>
     slots?: boolean | Departments$slotsArgs<ExtArgs>
     _count?: boolean | DepartmentsCountOutputTypeDefaultArgs<ExtArgs>
@@ -4476,29 +4504,37 @@ export namespace Prisma {
   export type DepartmentsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    headOfDepartmentId?: boolean
+    headOfDepartment?: boolean | Departments$headOfDepartmentArgs<ExtArgs>
   }, ExtArgs["result"]["departments"]>
 
   export type DepartmentsSelectScalar = {
     id?: boolean
     name?: boolean
+    headOfDepartmentId?: boolean
   }
 
   export type DepartmentsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    headOfDepartment?: boolean | Departments$headOfDepartmentArgs<ExtArgs>
     doctors?: boolean | Departments$doctorsArgs<ExtArgs>
     slots?: boolean | Departments$slotsArgs<ExtArgs>
     _count?: boolean | DepartmentsCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type DepartmentsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type DepartmentsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    headOfDepartment?: boolean | Departments$headOfDepartmentArgs<ExtArgs>
+  }
 
   export type $DepartmentsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Departments"
     objects: {
+      headOfDepartment: Prisma.$DoctorsPayload<ExtArgs> | null
       doctors: Prisma.$DoctorsPayload<ExtArgs>[]
       slots: Prisma.$OPSlotsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
+      headOfDepartmentId: string | null
     }, ExtArgs["result"]["departments"]>
     composites: {}
   }
@@ -4863,6 +4899,7 @@ export namespace Prisma {
    */
   export interface Prisma__DepartmentsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    headOfDepartment<T extends Departments$headOfDepartmentArgs<ExtArgs> = {}>(args?: Subset<T, Departments$headOfDepartmentArgs<ExtArgs>>): Prisma__DoctorsClient<$Result.GetResult<Prisma.$DoctorsPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     doctors<T extends Departments$doctorsArgs<ExtArgs> = {}>(args?: Subset<T, Departments$doctorsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DoctorsPayload<ExtArgs>, T, "findMany"> | Null>
     slots<T extends Departments$slotsArgs<ExtArgs> = {}>(args?: Subset<T, Departments$slotsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OPSlotsPayload<ExtArgs>, T, "findMany"> | Null>
     /**
@@ -4896,6 +4933,7 @@ export namespace Prisma {
   interface DepartmentsFieldRefs {
     readonly id: FieldRef<"Departments", 'String'>
     readonly name: FieldRef<"Departments", 'String'>
+    readonly headOfDepartmentId: FieldRef<"Departments", 'String'>
   }
     
 
@@ -5117,6 +5155,10 @@ export namespace Prisma {
      */
     data: DepartmentsCreateManyInput | DepartmentsCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DepartmentsIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -5207,6 +5249,21 @@ export namespace Prisma {
      * Filter which Departments to delete
      */
     where?: DepartmentsWhereInput
+  }
+
+  /**
+   * Departments.headOfDepartment
+   */
+  export type Departments$headOfDepartmentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Doctors
+     */
+    select?: DoctorsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DoctorsInclude<ExtArgs> | null
+    where?: DoctorsWhereInput
   }
 
   /**
@@ -15185,7 +15242,8 @@ export namespace Prisma {
 
   export const DepartmentsScalarFieldEnum: {
     id: 'id',
-    name: 'name'
+    name: 'name',
+    headOfDepartmentId: 'headOfDepartmentId'
   };
 
   export type DepartmentsScalarFieldEnum = (typeof DepartmentsScalarFieldEnum)[keyof typeof DepartmentsScalarFieldEnum]
@@ -15519,6 +15577,7 @@ export namespace Prisma {
     departmentId?: StringFilter<"Doctors"> | string
     hospitalCode?: StringFilter<"Doctors"> | string
     department?: XOR<DepartmentsRelationFilter, DepartmentsWhereInput>
+    headOfDepartmentOf?: XOR<DepartmentsNullableRelationFilter, DepartmentsWhereInput> | null
     opdQueue?: OPDQueueListRelationFilter
     admissions?: AdmissionListRelationFilter
     patientInstances?: PatientInstanceListRelationFilter
@@ -15536,6 +15595,7 @@ export namespace Prisma {
     departmentId?: SortOrder
     hospitalCode?: SortOrder
     department?: DepartmentsOrderByWithRelationInput
+    headOfDepartmentOf?: DepartmentsOrderByWithRelationInput
     opdQueue?: OPDQueueOrderByRelationAggregateInput
     admissions?: AdmissionOrderByRelationAggregateInput
     patientInstances?: PatientInstanceOrderByRelationAggregateInput
@@ -15556,6 +15616,7 @@ export namespace Prisma {
     departmentId?: StringFilter<"Doctors"> | string
     hospitalCode?: StringFilter<"Doctors"> | string
     department?: XOR<DepartmentsRelationFilter, DepartmentsWhereInput>
+    headOfDepartmentOf?: XOR<DepartmentsNullableRelationFilter, DepartmentsWhereInput> | null
     opdQueue?: OPDQueueListRelationFilter
     admissions?: AdmissionListRelationFilter
     patientInstances?: PatientInstanceListRelationFilter
@@ -15656,6 +15717,8 @@ export namespace Prisma {
     NOT?: DepartmentsWhereInput | DepartmentsWhereInput[]
     id?: StringFilter<"Departments"> | string
     name?: StringFilter<"Departments"> | string
+    headOfDepartmentId?: StringNullableFilter<"Departments"> | string | null
+    headOfDepartment?: XOR<DoctorsNullableRelationFilter, DoctorsWhereInput> | null
     doctors?: DoctorsListRelationFilter
     slots?: OPSlotsListRelationFilter
   }
@@ -15663,23 +15726,28 @@ export namespace Prisma {
   export type DepartmentsOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
+    headOfDepartmentId?: SortOrderInput | SortOrder
+    headOfDepartment?: DoctorsOrderByWithRelationInput
     doctors?: DoctorsOrderByRelationAggregateInput
     slots?: OPSlotsOrderByRelationAggregateInput
   }
 
   export type DepartmentsWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    headOfDepartmentId?: string
     AND?: DepartmentsWhereInput | DepartmentsWhereInput[]
     OR?: DepartmentsWhereInput[]
     NOT?: DepartmentsWhereInput | DepartmentsWhereInput[]
     name?: StringFilter<"Departments"> | string
+    headOfDepartment?: XOR<DoctorsNullableRelationFilter, DoctorsWhereInput> | null
     doctors?: DoctorsListRelationFilter
     slots?: OPSlotsListRelationFilter
-  }, "id">
+  }, "id" | "headOfDepartmentId">
 
   export type DepartmentsOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
+    headOfDepartmentId?: SortOrderInput | SortOrder
     _count?: DepartmentsCountOrderByAggregateInput
     _max?: DepartmentsMaxOrderByAggregateInput
     _min?: DepartmentsMinOrderByAggregateInput
@@ -15691,6 +15759,7 @@ export namespace Prisma {
     NOT?: DepartmentsScalarWhereWithAggregatesInput | DepartmentsScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Departments"> | string
     name?: StringWithAggregatesFilter<"Departments"> | string
+    headOfDepartmentId?: StringNullableWithAggregatesFilter<"Departments"> | string | null
   }
 
   export type OPDQueueWhereInput = {
@@ -16338,6 +16407,7 @@ export namespace Prisma {
     active: boolean
     hospitalCode?: string
     department: DepartmentsCreateNestedOneWithoutDoctorsInput
+    headOfDepartmentOf?: DepartmentsCreateNestedOneWithoutHeadOfDepartmentInput
     opdQueue?: OPDQueueCreateNestedManyWithoutDoctorInput
     admissions?: AdmissionCreateNestedManyWithoutDoctorInput
     patientInstances?: PatientInstanceCreateNestedManyWithoutDoctorInput
@@ -16354,6 +16424,7 @@ export namespace Prisma {
     active: boolean
     departmentId: string
     hospitalCode?: string
+    headOfDepartmentOf?: DepartmentsUncheckedCreateNestedOneWithoutHeadOfDepartmentInput
     opdQueue?: OPDQueueUncheckedCreateNestedManyWithoutDoctorInput
     admissions?: AdmissionUncheckedCreateNestedManyWithoutDoctorInput
     patientInstances?: PatientInstanceUncheckedCreateNestedManyWithoutDoctorInput
@@ -16370,6 +16441,7 @@ export namespace Prisma {
     active?: BoolFieldUpdateOperationsInput | boolean
     hospitalCode?: StringFieldUpdateOperationsInput | string
     department?: DepartmentsUpdateOneRequiredWithoutDoctorsNestedInput
+    headOfDepartmentOf?: DepartmentsUpdateOneWithoutHeadOfDepartmentNestedInput
     opdQueue?: OPDQueueUpdateManyWithoutDoctorNestedInput
     admissions?: AdmissionUpdateManyWithoutDoctorNestedInput
     patientInstances?: PatientInstanceUpdateManyWithoutDoctorNestedInput
@@ -16386,6 +16458,7 @@ export namespace Prisma {
     active?: BoolFieldUpdateOperationsInput | boolean
     departmentId?: StringFieldUpdateOperationsInput | string
     hospitalCode?: StringFieldUpdateOperationsInput | string
+    headOfDepartmentOf?: DepartmentsUncheckedUpdateOneWithoutHeadOfDepartmentNestedInput
     opdQueue?: OPDQueueUncheckedUpdateManyWithoutDoctorNestedInput
     admissions?: AdmissionUncheckedUpdateManyWithoutDoctorNestedInput
     patientInstances?: PatientInstanceUncheckedUpdateManyWithoutDoctorNestedInput
@@ -16484,6 +16557,7 @@ export namespace Prisma {
   export type DepartmentsCreateInput = {
     id?: string
     name: string
+    headOfDepartment?: DoctorsCreateNestedOneWithoutHeadOfDepartmentOfInput
     doctors?: DoctorsCreateNestedManyWithoutDepartmentInput
     slots?: OPSlotsCreateNestedManyWithoutDeptInput
   }
@@ -16491,6 +16565,7 @@ export namespace Prisma {
   export type DepartmentsUncheckedCreateInput = {
     id?: string
     name: string
+    headOfDepartmentId?: string | null
     doctors?: DoctorsUncheckedCreateNestedManyWithoutDepartmentInput
     slots?: OPSlotsUncheckedCreateNestedManyWithoutDeptInput
   }
@@ -16498,6 +16573,7 @@ export namespace Prisma {
   export type DepartmentsUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    headOfDepartment?: DoctorsUpdateOneWithoutHeadOfDepartmentOfNestedInput
     doctors?: DoctorsUpdateManyWithoutDepartmentNestedInput
     slots?: OPSlotsUpdateManyWithoutDeptNestedInput
   }
@@ -16505,6 +16581,7 @@ export namespace Prisma {
   export type DepartmentsUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    headOfDepartmentId?: NullableStringFieldUpdateOperationsInput | string | null
     doctors?: DoctorsUncheckedUpdateManyWithoutDepartmentNestedInput
     slots?: OPSlotsUncheckedUpdateManyWithoutDeptNestedInput
   }
@@ -16512,6 +16589,7 @@ export namespace Prisma {
   export type DepartmentsCreateManyInput = {
     id?: string
     name: string
+    headOfDepartmentId?: string | null
   }
 
   export type DepartmentsUpdateManyMutationInput = {
@@ -16522,6 +16600,7 @@ export namespace Prisma {
   export type DepartmentsUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    headOfDepartmentId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type OPDQueueCreateInput = {
@@ -17189,6 +17268,11 @@ export namespace Prisma {
     isNot?: DepartmentsWhereInput
   }
 
+  export type DepartmentsNullableRelationFilter = {
+    is?: DepartmentsWhereInput | null
+    isNot?: DepartmentsWhereInput | null
+  }
+
   export type OPDQueueListRelationFilter = {
     every?: OPDQueueWhereInput
     some?: OPDQueueWhereInput
@@ -17355,6 +17439,26 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type DoctorsNullableRelationFilter = {
+    is?: DoctorsWhereInput | null
+    isNot?: DoctorsWhereInput | null
+  }
+
   export type DoctorsListRelationFilter = {
     every?: DoctorsWhereInput
     some?: DoctorsWhereInput
@@ -17365,6 +17469,11 @@ export namespace Prisma {
     every?: OPSlotsWhereInput
     some?: OPSlotsWhereInput
     none?: OPSlotsWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
   }
 
   export type DoctorsOrderByRelationAggregateInput = {
@@ -17378,16 +17487,37 @@ export namespace Prisma {
   export type DepartmentsCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    headOfDepartmentId?: SortOrder
   }
 
   export type DepartmentsMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    headOfDepartmentId?: SortOrder
   }
 
   export type DepartmentsMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    headOfDepartmentId?: SortOrder
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type EnumQueueStatusFilter<$PrismaModel = never> = {
@@ -17416,11 +17546,6 @@ export namespace Prisma {
   export type DoctorsRelationFilter = {
     is?: DoctorsWhereInput
     isNot?: DoctorsWhereInput
-  }
-
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
   }
 
   export type OPDQueueCountOrderByAggregateInput = {
@@ -17599,21 +17724,6 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
   export type EnumVisitTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.VisitType | EnumVisitTypeFieldRefInput<$PrismaModel>
     in?: $Enums.VisitType[] | ListEnumVisitTypeFieldRefInput<$PrismaModel>
@@ -17710,24 +17820,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedJsonNullableFilter<$PrismaModel>
     _max?: NestedJsonNullableFilter<$PrismaModel>
-  }
-
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type EnumVisitTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -18062,6 +18154,12 @@ export namespace Prisma {
     connect?: DepartmentsWhereUniqueInput
   }
 
+  export type DepartmentsCreateNestedOneWithoutHeadOfDepartmentInput = {
+    create?: XOR<DepartmentsCreateWithoutHeadOfDepartmentInput, DepartmentsUncheckedCreateWithoutHeadOfDepartmentInput>
+    connectOrCreate?: DepartmentsCreateOrConnectWithoutHeadOfDepartmentInput
+    connect?: DepartmentsWhereUniqueInput
+  }
+
   export type OPDQueueCreateNestedManyWithoutDoctorInput = {
     create?: XOR<OPDQueueCreateWithoutDoctorInput, OPDQueueUncheckedCreateWithoutDoctorInput> | OPDQueueCreateWithoutDoctorInput[] | OPDQueueUncheckedCreateWithoutDoctorInput[]
     connectOrCreate?: OPDQueueCreateOrConnectWithoutDoctorInput | OPDQueueCreateOrConnectWithoutDoctorInput[]
@@ -18081,6 +18179,12 @@ export namespace Prisma {
     connectOrCreate?: PatientInstanceCreateOrConnectWithoutDoctorInput | PatientInstanceCreateOrConnectWithoutDoctorInput[]
     createMany?: PatientInstanceCreateManyDoctorInputEnvelope
     connect?: PatientInstanceWhereUniqueInput | PatientInstanceWhereUniqueInput[]
+  }
+
+  export type DepartmentsUncheckedCreateNestedOneWithoutHeadOfDepartmentInput = {
+    create?: XOR<DepartmentsCreateWithoutHeadOfDepartmentInput, DepartmentsUncheckedCreateWithoutHeadOfDepartmentInput>
+    connectOrCreate?: DepartmentsCreateOrConnectWithoutHeadOfDepartmentInput
+    connect?: DepartmentsWhereUniqueInput
   }
 
   export type OPDQueueUncheckedCreateNestedManyWithoutDoctorInput = {
@@ -18124,6 +18228,16 @@ export namespace Prisma {
     update?: XOR<XOR<DepartmentsUpdateToOneWithWhereWithoutDoctorsInput, DepartmentsUpdateWithoutDoctorsInput>, DepartmentsUncheckedUpdateWithoutDoctorsInput>
   }
 
+  export type DepartmentsUpdateOneWithoutHeadOfDepartmentNestedInput = {
+    create?: XOR<DepartmentsCreateWithoutHeadOfDepartmentInput, DepartmentsUncheckedCreateWithoutHeadOfDepartmentInput>
+    connectOrCreate?: DepartmentsCreateOrConnectWithoutHeadOfDepartmentInput
+    upsert?: DepartmentsUpsertWithoutHeadOfDepartmentInput
+    disconnect?: DepartmentsWhereInput | boolean
+    delete?: DepartmentsWhereInput | boolean
+    connect?: DepartmentsWhereUniqueInput
+    update?: XOR<XOR<DepartmentsUpdateToOneWithWhereWithoutHeadOfDepartmentInput, DepartmentsUpdateWithoutHeadOfDepartmentInput>, DepartmentsUncheckedUpdateWithoutHeadOfDepartmentInput>
+  }
+
   export type OPDQueueUpdateManyWithoutDoctorNestedInput = {
     create?: XOR<OPDQueueCreateWithoutDoctorInput, OPDQueueUncheckedCreateWithoutDoctorInput> | OPDQueueCreateWithoutDoctorInput[] | OPDQueueUncheckedCreateWithoutDoctorInput[]
     connectOrCreate?: OPDQueueCreateOrConnectWithoutDoctorInput | OPDQueueCreateOrConnectWithoutDoctorInput[]
@@ -18164,6 +18278,16 @@ export namespace Prisma {
     update?: PatientInstanceUpdateWithWhereUniqueWithoutDoctorInput | PatientInstanceUpdateWithWhereUniqueWithoutDoctorInput[]
     updateMany?: PatientInstanceUpdateManyWithWhereWithoutDoctorInput | PatientInstanceUpdateManyWithWhereWithoutDoctorInput[]
     deleteMany?: PatientInstanceScalarWhereInput | PatientInstanceScalarWhereInput[]
+  }
+
+  export type DepartmentsUncheckedUpdateOneWithoutHeadOfDepartmentNestedInput = {
+    create?: XOR<DepartmentsCreateWithoutHeadOfDepartmentInput, DepartmentsUncheckedCreateWithoutHeadOfDepartmentInput>
+    connectOrCreate?: DepartmentsCreateOrConnectWithoutHeadOfDepartmentInput
+    upsert?: DepartmentsUpsertWithoutHeadOfDepartmentInput
+    disconnect?: DepartmentsWhereInput | boolean
+    delete?: DepartmentsWhereInput | boolean
+    connect?: DepartmentsWhereUniqueInput
+    update?: XOR<XOR<DepartmentsUpdateToOneWithWhereWithoutHeadOfDepartmentInput, DepartmentsUpdateWithoutHeadOfDepartmentInput>, DepartmentsUncheckedUpdateWithoutHeadOfDepartmentInput>
   }
 
   export type OPDQueueUncheckedUpdateManyWithoutDoctorNestedInput = {
@@ -18230,6 +18354,12 @@ export namespace Prisma {
     update?: XOR<XOR<DepartmentsUpdateToOneWithWhereWithoutSlotsInput, DepartmentsUpdateWithoutSlotsInput>, DepartmentsUncheckedUpdateWithoutSlotsInput>
   }
 
+  export type DoctorsCreateNestedOneWithoutHeadOfDepartmentOfInput = {
+    create?: XOR<DoctorsCreateWithoutHeadOfDepartmentOfInput, DoctorsUncheckedCreateWithoutHeadOfDepartmentOfInput>
+    connectOrCreate?: DoctorsCreateOrConnectWithoutHeadOfDepartmentOfInput
+    connect?: DoctorsWhereUniqueInput
+  }
+
   export type DoctorsCreateNestedManyWithoutDepartmentInput = {
     create?: XOR<DoctorsCreateWithoutDepartmentInput, DoctorsUncheckedCreateWithoutDepartmentInput> | DoctorsCreateWithoutDepartmentInput[] | DoctorsUncheckedCreateWithoutDepartmentInput[]
     connectOrCreate?: DoctorsCreateOrConnectWithoutDepartmentInput | DoctorsCreateOrConnectWithoutDepartmentInput[]
@@ -18258,6 +18388,16 @@ export namespace Prisma {
     connect?: OPSlotsWhereUniqueInput | OPSlotsWhereUniqueInput[]
   }
 
+  export type DoctorsUpdateOneWithoutHeadOfDepartmentOfNestedInput = {
+    create?: XOR<DoctorsCreateWithoutHeadOfDepartmentOfInput, DoctorsUncheckedCreateWithoutHeadOfDepartmentOfInput>
+    connectOrCreate?: DoctorsCreateOrConnectWithoutHeadOfDepartmentOfInput
+    upsert?: DoctorsUpsertWithoutHeadOfDepartmentOfInput
+    disconnect?: DoctorsWhereInput | boolean
+    delete?: DoctorsWhereInput | boolean
+    connect?: DoctorsWhereUniqueInput
+    update?: XOR<XOR<DoctorsUpdateToOneWithWhereWithoutHeadOfDepartmentOfInput, DoctorsUpdateWithoutHeadOfDepartmentOfInput>, DoctorsUncheckedUpdateWithoutHeadOfDepartmentOfInput>
+  }
+
   export type DoctorsUpdateManyWithoutDepartmentNestedInput = {
     create?: XOR<DoctorsCreateWithoutDepartmentInput, DoctorsUncheckedCreateWithoutDepartmentInput> | DoctorsCreateWithoutDepartmentInput[] | DoctorsUncheckedCreateWithoutDepartmentInput[]
     connectOrCreate?: DoctorsCreateOrConnectWithoutDepartmentInput | DoctorsCreateOrConnectWithoutDepartmentInput[]
@@ -18284,6 +18424,10 @@ export namespace Prisma {
     update?: OPSlotsUpdateWithWhereUniqueWithoutDeptInput | OPSlotsUpdateWithWhereUniqueWithoutDeptInput[]
     updateMany?: OPSlotsUpdateManyWithWhereWithoutDeptInput | OPSlotsUpdateManyWithWhereWithoutDeptInput[]
     deleteMany?: OPSlotsScalarWhereInput | OPSlotsScalarWhereInput[]
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type DoctorsUncheckedUpdateManyWithoutDepartmentNestedInput = {
@@ -18534,10 +18678,6 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
   }
 
   export type EnumVisitTypeFieldUpdateOperationsInput = {
@@ -19078,6 +19218,48 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type NestedEnumQueueStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.QueueStatus | EnumQueueStatusFieldRefInput<$PrismaModel>
     in?: $Enums.QueueStatus[] | ListEnumQueueStatusFieldRefInput<$PrismaModel>
@@ -19120,17 +19302,6 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
   export type NestedEnumBedStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.BedStatus | EnumBedStatusFieldRefInput<$PrismaModel>
     in?: $Enums.BedStatus[] | ListEnumBedStatusFieldRefInput<$PrismaModel>
@@ -19146,20 +19317,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumBedStatusFilter<$PrismaModel>
     _max?: NestedEnumBedStatusFilter<$PrismaModel>
-  }
-
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type NestedEnumVisitTypeFilter<$PrismaModel = never> = {
@@ -19216,23 +19373,6 @@ export namespace Prisma {
     gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-  }
-
-  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumVisitTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -19306,18 +19446,39 @@ export namespace Prisma {
   export type DepartmentsCreateWithoutDoctorsInput = {
     id?: string
     name: string
+    headOfDepartment?: DoctorsCreateNestedOneWithoutHeadOfDepartmentOfInput
     slots?: OPSlotsCreateNestedManyWithoutDeptInput
   }
 
   export type DepartmentsUncheckedCreateWithoutDoctorsInput = {
     id?: string
     name: string
+    headOfDepartmentId?: string | null
     slots?: OPSlotsUncheckedCreateNestedManyWithoutDeptInput
   }
 
   export type DepartmentsCreateOrConnectWithoutDoctorsInput = {
     where: DepartmentsWhereUniqueInput
     create: XOR<DepartmentsCreateWithoutDoctorsInput, DepartmentsUncheckedCreateWithoutDoctorsInput>
+  }
+
+  export type DepartmentsCreateWithoutHeadOfDepartmentInput = {
+    id?: string
+    name: string
+    doctors?: DoctorsCreateNestedManyWithoutDepartmentInput
+    slots?: OPSlotsCreateNestedManyWithoutDeptInput
+  }
+
+  export type DepartmentsUncheckedCreateWithoutHeadOfDepartmentInput = {
+    id?: string
+    name: string
+    doctors?: DoctorsUncheckedCreateNestedManyWithoutDepartmentInput
+    slots?: OPSlotsUncheckedCreateNestedManyWithoutDeptInput
+  }
+
+  export type DepartmentsCreateOrConnectWithoutHeadOfDepartmentInput = {
+    where: DepartmentsWhereUniqueInput
+    create: XOR<DepartmentsCreateWithoutHeadOfDepartmentInput, DepartmentsUncheckedCreateWithoutHeadOfDepartmentInput>
   }
 
   export type OPDQueueCreateWithoutDoctorInput = {
@@ -19424,12 +19585,39 @@ export namespace Prisma {
   export type DepartmentsUpdateWithoutDoctorsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    headOfDepartment?: DoctorsUpdateOneWithoutHeadOfDepartmentOfNestedInput
     slots?: OPSlotsUpdateManyWithoutDeptNestedInput
   }
 
   export type DepartmentsUncheckedUpdateWithoutDoctorsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    headOfDepartmentId?: NullableStringFieldUpdateOperationsInput | string | null
+    slots?: OPSlotsUncheckedUpdateManyWithoutDeptNestedInput
+  }
+
+  export type DepartmentsUpsertWithoutHeadOfDepartmentInput = {
+    update: XOR<DepartmentsUpdateWithoutHeadOfDepartmentInput, DepartmentsUncheckedUpdateWithoutHeadOfDepartmentInput>
+    create: XOR<DepartmentsCreateWithoutHeadOfDepartmentInput, DepartmentsUncheckedCreateWithoutHeadOfDepartmentInput>
+    where?: DepartmentsWhereInput
+  }
+
+  export type DepartmentsUpdateToOneWithWhereWithoutHeadOfDepartmentInput = {
+    where?: DepartmentsWhereInput
+    data: XOR<DepartmentsUpdateWithoutHeadOfDepartmentInput, DepartmentsUncheckedUpdateWithoutHeadOfDepartmentInput>
+  }
+
+  export type DepartmentsUpdateWithoutHeadOfDepartmentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    doctors?: DoctorsUpdateManyWithoutDepartmentNestedInput
+    slots?: OPSlotsUpdateManyWithoutDeptNestedInput
+  }
+
+  export type DepartmentsUncheckedUpdateWithoutHeadOfDepartmentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    doctors?: DoctorsUncheckedUpdateManyWithoutDepartmentNestedInput
     slots?: OPSlotsUncheckedUpdateManyWithoutDeptNestedInput
   }
 
@@ -19524,12 +19712,14 @@ export namespace Prisma {
   export type DepartmentsCreateWithoutSlotsInput = {
     id?: string
     name: string
+    headOfDepartment?: DoctorsCreateNestedOneWithoutHeadOfDepartmentOfInput
     doctors?: DoctorsCreateNestedManyWithoutDepartmentInput
   }
 
   export type DepartmentsUncheckedCreateWithoutSlotsInput = {
     id?: string
     name: string
+    headOfDepartmentId?: string | null
     doctors?: DoctorsUncheckedCreateNestedManyWithoutDepartmentInput
   }
 
@@ -19552,13 +19742,52 @@ export namespace Prisma {
   export type DepartmentsUpdateWithoutSlotsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    headOfDepartment?: DoctorsUpdateOneWithoutHeadOfDepartmentOfNestedInput
     doctors?: DoctorsUpdateManyWithoutDepartmentNestedInput
   }
 
   export type DepartmentsUncheckedUpdateWithoutSlotsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    headOfDepartmentId?: NullableStringFieldUpdateOperationsInput | string | null
     doctors?: DoctorsUncheckedUpdateManyWithoutDepartmentNestedInput
+  }
+
+  export type DoctorsCreateWithoutHeadOfDepartmentOfInput = {
+    id?: string
+    name: string
+    gender: string
+    designation: $Enums.DesignationType
+    contact: string
+    email: string
+    password: string
+    active: boolean
+    hospitalCode?: string
+    department: DepartmentsCreateNestedOneWithoutDoctorsInput
+    opdQueue?: OPDQueueCreateNestedManyWithoutDoctorInput
+    admissions?: AdmissionCreateNestedManyWithoutDoctorInput
+    patientInstances?: PatientInstanceCreateNestedManyWithoutDoctorInput
+  }
+
+  export type DoctorsUncheckedCreateWithoutHeadOfDepartmentOfInput = {
+    id?: string
+    name: string
+    gender: string
+    designation: $Enums.DesignationType
+    contact: string
+    email: string
+    password: string
+    active: boolean
+    departmentId: string
+    hospitalCode?: string
+    opdQueue?: OPDQueueUncheckedCreateNestedManyWithoutDoctorInput
+    admissions?: AdmissionUncheckedCreateNestedManyWithoutDoctorInput
+    patientInstances?: PatientInstanceUncheckedCreateNestedManyWithoutDoctorInput
+  }
+
+  export type DoctorsCreateOrConnectWithoutHeadOfDepartmentOfInput = {
+    where: DoctorsWhereUniqueInput
+    create: XOR<DoctorsCreateWithoutHeadOfDepartmentOfInput, DoctorsUncheckedCreateWithoutHeadOfDepartmentOfInput>
   }
 
   export type DoctorsCreateWithoutDepartmentInput = {
@@ -19571,6 +19800,7 @@ export namespace Prisma {
     password: string
     active: boolean
     hospitalCode?: string
+    headOfDepartmentOf?: DepartmentsCreateNestedOneWithoutHeadOfDepartmentInput
     opdQueue?: OPDQueueCreateNestedManyWithoutDoctorInput
     admissions?: AdmissionCreateNestedManyWithoutDoctorInput
     patientInstances?: PatientInstanceCreateNestedManyWithoutDoctorInput
@@ -19586,6 +19816,7 @@ export namespace Prisma {
     password: string
     active: boolean
     hospitalCode?: string
+    headOfDepartmentOf?: DepartmentsUncheckedCreateNestedOneWithoutHeadOfDepartmentInput
     opdQueue?: OPDQueueUncheckedCreateNestedManyWithoutDoctorInput
     admissions?: AdmissionUncheckedCreateNestedManyWithoutDoctorInput
     patientInstances?: PatientInstanceUncheckedCreateNestedManyWithoutDoctorInput
@@ -19622,6 +19853,49 @@ export namespace Prisma {
   export type OPSlotsCreateManyDeptInputEnvelope = {
     data: OPSlotsCreateManyDeptInput | OPSlotsCreateManyDeptInput[]
     skipDuplicates?: boolean
+  }
+
+  export type DoctorsUpsertWithoutHeadOfDepartmentOfInput = {
+    update: XOR<DoctorsUpdateWithoutHeadOfDepartmentOfInput, DoctorsUncheckedUpdateWithoutHeadOfDepartmentOfInput>
+    create: XOR<DoctorsCreateWithoutHeadOfDepartmentOfInput, DoctorsUncheckedCreateWithoutHeadOfDepartmentOfInput>
+    where?: DoctorsWhereInput
+  }
+
+  export type DoctorsUpdateToOneWithWhereWithoutHeadOfDepartmentOfInput = {
+    where?: DoctorsWhereInput
+    data: XOR<DoctorsUpdateWithoutHeadOfDepartmentOfInput, DoctorsUncheckedUpdateWithoutHeadOfDepartmentOfInput>
+  }
+
+  export type DoctorsUpdateWithoutHeadOfDepartmentOfInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
+    designation?: EnumDesignationTypeFieldUpdateOperationsInput | $Enums.DesignationType
+    contact?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    hospitalCode?: StringFieldUpdateOperationsInput | string
+    department?: DepartmentsUpdateOneRequiredWithoutDoctorsNestedInput
+    opdQueue?: OPDQueueUpdateManyWithoutDoctorNestedInput
+    admissions?: AdmissionUpdateManyWithoutDoctorNestedInput
+    patientInstances?: PatientInstanceUpdateManyWithoutDoctorNestedInput
+  }
+
+  export type DoctorsUncheckedUpdateWithoutHeadOfDepartmentOfInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
+    designation?: EnumDesignationTypeFieldUpdateOperationsInput | $Enums.DesignationType
+    contact?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    departmentId?: StringFieldUpdateOperationsInput | string
+    hospitalCode?: StringFieldUpdateOperationsInput | string
+    opdQueue?: OPDQueueUncheckedUpdateManyWithoutDoctorNestedInput
+    admissions?: AdmissionUncheckedUpdateManyWithoutDoctorNestedInput
+    patientInstances?: PatientInstanceUncheckedUpdateManyWithoutDoctorNestedInput
   }
 
   export type DoctorsUpsertWithWhereUniqueWithoutDepartmentInput = {
@@ -19729,6 +20003,7 @@ export namespace Prisma {
     active: boolean
     hospitalCode?: string
     department: DepartmentsCreateNestedOneWithoutDoctorsInput
+    headOfDepartmentOf?: DepartmentsCreateNestedOneWithoutHeadOfDepartmentInput
     admissions?: AdmissionCreateNestedManyWithoutDoctorInput
     patientInstances?: PatientInstanceCreateNestedManyWithoutDoctorInput
   }
@@ -19744,6 +20019,7 @@ export namespace Prisma {
     active: boolean
     departmentId: string
     hospitalCode?: string
+    headOfDepartmentOf?: DepartmentsUncheckedCreateNestedOneWithoutHeadOfDepartmentInput
     admissions?: AdmissionUncheckedCreateNestedManyWithoutDoctorInput
     patientInstances?: PatientInstanceUncheckedCreateNestedManyWithoutDoctorInput
   }
@@ -19816,6 +20092,7 @@ export namespace Prisma {
     active?: BoolFieldUpdateOperationsInput | boolean
     hospitalCode?: StringFieldUpdateOperationsInput | string
     department?: DepartmentsUpdateOneRequiredWithoutDoctorsNestedInput
+    headOfDepartmentOf?: DepartmentsUpdateOneWithoutHeadOfDepartmentNestedInput
     admissions?: AdmissionUpdateManyWithoutDoctorNestedInput
     patientInstances?: PatientInstanceUpdateManyWithoutDoctorNestedInput
   }
@@ -19831,6 +20108,7 @@ export namespace Prisma {
     active?: BoolFieldUpdateOperationsInput | boolean
     departmentId?: StringFieldUpdateOperationsInput | string
     hospitalCode?: StringFieldUpdateOperationsInput | string
+    headOfDepartmentOf?: DepartmentsUncheckedUpdateOneWithoutHeadOfDepartmentNestedInput
     admissions?: AdmissionUncheckedUpdateManyWithoutDoctorNestedInput
     patientInstances?: PatientInstanceUncheckedUpdateManyWithoutDoctorNestedInput
   }
@@ -20024,6 +20302,7 @@ export namespace Prisma {
     active: boolean
     hospitalCode?: string
     department: DepartmentsCreateNestedOneWithoutDoctorsInput
+    headOfDepartmentOf?: DepartmentsCreateNestedOneWithoutHeadOfDepartmentInput
     opdQueue?: OPDQueueCreateNestedManyWithoutDoctorInput
     admissions?: AdmissionCreateNestedManyWithoutDoctorInput
   }
@@ -20039,6 +20318,7 @@ export namespace Prisma {
     active: boolean
     departmentId: string
     hospitalCode?: string
+    headOfDepartmentOf?: DepartmentsUncheckedCreateNestedOneWithoutHeadOfDepartmentInput
     opdQueue?: OPDQueueUncheckedCreateNestedManyWithoutDoctorInput
     admissions?: AdmissionUncheckedCreateNestedManyWithoutDoctorInput
   }
@@ -20120,6 +20400,7 @@ export namespace Prisma {
     active?: BoolFieldUpdateOperationsInput | boolean
     hospitalCode?: StringFieldUpdateOperationsInput | string
     department?: DepartmentsUpdateOneRequiredWithoutDoctorsNestedInput
+    headOfDepartmentOf?: DepartmentsUpdateOneWithoutHeadOfDepartmentNestedInput
     opdQueue?: OPDQueueUpdateManyWithoutDoctorNestedInput
     admissions?: AdmissionUpdateManyWithoutDoctorNestedInput
   }
@@ -20135,6 +20416,7 @@ export namespace Prisma {
     active?: BoolFieldUpdateOperationsInput | boolean
     departmentId?: StringFieldUpdateOperationsInput | string
     hospitalCode?: StringFieldUpdateOperationsInput | string
+    headOfDepartmentOf?: DepartmentsUncheckedUpdateOneWithoutHeadOfDepartmentNestedInput
     opdQueue?: OPDQueueUncheckedUpdateManyWithoutDoctorNestedInput
     admissions?: AdmissionUncheckedUpdateManyWithoutDoctorNestedInput
   }
@@ -20257,6 +20539,7 @@ export namespace Prisma {
     active: boolean
     hospitalCode?: string
     department: DepartmentsCreateNestedOneWithoutDoctorsInput
+    headOfDepartmentOf?: DepartmentsCreateNestedOneWithoutHeadOfDepartmentInput
     opdQueue?: OPDQueueCreateNestedManyWithoutDoctorInput
     patientInstances?: PatientInstanceCreateNestedManyWithoutDoctorInput
   }
@@ -20272,6 +20555,7 @@ export namespace Prisma {
     active: boolean
     departmentId: string
     hospitalCode?: string
+    headOfDepartmentOf?: DepartmentsUncheckedCreateNestedOneWithoutHeadOfDepartmentInput
     opdQueue?: OPDQueueUncheckedCreateNestedManyWithoutDoctorInput
     patientInstances?: PatientInstanceUncheckedCreateNestedManyWithoutDoctorInput
   }
@@ -20396,6 +20680,7 @@ export namespace Prisma {
     active?: BoolFieldUpdateOperationsInput | boolean
     hospitalCode?: StringFieldUpdateOperationsInput | string
     department?: DepartmentsUpdateOneRequiredWithoutDoctorsNestedInput
+    headOfDepartmentOf?: DepartmentsUpdateOneWithoutHeadOfDepartmentNestedInput
     opdQueue?: OPDQueueUpdateManyWithoutDoctorNestedInput
     patientInstances?: PatientInstanceUpdateManyWithoutDoctorNestedInput
   }
@@ -20411,6 +20696,7 @@ export namespace Prisma {
     active?: BoolFieldUpdateOperationsInput | boolean
     departmentId?: StringFieldUpdateOperationsInput | string
     hospitalCode?: StringFieldUpdateOperationsInput | string
+    headOfDepartmentOf?: DepartmentsUncheckedUpdateOneWithoutHeadOfDepartmentNestedInput
     opdQueue?: OPDQueueUncheckedUpdateManyWithoutDoctorNestedInput
     patientInstances?: PatientInstanceUncheckedUpdateManyWithoutDoctorNestedInput
   }
@@ -21037,6 +21323,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     hospitalCode?: StringFieldUpdateOperationsInput | string
+    headOfDepartmentOf?: DepartmentsUpdateOneWithoutHeadOfDepartmentNestedInput
     opdQueue?: OPDQueueUpdateManyWithoutDoctorNestedInput
     admissions?: AdmissionUpdateManyWithoutDoctorNestedInput
     patientInstances?: PatientInstanceUpdateManyWithoutDoctorNestedInput
@@ -21052,6 +21339,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     hospitalCode?: StringFieldUpdateOperationsInput | string
+    headOfDepartmentOf?: DepartmentsUncheckedUpdateOneWithoutHeadOfDepartmentNestedInput
     opdQueue?: OPDQueueUncheckedUpdateManyWithoutDoctorNestedInput
     admissions?: AdmissionUncheckedUpdateManyWithoutDoctorNestedInput
     patientInstances?: PatientInstanceUncheckedUpdateManyWithoutDoctorNestedInput

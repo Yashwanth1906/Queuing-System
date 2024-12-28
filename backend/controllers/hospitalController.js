@@ -40,19 +40,15 @@ export const addSlot=async(req,res)=>{
 }
 
 const addDepartments = async(req,res)=>{
-    // console.log("hi")
     const prisma = req.prisma;
     try{
-        const added = await Promise.all(deparmentss.map(async (x) => {
-            const department = await prisma.departments.create({
-                data: {
-                    name: x.name,
-                },
-            });
-            return department;
-        }));
-        res.json({success:true,data:added})
-
+        const data = req.body;
+        const added = await prisma.departments.create({
+            data:{
+                name : data.name
+            }
+        });
+        res.json({success:true,message:"Successfully created",department:added})
     }catch(er){
         console.log(er);
         res.json({success:false,message:er})
@@ -115,8 +111,8 @@ const addWard = async(req,res)=>{
         const newWard = await prisma.ward.create({
             data:{
                 name:name,
-                totalBeds:totalBeds,
-                availableBeds:totalBeds
+                totalBeds:parseInt(totalBeds),
+                availableBeds:parseInt(totalBeds)
             }
         })
         const bedData = [];
@@ -195,7 +191,6 @@ const allocateBed = async (req, res) => {
       if (!availableBed) {
         return res.json({ success: false, message: "No bed available" });
       }
-  
       await prisma.admission.update({
         where: { id: admissionId },
         data: { bedId: availableBed.id },
@@ -375,6 +370,11 @@ export const getHospitalDetails = async (req, res) => {
         id: true,
         name: true,
         designation: true,
+        department:{
+            select:{
+                name:true
+            }
+        }
       },
     });
 
@@ -382,6 +382,7 @@ export const getHospitalDetails = async (req, res) => {
       id: doctor.id,
       name: doctor.name,
       specialization: doctor.designation,
+      department : doctor.department.name
     }));
 
     const wards = await prisma.ward.findMany({

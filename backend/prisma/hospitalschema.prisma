@@ -9,45 +9,49 @@ datasource db {
 }
 
 model Doctors {
-    id String @id @default(uuid())
-    name String
-    gender String
-    designation DesignationType
-    contact String
-    email String   @unique
-    password String
-    active Boolean
-    departmentId String
-    hospitalCode String @default("0001")
-    department Departments @relation(fields: [departmentId], references: [id])
-    opdQueue OPDQueue[]
-    admissions Admission[]
-    patientInstances PatientInstance[]
+  id             String           @id @default(uuid())
+  name           String
+  gender         String
+  designation    DesignationType
+  contact        String
+  email          String           @unique
+  password       String
+  active         Boolean
+  departmentId   String
+  hospitalCode   String           @default("0001")
+  department     Departments      @relation("DepartmentDoctors", fields: [departmentId], references: [id])
+  headOfDepartmentOf Departments? @relation("DepartmentHead")
+  opdQueue       OPDQueue[]
+  admissions     Admission[]
+  patientInstances PatientInstance[]
 }
 
-enum DesignationType{
+enum DesignationType {
   Trainee
   Assistant
   Senior
   HeadOfDepartment
 }
 
-model OPSlots{
-	id Int @id @default(autoincrement())
-	date String
-	slot String
-	count Int
-	deptid String
-	dept Departments @relation(fields:[deptid],references:[id],onDelete: Cascade)
+model OPSlots {
+  id     Int         @id @default(autoincrement())
+  date   String
+  slot   String
+  count  Int
+  deptid String
+  dept   Departments @relation(fields: [deptid], references: [id], onDelete: Cascade)
 }
-
 
 model Departments {
-  id String @id @default(uuid())
-  name String
-  doctors Doctors[]
-  slots OPSlots[]
+  id                  String       @id @default(uuid())
+  name                String
+  headOfDepartmentId  String?      @unique
+  headOfDepartment    Doctors?     @relation("DepartmentHead", fields: [headOfDepartmentId], references: [id])
+  doctors             Doctors[]    @relation("DepartmentDoctors")
+  slots               OPSlots[]
 }
+
+
 
 model OPDQueue {
   id String @id @default(uuid())

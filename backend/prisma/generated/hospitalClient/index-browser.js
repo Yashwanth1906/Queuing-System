@@ -142,7 +142,8 @@ exports.Prisma.OPSlotsScalarFieldEnum = {
 
 exports.Prisma.DepartmentsScalarFieldEnum = {
   id: 'id',
-  name: 'name'
+  name: 'name',
+  headOfDepartmentId: 'headOfDepartmentId'
 };
 
 exports.Prisma.OPDQueueScalarFieldEnum = {

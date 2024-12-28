@@ -36,7 +36,7 @@ const doctorRegister = async(req,res)=>{
             }
         })
         if(hod == true){
-            const department = await prisma.department.update({
+            const department = await prisma.departments.update({
                 where:{
                     id:departmentId
                 },data:{
