@@ -6,7 +6,7 @@ const centralPrisma = new centralPrismaClient({
         db:{
             url:process.env.CENTRAL_DB_URL
         }
-    }
+}
 })
 
 
@@ -34,6 +34,116 @@ export const patientLogin = async(req,res) =>{
         console.log(er);
         res.status(500).json({message:er})
     }
+}
+
+function formatDateToDDMMYYYY(date) {
+    const day = String(date.getDate()).padStart(2, '0'); 
+    const month = String(date.getMonth() + 1).padStart(2, '0'); 
+    const year = date.getFullYear();
+
+    return `${day}-${month}-${year}`;
+}
+
+function getNextDateFormatted(date) {
+    const nextDate = new Date(date);
+    
+    nextDate.setDate(nextDate.getDate() + 1);
+    
+    const day = String(nextDate.getDate()).padStart(2, '0');
+    const month = String(nextDate.getMonth() + 1).padStart(2, '0'); 
+    const year = nextDate.getFullYear();
+
+    return `${day}-${month}-${year}`;
+}
+
+
+
+export const getSlots=async (req,res)=>{
+	try{
+		const prisma=req.prisma;
+		console.log(prisma)
+		const {deptId}=req.body;
+		const date=formatDateToDDMMYYYY(new Date());
+		const nextDate=getNextDateFormatted((new Date()));
+		console.log(deptId)
+		console.log(date)
+		console.log(nextDate)
+		let slot1;
+		let slot2;
+
+		try{
+			slot1=await prisma.OPSlots.findMany({
+				where:{
+					deptid:deptId,
+					date,
+					count:{gt:0}
+				}
+			})
+			console.log(slot1);
+		}
+		catch(e){
+			console.log(e)
+		}
+
+		try{
+			slot2=await prisma.OPSlots.findMany({
+				where:{
+					deptid:deptId,
+					date:nextDate,
+					count:{gt:0}
+				}
+			})
+			console.log(slot2);
+		}
+		catch{};
+		
+		return res.status(200).json({date:slot1[0],nextDate:slot2[0]});
+
+	}
+	catch{
+		return res.status(500).json({msg:"error"});
+	}
+
+}
+
+
+export const bookSlot=async(req,res)=>{
+	try{
+		const prisma=req.prisma;
+		console.log(req.body)
+		const {slotid,abhaId}=req.body;
+		console.log(slotid)
+		await prisma.$transaction(async (tx)=>{
+
+			const result=await tx.OPSlots.update({
+			data:{
+				count:{decrement:1}
+			},
+			where:{
+				id:slotid
+			}
+		})
+
+			const temp=await tx.Intimation.create({
+				data:{
+					abhaId,
+					date,
+					time,
+
+				}
+			})
+
+
+		})
+		
+		return res.status(200).json({msg:"done"})
+
+
+	}
+	catch(e){
+		console.log(e)
+		return res.status(500).json({msg:"error"});
+	}
 }
 
 export const getPatient = async(req,res) =>{

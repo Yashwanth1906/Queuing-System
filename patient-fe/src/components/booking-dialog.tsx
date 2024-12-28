@@ -100,6 +100,7 @@ export function BookingDialog({ open, onOpenChange, hospitalId }: BookingDialogP
           )}
           {step === 'slots' && (
             <SlotSelection
+	      deptId={selectedDepartment}
               code={hospitalId}
               onSelect={handleSlotSelect}
             />

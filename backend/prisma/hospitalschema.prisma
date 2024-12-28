@@ -43,12 +43,20 @@ model OPSlots {
 }
 
 model Departments {
+<<<<<<< HEAD
   id                  String       @id @default(uuid())
   name                String
   headOfDepartmentId  String?      @unique
   headOfDepartment    Doctors?     @relation("DepartmentHead", fields: [headOfDepartmentId], references: [id])
   doctors             Doctors[]    @relation("DepartmentDoctors")
   slots               OPSlots[]
+=======
+  id String @id @default(uuid())
+  name String
+  doctors Doctors[]
+  slots OPSlots[]
+  intimation Intimation[]
+>>>>>>> 83da4f7 (patient-book)
 }
 
 
@@ -133,10 +141,9 @@ model Admission {
 model Intimation{
   id Int @id @default(autoincrement())
   abhaId String
-  name String
-  gender String
-  age String
-  reason String
+  reason String?
+  deptId String
+  department Departments @relation(fields: [deptId],references: [id],onDelete: Cascade)
   date String
   time String
 }

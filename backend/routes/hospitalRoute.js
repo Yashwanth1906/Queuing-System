@@ -1,7 +1,7 @@
 import express from "express"
 import { getHospitalPrismaClient } from "../middleware/prismaProvider.js";
 
-import { addDepartments, addWard, allocateBed, createPatientInstance, getAdmissionsBedNotAllocated, getDepartments, getDoctors, getHosCodes, getHospital, getHospitalDetails, getIntimated, getPatient, getWard } from "../controllers/hospitalController.js";
+import { addDepartments, addSlot, addWard, allocateBed, createPatientInstance, getAdmissionsBedNotAllocated, getDepartments, getDoctors, getHosCodes, getHospital, getHospitalDetails, getIntimated, getPatient, getWard } from "../controllers/hospitalController.js";
 
 
 

@@ -26,15 +26,16 @@ export const addSlot=async(req,res)=>{
 		const {date,deptid,count}=req.body;
 		const data=await prisma.OPSlots.create({
 			data:{
-				data,
+				date,
 				slot:"08:00-12:00",
 				count,
 				deptid,
 			}
 		})
-		return res.status(200).json({date});
+		return res.status(200).json({data});
 	}
-	catch{
+	catch(e){
+		console.log(e)
 		return res.status(500).json({msg:"error"});
 	}
 }
