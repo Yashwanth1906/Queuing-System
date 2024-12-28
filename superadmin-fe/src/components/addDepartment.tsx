@@ -14,17 +14,26 @@ import { BACKEND_URL } from "@/config";
 interface AddDepartmentDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  code:string
 }
 
-export function AddDepartmentDialog({ open, onOpenChange }: AddDepartmentDialogProps) {
+export function AddDepartmentDialog({ open, onOpenChange,code }: AddDepartmentDialogProps) {
   const [formData, setFormData] = useState({
     name: "",
-    description: "",
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await axios.post(`${BACKEND_URL}/api/`)
+    await axios.post(`${BACKEND_URL}/api/hospital/adddepartment`,
+      formData,{
+        headers:{
+          code:code
+        }
+    }).then((res)=>{
+      console.log(res.data);
+    }).catch((e)=>{
+      console.log(e);
+    })
     onOpenChange(false); 
   };
 
@@ -45,7 +54,7 @@ export function AddDepartmentDialog({ open, onOpenChange }: AddDepartmentDialogP
                 required
               />
             </div>
-            <div className="grid gap-2">
+            {/* <div className="grid gap-2">
               <Label htmlFor="description">Description</Label>
               <Input
                 id="description"
@@ -53,7 +62,7 @@ export function AddDepartmentDialog({ open, onOpenChange }: AddDepartmentDialogP
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                 required
               />
-            </div>
+            </div> */}
           </div>
           <Button type="submit" className="w-full bg-[#2E6F40] hover:bg-[#68BA7F]">
             Add Department

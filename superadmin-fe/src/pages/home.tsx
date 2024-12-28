@@ -12,6 +12,7 @@ import '../App.css';
 import axios from 'axios';
 import { BACKEND_URL } from '@/config';
 import { useNavigate } from 'react-router-dom';
+import { AddHospitalDialog } from '@/components/addHospital';
 
 interface Hospital {
   name: string;
@@ -24,6 +25,7 @@ interface Hospital {
 export function HomePage() {
   const navigate = useNavigate();
   const [hospitals,setHospitals] = useState<Hospital[]>([]);
+  const [addHospital,setAddHospital] = useState<boolean>(false);
   async function getHospitals(){
     await axios.get(`${BACKEND_URL}/api/hospital/gethospitals`)
     .then((res)=>{
@@ -81,12 +83,12 @@ export function HomePage() {
       <main className="container mx-auto py-8 px-4">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-2xl font-bold text-[#253D2C]">Hospitals Overview</h1>
-          <Button className="bg-[#2E6F40] hover:bg-[#68BA7F]">
+          <Button className="bg-[#2E6F40] hover:bg-[#68BA7F]" onClick={()=> setAddHospital(true)}>
             <Plus className="mr-2 h-4 w-4" />
             Add New Hospital
           </Button>
         </div>
-
+        <AddHospitalDialog open={addHospital} onOpenChange={setAddHospital}/>
         {/* Hospital Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {hospitals.map((hospital) => (

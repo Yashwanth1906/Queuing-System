@@ -41,6 +41,7 @@ interface Doctor {
   id: string;
   name: string;
   specialization: string;
+  department : string
 }
 
 interface OPDData {
@@ -125,13 +126,6 @@ export function HospitalDetailsPage() {
     },
   ];
   
-  // const departments: Department[] = [
-  //   { id: "dept1", name: "Cardiology", doctors: 5 },
-  //   { id: "dept2", name: "Neurology", doctors: 4 },
-  //   { id: "dept3", name: "Pediatrics", doctors: 3 },
-  //   { id: "dept4", name: "Orthopedics", doctors: 6 },
-  // ];
-  
 
   async function getDetails(){
     console.log("Id: "+id);
@@ -200,15 +194,18 @@ export function HospitalDetailsPage() {
           </Button>
         </div>
 
-        <AddDoctorDialog 
+        <AddDoctorDialog
+          code={id}
           open={doctorDialogOpen} 
           onOpenChange={setDoctorDialogOpen}
         />
         <AddWardDialog 
+        code={id}
           open={wardDialogOpen} 
           onOpenChange={setWardDialogOpen}
         />
         <AddDepartmentDialog 
+          code={id}
           open={departmentDialogOpen} 
           onOpenChange={setDepartmentDialogOpen}
         />
@@ -257,6 +254,7 @@ export function HospitalDetailsPage() {
               <TableHeader>
                 <TableRow>
                   <TableHead>Name</TableHead>
+                  <TableHead>Department</TableHead>
                   <TableHead>Specialization</TableHead>
                 </TableRow>
               </TableHeader>
@@ -264,6 +262,7 @@ export function HospitalDetailsPage() {
                 {doctors?.map((doctor) => (
                   <TableRow key={doctor.id}>
                     <TableCell>{doctor.name}</TableCell>
+                    <TableCell>{doctor.department}</TableCell>
                     <TableCell>{doctor.specialization}</TableCell>
                   </TableRow>
                 ))}

@@ -8,13 +8,16 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import axios from "axios";
+import { BACKEND_URL } from "@/config";
 
 interface AddWardDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  code : string
 }
 
-export function AddWardDialog({ open, onOpenChange }: AddWardDialogProps) {
+export function AddWardDialog({ open, onOpenChange,code }: AddWardDialogProps) {
   const [formData, setFormData] = useState({
     name: "",
     totalBeds: "",
@@ -22,9 +25,20 @@ export function AddWardDialog({ open, onOpenChange }: AddWardDialogProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Add your API call here
+    await axios.post(`${BACKEND_URL}/api/hospital/addward`,formData,{
+      headers:{
+        code:code
+      }
+    }).then((res)=>{
+      console.log(res.data);
+      if(res.data.success === true){
+        alert("Added ward");
+      }
+    }).catch((e)=>{
+      alert(e);
+    })
     console.log(formData);
-    onOpenChange(false); // Close dialog after submission
+    onOpenChange(false);
   };
 
   return (

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -15,15 +15,23 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import axios from "axios";
+import { BACKEND_URL } from "@/config";
 
 export type DesignationType = "SENIOR" | "JUNIOR" | "HOD";
+
+interface Department {
+  id: string;
+  name: string;
+}
 
 interface AddDoctorDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  code: string;
 }
 
-export function AddDoctorDialog({ open, onOpenChange }: AddDoctorDialogProps) {
+export function AddDoctorDialog({ open, onOpenChange, code }: AddDoctorDialogProps) {
   const [formData, setFormData] = useState({
     name: "",
     gender: "",
@@ -34,11 +42,40 @@ export function AddDoctorDialog({ open, onOpenChange }: AddDoctorDialogProps) {
     departmentId: "",
   });
 
+  const [departments, setDepartments] = useState<Department[]>([]);
+
+  useEffect(() => {
+    if (open) {
+      axios
+        .get(`${BACKEND_URL}/api/hospital/getdepartments`, {
+          headers: { code },
+        })
+        .then((response) => {
+          setDepartments(response.data.departments);
+        })
+        .catch((err) => {
+          console.error("Error fetching departments:", err);
+        });
+    }
+  }, [open, code]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Add your API call here
-    console.log(formData);
-    onOpenChange(false); // Close dialog after submission
+    try {
+      const response = await axios.post(`${BACKEND_URL}/api/doctor/register`, formData, {
+        headers: { code },
+      });
+      console.log(response.data);
+      if (response.data.success === true) {
+        alert("Doctor registered successfully");
+      } else {
+        alert(response.data.message || "Failed to register doctor");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Error registering doctor");
+    }
+    onOpenChange(false);
   };
 
   return (
@@ -73,7 +110,11 @@ export function AddDoctorDialog({ open, onOpenChange }: AddDoctorDialogProps) {
             </div>
             <div className="grid gap-2">
               <Label htmlFor="designation">Designation</Label>
-              <Select onValueChange={(value) => setFormData({ ...formData, designation: value as DesignationType })}>
+              <Select
+                onValueChange={(value) =>
+                  setFormData({ ...formData, designation: value as DesignationType })
+                }
+              >
                 <SelectTrigger>
                   <SelectValue placeholder="Select designation" />
                 </SelectTrigger>
@@ -81,6 +122,23 @@ export function AddDoctorDialog({ open, onOpenChange }: AddDoctorDialogProps) {
                   <SelectItem value="SENIOR">Senior</SelectItem>
                   <SelectItem value="JUNIOR">Junior</SelectItem>
                   <SelectItem value="HOD">HOD</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="departmentId">Department</Label>
+              <Select
+                onValueChange={(value) => setFormData({ ...formData, departmentId: value })}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select department" />
+                </SelectTrigger>
+                <SelectContent>
+                  {departments.map((department) => (
+                    <SelectItem key={department.id} value={department.id}>
+                      {department.name}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>
