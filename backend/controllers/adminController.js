@@ -29,6 +29,26 @@ const addHospital = async(req,res)=>{
     }
 }
 
+export const getHospitals=async(req,res)=>{
+	try{
+		const hospitals=await centralprisma.hospital.findMany({
+			include:{
+				records:true,
+				admin:true,
+				patientBooking:true
+			}
+
+			
+		});
+
+		return res.status(200).json({hospitals});
+	}
+	catch{
+		return res.status(500).json({msg:"error"});
+	}
+	
+}
+
 const migratealldbs = async(req,res) =>{
     try{
     const hospitalDBURLS = await centralprisma.hospital.findMany({
@@ -153,8 +173,9 @@ const createPatient = async(req,res)=>{
                 password:hashpass
             }
         })
+	const token=createtoken(patient.abhaId);
         console.log(patient);
-        res.json({success:true,abhaid:abhaid});
+        res.json({success:true,abhaid:abhaid,token:`Bearer ${token}`});
     }catch(err){
         console.log(err);
         res.json({success:false,message:err});
