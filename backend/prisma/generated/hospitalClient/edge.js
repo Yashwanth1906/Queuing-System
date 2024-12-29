@@ -280,7 +280,8 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\darsh\\Desktop\\Hospital-Management-System\\backend\\prisma\\generated\\hospitalClient",
+      "value": "/home/shiva_18/hackathon/Hospital-Management-System/backend/prisma/generated/hospitalClient",
+
       "fromEnvVar": null
     },
     "config": {
@@ -294,7 +295,9 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\darsh\\Desktop\\Hospital-Management-System\\backend\\prisma\\hospitalschema.prisma",
+
+    "sourceFilePath": "/home/shiva_18/hackathon/Hospital-Management-System/backend/prisma/hospitalschema.prisma",
+
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
