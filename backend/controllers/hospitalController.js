@@ -218,7 +218,7 @@ const allocateBed = async (req, res) => {
         where: { id: admissionId },
         select: { wardId: true },
       });
-  
+      []
       if (!adm) {
         return res.json({ success: false, message: "Admission not found" });
       }
@@ -242,7 +242,6 @@ const allocateBed = async (req, res) => {
       });
   
       res.json({ success: true, bed: availableBed });
-  
     } catch (err) {
       console.log(err);
       res.json({ success: false, message: err.message });
@@ -282,13 +281,6 @@ const getWard = async(req,res) =>{
                 name:true
             }
         });
-        // let ward = [];
-        // for(i of wards){
-        //     let temp = []
-        //     temp.push(i.id);
-        //     temp.push(i.name);
-        //     ward.push(temp)
-        // }
         res.json({success:true,ward:wards})
     }catch(err){
         console.log(err);
