@@ -12973,7 +12973,7 @@ export namespace Prisma {
     id: number
     abhaId: string
     reason: string | null
-    deptId: string
+    deptId: string | null
     date: string
     time: string
     _count: IntimationCountAggregateOutputType | null
@@ -13004,7 +13004,7 @@ export namespace Prisma {
     deptId?: boolean
     date?: boolean
     time?: boolean
-    department?: boolean | DepartmentsDefaultArgs<ExtArgs>
+    department?: boolean | Intimation$departmentArgs<ExtArgs>
   }, ExtArgs["result"]["intimation"]>
 
   export type IntimationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -13014,7 +13014,7 @@ export namespace Prisma {
     deptId?: boolean
     date?: boolean
     time?: boolean
-    department?: boolean | DepartmentsDefaultArgs<ExtArgs>
+    department?: boolean | Intimation$departmentArgs<ExtArgs>
   }, ExtArgs["result"]["intimation"]>
 
   export type IntimationSelectScalar = {
@@ -13027,22 +13027,22 @@ export namespace Prisma {
   }
 
   export type IntimationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    department?: boolean | DepartmentsDefaultArgs<ExtArgs>
+    department?: boolean | Intimation$departmentArgs<ExtArgs>
   }
   export type IntimationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    department?: boolean | DepartmentsDefaultArgs<ExtArgs>
+    department?: boolean | Intimation$departmentArgs<ExtArgs>
   }
 
   export type $IntimationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Intimation"
     objects: {
-      department: Prisma.$DepartmentsPayload<ExtArgs>
+      department: Prisma.$DepartmentsPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       abhaId: string
       reason: string | null
-      deptId: string
+      deptId: string | null
       date: string
       time: string
     }, ExtArgs["result"]["intimation"]>
@@ -13409,7 +13409,7 @@ export namespace Prisma {
    */
   export interface Prisma__IntimationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    department<T extends DepartmentsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DepartmentsDefaultArgs<ExtArgs>>): Prisma__DepartmentsClient<$Result.GetResult<Prisma.$DepartmentsPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    department<T extends Intimation$departmentArgs<ExtArgs> = {}>(args?: Subset<T, Intimation$departmentArgs<ExtArgs>>): Prisma__DepartmentsClient<$Result.GetResult<Prisma.$DepartmentsPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -13760,6 +13760,21 @@ export namespace Prisma {
      * Filter which Intimations to delete
      */
     where?: IntimationWhereInput
+  }
+
+  /**
+   * Intimation.department
+   */
+  export type Intimation$departmentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Departments
+     */
+    select?: DepartmentsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DepartmentsInclude<ExtArgs> | null
+    where?: DepartmentsWhereInput
   }
 
   /**
@@ -20701,17 +20716,17 @@ export namespace Prisma {
     id?: IntFilter<"Intimation"> | number
     abhaId?: StringFilter<"Intimation"> | string
     reason?: StringNullableFilter<"Intimation"> | string | null
-    deptId?: StringFilter<"Intimation"> | string
+    deptId?: StringNullableFilter<"Intimation"> | string | null
     date?: StringFilter<"Intimation"> | string
     time?: StringFilter<"Intimation"> | string
-    department?: XOR<DepartmentsRelationFilter, DepartmentsWhereInput>
+    department?: XOR<DepartmentsNullableRelationFilter, DepartmentsWhereInput> | null
   }
 
   export type IntimationOrderByWithRelationInput = {
     id?: SortOrder
     abhaId?: SortOrder
     reason?: SortOrderInput | SortOrder
-    deptId?: SortOrder
+    deptId?: SortOrderInput | SortOrder
     date?: SortOrder
     time?: SortOrder
     department?: DepartmentsOrderByWithRelationInput
@@ -20724,17 +20739,17 @@ export namespace Prisma {
     NOT?: IntimationWhereInput | IntimationWhereInput[]
     abhaId?: StringFilter<"Intimation"> | string
     reason?: StringNullableFilter<"Intimation"> | string | null
-    deptId?: StringFilter<"Intimation"> | string
+    deptId?: StringNullableFilter<"Intimation"> | string | null
     date?: StringFilter<"Intimation"> | string
     time?: StringFilter<"Intimation"> | string
-    department?: XOR<DepartmentsRelationFilter, DepartmentsWhereInput>
+    department?: XOR<DepartmentsNullableRelationFilter, DepartmentsWhereInput> | null
   }, "id">
 
   export type IntimationOrderByWithAggregationInput = {
     id?: SortOrder
     abhaId?: SortOrder
     reason?: SortOrderInput | SortOrder
-    deptId?: SortOrder
+    deptId?: SortOrderInput | SortOrder
     date?: SortOrder
     time?: SortOrder
     _count?: IntimationCountOrderByAggregateInput
@@ -20751,7 +20766,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Intimation"> | number
     abhaId?: StringWithAggregatesFilter<"Intimation"> | string
     reason?: StringNullableWithAggregatesFilter<"Intimation"> | string | null
-    deptId?: StringWithAggregatesFilter<"Intimation"> | string
+    deptId?: StringNullableWithAggregatesFilter<"Intimation"> | string | null
     date?: StringWithAggregatesFilter<"Intimation"> | string
     time?: StringWithAggregatesFilter<"Intimation"> | string
   }
@@ -21816,14 +21831,14 @@ export namespace Prisma {
     reason?: string | null
     date: string
     time: string
-    department: DepartmentsCreateNestedOneWithoutIntimationInput
+    department?: DepartmentsCreateNestedOneWithoutIntimationInput
   }
 
   export type IntimationUncheckedCreateInput = {
     id?: number
     abhaId: string
     reason?: string | null
-    deptId: string
+    deptId?: string | null
     date: string
     time: string
   }
@@ -21833,14 +21848,14 @@ export namespace Prisma {
     reason?: NullableStringFieldUpdateOperationsInput | string | null
     date?: StringFieldUpdateOperationsInput | string
     time?: StringFieldUpdateOperationsInput | string
-    department?: DepartmentsUpdateOneRequiredWithoutIntimationNestedInput
+    department?: DepartmentsUpdateOneWithoutIntimationNestedInput
   }
 
   export type IntimationUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     abhaId?: StringFieldUpdateOperationsInput | string
     reason?: NullableStringFieldUpdateOperationsInput | string | null
-    deptId?: StringFieldUpdateOperationsInput | string
+    deptId?: NullableStringFieldUpdateOperationsInput | string | null
     date?: StringFieldUpdateOperationsInput | string
     time?: StringFieldUpdateOperationsInput | string
   }
@@ -21849,7 +21864,7 @@ export namespace Prisma {
     id?: number
     abhaId: string
     reason?: string | null
-    deptId: string
+    deptId?: string | null
     date: string
     time: string
   }
@@ -21865,7 +21880,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     abhaId?: StringFieldUpdateOperationsInput | string
     reason?: NullableStringFieldUpdateOperationsInput | string | null
-    deptId?: StringFieldUpdateOperationsInput | string
+    deptId?: NullableStringFieldUpdateOperationsInput | string | null
     date?: StringFieldUpdateOperationsInput | string
     time?: StringFieldUpdateOperationsInput | string
   }
@@ -22937,6 +22952,11 @@ export namespace Prisma {
     wardId?: SortOrder
     bedId?: SortOrder
     doctorId?: SortOrder
+  }
+
+  export type DepartmentsNullableRelationFilter = {
+    is?: DepartmentsWhereInput | null
+    isNot?: DepartmentsWhereInput | null
   }
 
   export type IntimationCountOrderByAggregateInput = {
@@ -24184,10 +24204,12 @@ export namespace Prisma {
     connect?: DepartmentsWhereUniqueInput
   }
 
-  export type DepartmentsUpdateOneRequiredWithoutIntimationNestedInput = {
+  export type DepartmentsUpdateOneWithoutIntimationNestedInput = {
     create?: XOR<DepartmentsCreateWithoutIntimationInput, DepartmentsUncheckedCreateWithoutIntimationInput>
     connectOrCreate?: DepartmentsCreateOrConnectWithoutIntimationInput
     upsert?: DepartmentsUpsertWithoutIntimationInput
+    disconnect?: DepartmentsWhereInput | boolean
+    delete?: DepartmentsWhereInput | boolean
     connect?: DepartmentsWhereUniqueInput
     update?: XOR<XOR<DepartmentsUpdateToOneWithWhereWithoutIntimationInput, DepartmentsUpdateWithoutIntimationInput>, DepartmentsUncheckedUpdateWithoutIntimationInput>
   }
@@ -25300,7 +25322,7 @@ export namespace Prisma {
     id?: IntFilter<"Intimation"> | number
     abhaId?: StringFilter<"Intimation"> | string
     reason?: StringNullableFilter<"Intimation"> | string | null
-    deptId?: StringFilter<"Intimation"> | string
+    deptId?: StringNullableFilter<"Intimation"> | string | null
     date?: StringFilter<"Intimation"> | string
     time?: StringFilter<"Intimation"> | string
   }

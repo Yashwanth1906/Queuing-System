@@ -1,5 +1,6 @@
 import { Router } from "express";
-import { bookSlot, getBookedAppointments, getPatient, getSlots, intimatebyreason, patientLogin } from "../controllers/patientController.js";
+import { bookBySymptoms, bookSlot, getBookedAppointments, getPatient, getSlots, intimations, patientLogin } from "../controllers/patientController.js";
+
 import { authMiddleWare } from "../middleware/auth.js";
 import { getHospitalPrismaClient } from "../middleware/prismaProvider.js";
 import { getHospitals } from "../controllers/adminController.js";
@@ -12,4 +13,7 @@ patientRouter.get("/appointments",authMiddleWare,getBookedAppointments)
 patientRouter.get("/gethospitals",authMiddleWare,getHospitals);
 patientRouter.post("/intimatereason",getHospitalPrismaClient,intimatebyreason);
 patientRouter.post("/getslots",getHospitalPrismaClient,authMiddleWare,getSlots);
+
 patientRouter.post("/bookslot",getHospitalPrismaClient,authMiddleWare,bookSlot);
+patientRouter.post("/bookwithsymptoms",getHospitalPrismaClient,authMiddleWare,bookBySymptoms);
+

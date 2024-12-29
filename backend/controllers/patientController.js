@@ -183,6 +183,37 @@ export const bookSlot=async(req,res)=>{
 	}
 }
 
+
+export const bookBySymptoms=async(req,res)=>{
+    try{
+        const {symptoms}=req.body;
+        const prisma=req.prisma
+        const date=formatDateToDDMMYYYY(new Date())
+        const time=formatTimeToHHMM(new Date())
+
+
+        const temp=await prisma.Intimation.create({
+            data:{
+                abhaId:req.headers.id,
+                reason:symptoms,
+                date,
+                time
+
+            }
+        })
+
+        return res.status(200).json({msg:"done"});
+
+
+
+    }
+    catch(e){
+        console.log(e)
+
+        return res.status(500).json({msg:"error"});
+    }
+}
+
 export const getPatient = async(req,res) =>{
     try{
         const abha = req.headers.id;

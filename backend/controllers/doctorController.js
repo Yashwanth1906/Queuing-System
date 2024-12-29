@@ -36,15 +36,6 @@ const doctorRegister = async(req,res)=>{
                 gender:gender,designation:design,hospitalCode:req.headers.code
             }
         })
-        // if(hod == true){
-        //     const department = await prisma.departments.update({
-        //         where:{
-        //             id:departmentId
-        //         },data:{
-        //             headOfDepartmentId : newDoctor.id
-        //         }
-        //     })
-        // }
         const token = createToken(newDoctor.id);
         res.json({success:true,doctor:newDoctor,token:`Bearer ${token}`})
     }catch(err){

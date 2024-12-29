@@ -2,13 +2,36 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
+import axios from 'axios';
+import { BACKEND_URL } from '@/../config';
+import { useNavigate } from 'react-router-dom';
 
 interface SymptomInputProps {
   onSubmit: (symptom: string) => void;
 }
 
-export function SymptomInput({ onSubmit }: SymptomInputProps) {
+export function SymptomInput({ code }:any) {
   const [symptoms, setSymptoms] = useState('');
+  const navigate=useNavigate();
+  // console.log(code+"*****")
+  const handleSubmit=async()=>{
+    try{
+      const res=await axios.post(`${BACKEND_URL}/api/patient/bookwithsymptoms`,{
+          symptoms        
+      },{
+        headers:{
+          Authorization:localStorage.getItem("patienttoken"),
+          code:code
+        }
+      })
+      alert("booking done");
+      navigate("/home")
+    }
+    catch{
+      alert("error");
+    }
+
+  }
 
   return (
     <motion.div
@@ -30,7 +53,7 @@ export function SymptomInput({ onSubmit }: SymptomInputProps) {
       />
 
       <Button
-        onClick={() => onSubmit(symptoms)}
+        onClick={handleSubmit}
         disabled={!symptoms.trim()}
         className="w-full bg-[#2E6F40] hover:bg-[#253D2C]"
       >

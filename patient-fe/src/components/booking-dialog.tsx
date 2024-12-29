@@ -97,7 +97,7 @@ export function BookingDialog({ open, onOpenChange, hospitalId }: BookingDialogP
             />
           )}
           {step === 'symptom' && (
-            <SymptomInput onSubmit={handleSymptomSubmit} />
+            <SymptomInput code={hospitalId} />
           )}
           {step === 'slots' && (
             <SlotSelection
