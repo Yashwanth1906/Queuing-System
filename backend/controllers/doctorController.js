@@ -127,13 +127,22 @@ const addMedications = async(req,res)=>{
                 }
             })
             await prisma.diseaseAnalysis.upsert({
-                where:{
-                    disease : feedback
+                where: {
+                    disease: feedback,
+                    date : JSON.stringify(new Date())
                 },
-                data:{
-                    patientsCount : patientsCount + 1
-                }
-            })
+                update: {
+                    patientsCount: {
+                        increment: 1,
+                    },
+                },
+                create: {
+                    disease: feedback,
+                    patientsCount: 1,
+                    date: JSON.stringify(new Date()),
+                },
+            });
+            
         res.json({success:true,message:patient})
     }catch(err){
         console.log(err);

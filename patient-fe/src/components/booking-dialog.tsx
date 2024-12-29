@@ -33,7 +33,7 @@ export function BookingDialog({ open, onOpenChange, hospitalId }: BookingDialogP
 			Authorization:localStorage.getItem("patienttoken")
 		  }
 	  }).then((res)=>{
-
+      console.log(res.data);
 		setdepts(res.data.departments);
 		setLoading(false);
 		
