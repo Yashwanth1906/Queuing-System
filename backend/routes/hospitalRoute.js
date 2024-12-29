@@ -18,9 +18,7 @@ hospitalRouter.get("/getpatientdetails",getHospitalPrismaClient,getPatient)
 hospitalRouter.get("/getward",getHospitalPrismaClient,getWard)
 hospitalRouter.get("/gethoscodes",getHosCodes)
 hospitalRouter.get("/getcheckins",getHospitalPrismaClient,getIntimated)
-
 hospitalRouter.post("/addslot",getHospitalPrismaClient,addSlot);
-
 hospitalRouter.get("/gethospitals",getHospital)
 hospitalRouter.get("/getdetails",getHospitalPrismaClient,getHospitalDetails);
 

@@ -25,11 +25,6 @@ model Doctors {
   admissions     Admission[]
   patientInstances PatientInstance[]
 }
-
-
-
-
-
 enum DesignationType {
   Trainee
   Assistant
@@ -64,6 +59,7 @@ model OPDQueue {
   doctor Doctors @relation(fields: [doctorId], references: [id])
   status QueueStatus
   queueNumber Int
+  intimated Boolean
   timeStamp DateTime? @default(now())
 }
 

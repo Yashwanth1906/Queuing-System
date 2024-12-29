@@ -151,6 +151,7 @@ exports.Prisma.OPDQueueScalarFieldEnum = {
   doctorId: 'doctorId',
   status: 'status',
   queueNumber: 'queueNumber',
+  intimated: 'intimated',
   timeStamp: 'timeStamp'
 };
 

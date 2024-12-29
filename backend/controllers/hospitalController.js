@@ -174,7 +174,6 @@ const allocateBed = async (req, res) => {
     const prisma = req.prisma;
     try {
       const { admissionId } = req.body;
-  
       const adm = await prisma.admission.findUnique({
         where: { id: admissionId },
         select: { wardId: true },

@@ -5323,6 +5323,7 @@ export namespace Prisma {
     doctorId: string | null
     status: $Enums.QueueStatus | null
     queueNumber: number | null
+    intimated: boolean | null
     timeStamp: Date | null
   }
 
@@ -5332,6 +5333,7 @@ export namespace Prisma {
     doctorId: string | null
     status: $Enums.QueueStatus | null
     queueNumber: number | null
+    intimated: boolean | null
     timeStamp: Date | null
   }
 
@@ -5341,6 +5343,7 @@ export namespace Prisma {
     doctorId: number
     status: number
     queueNumber: number
+    intimated: number
     timeStamp: number
     _all: number
   }
@@ -5360,6 +5363,7 @@ export namespace Prisma {
     doctorId?: true
     status?: true
     queueNumber?: true
+    intimated?: true
     timeStamp?: true
   }
 
@@ -5369,6 +5373,7 @@ export namespace Prisma {
     doctorId?: true
     status?: true
     queueNumber?: true
+    intimated?: true
     timeStamp?: true
   }
 
@@ -5378,6 +5383,7 @@ export namespace Prisma {
     doctorId?: true
     status?: true
     queueNumber?: true
+    intimated?: true
     timeStamp?: true
     _all?: true
   }
@@ -5474,6 +5480,7 @@ export namespace Prisma {
     doctorId: string
     status: $Enums.QueueStatus
     queueNumber: number
+    intimated: boolean
     timeStamp: Date | null
     _count: OPDQueueCountAggregateOutputType | null
     _avg: OPDQueueAvgAggregateOutputType | null
@@ -5502,6 +5509,7 @@ export namespace Prisma {
     doctorId?: boolean
     status?: boolean
     queueNumber?: boolean
+    intimated?: boolean
     timeStamp?: boolean
     patientInstance?: boolean | PatientInstanceDefaultArgs<ExtArgs>
     doctor?: boolean | DoctorsDefaultArgs<ExtArgs>
@@ -5513,6 +5521,7 @@ export namespace Prisma {
     doctorId?: boolean
     status?: boolean
     queueNumber?: boolean
+    intimated?: boolean
     timeStamp?: boolean
     patientInstance?: boolean | PatientInstanceDefaultArgs<ExtArgs>
     doctor?: boolean | DoctorsDefaultArgs<ExtArgs>
@@ -5524,6 +5533,7 @@ export namespace Prisma {
     doctorId?: boolean
     status?: boolean
     queueNumber?: boolean
+    intimated?: boolean
     timeStamp?: boolean
   }
 
@@ -5548,6 +5558,7 @@ export namespace Prisma {
       doctorId: string
       status: $Enums.QueueStatus
       queueNumber: number
+      intimated: boolean
       timeStamp: Date | null
     }, ExtArgs["result"]["oPDQueue"]>
     composites: {}
@@ -5949,6 +5960,7 @@ export namespace Prisma {
     readonly doctorId: FieldRef<"OPDQueue", 'String'>
     readonly status: FieldRef<"OPDQueue", 'QueueStatus'>
     readonly queueNumber: FieldRef<"OPDQueue", 'Int'>
+    readonly intimated: FieldRef<"OPDQueue", 'Boolean'>
     readonly timeStamp: FieldRef<"OPDQueue", 'DateTime'>
   }
     
@@ -15261,6 +15273,7 @@ export namespace Prisma {
     doctorId: 'doctorId',
     status: 'status',
     queueNumber: 'queueNumber',
+    intimated: 'intimated',
     timeStamp: 'timeStamp'
   };
 
@@ -15767,6 +15780,7 @@ export namespace Prisma {
     doctorId?: StringFilter<"OPDQueue"> | string
     status?: EnumQueueStatusFilter<"OPDQueue"> | $Enums.QueueStatus
     queueNumber?: IntFilter<"OPDQueue"> | number
+    intimated?: BoolFilter<"OPDQueue"> | boolean
     timeStamp?: DateTimeNullableFilter<"OPDQueue"> | Date | string | null
     patientInstance?: XOR<PatientInstanceRelationFilter, PatientInstanceWhereInput>
     doctor?: XOR<DoctorsRelationFilter, DoctorsWhereInput>
@@ -15778,6 +15792,7 @@ export namespace Prisma {
     doctorId?: SortOrder
     status?: SortOrder
     queueNumber?: SortOrder
+    intimated?: SortOrder
     timeStamp?: SortOrderInput | SortOrder
     patientInstance?: PatientInstanceOrderByWithRelationInput
     doctor?: DoctorsOrderByWithRelationInput
@@ -15792,6 +15807,7 @@ export namespace Prisma {
     doctorId?: StringFilter<"OPDQueue"> | string
     status?: EnumQueueStatusFilter<"OPDQueue"> | $Enums.QueueStatus
     queueNumber?: IntFilter<"OPDQueue"> | number
+    intimated?: BoolFilter<"OPDQueue"> | boolean
     timeStamp?: DateTimeNullableFilter<"OPDQueue"> | Date | string | null
     patientInstance?: XOR<PatientInstanceRelationFilter, PatientInstanceWhereInput>
     doctor?: XOR<DoctorsRelationFilter, DoctorsWhereInput>
@@ -15803,6 +15819,7 @@ export namespace Prisma {
     doctorId?: SortOrder
     status?: SortOrder
     queueNumber?: SortOrder
+    intimated?: SortOrder
     timeStamp?: SortOrderInput | SortOrder
     _count?: OPDQueueCountOrderByAggregateInput
     _avg?: OPDQueueAvgOrderByAggregateInput
@@ -15820,6 +15837,7 @@ export namespace Prisma {
     doctorId?: StringWithAggregatesFilter<"OPDQueue"> | string
     status?: EnumQueueStatusWithAggregatesFilter<"OPDQueue"> | $Enums.QueueStatus
     queueNumber?: IntWithAggregatesFilter<"OPDQueue"> | number
+    intimated?: BoolWithAggregatesFilter<"OPDQueue"> | boolean
     timeStamp?: DateTimeNullableWithAggregatesFilter<"OPDQueue"> | Date | string | null
   }
 
@@ -16590,6 +16608,7 @@ export namespace Prisma {
     id?: string
     status: $Enums.QueueStatus
     queueNumber: number
+    intimated: boolean
     timeStamp?: Date | string | null
     patientInstance: PatientInstanceCreateNestedOneWithoutOpqueueInput
     doctor: DoctorsCreateNestedOneWithoutOpdQueueInput
@@ -16601,6 +16620,7 @@ export namespace Prisma {
     doctorId: string
     status: $Enums.QueueStatus
     queueNumber: number
+    intimated: boolean
     timeStamp?: Date | string | null
   }
 
@@ -16608,6 +16628,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumQueueStatusFieldUpdateOperationsInput | $Enums.QueueStatus
     queueNumber?: IntFieldUpdateOperationsInput | number
+    intimated?: BoolFieldUpdateOperationsInput | boolean
     timeStamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     patientInstance?: PatientInstanceUpdateOneRequiredWithoutOpqueueNestedInput
     doctor?: DoctorsUpdateOneRequiredWithoutOpdQueueNestedInput
@@ -16619,6 +16640,7 @@ export namespace Prisma {
     doctorId?: StringFieldUpdateOperationsInput | string
     status?: EnumQueueStatusFieldUpdateOperationsInput | $Enums.QueueStatus
     queueNumber?: IntFieldUpdateOperationsInput | number
+    intimated?: BoolFieldUpdateOperationsInput | boolean
     timeStamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
@@ -16628,6 +16650,7 @@ export namespace Prisma {
     doctorId: string
     status: $Enums.QueueStatus
     queueNumber: number
+    intimated: boolean
     timeStamp?: Date | string | null
   }
 
@@ -16635,6 +16658,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumQueueStatusFieldUpdateOperationsInput | $Enums.QueueStatus
     queueNumber?: IntFieldUpdateOperationsInput | number
+    intimated?: BoolFieldUpdateOperationsInput | boolean
     timeStamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
@@ -16644,6 +16668,7 @@ export namespace Prisma {
     doctorId?: StringFieldUpdateOperationsInput | string
     status?: EnumQueueStatusFieldUpdateOperationsInput | $Enums.QueueStatus
     queueNumber?: IntFieldUpdateOperationsInput | number
+    intimated?: BoolFieldUpdateOperationsInput | boolean
     timeStamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
@@ -17486,6 +17511,7 @@ export namespace Prisma {
     doctorId?: SortOrder
     status?: SortOrder
     queueNumber?: SortOrder
+    intimated?: SortOrder
     timeStamp?: SortOrder
   }
 
@@ -17499,6 +17525,7 @@ export namespace Prisma {
     doctorId?: SortOrder
     status?: SortOrder
     queueNumber?: SortOrder
+    intimated?: SortOrder
     timeStamp?: SortOrder
   }
 
@@ -17508,6 +17535,7 @@ export namespace Prisma {
     doctorId?: SortOrder
     status?: SortOrder
     queueNumber?: SortOrder
+    intimated?: SortOrder
     timeStamp?: SortOrder
   }
 
@@ -19433,6 +19461,7 @@ export namespace Prisma {
     id?: string
     status: $Enums.QueueStatus
     queueNumber: number
+    intimated: boolean
     timeStamp?: Date | string | null
     patientInstance: PatientInstanceCreateNestedOneWithoutOpqueueInput
   }
@@ -19442,6 +19471,7 @@ export namespace Prisma {
     patientInstanceId: string
     status: $Enums.QueueStatus
     queueNumber: number
+    intimated: boolean
     timeStamp?: Date | string | null
   }
 
@@ -19569,6 +19599,7 @@ export namespace Prisma {
     doctorId?: StringFilter<"OPDQueue"> | string
     status?: EnumQueueStatusFilter<"OPDQueue"> | $Enums.QueueStatus
     queueNumber?: IntFilter<"OPDQueue"> | number
+    intimated?: BoolFilter<"OPDQueue"> | boolean
     timeStamp?: DateTimeNullableFilter<"OPDQueue"> | Date | string | null
   }
 
@@ -20220,6 +20251,7 @@ export namespace Prisma {
     id?: string
     status: $Enums.QueueStatus
     queueNumber: number
+    intimated: boolean
     timeStamp?: Date | string | null
     doctor: DoctorsCreateNestedOneWithoutOpdQueueInput
   }
@@ -20229,6 +20261,7 @@ export namespace Prisma {
     doctorId: string
     status: $Enums.QueueStatus
     queueNumber: number
+    intimated: boolean
     timeStamp?: Date | string | null
   }
 
@@ -21109,6 +21142,7 @@ export namespace Prisma {
     patientInstanceId: string
     status: $Enums.QueueStatus
     queueNumber: number
+    intimated: boolean
     timeStamp?: Date | string | null
   }
 
@@ -21136,6 +21170,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumQueueStatusFieldUpdateOperationsInput | $Enums.QueueStatus
     queueNumber?: IntFieldUpdateOperationsInput | number
+    intimated?: BoolFieldUpdateOperationsInput | boolean
     timeStamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     patientInstance?: PatientInstanceUpdateOneRequiredWithoutOpqueueNestedInput
   }
@@ -21145,6 +21180,7 @@ export namespace Prisma {
     patientInstanceId?: StringFieldUpdateOperationsInput | string
     status?: EnumQueueStatusFieldUpdateOperationsInput | $Enums.QueueStatus
     queueNumber?: IntFieldUpdateOperationsInput | number
+    intimated?: BoolFieldUpdateOperationsInput | boolean
     timeStamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
@@ -21153,6 +21189,7 @@ export namespace Prisma {
     patientInstanceId?: StringFieldUpdateOperationsInput | string
     status?: EnumQueueStatusFieldUpdateOperationsInput | $Enums.QueueStatus
     queueNumber?: IntFieldUpdateOperationsInput | number
+    intimated?: BoolFieldUpdateOperationsInput | boolean
     timeStamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
@@ -21419,6 +21456,7 @@ export namespace Prisma {
     doctorId: string
     status: $Enums.QueueStatus
     queueNumber: number
+    intimated: boolean
     timeStamp?: Date | string | null
   }
 
@@ -21433,6 +21471,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumQueueStatusFieldUpdateOperationsInput | $Enums.QueueStatus
     queueNumber?: IntFieldUpdateOperationsInput | number
+    intimated?: BoolFieldUpdateOperationsInput | boolean
     timeStamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     doctor?: DoctorsUpdateOneRequiredWithoutOpdQueueNestedInput
   }
@@ -21442,6 +21481,7 @@ export namespace Prisma {
     doctorId?: StringFieldUpdateOperationsInput | string
     status?: EnumQueueStatusFieldUpdateOperationsInput | $Enums.QueueStatus
     queueNumber?: IntFieldUpdateOperationsInput | number
+    intimated?: BoolFieldUpdateOperationsInput | boolean
     timeStamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
@@ -21450,6 +21490,7 @@ export namespace Prisma {
     doctorId?: StringFieldUpdateOperationsInput | string
     status?: EnumQueueStatusFieldUpdateOperationsInput | $Enums.QueueStatus
     queueNumber?: IntFieldUpdateOperationsInput | number
+    intimated?: BoolFieldUpdateOperationsInput | boolean
     timeStamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
