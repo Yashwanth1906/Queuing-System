@@ -23,13 +23,14 @@ export function LoginForm() {
 		email,password,abhaId
 	    })
 	    console.log(res);
-
+     
 	    localStorage.setItem("patienttoken",res.data.token);
 
 	   navigate("/home") 
 	    setIsSubmitting(false)
     }    
-    catch{
+    catch(error){
+      console.log(error)
 	    alert("error")
     }
    

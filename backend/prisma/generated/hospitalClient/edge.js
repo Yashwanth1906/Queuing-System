@@ -281,6 +281,7 @@ const config = {
     },
     "output": {
       "value": "/home/shiva_18/hackathon/Hospital-Management-System/backend/prisma/generated/hospitalClient",
+
       "fromEnvVar": null
     },
     "config": {
@@ -289,12 +290,14 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "debian-openssl-3.0.x",
+        "value": "windows",
         "native": true
       }
     ],
     "previewFeatures": [],
+
     "sourceFilePath": "/home/shiva_18/hackathon/Hospital-Management-System/backend/prisma/hospitalschema.prisma",
+
     "isCustomOutput": true
   },
   "relativeEnvPaths": {

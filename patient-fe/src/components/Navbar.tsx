@@ -28,7 +28,7 @@ export function Navbar() {
             <Button variant="ghost">Services</Button>
             <Button variant="ghost">About Us</Button>
             <Button variant="ghost">Contact</Button>
-            <Button onClick={()=>navigate("/register")}variant="default">Sign In</Button>
+            <Button onClick={()=>navigate("/login")}variant="default">Sign In</Button>
           </div>
 
           {/* Mobile Menu */}

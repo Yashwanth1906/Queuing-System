@@ -2,12 +2,14 @@ import { motion } from 'framer-motion';
 import { Activity, LogOut, Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { useNavigate } from 'react-router-dom';
 
 interface PatientNavbarProps {
   onLogout: () => void;
 }
 
 export function PatientNavbar({ onLogout }: PatientNavbarProps) {
+  const navigate=useNavigate()  
   return (
     <nav className="fixed w-full bg-white/80 backdrop-blur-md z-50 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -25,7 +27,7 @@ export function PatientNavbar({ onLogout }: PatientNavbarProps) {
 
           {/* Desktop menu */}
           <div className="hidden md:flex items-center space-x-8">
-            <Button variant="ghost" className="text-[#253D2C] hover:text-[#2E6F40] hover:bg-[#CFFFDC]">Dashboard</Button>
+            <Button onClick={() => navigate("/dashboard")} variant="ghost" className="text-[#253D2C] hover:text-[#2E6F40] hover:bg-[#CFFFDC]">Dashboard</Button>
             <Button variant="ghost" className="text-[#253D2C] hover:text-[#2E6F40] hover:bg-[#CFFFDC]">My Appointments</Button>
             <Button variant="ghost" className="text-[#253D2C] hover:text-[#2E6F40] hover:bg-[#CFFFDC]">Medical Records</Button>
             <Button 

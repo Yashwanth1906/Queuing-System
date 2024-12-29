@@ -188,10 +188,9 @@ export const getPatient = async(req,res) =>{
         const patient = await centralPrisma.patient.findUnique({
             where:{
                 abhaId:abha
-            },select:{
-                name:true,
-                abhaId:true,
-                DOB:true,gender:true
+            },include:{
+                medicalRecords:true,
+                patientBooking:true
             }
         })
         const today= new Date();
