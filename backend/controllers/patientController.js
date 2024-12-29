@@ -61,7 +61,7 @@ function getNextDateFormatted(date) {
 export const getSlots=async (req,res)=>{
 	try{
 		const prisma=req.prisma;
-		console.log(prisma)
+		// console.log(prisma)
 		const {deptId}=req.body;
 		const date=formatDateToDDMMYYYY(new Date());
 		const nextDate=getNextDateFormatted((new Date()));
@@ -85,8 +85,9 @@ export const getSlots=async (req,res)=>{
 		}
 
 
-		if(check)
+		if(check.length!=0)
 		{
+            console.log(check)
 			return res.status(500).json({msg:"already booked"});
 		}
 
@@ -125,7 +126,8 @@ export const getSlots=async (req,res)=>{
 		return res.status(200).json({date:slot1[0],nextDate:slot2[0]});
 
 	}
-	catch{
+	catch(err){
+        console.log(err)
 		return res.status(500).json({msg:"error"});
 	}
 
@@ -160,15 +162,14 @@ export const bookSlot=async(req,res)=>{
 			}
 		})
 
-			const temp=await tx.Intimation.create({
-				data:{
-					abhaId:req.headers.id,
-					date,
-					time,
-					deptId
-
-				}
-			})
+        const temp=await tx.Intimation.create({
+            data:{
+                abhaId:req.headers.id,
+                date,
+                time,
+                deptId,
+            }
+        })
 
 
 		})
@@ -208,36 +209,6 @@ export const getPatient = async(req,res) =>{
     }
 }
 
-export const intimations = async(req,res) =>{
-    console.log(req.prisma)
-    const prisma = req.prisma;
-    try{
-        const {code,reason,name,gender,age,date,time,abhaId} = req.body;
-        const hospitalUpdate = await prisma.intimation.create({
-            data:{
-                abhaId:abhaId,
-                name:name,
-                gender:gender,
-                age,
-                reason,
-                date,time
-            }
-        })
-        const patientBook = await centralPrisma.patientBooking.create({
-                data:{
-                    abhaId : abhaId,
-                    hospitalCode:code,
-                    date:date,
-                    time:time,reason
-                }
-        })
-        console.log(patientBook,hospitalUpdate)
-        return res.status(200).json({message:"Successful"})
-    }catch(err){
-        console.log(err);
-        res.status(200).json({message:err})
-    }
-}
 export const getBookedAppointments = async(req,res)=>{
     console.log(req.headers.id);
     try{
@@ -263,6 +234,42 @@ export const getBookedAppointments = async(req,res)=>{
     catch(err){
         console.log(err);
         return res.json({message:err})
+    }
+}
+
+
+export const intimatebyreason = async(req,res) =>{
+    try{
+        const prisma = req.prisma;
+        const {slotid,reason} = req.body;
+        const date=formatDateToDDMMYYYY(new Date());
+		const time=formatTimeToHHMM(new Date());
+		await prisma.$transaction(async (tx)=>{
+
+			const result=await tx.OPSlots.update({
+			data:{
+				count:{decrement:1}
+			},
+			where:{
+				id:slotid
+			}
+		})
+
+        const temp=await tx.Intimation.create({
+            data:{
+                abhaId:req.headers.id,
+                date,
+                time,
+                reason,
+            }
+        })
+
+
+		})
+		return res.status(200).json({msg:"done"})
+    } catch(e){
+        console.log(e);
+        res.json({success:false,message:e})
     }
 }
 

@@ -348,6 +348,7 @@ export const getIntimated = async(req,res)=>{
             ]
         });
         console.log(checkins)
+        console.log(checkins)
         return res.status(200).json({checkins})
     }catch(err){
         console.log(err);

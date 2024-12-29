@@ -18,143 +18,166 @@ csv_path = os.path.join(settings.BASE_DIR, 'ml', 'Book1.csv')
 model_path = os.path.join(settings.BASE_DIR, 'ml', 'tabnet_model.pkl')
 scalar_path = os.path.join(settings.BASE_DIR,'ml','scaler.pkl')
 label_encoder_path = os.path.join(settings.BASE_DIR,'ml','label_encoders.pkl')
-
-data = {
-    'symptoms': [
-        # Cardiology
-        "chest pain, shortness of breath, palpitation, dizziness, fatigue, nausea, sweating",
-        "sharp chest pain, rapid heartbeat, shortness of breath, fatigue, nausea, sweating",
-        "pressure in chest, palpitations, dizziness, fatigue, nausea",
-        "angina, tightness in chest, shortness of breath, sweating, nausea, dizziness",
-        "pain in chest radiating to arm, sweating, nausea, fatigue",
-        "irregular heartbeat, fainting, chest discomfort, dizziness, fatigue",
-        "swelling in legs, fatigue, shortness of breath, dizziness, chest pain",
-        # Gastroenterology
-        "abdominal pain, bloating, indigestion, gas, nausea, vomiting, constipation, heartburn, loss of appetite",
-        "stomach ache, nausea, bloating, gas, constipation, diarrhea, fatigue",
-        "indigestion, heartburn, abdominal cramping, loss of appetite, nausea, fatigue",
-        "pain in abdomen, nausea, bloating, gas, constipation",
-        "diarrhea, constipation, stomach cramping, nausea, fatigue",
-        "blood in stool, weight loss, fatigue, nausea",
-        "persistent vomiting, severe abdominal pain, dehydration, fatigue",
-        # Neurology
-        "headache, dizziness, weakness, shaking or jerking of the body, confusion, tingling or numbness",
-        "severe headache, loss of balance, tingling, confusion, fatigue, irritability",
-        "persistent headache, unsteady gait, jerking movements, dizziness, nausea",
-        "migraine, loss of vision, nausea, dizziness, fatigue, irritability",
-        "confusion, difficulty speaking, numbness in limbs, headache, dizziness",
-        "seizures, memory loss, difficulty concentrating, fatigue",
-        "muscle weakness, slurred speech, vision problems, headache, dizziness",
-        # Obstetrics and Gynecology
-        "irregular periods, pelvic pain, fatigue, nausea",
-        "painful periods, heavy menstrual flow, pelvic discomfort, fatigue, irritability",
-        "cramps, irregular menstrual cycle, pelvic pain, nausea, fatigue",
-        "vaginal bleeding between periods, abdominal pain, fatigue",
-        "painful intercourse, irregular periods, abdominal bloating, fatigue",
-        "frequent urination, pelvic pressure, back pain, fatigue",
-        "unusual vaginal discharge, itching, pelvic pain, fatigue",
-        # General Medicine
-        "cough, fever, fatigue, body aches",
-        "persistent cough, high fever, sore throat, fatigue, headache",
-        "dry cough, fever, body aches, fatigue",
-        "sore throat, cough, fever, fatigue",
-        "fever, chills, cough, muscle aches, fatigue",
-        "fatigue, headache, sore throat, runny nose, loss of appetite",
-        "loss of taste or smell, shortness of breath, fatigue, headache",
-        # Rheumatology
-        "joint pain, swelling, fatigue, morning stiffness",
-        "painful joints, swelling, stiffness, reduced mobility, fatigue",
-        "swollen joints, joint stiffness, pain, difficulty moving, fatigue",
-        "arthritis pain, joint stiffness, swelling, fatigue",
-        "pain and swelling in joints, difficulty in movement, fatigue",
-        "morning stiffness, fatigue, joint tenderness, loss of appetite",
-        "redness and warmth in joints, limited range of motion, fatigue",
-        # Combined Cases
-        "persistent fatigue, moderate to severe headaches, occasional nausea after meals, mild joint pain in knees and wrists, difficulty sleeping, increased irritability, decreased appetite",
-        "chest pain, shortness of breath, dizziness, abdominal pain, nausea, fatigue",
-        "persistent headache, nausea, chest pain, dizziness, fatigue",
-        "joint pain, headache, fatigue, loss of appetite, abdominal pain",
-        "irregular periods, joint pain, fatigue, abdominal pain, headache",
-        "chest pain, fatigue, joint pain, nausea, headache, shortness of breath"
-    ],
-    'department': [
-        "Cardiology", "Cardiology", "Cardiology", "Cardiology", "Cardiology", "Cardiology", "Cardiology",
-        "Gastroenterology", "Gastroenterology", "Gastroenterology", "Gastroenterology", "Gastroenterology", "Gastroenterology", "Gastroenterology",
-        "Neurology", "Neurology", "Neurology", "Neurology", "Neurology", "Neurology", "Neurology",
-        "Obstetrics and Gynecology", "Obstetrics and Gynecology", "Obstetrics and Gynecology", "Obstetrics and Gynecology", "Obstetrics and Gynecology", "Obstetrics and Gynecology", "Obstetrics and Gynecology",
-        "General","General","General","General","General","General","General",
-        "Rheumatology", "Rheumatology", "Rheumatology", "Rheumatology", "Rheumatology", "Rheumatology", "Rheumatology",
-        "Neurology", "Cardiology", "Neurology", "Rheumatology", "Obstetrics and Gynecology", "Cardiology"
-    ]
-}
-
-#creating a DataFrame
-df = pd.DataFrame(data)
-
-# Encode target variable
-label_encoder = LabelEncoder()
-df['department_encoded'] = label_encoder.fit_transform(df['department'])
-
-# Train-test split
-X_train, X_test, y_train, y_test = train_test_split(df['symptoms'], df['department_encoded'], test_size=0.3, random_state=42)
-
-# Pipeline creation
-pipeline = Pipeline([
-    ('tfidf', TfidfVectorizer(stop_words='english', ngram_range=(1, 2))),
-    ('classifier', LogisticRegression(max_iter=1000, random_state=42))
-])
-
-pipeline.fit(X_train, y_train)
-
-doctors_data = {
-    'id':[],
-    'doctor': [],
-    'department': [],
-    'waiting_time': []
-}
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .utils import train_model, predict_department
 
 
-df_doctors = pd.DataFrame(doctors_data)
-
-
-def predict_doctor(department):
-    available_doctors = df_doctors[(df_doctors['department'] == department)]
-    if available_doctors.empty:
-        return ""
-    least_waiting_time = available_doctors['waiting_time'].min()
-    print(least_waiting_time)
-    selected_doctor = available_doctors[available_doctors['waiting_time'] == least_waiting_time]['id'].iloc[0]
-    return selected_doctor
-
-class PredictDepartmentAndDoctorAPIView(APIView):
+class TrainModelView(APIView):
     def post(self, request):
-        global df_doctors
-        print(request.data)
-        data = request.data
-        print("Doctors : ",data.get('doctors'))
-        doctors = data.get('doctors',[])
-        symptoms = data.get('symptom')
-        print(symptoms)
-        for i in doctors:
-            doctors_data['id'].append(i['id'])
-            doctors_data['doctor'].append(i['name'])
-            doctors_data['department'].append(i['department']['name'])
-            doctors_data['waiting_time'].append(i["_count"]['opdQueue'])
-        print(doctors_data)
-        df_doctors = pd.DataFrame(doctors_data)
-        symptom_serializer = SymptomInputSerializer(data={"symptoms":symptoms})
-        if symptom_serializer.is_valid():
-            symptoms = symptom_serializer.validated_data['symptoms']
-            department_prediction = pipeline.predict([symptoms])
-            department = label_encoder.inverse_transform(department_prediction)[0]
-            print(department)
-            doctor = predict_doctor(department)
-            if(doctor == ""):
-                return Response({'department': department, "error":"No Doctor there in the particular department"}, status=status.HTTP_200_OK)
-            # Return both the department and doctor in the response
-            return Response({'department': department, 'doctor': doctor}, status=status.HTTP_200_OK)
-        print(symptom_serializer.errors)
-        return Response(symptom_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            result = train_model()
+            return Response(result, status=status.HTTP_200_OK)
+        except Exception as e:
+            print(e)
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class PredictDepartmentView(APIView):
+    def post(self, request):
+        try:
+            symptoms = request.data.get("symptoms", "")
+            if not symptoms:
+                return Response({"error": "Symptoms are required"}, status=status.HTTP_400_BAD_REQUEST)
+            
+            department = predict_department(symptoms)
+            return Response({"department": department}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+
+
+# data = {
+#     'symptoms': [
+#         # Cardiology
+#         "Chest pain, shortness of breath, palpitations, dizziness, fatigue, nausea, sweating",
+#         "Sharp chest pain, rapid heartbeat, fatigue, sweating, and nausea",
+#         "Pressure in the chest, irregular heartbeat, dizziness, and fatigue",
+#         "Pain radiating to the arm, sweating, and nausea",
+#         "Swelling in the legs, shortness of breath, and chest discomfort",
+#         "Irregular heartbeat, fainting, and chest pain",
+#         # Gastroenterology
+#         "Abdominal pain, bloating, nausea, vomiting, constipation, and heartburn",
+#         "Stomach ache, diarrhea, and fatigue",
+#         "Persistent indigestion, loss of appetite, and heartburn",
+#         "Severe abdominal pain, dehydration, and fatigue",
+#         "Blood in stool, unintentional weight loss, and abdominal cramping",
+#         # Neurology
+#         "Headache, dizziness, weakness, and tingling in the limbs",
+#         "Severe headache, loss of balance, and unsteady gait",
+#         "Confusion, difficulty speaking, and numbness in limbs",
+#         "Migraine with loss of vision and nausea",
+#         "Seizures, memory loss, and difficulty concentrating",
+#         # Obstetrics and Gynecology
+#         "Irregular periods, pelvic pain, and nausea",
+#         "Painful periods, heavy menstrual flow, and irritability",
+#         "Frequent urination, pelvic pressure, and back pain",
+#         "Unusual vaginal discharge, itching, and pelvic discomfort",
+#         "Vaginal bleeding between periods and fatigue",
+#         # General Medicine
+#         "Cough, fever, and body aches",
+#         "Persistent cough, sore throat, and headache",
+#         "Dry cough, fatigue, and chills",
+#         "Loss of taste or smell, shortness of breath, and fatigue",
+#         # Rheumatology
+#         "Joint pain, swelling, and morning stiffness",
+#         "Painful joints, reduced mobility, and fatigue",
+#         "Swollen joints with redness and warmth",
+#         "Arthritis pain with limited range of motion",
+#         # Combined Cases
+#         "Chest pain, abdominal pain, and dizziness",
+#         "Headache, nausea, and mild joint pain",
+#         "Irregular periods, joint pain, and abdominal discomfort",
+#         "Persistent fatigue, difficulty sleeping, and irritability"
+#     ],
+#     'department': [
+#         # Cardiology
+#         "Cardiology", "Cardiology", "Cardiology", "Cardiology", "Cardiology", "Cardiology",
+#         # Gastroenterology
+#         "Gastroenterology", "Gastroenterology", "Gastroenterology", "Gastroenterology", "Gastroenterology",
+#         # Neurology
+#         "Neurology", "Neurology", "Neurology", "Neurology", "Neurology",
+#         # Obstetrics and Gynecology
+#         "Obstetrics and Gynecology", "Obstetrics and Gynecology", "Obstetrics and Gynecology",
+#         "Obstetrics and Gynecology", "Obstetrics and Gynecology",
+#         # General Medicine
+#         "General Medicine", "General Medicine", "General Medicine", "General Medicine",
+#         # Rheumatology
+#         "Rheumatology", "Rheumatology", "Rheumatology", "Rheumatology",
+#         # Combined Cases
+#         "Cardiology", "Neurology", "Rheumatology", "Obstetrics and Gynecology"
+#     ]
+# }
+
+# #creating a DataFrame
+# df = pd.DataFrame(data)
+
+# # Encode target variable
+# label_encoder = LabelEncoder()
+# df['department_encoded'] = label_encoder.fit_transform(df['department'])
+
+# # Train-test split
+# X_train, X_test, y_train, y_test = train_test_split(df['symptoms'], df['department_encoded'], test_size=0.3, random_state=42)
+
+# # Pipeline creation
+# pipeline = Pipeline([
+#     ('tfidf', TfidfVectorizer(stop_words='english', ngram_range=(1, 2))),
+#     ('classifier', LogisticRegression(max_iter=1000, random_state=42))
+# ])
+
+# pipeline.fit(X_train, y_train)
+
+# doctors_data = {
+#     'id':[],
+#     'doctor': [],
+#     'department': [],
+#     'waiting_time': []
+# }
+
+
+# df_doctors = pd.DataFrame(doctors_data)
+
+
+# def predict_doctor(department):
+#     available_doctors = df_doctors[(df_doctors['department'] == department)]
+#     if available_doctors.empty:
+#         return ""
+#     least_waiting_time = available_doctors['waiting_time'].min()
+#     print(least_waiting_time)
+#     selected_doctor = available_doctors[available_doctors['waiting_time'] == least_waiting_time]['id'].iloc[0]
+#     return selected_doctor
+
+# class PredictDepartmentAndDoctorAPIView(APIView):
+#     def post(self, request):
+#         global df_doctors
+#         print(request.data)
+#         data = request.data
+#         print("Doctors : ",data.get('doctors'))
+#         doctors = data.get('doctors',[])
+#         symptoms = data.get('symptom')
+#         print(symptoms)
+#         for i in doctors:
+#             doctors_data['id'].append(i['id'])
+#             doctors_data['doctor'].append(i['name'])
+#             doctors_data['department'].append(i['department']['name'])
+#             doctors_data['waiting_time'].append(i["_count"]['opdQueue'])
+#         print(doctors_data)
+#         df_doctors = pd.DataFrame(doctors_data)
+#         symptom_serializer = SymptomInputSerializer(data={"symptoms":symptoms})
+#         if symptom_serializer.is_valid():
+#             symptoms = symptom_serializer.validated_data['symptoms']
+#             department_prediction = pipeline.predict([symptoms])
+#             department = label_encoder.inverse_transform(department_prediction)[0]
+#             print(department)
+#             doctor = predict_doctor(department)
+#             if(doctor == ""):
+#                 return Response({'department': department, "error":"No Doctor there in the particular department"}, status=status.HTTP_200_OK)
+#             # Return both the department and doctor in the response
+#             return Response({'department': department, 'doctor': doctor}, status=status.HTTP_200_OK)
+#         print(symptom_serializer.errors)
+#         return Response(symptom_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class TrainModelAPIView(APIView):
     def get(self, request, *args, **kwargs):

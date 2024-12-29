@@ -48,6 +48,7 @@ export function SlotSelection({ deptId, onSelect, code }: SlotSelectionProps) {
         code,deptId,Authorization:localStorage.getItem("patienttoken")
       }
     }).then((res) => {
+      console.log(res.data)
       setSlot1(res.data.date);
       setSlot2(res.data.nextDate);
       setLoading(false);

@@ -18,14 +18,14 @@ from django.contrib import admin
 from django.urls import path
 from django.http import HttpResponse
 from app import views
-def home(r):
-    return HttpResponse("Hi")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',home),
-    path('predict/',views.PredictDepartmentAndDoctorAPIView.as_view()),
-    path('test/',views.test),
+    # path('',home),
+    # path('predict/',views.PredictDepartmentAndDoctorAPIView.as_view()),
+    # path('test/',views.test),
+    path('train/', views.TrainModelView.as_view(), name='train_model'),
+    path('predict/', views.PredictDepartmentView.as_view(), name='predict_department'),
     path("trainpatientmodel/",views.TrainModelAPIView.as_view()),
     path("predictpatient/",views.PredictOneDayAPIView.as_view())
 ]
