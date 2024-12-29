@@ -5,6 +5,8 @@ import RegisterPage from './pages/Signup'
 import LoginPage from './pages/LoginPage'
 import HomePage from './pages/Home'
 import { HospitalDetailsPage } from './pages/HospitalDetails'
+import { PatientProfile } from './components/Dashboard'
+
 
 function App() {
 	return(
@@ -19,6 +21,7 @@ function App() {
 			<Route path="/register" element={<RegisterPage />}></Route>		
 			<Route path="/login" element={<LoginPage />}></Route>
 			<Route path="/home" element={<HomePage />}></Route>
+			<Route path="/dashboard" element={<PatientProfile />}></Route>
 			<Route path="/hospdetails" element={<HospitalDetailsPage />}></Route>
 		</Routes>
 
