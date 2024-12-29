@@ -746,7 +746,9 @@ export function AdminDashboard() {
       age:patientDetails?.Age,
       gender:patientDetails?.gender,
       reason:reason,
-      name:patientDetails?.name
+      name:patientDetails?.name,
+      intimated:false,
+      
   },
   {
     headers:{

@@ -2,6 +2,7 @@ import bcrypt from "bcryptjs"
 import validator from "validator";
 import jwt from "jsonwebtoken";
 import { DesignationType, PrismaClient, QueueStatus } from "../prisma/generated/hospitalClient/index.js";
+import { queue } from "../queue.js";
 const createToken = (id)=>{
     return jwt.sign({id},process.env.JWT_SECRET);
 }
@@ -86,23 +87,41 @@ const getQueuedPatients = async(req,res) =>{
     const doctorId = req.headers.id;
     console.log(doctorId)
     try{
-        const patients = await prisma.oPDQueue.findMany({
-            where:{
-                doctorId:doctorId
-            },select:{
-                patientInstance:{
-                    select:{
-                        abhaId :true,
-                        age:true,
-                        Gender:true,
-                        reason:true,
-                        name:true
+        
+        const patients = await Promise.all(
+            queue[doctorId].map(async (id) => {
+                return await prisma.patientInstance.findMany({
+                    where: {
+                        id:id.patientInstanceId
                     },
-                },
-                status:true,
-                queueNumber:true
-            }
-        })
+                    select: {
+                        abhaId: true,
+                        age: true,
+                        Gender: true,
+                        reason: true,
+                        name: true
+                    }
+                });
+            })
+        );
+
+        // const patients = await prisma.OPDQueue.findMany({
+        //     where:{
+        //         doctorId:doctorId
+        //     },select:{
+        //         patientInstance:{
+        //             select:{
+        //                 abhaId :true,s
+        //                 age:true,
+        //                 Gender:true,
+        //                 reason:true,
+        //                 name:true
+        //             },
+        //         },
+        //         status:true,
+        //         queueNumber:true
+        //     }
+        // })
         console.log(patients)
         res.json({success:true,patients:patients})
     }catch(err){

@@ -1,5 +1,6 @@
 import { BedStatus, PrismaClient as hospitalPrismaClient, QueueStatus, VisitType} from "../prisma/generated/hospitalClient/index.js";
 import { PrismaClient as centralPrismaClient } from "../prisma/generated/central/index.js";
+import { insertPatient } from "../queue.js";
 const centralPrisma = new centralPrismaClient({
     datasources:{
         db:{
@@ -91,10 +92,19 @@ const getDepartments = async(req,res)=>{
     }
 }
 
+
+function formatTimeToHHMM(date) {
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0'); 
+
+    return `${hours}:${minutes}`;
+}
+
+
 const createPatientInstance = async(req,res)=>{
     const prisma = req.prisma;
     try{
-        const {abhaId,doctorId,queueNumber,visitType,age,gender,reason,name} = req.body;
+        const {abhaId,doctorId,queueNumber,visitType,age,gender,reason,name,intimated} = req.body;
         const patientInstance = await prisma.patientInstance.create({
             data:{
                 abhaId:abhaId,
@@ -107,15 +117,27 @@ const createPatientInstance = async(req,res)=>{
                 name:name
             }
         })
+        let pqno=5;
+        if(intimated)
+        {
+            pqno=10;
+        }
+        const timee=formatTimeToHHMM(new Date());
         const patientqueue = await prisma.oPDQueue.create({
             data:{
                 patientInstanceId:abhaId,
                 doctorId:doctorId,
                 status:QueueStatus.Pending,
                 queueNumber:queueNumber,
-                intimated : false
+                intimated,
+                priority:pqno,
+                demotion:0,
+                timeStamp:timee
+
+
             }
         })
+        insertPatient(patientqueue.id);
         console.log(patientInstance,patientqueue);
         res.json({success:true,patientInstance:patientInstance,patientqueue:patientqueue})
     }catch(err){
