@@ -81,8 +81,13 @@ export const getSlots=async (req,res)=>{
 			})
 		}
 		catch{
-			return res.status(500).json({msg:"error"});
 
+		}
+
+
+		if(check)
+		{
+			return res.status(500).json({msg:"already booked"});
 		}
 
 
@@ -139,7 +144,7 @@ export const bookSlot=async(req,res)=>{
 	try{
 		const prisma=req.prisma;
 		console.log(req.body)
-		const {slotid,abhaId,deptId}=req.body;
+		const {slotid,deptId}=req.body;
 		console.log(slotid)
 		const date=formatDateToDDMMYYYY(new Date());
 		const time=formatTimeToHHMM(new Date());
