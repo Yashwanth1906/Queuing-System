@@ -223,3 +223,10 @@ model OPDdata {
   weather      String
   department   String
 }
+
+model DiseaseAnalysis {
+  id            String @id @default(uuid())
+  date          String
+  disease       String @unique
+  patientsCount Int
+}

@@ -93,6 +93,11 @@ export type Inventory = $Result.DefaultSelection<Prisma.$InventoryPayload>
  * 
  */
 export type OPDdata = $Result.DefaultSelection<Prisma.$OPDdataPayload>
+/**
+ * Model DiseaseAnalysis
+ * 
+ */
+export type DiseaseAnalysis = $Result.DefaultSelection<Prisma.$DiseaseAnalysisPayload>
 
 /**
  * Enums
@@ -445,6 +450,16 @@ export class PrismaClient<
     * ```
     */
   get oPDdata(): Prisma.OPDdataDelegate<ExtArgs>;
+
+  /**
+   * `prisma.diseaseAnalysis`: Exposes CRUD operations for the **DiseaseAnalysis** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DiseaseAnalyses
+    * const diseaseAnalyses = await prisma.diseaseAnalysis.findMany()
+    * ```
+    */
+  get diseaseAnalysis(): Prisma.DiseaseAnalysisDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -937,7 +952,8 @@ export namespace Prisma {
     SubStore: 'SubStore',
     Pharmacy: 'Pharmacy',
     Inventory: 'Inventory',
-    OPDdata: 'OPDdata'
+    OPDdata: 'OPDdata',
+    DiseaseAnalysis: 'DiseaseAnalysis'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -953,7 +969,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "doctors" | "oPSlots" | "departments" | "oPDQueue" | "bed" | "ward" | "patientInstance" | "patientInstanceRedirected" | "admissionRedirected" | "admission" | "intimation" | "mainStore" | "subStore" | "pharmacy" | "inventory" | "oPDdata"
+      modelProps: "doctors" | "oPSlots" | "departments" | "oPDQueue" | "bed" | "ward" | "patientInstance" | "patientInstanceRedirected" | "admissionRedirected" | "admission" | "intimation" | "mainStore" | "subStore" | "pharmacy" | "inventory" | "oPDdata" | "diseaseAnalysis"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2074,6 +2090,76 @@ export namespace Prisma {
           count: {
             args: Prisma.OPDdataCountArgs<ExtArgs>
             result: $Utils.Optional<OPDdataCountAggregateOutputType> | number
+          }
+        }
+      }
+      DiseaseAnalysis: {
+        payload: Prisma.$DiseaseAnalysisPayload<ExtArgs>
+        fields: Prisma.DiseaseAnalysisFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DiseaseAnalysisFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DiseaseAnalysisPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DiseaseAnalysisFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DiseaseAnalysisPayload>
+          }
+          findFirst: {
+            args: Prisma.DiseaseAnalysisFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DiseaseAnalysisPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DiseaseAnalysisFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DiseaseAnalysisPayload>
+          }
+          findMany: {
+            args: Prisma.DiseaseAnalysisFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DiseaseAnalysisPayload>[]
+          }
+          create: {
+            args: Prisma.DiseaseAnalysisCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DiseaseAnalysisPayload>
+          }
+          createMany: {
+            args: Prisma.DiseaseAnalysisCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DiseaseAnalysisCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DiseaseAnalysisPayload>[]
+          }
+          delete: {
+            args: Prisma.DiseaseAnalysisDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DiseaseAnalysisPayload>
+          }
+          update: {
+            args: Prisma.DiseaseAnalysisUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DiseaseAnalysisPayload>
+          }
+          deleteMany: {
+            args: Prisma.DiseaseAnalysisDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DiseaseAnalysisUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.DiseaseAnalysisUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DiseaseAnalysisPayload>
+          }
+          aggregate: {
+            args: Prisma.DiseaseAnalysisAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDiseaseAnalysis>
+          }
+          groupBy: {
+            args: Prisma.DiseaseAnalysisGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DiseaseAnalysisGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DiseaseAnalysisCountArgs<ExtArgs>
+            result: $Utils.Optional<DiseaseAnalysisCountAggregateOutputType> | number
           }
         }
       }
@@ -18618,6 +18704,906 @@ export namespace Prisma {
 
 
   /**
+   * Model DiseaseAnalysis
+   */
+
+  export type AggregateDiseaseAnalysis = {
+    _count: DiseaseAnalysisCountAggregateOutputType | null
+    _avg: DiseaseAnalysisAvgAggregateOutputType | null
+    _sum: DiseaseAnalysisSumAggregateOutputType | null
+    _min: DiseaseAnalysisMinAggregateOutputType | null
+    _max: DiseaseAnalysisMaxAggregateOutputType | null
+  }
+
+  export type DiseaseAnalysisAvgAggregateOutputType = {
+    patientsCount: number | null
+  }
+
+  export type DiseaseAnalysisSumAggregateOutputType = {
+    patientsCount: number | null
+  }
+
+  export type DiseaseAnalysisMinAggregateOutputType = {
+    id: string | null
+    date: string | null
+    disease: string | null
+    patientsCount: number | null
+  }
+
+  export type DiseaseAnalysisMaxAggregateOutputType = {
+    id: string | null
+    date: string | null
+    disease: string | null
+    patientsCount: number | null
+  }
+
+  export type DiseaseAnalysisCountAggregateOutputType = {
+    id: number
+    date: number
+    disease: number
+    patientsCount: number
+    _all: number
+  }
+
+
+  export type DiseaseAnalysisAvgAggregateInputType = {
+    patientsCount?: true
+  }
+
+  export type DiseaseAnalysisSumAggregateInputType = {
+    patientsCount?: true
+  }
+
+  export type DiseaseAnalysisMinAggregateInputType = {
+    id?: true
+    date?: true
+    disease?: true
+    patientsCount?: true
+  }
+
+  export type DiseaseAnalysisMaxAggregateInputType = {
+    id?: true
+    date?: true
+    disease?: true
+    patientsCount?: true
+  }
+
+  export type DiseaseAnalysisCountAggregateInputType = {
+    id?: true
+    date?: true
+    disease?: true
+    patientsCount?: true
+    _all?: true
+  }
+
+  export type DiseaseAnalysisAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DiseaseAnalysis to aggregate.
+     */
+    where?: DiseaseAnalysisWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DiseaseAnalyses to fetch.
+     */
+    orderBy?: DiseaseAnalysisOrderByWithRelationInput | DiseaseAnalysisOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DiseaseAnalysisWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DiseaseAnalyses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DiseaseAnalyses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DiseaseAnalyses
+    **/
+    _count?: true | DiseaseAnalysisCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: DiseaseAnalysisAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: DiseaseAnalysisSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DiseaseAnalysisMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DiseaseAnalysisMaxAggregateInputType
+  }
+
+  export type GetDiseaseAnalysisAggregateType<T extends DiseaseAnalysisAggregateArgs> = {
+        [P in keyof T & keyof AggregateDiseaseAnalysis]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDiseaseAnalysis[P]>
+      : GetScalarType<T[P], AggregateDiseaseAnalysis[P]>
+  }
+
+
+
+
+  export type DiseaseAnalysisGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DiseaseAnalysisWhereInput
+    orderBy?: DiseaseAnalysisOrderByWithAggregationInput | DiseaseAnalysisOrderByWithAggregationInput[]
+    by: DiseaseAnalysisScalarFieldEnum[] | DiseaseAnalysisScalarFieldEnum
+    having?: DiseaseAnalysisScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DiseaseAnalysisCountAggregateInputType | true
+    _avg?: DiseaseAnalysisAvgAggregateInputType
+    _sum?: DiseaseAnalysisSumAggregateInputType
+    _min?: DiseaseAnalysisMinAggregateInputType
+    _max?: DiseaseAnalysisMaxAggregateInputType
+  }
+
+  export type DiseaseAnalysisGroupByOutputType = {
+    id: string
+    date: string
+    disease: string
+    patientsCount: number
+    _count: DiseaseAnalysisCountAggregateOutputType | null
+    _avg: DiseaseAnalysisAvgAggregateOutputType | null
+    _sum: DiseaseAnalysisSumAggregateOutputType | null
+    _min: DiseaseAnalysisMinAggregateOutputType | null
+    _max: DiseaseAnalysisMaxAggregateOutputType | null
+  }
+
+  type GetDiseaseAnalysisGroupByPayload<T extends DiseaseAnalysisGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DiseaseAnalysisGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DiseaseAnalysisGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DiseaseAnalysisGroupByOutputType[P]>
+            : GetScalarType<T[P], DiseaseAnalysisGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DiseaseAnalysisSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    date?: boolean
+    disease?: boolean
+    patientsCount?: boolean
+  }, ExtArgs["result"]["diseaseAnalysis"]>
+
+  export type DiseaseAnalysisSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    date?: boolean
+    disease?: boolean
+    patientsCount?: boolean
+  }, ExtArgs["result"]["diseaseAnalysis"]>
+
+  export type DiseaseAnalysisSelectScalar = {
+    id?: boolean
+    date?: boolean
+    disease?: boolean
+    patientsCount?: boolean
+  }
+
+
+  export type $DiseaseAnalysisPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DiseaseAnalysis"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      date: string
+      disease: string
+      patientsCount: number
+    }, ExtArgs["result"]["diseaseAnalysis"]>
+    composites: {}
+  }
+
+  type DiseaseAnalysisGetPayload<S extends boolean | null | undefined | DiseaseAnalysisDefaultArgs> = $Result.GetResult<Prisma.$DiseaseAnalysisPayload, S>
+
+  type DiseaseAnalysisCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<DiseaseAnalysisFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: DiseaseAnalysisCountAggregateInputType | true
+    }
+
+  export interface DiseaseAnalysisDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DiseaseAnalysis'], meta: { name: 'DiseaseAnalysis' } }
+    /**
+     * Find zero or one DiseaseAnalysis that matches the filter.
+     * @param {DiseaseAnalysisFindUniqueArgs} args - Arguments to find a DiseaseAnalysis
+     * @example
+     * // Get one DiseaseAnalysis
+     * const diseaseAnalysis = await prisma.diseaseAnalysis.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DiseaseAnalysisFindUniqueArgs>(args: SelectSubset<T, DiseaseAnalysisFindUniqueArgs<ExtArgs>>): Prisma__DiseaseAnalysisClient<$Result.GetResult<Prisma.$DiseaseAnalysisPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one DiseaseAnalysis that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {DiseaseAnalysisFindUniqueOrThrowArgs} args - Arguments to find a DiseaseAnalysis
+     * @example
+     * // Get one DiseaseAnalysis
+     * const diseaseAnalysis = await prisma.diseaseAnalysis.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DiseaseAnalysisFindUniqueOrThrowArgs>(args: SelectSubset<T, DiseaseAnalysisFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DiseaseAnalysisClient<$Result.GetResult<Prisma.$DiseaseAnalysisPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first DiseaseAnalysis that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DiseaseAnalysisFindFirstArgs} args - Arguments to find a DiseaseAnalysis
+     * @example
+     * // Get one DiseaseAnalysis
+     * const diseaseAnalysis = await prisma.diseaseAnalysis.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DiseaseAnalysisFindFirstArgs>(args?: SelectSubset<T, DiseaseAnalysisFindFirstArgs<ExtArgs>>): Prisma__DiseaseAnalysisClient<$Result.GetResult<Prisma.$DiseaseAnalysisPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first DiseaseAnalysis that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DiseaseAnalysisFindFirstOrThrowArgs} args - Arguments to find a DiseaseAnalysis
+     * @example
+     * // Get one DiseaseAnalysis
+     * const diseaseAnalysis = await prisma.diseaseAnalysis.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DiseaseAnalysisFindFirstOrThrowArgs>(args?: SelectSubset<T, DiseaseAnalysisFindFirstOrThrowArgs<ExtArgs>>): Prisma__DiseaseAnalysisClient<$Result.GetResult<Prisma.$DiseaseAnalysisPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more DiseaseAnalyses that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DiseaseAnalysisFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DiseaseAnalyses
+     * const diseaseAnalyses = await prisma.diseaseAnalysis.findMany()
+     * 
+     * // Get first 10 DiseaseAnalyses
+     * const diseaseAnalyses = await prisma.diseaseAnalysis.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const diseaseAnalysisWithIdOnly = await prisma.diseaseAnalysis.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DiseaseAnalysisFindManyArgs>(args?: SelectSubset<T, DiseaseAnalysisFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DiseaseAnalysisPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a DiseaseAnalysis.
+     * @param {DiseaseAnalysisCreateArgs} args - Arguments to create a DiseaseAnalysis.
+     * @example
+     * // Create one DiseaseAnalysis
+     * const DiseaseAnalysis = await prisma.diseaseAnalysis.create({
+     *   data: {
+     *     // ... data to create a DiseaseAnalysis
+     *   }
+     * })
+     * 
+     */
+    create<T extends DiseaseAnalysisCreateArgs>(args: SelectSubset<T, DiseaseAnalysisCreateArgs<ExtArgs>>): Prisma__DiseaseAnalysisClient<$Result.GetResult<Prisma.$DiseaseAnalysisPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many DiseaseAnalyses.
+     * @param {DiseaseAnalysisCreateManyArgs} args - Arguments to create many DiseaseAnalyses.
+     * @example
+     * // Create many DiseaseAnalyses
+     * const diseaseAnalysis = await prisma.diseaseAnalysis.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DiseaseAnalysisCreateManyArgs>(args?: SelectSubset<T, DiseaseAnalysisCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DiseaseAnalyses and returns the data saved in the database.
+     * @param {DiseaseAnalysisCreateManyAndReturnArgs} args - Arguments to create many DiseaseAnalyses.
+     * @example
+     * // Create many DiseaseAnalyses
+     * const diseaseAnalysis = await prisma.diseaseAnalysis.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DiseaseAnalyses and only return the `id`
+     * const diseaseAnalysisWithIdOnly = await prisma.diseaseAnalysis.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DiseaseAnalysisCreateManyAndReturnArgs>(args?: SelectSubset<T, DiseaseAnalysisCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DiseaseAnalysisPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a DiseaseAnalysis.
+     * @param {DiseaseAnalysisDeleteArgs} args - Arguments to delete one DiseaseAnalysis.
+     * @example
+     * // Delete one DiseaseAnalysis
+     * const DiseaseAnalysis = await prisma.diseaseAnalysis.delete({
+     *   where: {
+     *     // ... filter to delete one DiseaseAnalysis
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DiseaseAnalysisDeleteArgs>(args: SelectSubset<T, DiseaseAnalysisDeleteArgs<ExtArgs>>): Prisma__DiseaseAnalysisClient<$Result.GetResult<Prisma.$DiseaseAnalysisPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one DiseaseAnalysis.
+     * @param {DiseaseAnalysisUpdateArgs} args - Arguments to update one DiseaseAnalysis.
+     * @example
+     * // Update one DiseaseAnalysis
+     * const diseaseAnalysis = await prisma.diseaseAnalysis.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DiseaseAnalysisUpdateArgs>(args: SelectSubset<T, DiseaseAnalysisUpdateArgs<ExtArgs>>): Prisma__DiseaseAnalysisClient<$Result.GetResult<Prisma.$DiseaseAnalysisPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more DiseaseAnalyses.
+     * @param {DiseaseAnalysisDeleteManyArgs} args - Arguments to filter DiseaseAnalyses to delete.
+     * @example
+     * // Delete a few DiseaseAnalyses
+     * const { count } = await prisma.diseaseAnalysis.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DiseaseAnalysisDeleteManyArgs>(args?: SelectSubset<T, DiseaseAnalysisDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DiseaseAnalyses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DiseaseAnalysisUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DiseaseAnalyses
+     * const diseaseAnalysis = await prisma.diseaseAnalysis.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DiseaseAnalysisUpdateManyArgs>(args: SelectSubset<T, DiseaseAnalysisUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one DiseaseAnalysis.
+     * @param {DiseaseAnalysisUpsertArgs} args - Arguments to update or create a DiseaseAnalysis.
+     * @example
+     * // Update or create a DiseaseAnalysis
+     * const diseaseAnalysis = await prisma.diseaseAnalysis.upsert({
+     *   create: {
+     *     // ... data to create a DiseaseAnalysis
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DiseaseAnalysis we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DiseaseAnalysisUpsertArgs>(args: SelectSubset<T, DiseaseAnalysisUpsertArgs<ExtArgs>>): Prisma__DiseaseAnalysisClient<$Result.GetResult<Prisma.$DiseaseAnalysisPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of DiseaseAnalyses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DiseaseAnalysisCountArgs} args - Arguments to filter DiseaseAnalyses to count.
+     * @example
+     * // Count the number of DiseaseAnalyses
+     * const count = await prisma.diseaseAnalysis.count({
+     *   where: {
+     *     // ... the filter for the DiseaseAnalyses we want to count
+     *   }
+     * })
+    **/
+    count<T extends DiseaseAnalysisCountArgs>(
+      args?: Subset<T, DiseaseAnalysisCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DiseaseAnalysisCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DiseaseAnalysis.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DiseaseAnalysisAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DiseaseAnalysisAggregateArgs>(args: Subset<T, DiseaseAnalysisAggregateArgs>): Prisma.PrismaPromise<GetDiseaseAnalysisAggregateType<T>>
+
+    /**
+     * Group by DiseaseAnalysis.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DiseaseAnalysisGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DiseaseAnalysisGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DiseaseAnalysisGroupByArgs['orderBy'] }
+        : { orderBy?: DiseaseAnalysisGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DiseaseAnalysisGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDiseaseAnalysisGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DiseaseAnalysis model
+   */
+  readonly fields: DiseaseAnalysisFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DiseaseAnalysis.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DiseaseAnalysisClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DiseaseAnalysis model
+   */ 
+  interface DiseaseAnalysisFieldRefs {
+    readonly id: FieldRef<"DiseaseAnalysis", 'String'>
+    readonly date: FieldRef<"DiseaseAnalysis", 'String'>
+    readonly disease: FieldRef<"DiseaseAnalysis", 'String'>
+    readonly patientsCount: FieldRef<"DiseaseAnalysis", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DiseaseAnalysis findUnique
+   */
+  export type DiseaseAnalysisFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DiseaseAnalysis
+     */
+    select?: DiseaseAnalysisSelect<ExtArgs> | null
+    /**
+     * Filter, which DiseaseAnalysis to fetch.
+     */
+    where: DiseaseAnalysisWhereUniqueInput
+  }
+
+  /**
+   * DiseaseAnalysis findUniqueOrThrow
+   */
+  export type DiseaseAnalysisFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DiseaseAnalysis
+     */
+    select?: DiseaseAnalysisSelect<ExtArgs> | null
+    /**
+     * Filter, which DiseaseAnalysis to fetch.
+     */
+    where: DiseaseAnalysisWhereUniqueInput
+  }
+
+  /**
+   * DiseaseAnalysis findFirst
+   */
+  export type DiseaseAnalysisFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DiseaseAnalysis
+     */
+    select?: DiseaseAnalysisSelect<ExtArgs> | null
+    /**
+     * Filter, which DiseaseAnalysis to fetch.
+     */
+    where?: DiseaseAnalysisWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DiseaseAnalyses to fetch.
+     */
+    orderBy?: DiseaseAnalysisOrderByWithRelationInput | DiseaseAnalysisOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DiseaseAnalyses.
+     */
+    cursor?: DiseaseAnalysisWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DiseaseAnalyses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DiseaseAnalyses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DiseaseAnalyses.
+     */
+    distinct?: DiseaseAnalysisScalarFieldEnum | DiseaseAnalysisScalarFieldEnum[]
+  }
+
+  /**
+   * DiseaseAnalysis findFirstOrThrow
+   */
+  export type DiseaseAnalysisFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DiseaseAnalysis
+     */
+    select?: DiseaseAnalysisSelect<ExtArgs> | null
+    /**
+     * Filter, which DiseaseAnalysis to fetch.
+     */
+    where?: DiseaseAnalysisWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DiseaseAnalyses to fetch.
+     */
+    orderBy?: DiseaseAnalysisOrderByWithRelationInput | DiseaseAnalysisOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DiseaseAnalyses.
+     */
+    cursor?: DiseaseAnalysisWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DiseaseAnalyses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DiseaseAnalyses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DiseaseAnalyses.
+     */
+    distinct?: DiseaseAnalysisScalarFieldEnum | DiseaseAnalysisScalarFieldEnum[]
+  }
+
+  /**
+   * DiseaseAnalysis findMany
+   */
+  export type DiseaseAnalysisFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DiseaseAnalysis
+     */
+    select?: DiseaseAnalysisSelect<ExtArgs> | null
+    /**
+     * Filter, which DiseaseAnalyses to fetch.
+     */
+    where?: DiseaseAnalysisWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DiseaseAnalyses to fetch.
+     */
+    orderBy?: DiseaseAnalysisOrderByWithRelationInput | DiseaseAnalysisOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DiseaseAnalyses.
+     */
+    cursor?: DiseaseAnalysisWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DiseaseAnalyses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DiseaseAnalyses.
+     */
+    skip?: number
+    distinct?: DiseaseAnalysisScalarFieldEnum | DiseaseAnalysisScalarFieldEnum[]
+  }
+
+  /**
+   * DiseaseAnalysis create
+   */
+  export type DiseaseAnalysisCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DiseaseAnalysis
+     */
+    select?: DiseaseAnalysisSelect<ExtArgs> | null
+    /**
+     * The data needed to create a DiseaseAnalysis.
+     */
+    data: XOR<DiseaseAnalysisCreateInput, DiseaseAnalysisUncheckedCreateInput>
+  }
+
+  /**
+   * DiseaseAnalysis createMany
+   */
+  export type DiseaseAnalysisCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DiseaseAnalyses.
+     */
+    data: DiseaseAnalysisCreateManyInput | DiseaseAnalysisCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DiseaseAnalysis createManyAndReturn
+   */
+  export type DiseaseAnalysisCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DiseaseAnalysis
+     */
+    select?: DiseaseAnalysisSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many DiseaseAnalyses.
+     */
+    data: DiseaseAnalysisCreateManyInput | DiseaseAnalysisCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DiseaseAnalysis update
+   */
+  export type DiseaseAnalysisUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DiseaseAnalysis
+     */
+    select?: DiseaseAnalysisSelect<ExtArgs> | null
+    /**
+     * The data needed to update a DiseaseAnalysis.
+     */
+    data: XOR<DiseaseAnalysisUpdateInput, DiseaseAnalysisUncheckedUpdateInput>
+    /**
+     * Choose, which DiseaseAnalysis to update.
+     */
+    where: DiseaseAnalysisWhereUniqueInput
+  }
+
+  /**
+   * DiseaseAnalysis updateMany
+   */
+  export type DiseaseAnalysisUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DiseaseAnalyses.
+     */
+    data: XOR<DiseaseAnalysisUpdateManyMutationInput, DiseaseAnalysisUncheckedUpdateManyInput>
+    /**
+     * Filter which DiseaseAnalyses to update
+     */
+    where?: DiseaseAnalysisWhereInput
+  }
+
+  /**
+   * DiseaseAnalysis upsert
+   */
+  export type DiseaseAnalysisUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DiseaseAnalysis
+     */
+    select?: DiseaseAnalysisSelect<ExtArgs> | null
+    /**
+     * The filter to search for the DiseaseAnalysis to update in case it exists.
+     */
+    where: DiseaseAnalysisWhereUniqueInput
+    /**
+     * In case the DiseaseAnalysis found by the `where` argument doesn't exist, create a new DiseaseAnalysis with this data.
+     */
+    create: XOR<DiseaseAnalysisCreateInput, DiseaseAnalysisUncheckedCreateInput>
+    /**
+     * In case the DiseaseAnalysis was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DiseaseAnalysisUpdateInput, DiseaseAnalysisUncheckedUpdateInput>
+  }
+
+  /**
+   * DiseaseAnalysis delete
+   */
+  export type DiseaseAnalysisDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DiseaseAnalysis
+     */
+    select?: DiseaseAnalysisSelect<ExtArgs> | null
+    /**
+     * Filter which DiseaseAnalysis to delete.
+     */
+    where: DiseaseAnalysisWhereUniqueInput
+  }
+
+  /**
+   * DiseaseAnalysis deleteMany
+   */
+  export type DiseaseAnalysisDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DiseaseAnalyses to delete
+     */
+    where?: DiseaseAnalysisWhereInput
+  }
+
+  /**
+   * DiseaseAnalysis without action
+   */
+  export type DiseaseAnalysisDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DiseaseAnalysis
+     */
+    select?: DiseaseAnalysisSelect<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -18823,6 +19809,16 @@ export namespace Prisma {
   };
 
   export type OPDdataScalarFieldEnum = (typeof OPDdataScalarFieldEnum)[keyof typeof OPDdataScalarFieldEnum]
+
+
+  export const DiseaseAnalysisScalarFieldEnum: {
+    id: 'id',
+    date: 'date',
+    disease: 'disease',
+    patientsCount: 'patientsCount'
+  };
+
+  export type DiseaseAnalysisScalarFieldEnum = (typeof DiseaseAnalysisScalarFieldEnum)[keyof typeof DiseaseAnalysisScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -20079,6 +21075,55 @@ export namespace Prisma {
     department?: StringWithAggregatesFilter<"OPDdata"> | string
   }
 
+  export type DiseaseAnalysisWhereInput = {
+    AND?: DiseaseAnalysisWhereInput | DiseaseAnalysisWhereInput[]
+    OR?: DiseaseAnalysisWhereInput[]
+    NOT?: DiseaseAnalysisWhereInput | DiseaseAnalysisWhereInput[]
+    id?: StringFilter<"DiseaseAnalysis"> | string
+    date?: StringFilter<"DiseaseAnalysis"> | string
+    disease?: StringFilter<"DiseaseAnalysis"> | string
+    patientsCount?: IntFilter<"DiseaseAnalysis"> | number
+  }
+
+  export type DiseaseAnalysisOrderByWithRelationInput = {
+    id?: SortOrder
+    date?: SortOrder
+    disease?: SortOrder
+    patientsCount?: SortOrder
+  }
+
+  export type DiseaseAnalysisWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    disease?: string
+    AND?: DiseaseAnalysisWhereInput | DiseaseAnalysisWhereInput[]
+    OR?: DiseaseAnalysisWhereInput[]
+    NOT?: DiseaseAnalysisWhereInput | DiseaseAnalysisWhereInput[]
+    date?: StringFilter<"DiseaseAnalysis"> | string
+    patientsCount?: IntFilter<"DiseaseAnalysis"> | number
+  }, "id" | "disease">
+
+  export type DiseaseAnalysisOrderByWithAggregationInput = {
+    id?: SortOrder
+    date?: SortOrder
+    disease?: SortOrder
+    patientsCount?: SortOrder
+    _count?: DiseaseAnalysisCountOrderByAggregateInput
+    _avg?: DiseaseAnalysisAvgOrderByAggregateInput
+    _max?: DiseaseAnalysisMaxOrderByAggregateInput
+    _min?: DiseaseAnalysisMinOrderByAggregateInput
+    _sum?: DiseaseAnalysisSumOrderByAggregateInput
+  }
+
+  export type DiseaseAnalysisScalarWhereWithAggregatesInput = {
+    AND?: DiseaseAnalysisScalarWhereWithAggregatesInput | DiseaseAnalysisScalarWhereWithAggregatesInput[]
+    OR?: DiseaseAnalysisScalarWhereWithAggregatesInput[]
+    NOT?: DiseaseAnalysisScalarWhereWithAggregatesInput | DiseaseAnalysisScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"DiseaseAnalysis"> | string
+    date?: StringWithAggregatesFilter<"DiseaseAnalysis"> | string
+    disease?: StringWithAggregatesFilter<"DiseaseAnalysis"> | string
+    patientsCount?: IntWithAggregatesFilter<"DiseaseAnalysis"> | number
+  }
+
   export type DoctorsCreateInput = {
     id?: string
     name: string
@@ -21155,6 +22200,55 @@ export namespace Prisma {
     department?: StringFieldUpdateOperationsInput | string
   }
 
+  export type DiseaseAnalysisCreateInput = {
+    id?: string
+    date: string
+    disease: string
+    patientsCount: number
+  }
+
+  export type DiseaseAnalysisUncheckedCreateInput = {
+    id?: string
+    date: string
+    disease: string
+    patientsCount: number
+  }
+
+  export type DiseaseAnalysisUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
+    disease?: StringFieldUpdateOperationsInput | string
+    patientsCount?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type DiseaseAnalysisUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
+    disease?: StringFieldUpdateOperationsInput | string
+    patientsCount?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type DiseaseAnalysisCreateManyInput = {
+    id?: string
+    date: string
+    disease: string
+    patientsCount: number
+  }
+
+  export type DiseaseAnalysisUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
+    disease?: StringFieldUpdateOperationsInput | string
+    patientsCount?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type DiseaseAnalysisUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
+    disease?: StringFieldUpdateOperationsInput | string
+    patientsCount?: IntFieldUpdateOperationsInput | number
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -22175,6 +23269,35 @@ export namespace Prisma {
     noofdoctors?: SortOrder
     time?: SortOrder
     ppdh?: SortOrder
+  }
+
+  export type DiseaseAnalysisCountOrderByAggregateInput = {
+    id?: SortOrder
+    date?: SortOrder
+    disease?: SortOrder
+    patientsCount?: SortOrder
+  }
+
+  export type DiseaseAnalysisAvgOrderByAggregateInput = {
+    patientsCount?: SortOrder
+  }
+
+  export type DiseaseAnalysisMaxOrderByAggregateInput = {
+    id?: SortOrder
+    date?: SortOrder
+    disease?: SortOrder
+    patientsCount?: SortOrder
+  }
+
+  export type DiseaseAnalysisMinOrderByAggregateInput = {
+    id?: SortOrder
+    date?: SortOrder
+    disease?: SortOrder
+    patientsCount?: SortOrder
+  }
+
+  export type DiseaseAnalysisSumOrderByAggregateInput = {
+    patientsCount?: SortOrder
   }
 
   export type DepartmentsCreateNestedOneWithoutDoctorsInput = {
@@ -26640,6 +27763,10 @@ export namespace Prisma {
      * @deprecated Use OPDdataDefaultArgs instead
      */
     export type OPDdataArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = OPDdataDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use DiseaseAnalysisDefaultArgs instead
+     */
+    export type DiseaseAnalysisArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = DiseaseAnalysisDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

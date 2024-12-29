@@ -119,8 +119,6 @@ const addMedications = async(req,res)=>{
     const prisma = req.prisma;
     try{
         const {medications,abhaid,feedback} = req.body;
-        // await prisma.$transaction(async (tx)=>{
-
             const patient = await prisma.patientInstance.update({
                 where:{
                     abhaId : abhaid
@@ -137,13 +135,14 @@ const addMedications = async(req,res)=>{
                     status:QueueStatus.Completed,
                 }
             })
-        // })
-        // await centralprisma.medicalRecord.create({
-        //     data:{
-        //         patientId:abhaid,
-        //         hospitalName
-        //     }
-        // })
+            await prisma.diseaseAnalysis.upsert({
+                where:{
+                    disease : feedback
+                },
+                data:{
+                    patientsCount : patientsCount + 1
+                }
+            })
         res.json({success:true,message:patient})
     }catch(err){
         console.log(err);

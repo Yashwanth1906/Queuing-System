@@ -265,6 +265,13 @@ exports.Prisma.OPDdataScalarFieldEnum = {
   department: 'department'
 };
 
+exports.Prisma.DiseaseAnalysisScalarFieldEnum = {
+  id: 'id',
+  date: 'date',
+  disease: 'disease',
+  patientsCount: 'patientsCount'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -336,7 +343,8 @@ exports.Prisma.ModelName = {
   SubStore: 'SubStore',
   Pharmacy: 'Pharmacy',
   Inventory: 'Inventory',
-  OPDdata: 'OPDdata'
+  OPDdata: 'OPDdata',
+  DiseaseAnalysis: 'DiseaseAnalysis'
 };
 
 /**

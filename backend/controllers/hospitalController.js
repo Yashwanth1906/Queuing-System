@@ -133,8 +133,6 @@ const createPatientInstance = async(req,res)=>{
                 priority:pqno,
                 demotion:0,
                 timeStamp:timee
-
-
             }
         })
         insertPatient(patientqueue);
