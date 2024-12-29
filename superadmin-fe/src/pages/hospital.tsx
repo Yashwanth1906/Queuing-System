@@ -27,6 +27,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { AddDoctorDialog } from '@/components/addDoctor';
 import { AddDepartmentDialog } from '@/components/addDepartment';
 import { AddWardDialog } from '@/components/addWard';
+import { AdminDialogcomp } from '@/components/AdminDialog';
 import axios from 'axios';
 import { BACKEND_URL } from '@/config';
 
@@ -69,27 +70,14 @@ export function HospitalDetailsPage() {
   const [flag,setFlag] = useState<boolean | null>(false);
   console.log(id);
   const [selectedDays, setSelectedDays] = useState("7");
+  const [adminDialog,setAdminDialog]=useState(false);
   const [doctorDialogOpen, setDoctorDialogOpen] = useState(false);
   const [departmentDialogOpen, setDepartmentDialogOpen] = useState(false);
   const [wardDialogOpen, setWardDialogOpen] = useState(false);
   const [departments,setDepartments] = useState<Department[] | null>([]);
   const [wards,setWards] = useState<Ward[] | null>([]);
   const [doctors,setDoctors] = useState<Doctor[] | null>([]);
-  // const [opdData,setOpdDate] = useState<OPDData[] | null>([]);
-  // const wards: Ward[] = [
-  //   { id: "w1", name: "General Ward", totalBeds: 50, availableBeds: 12 },
-  //   { id: "w2", name: "ICU", totalBeds: 20, availableBeds: 4 },
-  //   { id: "w3", name: "Pediatric Ward", totalBeds: 30, availableBeds: 8 },
-  //   { id: "w4", name: "Maternity Ward", totalBeds: 25, availableBeds: 6 },
-  // ];
-  
-  // const doctors: Doctor[] = [
-  //   { id: "d1", name: "Dr. John Smith", specialization: "Cardiology" },
-  //   { id: "d2", name: "Dr. Sarah Lee", specialization: "Pediatrics" },
-  //   { id: "d3", name: "Dr. Mark Taylor", specialization: "Neurology" },
-  //   { id: "d4", name: "Dr. Emily White", specialization: "Orthopedics" },
-  // ];
-  
+
   const opdData: OPDData[] = [
     {
       date: "2024-12-28",
@@ -148,7 +136,7 @@ export function HospitalDetailsPage() {
   
 
   return (
-    <div className="min-h-screen bg-[#CFFFDC]">
+    <div className="min-h-screen w-screen bg-[#CFFFDC]">
       {/* Top Navigation Bar */}
       <nav className="bg-[#2E6F40] text-white p-4 shadow-lg">
         <div className="container mx-auto flex justify-between items-center">
@@ -171,6 +159,14 @@ export function HospitalDetailsPage() {
       <main className="container mx-auto py-8 px-4">
         {/* Action Buttons */}
         <div className="flex gap-4 mb-8">
+	<Button 
+            className="bg-[#2E6F40] hover:bg-[#68BA7F]"
+            onClick={() => setAdminDialog(true)}
+          >
+            <Plus className="mr-2 h-4 w-4" />
+            Add Admin
+          </Button>
+
         <Button 
             className="bg-[#2E6F40] hover:bg-[#68BA7F]"
             onClick={() => setDoctorDialogOpen(true)}
@@ -193,6 +189,8 @@ export function HospitalDetailsPage() {
             Add Department
           </Button>
         </div>
+
+	{/* <AdminDialogcomp code={id} open={adminDialog} onOpenChange={setAdminDialog} /> */}
 
         <AddDoctorDialog
           code={id}

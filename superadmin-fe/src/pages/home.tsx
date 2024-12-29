@@ -26,11 +26,15 @@ export function HomePage() {
   const navigate = useNavigate();
   const [hospitals,setHospitals] = useState<Hospital[]>([]);
   const [addHospital,setAddHospital] = useState<boolean>(false);
+  const [loading,setLoading]=useState<boolean>(true);
+
+
   async function getHospitals(){
     await axios.get(`${BACKEND_URL}/api/hospital/gethospitals`)
     .then((res)=>{
         console.log(res.data.hospitals);
         setHospitals(res.data.hospitals);
+	setLoading(false);
     }).catch((e)=>{
       console.log(e);
     })
@@ -38,8 +42,17 @@ export function HomePage() {
     useEffect(()=>{
         getHospitals();
     },[])
+   
+    if(loading)
+    {
+	    return(
+		    <div>Loading...</div>
+	    )
+    }
+
+
   return (
-    <div className="min-h-screen bg-[#CFFFDC]">
+    <div className="min-h-screen w-screen bg-[#CFFFDC]">
       {/* Top Navigation Bar */}
       <nav className="bg-[#2E6F40] text-white p-4 shadow-lg">
         <div className="container mx-auto flex justify-between items-center">

@@ -20,6 +20,24 @@ const getDoctors = async(req,res)=>{
     }
 }
 
+export const getOnlineDoctors=async(req,res)=>{
+    try{
+        const prisma=req.prisma;
+        const {hosCode}=req.body
+        const docs=await prisma.doctors.findMany({
+            where:{
+                hospitalCode:hosCode,
+                active:true
+            }
+        })
+	console.log(docs);
+        return res.status(200).json({docs})
+    }
+    catch{
+        return res.status(500).json({msg:"error"});
+    }
+}
+
 export const addSlot=async(req,res)=>{
 	try{
 		const prisma=req.prisma;
