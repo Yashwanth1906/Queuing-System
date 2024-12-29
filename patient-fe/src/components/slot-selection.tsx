@@ -71,7 +71,7 @@ export function SlotSelection({ deptId, onSelect, code }: SlotSelectionProps) {
     if (selectedSlot) {
 	    try{
                 await axios.post(`${BACKEND_URL}/api/patient/bookslot`,{
-	     slotid
+	     slotid,deptId
      },{
 	     headers:{
 		     code,Authorization:localStorage.getItem("patienttoken")

@@ -29,8 +29,8 @@ export function RegisterForm() {
 		    email,password,name,contact,address,gender,dob,emergencyContact,
 	    });
 	    localStorage.setItem("patienttoken",res.data.token);
-	    alert("done")
-	    //navigate("/home");
+	   // alert("done")
+	    navigate("/home");
 	    setIsSubmitting(false)
 
 
