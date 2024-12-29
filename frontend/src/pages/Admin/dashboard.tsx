@@ -11,6 +11,7 @@ import { UserPlus, BedDouble, UserCheck, Activity, BarChart, Bell, Search, Setti
 import { BACKEND_URL, HOSPITAL_CODE,DJANGO_URL } from '@/config'
 import axios from 'axios'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
+import { AnalyticsDashboard } from '@/components/component/analytics'
 
 interface PatientDetails {
   abhaId :string,
@@ -74,7 +75,7 @@ type Appointment = {
 
 
 export function AdminDashboard() {
-  const [activeView, setActiveView] = useState<"activeDoctors" | "inactiveDoctors" | "newPatientForm" | "createABHA" | "popupcard" | "bedAllocation" | "bedPopUp"|"patientCheckin" | "analysis" |"main" | "getPatient" >("newPatientForm");
+  const [activeView, setActiveView] = useState<"activeDoctors" | "inactiveDoctors" | "newPatientForm" | "createABHA" | "popupcard" | "bedAllocation" | "bedPopUp"|"patientCheckin" | "analysis" |"main" | "getPatient" | "analytics">("newPatientForm");
   const [reload,setReload] = useState<boolean>(false);
   const [patientDetails, setPatientDetails] = useState<PatientDetails | null>(null);
   const [reason, setReason] = useState('');
@@ -868,7 +869,8 @@ export function AdminDashboard() {
           {activeView === "bedAllocation" && renderBedAllocation()}
           {activeView === "bedPopUp" && bedAllocatedPopUp()}
           {activeView === "patientCheckin" && renderPatientCheckIn()}
-          {activeView === "getPatient" && renderPatientDetails()} 
+          {activeView === "getPatient" && renderPatientDetails()}
+          {activeView === "analysis" && <AnalyticsDashboard/>}
           {allocatedDoctor && (
             <div className="fixed inset-0 flex items-center justify-center bg-[#CFFFDC] bg-opacity-80 backdrop-blur-sm z-50">
               <Card className="w-full max-w-md p-6 bg-[#CFFFDC] rounded-lg shadow-lg">

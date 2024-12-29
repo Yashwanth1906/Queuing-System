@@ -226,3 +226,9 @@ model OPDdata{
   department String
 }
 
+model DiseaseAnalysis{
+  id String @id @default(uuid())
+  date String
+  disease String
+  patientsCount Int
+}

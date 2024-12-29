@@ -119,10 +119,8 @@ df_doctors = pd.DataFrame(doctors_data)
 
 def predict_doctor(department):
     available_doctors = df_doctors[(df_doctors['department'] == department)]
-
     if available_doctors.empty:
         return ""
-    
     least_waiting_time = available_doctors['waiting_time'].min()
     print(least_waiting_time)
     selected_doctor = available_doctors[available_doctors['waiting_time'] == least_waiting_time]['id'].iloc[0]
@@ -149,9 +147,6 @@ class PredictDepartmentAndDoctorAPIView(APIView):
             symptoms = symptom_serializer.validated_data['symptoms']
             department_prediction = pipeline.predict([symptoms])
             department = label_encoder.inverse_transform(department_prediction)[0]
-
-            # Step 2: Predict the doctor based on the predicted department
-
             print(department)
             doctor = predict_doctor(department)
             if(doctor == ""):
@@ -166,25 +161,18 @@ class TrainModelAPIView(APIView):
         try:
             df = pd.read_csv(csv_path)
             print(df)
-
             label_encoders = {}
-            for col in ['Day', 'Weather']:
+            for col in ['Day', 'Weather', 'Department']:
                 le = LabelEncoder()
                 df[col] = le.fit_transform(df[col])
                 label_encoders[col] = le
-
             X = df.drop(columns=['Number of patients', 'Date', 'PPDH', 'Number of doctors', 'Time'])
             y = df['Number of patients']
-
-            # Split the data
             X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
             scaler = StandardScaler()
             X_train_scaled = scaler.fit_transform(X_train)
             X_test_scaled = scaler.transform(X_test)
             model = TabNetRegressor()
-
-            # Train the model
             model.fit(
                 X_train_scaled, y_train.to_numpy().reshape(-1, 1),
                 eval_set=[(X_train_scaled, y_train.to_numpy().reshape(-1, 1)), (X_test_scaled, y_test.to_numpy().reshape(-1, 1))],
@@ -197,8 +185,8 @@ class TrainModelAPIView(APIView):
                 num_workers=0,
                 drop_last=False
             )
-            joblib.dump(model,model_path)
-            joblib.dump(scaler,scalar_path)
+            joblib.dump(model, model_path)
+            joblib.dump(scaler, scalar_path)
             joblib.dump(label_encoders, label_encoder_path)
 
             return Response({'status': 'Model trained and saved successfully'}, status=HTTP_200_OK)
@@ -214,6 +202,7 @@ class PredictInputSerializer(serializers.Serializer):
     Special_Event = serializers.IntegerField()
     Weather = serializers.CharField(max_length=50)
 
+
 class PredictOneDayAPIView(APIView):
     def post(self, request, *args, **kwargs):
         serializer = PredictInputSerializer(data=request.data)
@@ -222,26 +211,39 @@ class PredictOneDayAPIView(APIView):
             model = joblib.load(model_path)
             scaler = joblib.load(scalar_path)
             label_encoders = joblib.load(label_encoder_path)
+
             try:
+                predictions = []
                 input_df = pd.DataFrame([input_data])
 
+                # Encode categorical columns
                 for col in ['Day', 'Weather']:
                     if col in input_df.columns:
                         input_df[col] = label_encoders[col].transform(input_df[col])
 
-                input_df = input_df.drop(columns=['Date', 'PPDH', 'Number of doctors', 'Time'], errors='ignore')
+                # Add all departments to the input
+                departments = label_encoders['Department'].classes_
+                for department in departments:
+                    department_encoded = label_encoders['Department'].transform([department])[0]
+                    department_row = input_df.copy()
+                    department_row['Department'] = department_encoded
 
-                input_scaled = scaler.transform(input_df)
+                    input_scaled = scaler.transform(department_row)
+                    prediction = model.predict(input_scaled)
+                    predicted_patients = round(prediction[0].item())
+                    predicted_patients = max(0, min(predicted_patients, 1000))
 
-                prediction = model.predict(input_scaled)
+                    predictions.append({'Department': department, 'predicted_patients': predicted_patients})
 
-                return Response({'predicted_patients': prediction[0]}, status=status.HTTP_200_OK)
+                return Response(predictions, status=status.HTTP_200_OK)
 
             except Exception as e:
                 print(e)
                 return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 
 def test(r):
     return "Running"
