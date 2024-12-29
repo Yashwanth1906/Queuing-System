@@ -29,6 +29,11 @@ export type Hospital = $Result.DefaultSelection<Prisma.$HospitalPayload>
  */
 export type Patient = $Result.DefaultSelection<Prisma.$PatientPayload>
 /**
+ * Model History
+ * 
+ */
+export type History = $Result.DefaultSelection<Prisma.$HistoryPayload>
+/**
  * Model PatientBooking
  * 
  */
@@ -53,6 +58,11 @@ export type OTPVerification = $Result.DefaultSelection<Prisma.$OTPVerificationPa
  * 
  */
 export type BedRequest = $Result.DefaultSelection<Prisma.$BedRequestPayload>
+/**
+ * Model triage
+ * 
+ */
+export type triage = $Result.DefaultSelection<Prisma.$triagePayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -207,6 +217,16 @@ export class PrismaClient<
   get patient(): Prisma.PatientDelegate<ExtArgs>;
 
   /**
+   * `prisma.history`: Exposes CRUD operations for the **History** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Histories
+    * const histories = await prisma.history.findMany()
+    * ```
+    */
+  get history(): Prisma.HistoryDelegate<ExtArgs>;
+
+  /**
    * `prisma.patientBooking`: Exposes CRUD operations for the **PatientBooking** model.
     * Example usage:
     * ```ts
@@ -255,6 +275,16 @@ export class PrismaClient<
     * ```
     */
   get bedRequest(): Prisma.BedRequestDelegate<ExtArgs>;
+
+  /**
+   * `prisma.triage`: Exposes CRUD operations for the **triage** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Triages
+    * const triages = await prisma.triage.findMany()
+    * ```
+    */
+  get triage(): Prisma.triageDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -735,11 +765,13 @@ export namespace Prisma {
     Admin: 'Admin',
     Hospital: 'Hospital',
     Patient: 'Patient',
+    History: 'History',
     PatientBooking: 'PatientBooking',
     MedicalRecord: 'MedicalRecord',
     ABHANumber: 'ABHANumber',
     OTPVerification: 'OTPVerification',
-    BedRequest: 'BedRequest'
+    BedRequest: 'BedRequest',
+    triage: 'triage'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -755,7 +787,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "admin" | "hospital" | "patient" | "patientBooking" | "medicalRecord" | "aBHANumber" | "oTPVerification" | "bedRequest"
+      modelProps: "admin" | "hospital" | "patient" | "history" | "patientBooking" | "medicalRecord" | "aBHANumber" | "oTPVerification" | "bedRequest" | "triage"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -966,6 +998,76 @@ export namespace Prisma {
           count: {
             args: Prisma.PatientCountArgs<ExtArgs>
             result: $Utils.Optional<PatientCountAggregateOutputType> | number
+          }
+        }
+      }
+      History: {
+        payload: Prisma.$HistoryPayload<ExtArgs>
+        fields: Prisma.HistoryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.HistoryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HistoryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.HistoryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HistoryPayload>
+          }
+          findFirst: {
+            args: Prisma.HistoryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HistoryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.HistoryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HistoryPayload>
+          }
+          findMany: {
+            args: Prisma.HistoryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HistoryPayload>[]
+          }
+          create: {
+            args: Prisma.HistoryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HistoryPayload>
+          }
+          createMany: {
+            args: Prisma.HistoryCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.HistoryCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HistoryPayload>[]
+          }
+          delete: {
+            args: Prisma.HistoryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HistoryPayload>
+          }
+          update: {
+            args: Prisma.HistoryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HistoryPayload>
+          }
+          deleteMany: {
+            args: Prisma.HistoryDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.HistoryUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.HistoryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HistoryPayload>
+          }
+          aggregate: {
+            args: Prisma.HistoryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateHistory>
+          }
+          groupBy: {
+            args: Prisma.HistoryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<HistoryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.HistoryCountArgs<ExtArgs>
+            result: $Utils.Optional<HistoryCountAggregateOutputType> | number
           }
         }
       }
@@ -1319,6 +1421,76 @@ export namespace Prisma {
           }
         }
       }
+      triage: {
+        payload: Prisma.$triagePayload<ExtArgs>
+        fields: Prisma.triageFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.triageFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$triagePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.triageFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$triagePayload>
+          }
+          findFirst: {
+            args: Prisma.triageFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$triagePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.triageFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$triagePayload>
+          }
+          findMany: {
+            args: Prisma.triageFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$triagePayload>[]
+          }
+          create: {
+            args: Prisma.triageCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$triagePayload>
+          }
+          createMany: {
+            args: Prisma.triageCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.triageCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$triagePayload>[]
+          }
+          delete: {
+            args: Prisma.triageDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$triagePayload>
+          }
+          update: {
+            args: Prisma.triageUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$triagePayload>
+          }
+          deleteMany: {
+            args: Prisma.triageDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.triageUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.triageUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$triagePayload>
+          }
+          aggregate: {
+            args: Prisma.TriageAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTriage>
+          }
+          groupBy: {
+            args: Prisma.triageGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TriageGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.triageCountArgs<ExtArgs>
+            result: $Utils.Optional<TriageCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1529,11 +1701,13 @@ export namespace Prisma {
    */
 
   export type PatientCountOutputType = {
+    history: number
     medicalRecords: number
     patientBooking: number
   }
 
   export type PatientCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    history?: boolean | PatientCountOutputTypeCountHistoryArgs
     medicalRecords?: boolean | PatientCountOutputTypeCountMedicalRecordsArgs
     patientBooking?: boolean | PatientCountOutputTypeCountPatientBookingArgs
   }
@@ -1547,6 +1721,13 @@ export namespace Prisma {
      * Select specific fields to fetch from the PatientCountOutputType
      */
     select?: PatientCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * PatientCountOutputType without action
+   */
+  export type PatientCountOutputTypeCountHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HistoryWhereInput
   }
 
   /**
@@ -3717,6 +3898,7 @@ export namespace Prisma {
     gender?: boolean
     DOB?: boolean
     emergencyContact?: boolean
+    history?: boolean | Patient$historyArgs<ExtArgs>
     medicalRecords?: boolean | Patient$medicalRecordsArgs<ExtArgs>
     patientBooking?: boolean | Patient$patientBookingArgs<ExtArgs>
     _count?: boolean | PatientCountOutputTypeDefaultArgs<ExtArgs>
@@ -3747,6 +3929,7 @@ export namespace Prisma {
   }
 
   export type PatientInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    history?: boolean | Patient$historyArgs<ExtArgs>
     medicalRecords?: boolean | Patient$medicalRecordsArgs<ExtArgs>
     patientBooking?: boolean | Patient$patientBookingArgs<ExtArgs>
     _count?: boolean | PatientCountOutputTypeDefaultArgs<ExtArgs>
@@ -3756,6 +3939,7 @@ export namespace Prisma {
   export type $PatientPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Patient"
     objects: {
+      history: Prisma.$HistoryPayload<ExtArgs>[]
       medicalRecords: Prisma.$MedicalRecordPayload<ExtArgs>[]
       patientBooking: Prisma.$PatientBookingPayload<ExtArgs>[]
     }
@@ -4133,6 +4317,7 @@ export namespace Prisma {
    */
   export interface Prisma__PatientClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    history<T extends Patient$historyArgs<ExtArgs> = {}>(args?: Subset<T, Patient$historyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HistoryPayload<ExtArgs>, T, "findMany"> | Null>
     medicalRecords<T extends Patient$medicalRecordsArgs<ExtArgs> = {}>(args?: Subset<T, Patient$medicalRecordsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MedicalRecordPayload<ExtArgs>, T, "findMany"> | Null>
     patientBooking<T extends Patient$patientBookingArgs<ExtArgs> = {}>(args?: Subset<T, Patient$patientBookingArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PatientBookingPayload<ExtArgs>, T, "findMany"> | Null>
     /**
@@ -4487,6 +4672,26 @@ export namespace Prisma {
   }
 
   /**
+   * Patient.history
+   */
+  export type Patient$historyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the History
+     */
+    select?: HistorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HistoryInclude<ExtArgs> | null
+    where?: HistoryWhereInput
+    orderBy?: HistoryOrderByWithRelationInput | HistoryOrderByWithRelationInput[]
+    cursor?: HistoryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: HistoryScalarFieldEnum | HistoryScalarFieldEnum[]
+  }
+
+  /**
    * Patient.medicalRecords
    */
   export type Patient$medicalRecordsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4538,6 +4743,915 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: PatientInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model History
+   */
+
+  export type AggregateHistory = {
+    _count: HistoryCountAggregateOutputType | null
+    _min: HistoryMinAggregateOutputType | null
+    _max: HistoryMaxAggregateOutputType | null
+  }
+
+  export type HistoryMinAggregateOutputType = {
+    id: string | null
+    message: string | null
+    patientId: string | null
+  }
+
+  export type HistoryMaxAggregateOutputType = {
+    id: string | null
+    message: string | null
+    patientId: string | null
+  }
+
+  export type HistoryCountAggregateOutputType = {
+    id: number
+    message: number
+    patientId: number
+    _all: number
+  }
+
+
+  export type HistoryMinAggregateInputType = {
+    id?: true
+    message?: true
+    patientId?: true
+  }
+
+  export type HistoryMaxAggregateInputType = {
+    id?: true
+    message?: true
+    patientId?: true
+  }
+
+  export type HistoryCountAggregateInputType = {
+    id?: true
+    message?: true
+    patientId?: true
+    _all?: true
+  }
+
+  export type HistoryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which History to aggregate.
+     */
+    where?: HistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Histories to fetch.
+     */
+    orderBy?: HistoryOrderByWithRelationInput | HistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: HistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Histories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Histories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Histories
+    **/
+    _count?: true | HistoryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: HistoryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: HistoryMaxAggregateInputType
+  }
+
+  export type GetHistoryAggregateType<T extends HistoryAggregateArgs> = {
+        [P in keyof T & keyof AggregateHistory]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateHistory[P]>
+      : GetScalarType<T[P], AggregateHistory[P]>
+  }
+
+
+
+
+  export type HistoryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HistoryWhereInput
+    orderBy?: HistoryOrderByWithAggregationInput | HistoryOrderByWithAggregationInput[]
+    by: HistoryScalarFieldEnum[] | HistoryScalarFieldEnum
+    having?: HistoryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: HistoryCountAggregateInputType | true
+    _min?: HistoryMinAggregateInputType
+    _max?: HistoryMaxAggregateInputType
+  }
+
+  export type HistoryGroupByOutputType = {
+    id: string
+    message: string
+    patientId: string
+    _count: HistoryCountAggregateOutputType | null
+    _min: HistoryMinAggregateOutputType | null
+    _max: HistoryMaxAggregateOutputType | null
+  }
+
+  type GetHistoryGroupByPayload<T extends HistoryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<HistoryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof HistoryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], HistoryGroupByOutputType[P]>
+            : GetScalarType<T[P], HistoryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type HistorySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    message?: boolean
+    patientId?: boolean
+    patient?: boolean | PatientDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["history"]>
+
+  export type HistorySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    message?: boolean
+    patientId?: boolean
+    patient?: boolean | PatientDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["history"]>
+
+  export type HistorySelectScalar = {
+    id?: boolean
+    message?: boolean
+    patientId?: boolean
+  }
+
+  export type HistoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    patient?: boolean | PatientDefaultArgs<ExtArgs>
+  }
+  export type HistoryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    patient?: boolean | PatientDefaultArgs<ExtArgs>
+  }
+
+  export type $HistoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "History"
+    objects: {
+      patient: Prisma.$PatientPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      message: string
+      patientId: string
+    }, ExtArgs["result"]["history"]>
+    composites: {}
+  }
+
+  type HistoryGetPayload<S extends boolean | null | undefined | HistoryDefaultArgs> = $Result.GetResult<Prisma.$HistoryPayload, S>
+
+  type HistoryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<HistoryFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: HistoryCountAggregateInputType | true
+    }
+
+  export interface HistoryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['History'], meta: { name: 'History' } }
+    /**
+     * Find zero or one History that matches the filter.
+     * @param {HistoryFindUniqueArgs} args - Arguments to find a History
+     * @example
+     * // Get one History
+     * const history = await prisma.history.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends HistoryFindUniqueArgs>(args: SelectSubset<T, HistoryFindUniqueArgs<ExtArgs>>): Prisma__HistoryClient<$Result.GetResult<Prisma.$HistoryPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one History that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {HistoryFindUniqueOrThrowArgs} args - Arguments to find a History
+     * @example
+     * // Get one History
+     * const history = await prisma.history.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends HistoryFindUniqueOrThrowArgs>(args: SelectSubset<T, HistoryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__HistoryClient<$Result.GetResult<Prisma.$HistoryPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first History that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HistoryFindFirstArgs} args - Arguments to find a History
+     * @example
+     * // Get one History
+     * const history = await prisma.history.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends HistoryFindFirstArgs>(args?: SelectSubset<T, HistoryFindFirstArgs<ExtArgs>>): Prisma__HistoryClient<$Result.GetResult<Prisma.$HistoryPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first History that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HistoryFindFirstOrThrowArgs} args - Arguments to find a History
+     * @example
+     * // Get one History
+     * const history = await prisma.history.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends HistoryFindFirstOrThrowArgs>(args?: SelectSubset<T, HistoryFindFirstOrThrowArgs<ExtArgs>>): Prisma__HistoryClient<$Result.GetResult<Prisma.$HistoryPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Histories that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HistoryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Histories
+     * const histories = await prisma.history.findMany()
+     * 
+     * // Get first 10 Histories
+     * const histories = await prisma.history.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const historyWithIdOnly = await prisma.history.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends HistoryFindManyArgs>(args?: SelectSubset<T, HistoryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HistoryPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a History.
+     * @param {HistoryCreateArgs} args - Arguments to create a History.
+     * @example
+     * // Create one History
+     * const History = await prisma.history.create({
+     *   data: {
+     *     // ... data to create a History
+     *   }
+     * })
+     * 
+     */
+    create<T extends HistoryCreateArgs>(args: SelectSubset<T, HistoryCreateArgs<ExtArgs>>): Prisma__HistoryClient<$Result.GetResult<Prisma.$HistoryPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Histories.
+     * @param {HistoryCreateManyArgs} args - Arguments to create many Histories.
+     * @example
+     * // Create many Histories
+     * const history = await prisma.history.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends HistoryCreateManyArgs>(args?: SelectSubset<T, HistoryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Histories and returns the data saved in the database.
+     * @param {HistoryCreateManyAndReturnArgs} args - Arguments to create many Histories.
+     * @example
+     * // Create many Histories
+     * const history = await prisma.history.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Histories and only return the `id`
+     * const historyWithIdOnly = await prisma.history.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends HistoryCreateManyAndReturnArgs>(args?: SelectSubset<T, HistoryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HistoryPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a History.
+     * @param {HistoryDeleteArgs} args - Arguments to delete one History.
+     * @example
+     * // Delete one History
+     * const History = await prisma.history.delete({
+     *   where: {
+     *     // ... filter to delete one History
+     *   }
+     * })
+     * 
+     */
+    delete<T extends HistoryDeleteArgs>(args: SelectSubset<T, HistoryDeleteArgs<ExtArgs>>): Prisma__HistoryClient<$Result.GetResult<Prisma.$HistoryPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one History.
+     * @param {HistoryUpdateArgs} args - Arguments to update one History.
+     * @example
+     * // Update one History
+     * const history = await prisma.history.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends HistoryUpdateArgs>(args: SelectSubset<T, HistoryUpdateArgs<ExtArgs>>): Prisma__HistoryClient<$Result.GetResult<Prisma.$HistoryPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Histories.
+     * @param {HistoryDeleteManyArgs} args - Arguments to filter Histories to delete.
+     * @example
+     * // Delete a few Histories
+     * const { count } = await prisma.history.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends HistoryDeleteManyArgs>(args?: SelectSubset<T, HistoryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Histories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HistoryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Histories
+     * const history = await prisma.history.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends HistoryUpdateManyArgs>(args: SelectSubset<T, HistoryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one History.
+     * @param {HistoryUpsertArgs} args - Arguments to update or create a History.
+     * @example
+     * // Update or create a History
+     * const history = await prisma.history.upsert({
+     *   create: {
+     *     // ... data to create a History
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the History we want to update
+     *   }
+     * })
+     */
+    upsert<T extends HistoryUpsertArgs>(args: SelectSubset<T, HistoryUpsertArgs<ExtArgs>>): Prisma__HistoryClient<$Result.GetResult<Prisma.$HistoryPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Histories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HistoryCountArgs} args - Arguments to filter Histories to count.
+     * @example
+     * // Count the number of Histories
+     * const count = await prisma.history.count({
+     *   where: {
+     *     // ... the filter for the Histories we want to count
+     *   }
+     * })
+    **/
+    count<T extends HistoryCountArgs>(
+      args?: Subset<T, HistoryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], HistoryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a History.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HistoryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends HistoryAggregateArgs>(args: Subset<T, HistoryAggregateArgs>): Prisma.PrismaPromise<GetHistoryAggregateType<T>>
+
+    /**
+     * Group by History.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HistoryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends HistoryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: HistoryGroupByArgs['orderBy'] }
+        : { orderBy?: HistoryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, HistoryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetHistoryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the History model
+   */
+  readonly fields: HistoryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for History.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__HistoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    patient<T extends PatientDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PatientDefaultArgs<ExtArgs>>): Prisma__PatientClient<$Result.GetResult<Prisma.$PatientPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the History model
+   */ 
+  interface HistoryFieldRefs {
+    readonly id: FieldRef<"History", 'String'>
+    readonly message: FieldRef<"History", 'String'>
+    readonly patientId: FieldRef<"History", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * History findUnique
+   */
+  export type HistoryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the History
+     */
+    select?: HistorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which History to fetch.
+     */
+    where: HistoryWhereUniqueInput
+  }
+
+  /**
+   * History findUniqueOrThrow
+   */
+  export type HistoryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the History
+     */
+    select?: HistorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which History to fetch.
+     */
+    where: HistoryWhereUniqueInput
+  }
+
+  /**
+   * History findFirst
+   */
+  export type HistoryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the History
+     */
+    select?: HistorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which History to fetch.
+     */
+    where?: HistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Histories to fetch.
+     */
+    orderBy?: HistoryOrderByWithRelationInput | HistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Histories.
+     */
+    cursor?: HistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Histories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Histories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Histories.
+     */
+    distinct?: HistoryScalarFieldEnum | HistoryScalarFieldEnum[]
+  }
+
+  /**
+   * History findFirstOrThrow
+   */
+  export type HistoryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the History
+     */
+    select?: HistorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which History to fetch.
+     */
+    where?: HistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Histories to fetch.
+     */
+    orderBy?: HistoryOrderByWithRelationInput | HistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Histories.
+     */
+    cursor?: HistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Histories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Histories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Histories.
+     */
+    distinct?: HistoryScalarFieldEnum | HistoryScalarFieldEnum[]
+  }
+
+  /**
+   * History findMany
+   */
+  export type HistoryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the History
+     */
+    select?: HistorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which Histories to fetch.
+     */
+    where?: HistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Histories to fetch.
+     */
+    orderBy?: HistoryOrderByWithRelationInput | HistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Histories.
+     */
+    cursor?: HistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Histories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Histories.
+     */
+    skip?: number
+    distinct?: HistoryScalarFieldEnum | HistoryScalarFieldEnum[]
+  }
+
+  /**
+   * History create
+   */
+  export type HistoryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the History
+     */
+    select?: HistorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HistoryInclude<ExtArgs> | null
+    /**
+     * The data needed to create a History.
+     */
+    data: XOR<HistoryCreateInput, HistoryUncheckedCreateInput>
+  }
+
+  /**
+   * History createMany
+   */
+  export type HistoryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Histories.
+     */
+    data: HistoryCreateManyInput | HistoryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * History createManyAndReturn
+   */
+  export type HistoryCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the History
+     */
+    select?: HistorySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Histories.
+     */
+    data: HistoryCreateManyInput | HistoryCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HistoryIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * History update
+   */
+  export type HistoryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the History
+     */
+    select?: HistorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HistoryInclude<ExtArgs> | null
+    /**
+     * The data needed to update a History.
+     */
+    data: XOR<HistoryUpdateInput, HistoryUncheckedUpdateInput>
+    /**
+     * Choose, which History to update.
+     */
+    where: HistoryWhereUniqueInput
+  }
+
+  /**
+   * History updateMany
+   */
+  export type HistoryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Histories.
+     */
+    data: XOR<HistoryUpdateManyMutationInput, HistoryUncheckedUpdateManyInput>
+    /**
+     * Filter which Histories to update
+     */
+    where?: HistoryWhereInput
+  }
+
+  /**
+   * History upsert
+   */
+  export type HistoryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the History
+     */
+    select?: HistorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HistoryInclude<ExtArgs> | null
+    /**
+     * The filter to search for the History to update in case it exists.
+     */
+    where: HistoryWhereUniqueInput
+    /**
+     * In case the History found by the `where` argument doesn't exist, create a new History with this data.
+     */
+    create: XOR<HistoryCreateInput, HistoryUncheckedCreateInput>
+    /**
+     * In case the History was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<HistoryUpdateInput, HistoryUncheckedUpdateInput>
+  }
+
+  /**
+   * History delete
+   */
+  export type HistoryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the History
+     */
+    select?: HistorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HistoryInclude<ExtArgs> | null
+    /**
+     * Filter which History to delete.
+     */
+    where: HistoryWhereUniqueInput
+  }
+
+  /**
+   * History deleteMany
+   */
+  export type HistoryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Histories to delete
+     */
+    where?: HistoryWhereInput
+  }
+
+  /**
+   * History without action
+   */
+  export type HistoryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the History
+     */
+    select?: HistorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HistoryInclude<ExtArgs> | null
   }
 
 
@@ -8267,8 +9381,18 @@ export namespace Prisma {
 
   export type AggregateBedRequest = {
     _count: BedRequestCountAggregateOutputType | null
+    _avg: BedRequestAvgAggregateOutputType | null
+    _sum: BedRequestSumAggregateOutputType | null
     _min: BedRequestMinAggregateOutputType | null
     _max: BedRequestMaxAggregateOutputType | null
+  }
+
+  export type BedRequestAvgAggregateOutputType = {
+    patientAge: number | null
+  }
+
+  export type BedRequestSumAggregateOutputType = {
+    patientAge: number | null
   }
 
   export type BedRequestMinAggregateOutputType = {
@@ -8276,6 +9400,9 @@ export namespace Prisma {
     hospitalCode: string | null
     patientAbhaId: string | null
     patientName: string | null
+    patientAge: number | null
+    patientGender: string | null
+    reason: string | null
     patientContact: string | null
     wardName: string | null
   }
@@ -8285,6 +9412,9 @@ export namespace Prisma {
     hospitalCode: string | null
     patientAbhaId: string | null
     patientName: string | null
+    patientAge: number | null
+    patientGender: string | null
+    reason: string | null
     patientContact: string | null
     wardName: string | null
   }
@@ -8294,17 +9424,31 @@ export namespace Prisma {
     hospitalCode: number
     patientAbhaId: number
     patientName: number
+    patientAge: number
+    patientGender: number
+    reason: number
     patientContact: number
     wardName: number
     _all: number
   }
 
 
+  export type BedRequestAvgAggregateInputType = {
+    patientAge?: true
+  }
+
+  export type BedRequestSumAggregateInputType = {
+    patientAge?: true
+  }
+
   export type BedRequestMinAggregateInputType = {
     id?: true
     hospitalCode?: true
     patientAbhaId?: true
     patientName?: true
+    patientAge?: true
+    patientGender?: true
+    reason?: true
     patientContact?: true
     wardName?: true
   }
@@ -8314,6 +9458,9 @@ export namespace Prisma {
     hospitalCode?: true
     patientAbhaId?: true
     patientName?: true
+    patientAge?: true
+    patientGender?: true
+    reason?: true
     patientContact?: true
     wardName?: true
   }
@@ -8323,6 +9470,9 @@ export namespace Prisma {
     hospitalCode?: true
     patientAbhaId?: true
     patientName?: true
+    patientAge?: true
+    patientGender?: true
+    reason?: true
     patientContact?: true
     wardName?: true
     _all?: true
@@ -8366,6 +9516,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: BedRequestAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: BedRequestSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: BedRequestMinAggregateInputType
@@ -8396,6 +9558,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: BedRequestCountAggregateInputType | true
+    _avg?: BedRequestAvgAggregateInputType
+    _sum?: BedRequestSumAggregateInputType
     _min?: BedRequestMinAggregateInputType
     _max?: BedRequestMaxAggregateInputType
   }
@@ -8405,9 +9569,14 @@ export namespace Prisma {
     hospitalCode: string
     patientAbhaId: string
     patientName: string
+    patientAge: number
+    patientGender: string
+    reason: string
     patientContact: string
     wardName: string
     _count: BedRequestCountAggregateOutputType | null
+    _avg: BedRequestAvgAggregateOutputType | null
+    _sum: BedRequestSumAggregateOutputType | null
     _min: BedRequestMinAggregateOutputType | null
     _max: BedRequestMaxAggregateOutputType | null
   }
@@ -8431,6 +9600,9 @@ export namespace Prisma {
     hospitalCode?: boolean
     patientAbhaId?: boolean
     patientName?: boolean
+    patientAge?: boolean
+    patientGender?: boolean
+    reason?: boolean
     patientContact?: boolean
     wardName?: boolean
   }, ExtArgs["result"]["bedRequest"]>
@@ -8440,6 +9612,9 @@ export namespace Prisma {
     hospitalCode?: boolean
     patientAbhaId?: boolean
     patientName?: boolean
+    patientAge?: boolean
+    patientGender?: boolean
+    reason?: boolean
     patientContact?: boolean
     wardName?: boolean
   }, ExtArgs["result"]["bedRequest"]>
@@ -8449,6 +9624,9 @@ export namespace Prisma {
     hospitalCode?: boolean
     patientAbhaId?: boolean
     patientName?: boolean
+    patientAge?: boolean
+    patientGender?: boolean
+    reason?: boolean
     patientContact?: boolean
     wardName?: boolean
   }
@@ -8462,6 +9640,9 @@ export namespace Prisma {
       hospitalCode: string
       patientAbhaId: string
       patientName: string
+      patientAge: number
+      patientGender: string
+      reason: string
       patientContact: string
       wardName: string
     }, ExtArgs["result"]["bedRequest"]>
@@ -8861,6 +10042,9 @@ export namespace Prisma {
     readonly hospitalCode: FieldRef<"BedRequest", 'String'>
     readonly patientAbhaId: FieldRef<"BedRequest", 'String'>
     readonly patientName: FieldRef<"BedRequest", 'String'>
+    readonly patientAge: FieldRef<"BedRequest", 'Int'>
+    readonly patientGender: FieldRef<"BedRequest", 'String'>
+    readonly reason: FieldRef<"BedRequest", 'String'>
     readonly patientContact: FieldRef<"BedRequest", 'String'>
     readonly wardName: FieldRef<"BedRequest", 'String'>
   }
@@ -9152,6 +10336,848 @@ export namespace Prisma {
 
 
   /**
+   * Model triage
+   */
+
+  export type AggregateTriage = {
+    _count: TriageCountAggregateOutputType | null
+    _min: TriageMinAggregateOutputType | null
+    _max: TriageMaxAggregateOutputType | null
+  }
+
+  export type TriageMinAggregateOutputType = {
+    id: string | null
+    message: string | null
+  }
+
+  export type TriageMaxAggregateOutputType = {
+    id: string | null
+    message: string | null
+  }
+
+  export type TriageCountAggregateOutputType = {
+    id: number
+    message: number
+    _all: number
+  }
+
+
+  export type TriageMinAggregateInputType = {
+    id?: true
+    message?: true
+  }
+
+  export type TriageMaxAggregateInputType = {
+    id?: true
+    message?: true
+  }
+
+  export type TriageCountAggregateInputType = {
+    id?: true
+    message?: true
+    _all?: true
+  }
+
+  export type TriageAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which triage to aggregate.
+     */
+    where?: triageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of triages to fetch.
+     */
+    orderBy?: triageOrderByWithRelationInput | triageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: triageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` triages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` triages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned triages
+    **/
+    _count?: true | TriageCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TriageMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TriageMaxAggregateInputType
+  }
+
+  export type GetTriageAggregateType<T extends TriageAggregateArgs> = {
+        [P in keyof T & keyof AggregateTriage]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTriage[P]>
+      : GetScalarType<T[P], AggregateTriage[P]>
+  }
+
+
+
+
+  export type triageGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: triageWhereInput
+    orderBy?: triageOrderByWithAggregationInput | triageOrderByWithAggregationInput[]
+    by: TriageScalarFieldEnum[] | TriageScalarFieldEnum
+    having?: triageScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TriageCountAggregateInputType | true
+    _min?: TriageMinAggregateInputType
+    _max?: TriageMaxAggregateInputType
+  }
+
+  export type TriageGroupByOutputType = {
+    id: string
+    message: string
+    _count: TriageCountAggregateOutputType | null
+    _min: TriageMinAggregateOutputType | null
+    _max: TriageMaxAggregateOutputType | null
+  }
+
+  type GetTriageGroupByPayload<T extends triageGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TriageGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TriageGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TriageGroupByOutputType[P]>
+            : GetScalarType<T[P], TriageGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type triageSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    message?: boolean
+  }, ExtArgs["result"]["triage"]>
+
+  export type triageSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    message?: boolean
+  }, ExtArgs["result"]["triage"]>
+
+  export type triageSelectScalar = {
+    id?: boolean
+    message?: boolean
+  }
+
+
+  export type $triagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "triage"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      message: string
+    }, ExtArgs["result"]["triage"]>
+    composites: {}
+  }
+
+  type triageGetPayload<S extends boolean | null | undefined | triageDefaultArgs> = $Result.GetResult<Prisma.$triagePayload, S>
+
+  type triageCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<triageFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: TriageCountAggregateInputType | true
+    }
+
+  export interface triageDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['triage'], meta: { name: 'triage' } }
+    /**
+     * Find zero or one Triage that matches the filter.
+     * @param {triageFindUniqueArgs} args - Arguments to find a Triage
+     * @example
+     * // Get one Triage
+     * const triage = await prisma.triage.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends triageFindUniqueArgs>(args: SelectSubset<T, triageFindUniqueArgs<ExtArgs>>): Prisma__triageClient<$Result.GetResult<Prisma.$triagePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Triage that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {triageFindUniqueOrThrowArgs} args - Arguments to find a Triage
+     * @example
+     * // Get one Triage
+     * const triage = await prisma.triage.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends triageFindUniqueOrThrowArgs>(args: SelectSubset<T, triageFindUniqueOrThrowArgs<ExtArgs>>): Prisma__triageClient<$Result.GetResult<Prisma.$triagePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Triage that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {triageFindFirstArgs} args - Arguments to find a Triage
+     * @example
+     * // Get one Triage
+     * const triage = await prisma.triage.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends triageFindFirstArgs>(args?: SelectSubset<T, triageFindFirstArgs<ExtArgs>>): Prisma__triageClient<$Result.GetResult<Prisma.$triagePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Triage that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {triageFindFirstOrThrowArgs} args - Arguments to find a Triage
+     * @example
+     * // Get one Triage
+     * const triage = await prisma.triage.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends triageFindFirstOrThrowArgs>(args?: SelectSubset<T, triageFindFirstOrThrowArgs<ExtArgs>>): Prisma__triageClient<$Result.GetResult<Prisma.$triagePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Triages that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {triageFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Triages
+     * const triages = await prisma.triage.findMany()
+     * 
+     * // Get first 10 Triages
+     * const triages = await prisma.triage.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const triageWithIdOnly = await prisma.triage.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends triageFindManyArgs>(args?: SelectSubset<T, triageFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$triagePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Triage.
+     * @param {triageCreateArgs} args - Arguments to create a Triage.
+     * @example
+     * // Create one Triage
+     * const Triage = await prisma.triage.create({
+     *   data: {
+     *     // ... data to create a Triage
+     *   }
+     * })
+     * 
+     */
+    create<T extends triageCreateArgs>(args: SelectSubset<T, triageCreateArgs<ExtArgs>>): Prisma__triageClient<$Result.GetResult<Prisma.$triagePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Triages.
+     * @param {triageCreateManyArgs} args - Arguments to create many Triages.
+     * @example
+     * // Create many Triages
+     * const triage = await prisma.triage.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends triageCreateManyArgs>(args?: SelectSubset<T, triageCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Triages and returns the data saved in the database.
+     * @param {triageCreateManyAndReturnArgs} args - Arguments to create many Triages.
+     * @example
+     * // Create many Triages
+     * const triage = await prisma.triage.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Triages and only return the `id`
+     * const triageWithIdOnly = await prisma.triage.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends triageCreateManyAndReturnArgs>(args?: SelectSubset<T, triageCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$triagePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a Triage.
+     * @param {triageDeleteArgs} args - Arguments to delete one Triage.
+     * @example
+     * // Delete one Triage
+     * const Triage = await prisma.triage.delete({
+     *   where: {
+     *     // ... filter to delete one Triage
+     *   }
+     * })
+     * 
+     */
+    delete<T extends triageDeleteArgs>(args: SelectSubset<T, triageDeleteArgs<ExtArgs>>): Prisma__triageClient<$Result.GetResult<Prisma.$triagePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Triage.
+     * @param {triageUpdateArgs} args - Arguments to update one Triage.
+     * @example
+     * // Update one Triage
+     * const triage = await prisma.triage.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends triageUpdateArgs>(args: SelectSubset<T, triageUpdateArgs<ExtArgs>>): Prisma__triageClient<$Result.GetResult<Prisma.$triagePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Triages.
+     * @param {triageDeleteManyArgs} args - Arguments to filter Triages to delete.
+     * @example
+     * // Delete a few Triages
+     * const { count } = await prisma.triage.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends triageDeleteManyArgs>(args?: SelectSubset<T, triageDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Triages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {triageUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Triages
+     * const triage = await prisma.triage.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends triageUpdateManyArgs>(args: SelectSubset<T, triageUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Triage.
+     * @param {triageUpsertArgs} args - Arguments to update or create a Triage.
+     * @example
+     * // Update or create a Triage
+     * const triage = await prisma.triage.upsert({
+     *   create: {
+     *     // ... data to create a Triage
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Triage we want to update
+     *   }
+     * })
+     */
+    upsert<T extends triageUpsertArgs>(args: SelectSubset<T, triageUpsertArgs<ExtArgs>>): Prisma__triageClient<$Result.GetResult<Prisma.$triagePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Triages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {triageCountArgs} args - Arguments to filter Triages to count.
+     * @example
+     * // Count the number of Triages
+     * const count = await prisma.triage.count({
+     *   where: {
+     *     // ... the filter for the Triages we want to count
+     *   }
+     * })
+    **/
+    count<T extends triageCountArgs>(
+      args?: Subset<T, triageCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TriageCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Triage.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TriageAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TriageAggregateArgs>(args: Subset<T, TriageAggregateArgs>): Prisma.PrismaPromise<GetTriageAggregateType<T>>
+
+    /**
+     * Group by Triage.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {triageGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends triageGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: triageGroupByArgs['orderBy'] }
+        : { orderBy?: triageGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, triageGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTriageGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the triage model
+   */
+  readonly fields: triageFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for triage.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__triageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the triage model
+   */ 
+  interface triageFieldRefs {
+    readonly id: FieldRef<"triage", 'String'>
+    readonly message: FieldRef<"triage", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * triage findUnique
+   */
+  export type triageFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the triage
+     */
+    select?: triageSelect<ExtArgs> | null
+    /**
+     * Filter, which triage to fetch.
+     */
+    where: triageWhereUniqueInput
+  }
+
+  /**
+   * triage findUniqueOrThrow
+   */
+  export type triageFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the triage
+     */
+    select?: triageSelect<ExtArgs> | null
+    /**
+     * Filter, which triage to fetch.
+     */
+    where: triageWhereUniqueInput
+  }
+
+  /**
+   * triage findFirst
+   */
+  export type triageFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the triage
+     */
+    select?: triageSelect<ExtArgs> | null
+    /**
+     * Filter, which triage to fetch.
+     */
+    where?: triageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of triages to fetch.
+     */
+    orderBy?: triageOrderByWithRelationInput | triageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for triages.
+     */
+    cursor?: triageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` triages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` triages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of triages.
+     */
+    distinct?: TriageScalarFieldEnum | TriageScalarFieldEnum[]
+  }
+
+  /**
+   * triage findFirstOrThrow
+   */
+  export type triageFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the triage
+     */
+    select?: triageSelect<ExtArgs> | null
+    /**
+     * Filter, which triage to fetch.
+     */
+    where?: triageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of triages to fetch.
+     */
+    orderBy?: triageOrderByWithRelationInput | triageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for triages.
+     */
+    cursor?: triageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` triages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` triages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of triages.
+     */
+    distinct?: TriageScalarFieldEnum | TriageScalarFieldEnum[]
+  }
+
+  /**
+   * triage findMany
+   */
+  export type triageFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the triage
+     */
+    select?: triageSelect<ExtArgs> | null
+    /**
+     * Filter, which triages to fetch.
+     */
+    where?: triageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of triages to fetch.
+     */
+    orderBy?: triageOrderByWithRelationInput | triageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing triages.
+     */
+    cursor?: triageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` triages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` triages.
+     */
+    skip?: number
+    distinct?: TriageScalarFieldEnum | TriageScalarFieldEnum[]
+  }
+
+  /**
+   * triage create
+   */
+  export type triageCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the triage
+     */
+    select?: triageSelect<ExtArgs> | null
+    /**
+     * The data needed to create a triage.
+     */
+    data: XOR<triageCreateInput, triageUncheckedCreateInput>
+  }
+
+  /**
+   * triage createMany
+   */
+  export type triageCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many triages.
+     */
+    data: triageCreateManyInput | triageCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * triage createManyAndReturn
+   */
+  export type triageCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the triage
+     */
+    select?: triageSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many triages.
+     */
+    data: triageCreateManyInput | triageCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * triage update
+   */
+  export type triageUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the triage
+     */
+    select?: triageSelect<ExtArgs> | null
+    /**
+     * The data needed to update a triage.
+     */
+    data: XOR<triageUpdateInput, triageUncheckedUpdateInput>
+    /**
+     * Choose, which triage to update.
+     */
+    where: triageWhereUniqueInput
+  }
+
+  /**
+   * triage updateMany
+   */
+  export type triageUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update triages.
+     */
+    data: XOR<triageUpdateManyMutationInput, triageUncheckedUpdateManyInput>
+    /**
+     * Filter which triages to update
+     */
+    where?: triageWhereInput
+  }
+
+  /**
+   * triage upsert
+   */
+  export type triageUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the triage
+     */
+    select?: triageSelect<ExtArgs> | null
+    /**
+     * The filter to search for the triage to update in case it exists.
+     */
+    where: triageWhereUniqueInput
+    /**
+     * In case the triage found by the `where` argument doesn't exist, create a new triage with this data.
+     */
+    create: XOR<triageCreateInput, triageUncheckedCreateInput>
+    /**
+     * In case the triage was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<triageUpdateInput, triageUncheckedUpdateInput>
+  }
+
+  /**
+   * triage delete
+   */
+  export type triageDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the triage
+     */
+    select?: triageSelect<ExtArgs> | null
+    /**
+     * Filter which triage to delete.
+     */
+    where: triageWhereUniqueInput
+  }
+
+  /**
+   * triage deleteMany
+   */
+  export type triageDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which triages to delete
+     */
+    where?: triageWhereInput
+  }
+
+  /**
+   * triage without action
+   */
+  export type triageDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the triage
+     */
+    select?: triageSelect<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -9202,6 +11228,15 @@ export namespace Prisma {
   };
 
   export type PatientScalarFieldEnum = (typeof PatientScalarFieldEnum)[keyof typeof PatientScalarFieldEnum]
+
+
+  export const HistoryScalarFieldEnum: {
+    id: 'id',
+    message: 'message',
+    patientId: 'patientId'
+  };
+
+  export type HistoryScalarFieldEnum = (typeof HistoryScalarFieldEnum)[keyof typeof HistoryScalarFieldEnum]
 
 
   export const PatientBookingScalarFieldEnum: {
@@ -9258,11 +11293,22 @@ export namespace Prisma {
     hospitalCode: 'hospitalCode',
     patientAbhaId: 'patientAbhaId',
     patientName: 'patientName',
+    patientAge: 'patientAge',
+    patientGender: 'patientGender',
+    reason: 'reason',
     patientContact: 'patientContact',
     wardName: 'wardName'
   };
 
   export type BedRequestScalarFieldEnum = (typeof BedRequestScalarFieldEnum)[keyof typeof BedRequestScalarFieldEnum]
+
+
+  export const TriageScalarFieldEnum: {
+    id: 'id',
+    message: 'message'
+  };
+
+  export type TriageScalarFieldEnum = (typeof TriageScalarFieldEnum)[keyof typeof TriageScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -9523,6 +11569,7 @@ export namespace Prisma {
     gender?: StringFilter<"Patient"> | string
     DOB?: StringFilter<"Patient"> | string
     emergencyContact?: StringFilter<"Patient"> | string
+    history?: HistoryListRelationFilter
     medicalRecords?: MedicalRecordListRelationFilter
     patientBooking?: PatientBookingListRelationFilter
   }
@@ -9537,6 +11584,7 @@ export namespace Prisma {
     gender?: SortOrder
     DOB?: SortOrder
     emergencyContact?: SortOrder
+    history?: HistoryOrderByRelationAggregateInput
     medicalRecords?: MedicalRecordOrderByRelationAggregateInput
     patientBooking?: PatientBookingOrderByRelationAggregateInput
   }
@@ -9554,6 +11602,7 @@ export namespace Prisma {
     gender?: StringFilter<"Patient"> | string
     DOB?: StringFilter<"Patient"> | string
     emergencyContact?: StringFilter<"Patient"> | string
+    history?: HistoryListRelationFilter
     medicalRecords?: MedicalRecordListRelationFilter
     patientBooking?: PatientBookingListRelationFilter
   }, "abhaId" | "abhaId" | "email">
@@ -9586,6 +11635,51 @@ export namespace Prisma {
     gender?: StringWithAggregatesFilter<"Patient"> | string
     DOB?: StringWithAggregatesFilter<"Patient"> | string
     emergencyContact?: StringWithAggregatesFilter<"Patient"> | string
+  }
+
+  export type HistoryWhereInput = {
+    AND?: HistoryWhereInput | HistoryWhereInput[]
+    OR?: HistoryWhereInput[]
+    NOT?: HistoryWhereInput | HistoryWhereInput[]
+    id?: StringFilter<"History"> | string
+    message?: StringFilter<"History"> | string
+    patientId?: StringFilter<"History"> | string
+    patient?: XOR<PatientRelationFilter, PatientWhereInput>
+  }
+
+  export type HistoryOrderByWithRelationInput = {
+    id?: SortOrder
+    message?: SortOrder
+    patientId?: SortOrder
+    patient?: PatientOrderByWithRelationInput
+  }
+
+  export type HistoryWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: HistoryWhereInput | HistoryWhereInput[]
+    OR?: HistoryWhereInput[]
+    NOT?: HistoryWhereInput | HistoryWhereInput[]
+    message?: StringFilter<"History"> | string
+    patientId?: StringFilter<"History"> | string
+    patient?: XOR<PatientRelationFilter, PatientWhereInput>
+  }, "id">
+
+  export type HistoryOrderByWithAggregationInput = {
+    id?: SortOrder
+    message?: SortOrder
+    patientId?: SortOrder
+    _count?: HistoryCountOrderByAggregateInput
+    _max?: HistoryMaxOrderByAggregateInput
+    _min?: HistoryMinOrderByAggregateInput
+  }
+
+  export type HistoryScalarWhereWithAggregatesInput = {
+    AND?: HistoryScalarWhereWithAggregatesInput | HistoryScalarWhereWithAggregatesInput[]
+    OR?: HistoryScalarWhereWithAggregatesInput[]
+    NOT?: HistoryScalarWhereWithAggregatesInput | HistoryScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"History"> | string
+    message?: StringWithAggregatesFilter<"History"> | string
+    patientId?: StringWithAggregatesFilter<"History"> | string
   }
 
   export type PatientBookingWhereInput = {
@@ -9843,6 +11937,9 @@ export namespace Prisma {
     hospitalCode?: StringFilter<"BedRequest"> | string
     patientAbhaId?: StringFilter<"BedRequest"> | string
     patientName?: StringFilter<"BedRequest"> | string
+    patientAge?: IntFilter<"BedRequest"> | number
+    patientGender?: StringFilter<"BedRequest"> | string
+    reason?: StringFilter<"BedRequest"> | string
     patientContact?: StringFilter<"BedRequest"> | string
     wardName?: StringFilter<"BedRequest"> | string
   }
@@ -9852,6 +11949,9 @@ export namespace Prisma {
     hospitalCode?: SortOrder
     patientAbhaId?: SortOrder
     patientName?: SortOrder
+    patientAge?: SortOrder
+    patientGender?: SortOrder
+    reason?: SortOrder
     patientContact?: SortOrder
     wardName?: SortOrder
   }
@@ -9864,6 +11964,9 @@ export namespace Prisma {
     NOT?: BedRequestWhereInput | BedRequestWhereInput[]
     hospitalCode?: StringFilter<"BedRequest"> | string
     patientName?: StringFilter<"BedRequest"> | string
+    patientAge?: IntFilter<"BedRequest"> | number
+    patientGender?: StringFilter<"BedRequest"> | string
+    reason?: StringFilter<"BedRequest"> | string
     patientContact?: StringFilter<"BedRequest"> | string
     wardName?: StringFilter<"BedRequest"> | string
   }, "id" | "patientAbhaId">
@@ -9873,11 +11976,16 @@ export namespace Prisma {
     hospitalCode?: SortOrder
     patientAbhaId?: SortOrder
     patientName?: SortOrder
+    patientAge?: SortOrder
+    patientGender?: SortOrder
+    reason?: SortOrder
     patientContact?: SortOrder
     wardName?: SortOrder
     _count?: BedRequestCountOrderByAggregateInput
+    _avg?: BedRequestAvgOrderByAggregateInput
     _max?: BedRequestMaxOrderByAggregateInput
     _min?: BedRequestMinOrderByAggregateInput
+    _sum?: BedRequestSumOrderByAggregateInput
   }
 
   export type BedRequestScalarWhereWithAggregatesInput = {
@@ -9888,8 +11996,48 @@ export namespace Prisma {
     hospitalCode?: StringWithAggregatesFilter<"BedRequest"> | string
     patientAbhaId?: StringWithAggregatesFilter<"BedRequest"> | string
     patientName?: StringWithAggregatesFilter<"BedRequest"> | string
+    patientAge?: IntWithAggregatesFilter<"BedRequest"> | number
+    patientGender?: StringWithAggregatesFilter<"BedRequest"> | string
+    reason?: StringWithAggregatesFilter<"BedRequest"> | string
     patientContact?: StringWithAggregatesFilter<"BedRequest"> | string
     wardName?: StringWithAggregatesFilter<"BedRequest"> | string
+  }
+
+  export type triageWhereInput = {
+    AND?: triageWhereInput | triageWhereInput[]
+    OR?: triageWhereInput[]
+    NOT?: triageWhereInput | triageWhereInput[]
+    id?: StringFilter<"triage"> | string
+    message?: StringFilter<"triage"> | string
+  }
+
+  export type triageOrderByWithRelationInput = {
+    id?: SortOrder
+    message?: SortOrder
+  }
+
+  export type triageWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: triageWhereInput | triageWhereInput[]
+    OR?: triageWhereInput[]
+    NOT?: triageWhereInput | triageWhereInput[]
+    message?: StringFilter<"triage"> | string
+  }, "id">
+
+  export type triageOrderByWithAggregationInput = {
+    id?: SortOrder
+    message?: SortOrder
+    _count?: triageCountOrderByAggregateInput
+    _max?: triageMaxOrderByAggregateInput
+    _min?: triageMinOrderByAggregateInput
+  }
+
+  export type triageScalarWhereWithAggregatesInput = {
+    AND?: triageScalarWhereWithAggregatesInput | triageScalarWhereWithAggregatesInput[]
+    OR?: triageScalarWhereWithAggregatesInput[]
+    NOT?: triageScalarWhereWithAggregatesInput | triageScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"triage"> | string
+    message?: StringWithAggregatesFilter<"triage"> | string
   }
 
   export type AdminCreateInput = {
@@ -10039,6 +12187,7 @@ export namespace Prisma {
     gender: string
     DOB: string
     emergencyContact: string
+    history?: HistoryCreateNestedManyWithoutPatientInput
     medicalRecords?: MedicalRecordCreateNestedManyWithoutPatientInput
     patientBooking?: PatientBookingCreateNestedManyWithoutPatientInput
   }
@@ -10053,6 +12202,7 @@ export namespace Prisma {
     gender: string
     DOB: string
     emergencyContact: string
+    history?: HistoryUncheckedCreateNestedManyWithoutPatientInput
     medicalRecords?: MedicalRecordUncheckedCreateNestedManyWithoutPatientInput
     patientBooking?: PatientBookingUncheckedCreateNestedManyWithoutPatientInput
   }
@@ -10067,6 +12217,7 @@ export namespace Prisma {
     gender?: StringFieldUpdateOperationsInput | string
     DOB?: StringFieldUpdateOperationsInput | string
     emergencyContact?: StringFieldUpdateOperationsInput | string
+    history?: HistoryUpdateManyWithoutPatientNestedInput
     medicalRecords?: MedicalRecordUpdateManyWithoutPatientNestedInput
     patientBooking?: PatientBookingUpdateManyWithoutPatientNestedInput
   }
@@ -10081,6 +12232,7 @@ export namespace Prisma {
     gender?: StringFieldUpdateOperationsInput | string
     DOB?: StringFieldUpdateOperationsInput | string
     emergencyContact?: StringFieldUpdateOperationsInput | string
+    history?: HistoryUncheckedUpdateManyWithoutPatientNestedInput
     medicalRecords?: MedicalRecordUncheckedUpdateManyWithoutPatientNestedInput
     patientBooking?: PatientBookingUncheckedUpdateManyWithoutPatientNestedInput
   }
@@ -10119,6 +12271,47 @@ export namespace Prisma {
     gender?: StringFieldUpdateOperationsInput | string
     DOB?: StringFieldUpdateOperationsInput | string
     emergencyContact?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type HistoryCreateInput = {
+    id?: string
+    message: string
+    patient: PatientCreateNestedOneWithoutHistoryInput
+  }
+
+  export type HistoryUncheckedCreateInput = {
+    id?: string
+    message: string
+    patientId: string
+  }
+
+  export type HistoryUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    patient?: PatientUpdateOneRequiredWithoutHistoryNestedInput
+  }
+
+  export type HistoryUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    patientId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type HistoryCreateManyInput = {
+    id?: string
+    message: string
+    patientId: string
+  }
+
+  export type HistoryUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type HistoryUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    patientId?: StringFieldUpdateOperationsInput | string
   }
 
   export type PatientBookingCreateInput = {
@@ -10378,6 +12571,9 @@ export namespace Prisma {
     hospitalCode: string
     patientAbhaId: string
     patientName: string
+    patientAge: number
+    patientGender: string
+    reason: string
     patientContact: string
     wardName: string
   }
@@ -10387,6 +12583,9 @@ export namespace Prisma {
     hospitalCode: string
     patientAbhaId: string
     patientName: string
+    patientAge: number
+    patientGender: string
+    reason: string
     patientContact: string
     wardName: string
   }
@@ -10396,6 +12595,9 @@ export namespace Prisma {
     hospitalCode?: StringFieldUpdateOperationsInput | string
     patientAbhaId?: StringFieldUpdateOperationsInput | string
     patientName?: StringFieldUpdateOperationsInput | string
+    patientAge?: IntFieldUpdateOperationsInput | number
+    patientGender?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
     patientContact?: StringFieldUpdateOperationsInput | string
     wardName?: StringFieldUpdateOperationsInput | string
   }
@@ -10405,6 +12607,9 @@ export namespace Prisma {
     hospitalCode?: StringFieldUpdateOperationsInput | string
     patientAbhaId?: StringFieldUpdateOperationsInput | string
     patientName?: StringFieldUpdateOperationsInput | string
+    patientAge?: IntFieldUpdateOperationsInput | number
+    patientGender?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
     patientContact?: StringFieldUpdateOperationsInput | string
     wardName?: StringFieldUpdateOperationsInput | string
   }
@@ -10414,6 +12619,9 @@ export namespace Prisma {
     hospitalCode: string
     patientAbhaId: string
     patientName: string
+    patientAge: number
+    patientGender: string
+    reason: string
     patientContact: string
     wardName: string
   }
@@ -10423,6 +12631,9 @@ export namespace Prisma {
     hospitalCode?: StringFieldUpdateOperationsInput | string
     patientAbhaId?: StringFieldUpdateOperationsInput | string
     patientName?: StringFieldUpdateOperationsInput | string
+    patientAge?: IntFieldUpdateOperationsInput | number
+    patientGender?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
     patientContact?: StringFieldUpdateOperationsInput | string
     wardName?: StringFieldUpdateOperationsInput | string
   }
@@ -10432,8 +12643,46 @@ export namespace Prisma {
     hospitalCode?: StringFieldUpdateOperationsInput | string
     patientAbhaId?: StringFieldUpdateOperationsInput | string
     patientName?: StringFieldUpdateOperationsInput | string
+    patientAge?: IntFieldUpdateOperationsInput | number
+    patientGender?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
     patientContact?: StringFieldUpdateOperationsInput | string
     wardName?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type triageCreateInput = {
+    id?: string
+    message: string
+  }
+
+  export type triageUncheckedCreateInput = {
+    id?: string
+    message: string
+  }
+
+  export type triageUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type triageUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type triageCreateManyInput = {
+    id?: string
+    message: string
+  }
+
+  export type triageUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type triageUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -10558,6 +12807,16 @@ export namespace Prisma {
     dbURL?: SortOrder
   }
 
+  export type HistoryListRelationFilter = {
+    every?: HistoryWhereInput
+    some?: HistoryWhereInput
+    none?: HistoryWhereInput
+  }
+
+  export type HistoryOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type PatientCountOrderByAggregateInput = {
     abhaId?: SortOrder
     email?: SortOrder
@@ -10594,6 +12853,29 @@ export namespace Prisma {
     emergencyContact?: SortOrder
   }
 
+  export type PatientRelationFilter = {
+    is?: PatientWhereInput
+    isNot?: PatientWhereInput
+  }
+
+  export type HistoryCountOrderByAggregateInput = {
+    id?: SortOrder
+    message?: SortOrder
+    patientId?: SortOrder
+  }
+
+  export type HistoryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    message?: SortOrder
+    patientId?: SortOrder
+  }
+
+  export type HistoryMinOrderByAggregateInput = {
+    id?: SortOrder
+    message?: SortOrder
+    patientId?: SortOrder
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -10603,11 +12885,6 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntFilter<$PrismaModel> | number
-  }
-
-  export type PatientRelationFilter = {
-    is?: PatientWhereInput
-    isNot?: PatientWhereInput
   }
 
   export type PatientBookingCountOrderByAggregateInput = {
@@ -10928,8 +13205,15 @@ export namespace Prisma {
     hospitalCode?: SortOrder
     patientAbhaId?: SortOrder
     patientName?: SortOrder
+    patientAge?: SortOrder
+    patientGender?: SortOrder
+    reason?: SortOrder
     patientContact?: SortOrder
     wardName?: SortOrder
+  }
+
+  export type BedRequestAvgOrderByAggregateInput = {
+    patientAge?: SortOrder
   }
 
   export type BedRequestMaxOrderByAggregateInput = {
@@ -10937,6 +13221,9 @@ export namespace Prisma {
     hospitalCode?: SortOrder
     patientAbhaId?: SortOrder
     patientName?: SortOrder
+    patientAge?: SortOrder
+    patientGender?: SortOrder
+    reason?: SortOrder
     patientContact?: SortOrder
     wardName?: SortOrder
   }
@@ -10946,8 +13233,30 @@ export namespace Prisma {
     hospitalCode?: SortOrder
     patientAbhaId?: SortOrder
     patientName?: SortOrder
+    patientAge?: SortOrder
+    patientGender?: SortOrder
+    reason?: SortOrder
     patientContact?: SortOrder
     wardName?: SortOrder
+  }
+
+  export type BedRequestSumOrderByAggregateInput = {
+    patientAge?: SortOrder
+  }
+
+  export type triageCountOrderByAggregateInput = {
+    id?: SortOrder
+    message?: SortOrder
+  }
+
+  export type triageMaxOrderByAggregateInput = {
+    id?: SortOrder
+    message?: SortOrder
+  }
+
+  export type triageMinOrderByAggregateInput = {
+    id?: SortOrder
+    message?: SortOrder
   }
 
   export type HospitalCreateNestedOneWithoutAdminInput = {
@@ -11094,6 +13403,13 @@ export namespace Prisma {
     deleteMany?: PatientBookingScalarWhereInput | PatientBookingScalarWhereInput[]
   }
 
+  export type HistoryCreateNestedManyWithoutPatientInput = {
+    create?: XOR<HistoryCreateWithoutPatientInput, HistoryUncheckedCreateWithoutPatientInput> | HistoryCreateWithoutPatientInput[] | HistoryUncheckedCreateWithoutPatientInput[]
+    connectOrCreate?: HistoryCreateOrConnectWithoutPatientInput | HistoryCreateOrConnectWithoutPatientInput[]
+    createMany?: HistoryCreateManyPatientInputEnvelope
+    connect?: HistoryWhereUniqueInput | HistoryWhereUniqueInput[]
+  }
+
   export type MedicalRecordCreateNestedManyWithoutPatientInput = {
     create?: XOR<MedicalRecordCreateWithoutPatientInput, MedicalRecordUncheckedCreateWithoutPatientInput> | MedicalRecordCreateWithoutPatientInput[] | MedicalRecordUncheckedCreateWithoutPatientInput[]
     connectOrCreate?: MedicalRecordCreateOrConnectWithoutPatientInput | MedicalRecordCreateOrConnectWithoutPatientInput[]
@@ -11108,6 +13424,13 @@ export namespace Prisma {
     connect?: PatientBookingWhereUniqueInput | PatientBookingWhereUniqueInput[]
   }
 
+  export type HistoryUncheckedCreateNestedManyWithoutPatientInput = {
+    create?: XOR<HistoryCreateWithoutPatientInput, HistoryUncheckedCreateWithoutPatientInput> | HistoryCreateWithoutPatientInput[] | HistoryUncheckedCreateWithoutPatientInput[]
+    connectOrCreate?: HistoryCreateOrConnectWithoutPatientInput | HistoryCreateOrConnectWithoutPatientInput[]
+    createMany?: HistoryCreateManyPatientInputEnvelope
+    connect?: HistoryWhereUniqueInput | HistoryWhereUniqueInput[]
+  }
+
   export type MedicalRecordUncheckedCreateNestedManyWithoutPatientInput = {
     create?: XOR<MedicalRecordCreateWithoutPatientInput, MedicalRecordUncheckedCreateWithoutPatientInput> | MedicalRecordCreateWithoutPatientInput[] | MedicalRecordUncheckedCreateWithoutPatientInput[]
     connectOrCreate?: MedicalRecordCreateOrConnectWithoutPatientInput | MedicalRecordCreateOrConnectWithoutPatientInput[]
@@ -11120,6 +13443,20 @@ export namespace Prisma {
     connectOrCreate?: PatientBookingCreateOrConnectWithoutPatientInput | PatientBookingCreateOrConnectWithoutPatientInput[]
     createMany?: PatientBookingCreateManyPatientInputEnvelope
     connect?: PatientBookingWhereUniqueInput | PatientBookingWhereUniqueInput[]
+  }
+
+  export type HistoryUpdateManyWithoutPatientNestedInput = {
+    create?: XOR<HistoryCreateWithoutPatientInput, HistoryUncheckedCreateWithoutPatientInput> | HistoryCreateWithoutPatientInput[] | HistoryUncheckedCreateWithoutPatientInput[]
+    connectOrCreate?: HistoryCreateOrConnectWithoutPatientInput | HistoryCreateOrConnectWithoutPatientInput[]
+    upsert?: HistoryUpsertWithWhereUniqueWithoutPatientInput | HistoryUpsertWithWhereUniqueWithoutPatientInput[]
+    createMany?: HistoryCreateManyPatientInputEnvelope
+    set?: HistoryWhereUniqueInput | HistoryWhereUniqueInput[]
+    disconnect?: HistoryWhereUniqueInput | HistoryWhereUniqueInput[]
+    delete?: HistoryWhereUniqueInput | HistoryWhereUniqueInput[]
+    connect?: HistoryWhereUniqueInput | HistoryWhereUniqueInput[]
+    update?: HistoryUpdateWithWhereUniqueWithoutPatientInput | HistoryUpdateWithWhereUniqueWithoutPatientInput[]
+    updateMany?: HistoryUpdateManyWithWhereWithoutPatientInput | HistoryUpdateManyWithWhereWithoutPatientInput[]
+    deleteMany?: HistoryScalarWhereInput | HistoryScalarWhereInput[]
   }
 
   export type MedicalRecordUpdateManyWithoutPatientNestedInput = {
@@ -11150,6 +13487,20 @@ export namespace Prisma {
     deleteMany?: PatientBookingScalarWhereInput | PatientBookingScalarWhereInput[]
   }
 
+  export type HistoryUncheckedUpdateManyWithoutPatientNestedInput = {
+    create?: XOR<HistoryCreateWithoutPatientInput, HistoryUncheckedCreateWithoutPatientInput> | HistoryCreateWithoutPatientInput[] | HistoryUncheckedCreateWithoutPatientInput[]
+    connectOrCreate?: HistoryCreateOrConnectWithoutPatientInput | HistoryCreateOrConnectWithoutPatientInput[]
+    upsert?: HistoryUpsertWithWhereUniqueWithoutPatientInput | HistoryUpsertWithWhereUniqueWithoutPatientInput[]
+    createMany?: HistoryCreateManyPatientInputEnvelope
+    set?: HistoryWhereUniqueInput | HistoryWhereUniqueInput[]
+    disconnect?: HistoryWhereUniqueInput | HistoryWhereUniqueInput[]
+    delete?: HistoryWhereUniqueInput | HistoryWhereUniqueInput[]
+    connect?: HistoryWhereUniqueInput | HistoryWhereUniqueInput[]
+    update?: HistoryUpdateWithWhereUniqueWithoutPatientInput | HistoryUpdateWithWhereUniqueWithoutPatientInput[]
+    updateMany?: HistoryUpdateManyWithWhereWithoutPatientInput | HistoryUpdateManyWithWhereWithoutPatientInput[]
+    deleteMany?: HistoryScalarWhereInput | HistoryScalarWhereInput[]
+  }
+
   export type MedicalRecordUncheckedUpdateManyWithoutPatientNestedInput = {
     create?: XOR<MedicalRecordCreateWithoutPatientInput, MedicalRecordUncheckedCreateWithoutPatientInput> | MedicalRecordCreateWithoutPatientInput[] | MedicalRecordUncheckedCreateWithoutPatientInput[]
     connectOrCreate?: MedicalRecordCreateOrConnectWithoutPatientInput | MedicalRecordCreateOrConnectWithoutPatientInput[]
@@ -11176,6 +13527,20 @@ export namespace Prisma {
     update?: PatientBookingUpdateWithWhereUniqueWithoutPatientInput | PatientBookingUpdateWithWhereUniqueWithoutPatientInput[]
     updateMany?: PatientBookingUpdateManyWithWhereWithoutPatientInput | PatientBookingUpdateManyWithWhereWithoutPatientInput[]
     deleteMany?: PatientBookingScalarWhereInput | PatientBookingScalarWhereInput[]
+  }
+
+  export type PatientCreateNestedOneWithoutHistoryInput = {
+    create?: XOR<PatientCreateWithoutHistoryInput, PatientUncheckedCreateWithoutHistoryInput>
+    connectOrCreate?: PatientCreateOrConnectWithoutHistoryInput
+    connect?: PatientWhereUniqueInput
+  }
+
+  export type PatientUpdateOneRequiredWithoutHistoryNestedInput = {
+    create?: XOR<PatientCreateWithoutHistoryInput, PatientUncheckedCreateWithoutHistoryInput>
+    connectOrCreate?: PatientCreateOrConnectWithoutHistoryInput
+    upsert?: PatientUpsertWithoutHistoryInput
+    connect?: PatientWhereUniqueInput
+    update?: XOR<XOR<PatientUpdateToOneWithWhereWithoutHistoryInput, PatientUpdateWithoutHistoryInput>, PatientUncheckedUpdateWithoutHistoryInput>
   }
 
   export type PatientCreateNestedOneWithoutPatientBookingInput = {
@@ -11702,6 +14067,26 @@ export namespace Prisma {
     reason?: StringFilter<"PatientBooking"> | string
   }
 
+  export type HistoryCreateWithoutPatientInput = {
+    id?: string
+    message: string
+  }
+
+  export type HistoryUncheckedCreateWithoutPatientInput = {
+    id?: string
+    message: string
+  }
+
+  export type HistoryCreateOrConnectWithoutPatientInput = {
+    where: HistoryWhereUniqueInput
+    create: XOR<HistoryCreateWithoutPatientInput, HistoryUncheckedCreateWithoutPatientInput>
+  }
+
+  export type HistoryCreateManyPatientInputEnvelope = {
+    data: HistoryCreateManyPatientInput | HistoryCreateManyPatientInput[]
+    skipDuplicates?: boolean
+  }
+
   export type MedicalRecordCreateWithoutPatientInput = {
     id?: string
     recordDate?: Date | string
@@ -11767,6 +14152,31 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type HistoryUpsertWithWhereUniqueWithoutPatientInput = {
+    where: HistoryWhereUniqueInput
+    update: XOR<HistoryUpdateWithoutPatientInput, HistoryUncheckedUpdateWithoutPatientInput>
+    create: XOR<HistoryCreateWithoutPatientInput, HistoryUncheckedCreateWithoutPatientInput>
+  }
+
+  export type HistoryUpdateWithWhereUniqueWithoutPatientInput = {
+    where: HistoryWhereUniqueInput
+    data: XOR<HistoryUpdateWithoutPatientInput, HistoryUncheckedUpdateWithoutPatientInput>
+  }
+
+  export type HistoryUpdateManyWithWhereWithoutPatientInput = {
+    where: HistoryScalarWhereInput
+    data: XOR<HistoryUpdateManyMutationInput, HistoryUncheckedUpdateManyWithoutPatientInput>
+  }
+
+  export type HistoryScalarWhereInput = {
+    AND?: HistoryScalarWhereInput | HistoryScalarWhereInput[]
+    OR?: HistoryScalarWhereInput[]
+    NOT?: HistoryScalarWhereInput | HistoryScalarWhereInput[]
+    id?: StringFilter<"History"> | string
+    message?: StringFilter<"History"> | string
+    patientId?: StringFilter<"History"> | string
+  }
+
   export type MedicalRecordUpsertWithWhereUniqueWithoutPatientInput = {
     where: MedicalRecordWhereUniqueInput
     update: XOR<MedicalRecordUpdateWithoutPatientInput, MedicalRecordUncheckedUpdateWithoutPatientInput>
@@ -11799,6 +14209,78 @@ export namespace Prisma {
     data: XOR<PatientBookingUpdateManyMutationInput, PatientBookingUncheckedUpdateManyWithoutPatientInput>
   }
 
+  export type PatientCreateWithoutHistoryInput = {
+    abhaId: string
+    email: string
+    password: string
+    name: string
+    contact: string
+    address: string
+    gender: string
+    DOB: string
+    emergencyContact: string
+    medicalRecords?: MedicalRecordCreateNestedManyWithoutPatientInput
+    patientBooking?: PatientBookingCreateNestedManyWithoutPatientInput
+  }
+
+  export type PatientUncheckedCreateWithoutHistoryInput = {
+    abhaId: string
+    email: string
+    password: string
+    name: string
+    contact: string
+    address: string
+    gender: string
+    DOB: string
+    emergencyContact: string
+    medicalRecords?: MedicalRecordUncheckedCreateNestedManyWithoutPatientInput
+    patientBooking?: PatientBookingUncheckedCreateNestedManyWithoutPatientInput
+  }
+
+  export type PatientCreateOrConnectWithoutHistoryInput = {
+    where: PatientWhereUniqueInput
+    create: XOR<PatientCreateWithoutHistoryInput, PatientUncheckedCreateWithoutHistoryInput>
+  }
+
+  export type PatientUpsertWithoutHistoryInput = {
+    update: XOR<PatientUpdateWithoutHistoryInput, PatientUncheckedUpdateWithoutHistoryInput>
+    create: XOR<PatientCreateWithoutHistoryInput, PatientUncheckedCreateWithoutHistoryInput>
+    where?: PatientWhereInput
+  }
+
+  export type PatientUpdateToOneWithWhereWithoutHistoryInput = {
+    where?: PatientWhereInput
+    data: XOR<PatientUpdateWithoutHistoryInput, PatientUncheckedUpdateWithoutHistoryInput>
+  }
+
+  export type PatientUpdateWithoutHistoryInput = {
+    abhaId?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    contact?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
+    DOB?: StringFieldUpdateOperationsInput | string
+    emergencyContact?: StringFieldUpdateOperationsInput | string
+    medicalRecords?: MedicalRecordUpdateManyWithoutPatientNestedInput
+    patientBooking?: PatientBookingUpdateManyWithoutPatientNestedInput
+  }
+
+  export type PatientUncheckedUpdateWithoutHistoryInput = {
+    abhaId?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    contact?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
+    DOB?: StringFieldUpdateOperationsInput | string
+    emergencyContact?: StringFieldUpdateOperationsInput | string
+    medicalRecords?: MedicalRecordUncheckedUpdateManyWithoutPatientNestedInput
+    patientBooking?: PatientBookingUncheckedUpdateManyWithoutPatientNestedInput
+  }
+
   export type PatientCreateWithoutPatientBookingInput = {
     abhaId: string
     email: string
@@ -11809,6 +14291,7 @@ export namespace Prisma {
     gender: string
     DOB: string
     emergencyContact: string
+    history?: HistoryCreateNestedManyWithoutPatientInput
     medicalRecords?: MedicalRecordCreateNestedManyWithoutPatientInput
   }
 
@@ -11822,6 +14305,7 @@ export namespace Prisma {
     gender: string
     DOB: string
     emergencyContact: string
+    history?: HistoryUncheckedCreateNestedManyWithoutPatientInput
     medicalRecords?: MedicalRecordUncheckedCreateNestedManyWithoutPatientInput
   }
 
@@ -11880,6 +14364,7 @@ export namespace Prisma {
     gender?: StringFieldUpdateOperationsInput | string
     DOB?: StringFieldUpdateOperationsInput | string
     emergencyContact?: StringFieldUpdateOperationsInput | string
+    history?: HistoryUpdateManyWithoutPatientNestedInput
     medicalRecords?: MedicalRecordUpdateManyWithoutPatientNestedInput
   }
 
@@ -11893,6 +14378,7 @@ export namespace Prisma {
     gender?: StringFieldUpdateOperationsInput | string
     DOB?: StringFieldUpdateOperationsInput | string
     emergencyContact?: StringFieldUpdateOperationsInput | string
+    history?: HistoryUncheckedUpdateManyWithoutPatientNestedInput
     medicalRecords?: MedicalRecordUncheckedUpdateManyWithoutPatientNestedInput
   }
 
@@ -11941,6 +14427,7 @@ export namespace Prisma {
     gender: string
     DOB: string
     emergencyContact: string
+    history?: HistoryCreateNestedManyWithoutPatientInput
     patientBooking?: PatientBookingCreateNestedManyWithoutPatientInput
   }
 
@@ -11954,6 +14441,7 @@ export namespace Prisma {
     gender: string
     DOB: string
     emergencyContact: string
+    history?: HistoryUncheckedCreateNestedManyWithoutPatientInput
     patientBooking?: PatientBookingUncheckedCreateNestedManyWithoutPatientInput
   }
 
@@ -12012,6 +14500,7 @@ export namespace Prisma {
     gender?: StringFieldUpdateOperationsInput | string
     DOB?: StringFieldUpdateOperationsInput | string
     emergencyContact?: StringFieldUpdateOperationsInput | string
+    history?: HistoryUpdateManyWithoutPatientNestedInput
     patientBooking?: PatientBookingUpdateManyWithoutPatientNestedInput
   }
 
@@ -12025,6 +14514,7 @@ export namespace Prisma {
     gender?: StringFieldUpdateOperationsInput | string
     DOB?: StringFieldUpdateOperationsInput | string
     emergencyContact?: StringFieldUpdateOperationsInput | string
+    history?: HistoryUncheckedUpdateManyWithoutPatientNestedInput
     patientBooking?: PatientBookingUncheckedUpdateManyWithoutPatientNestedInput
   }
 
@@ -12182,6 +14672,11 @@ export namespace Prisma {
     reason?: StringFieldUpdateOperationsInput | string
   }
 
+  export type HistoryCreateManyPatientInput = {
+    id?: string
+    message: string
+  }
+
   export type MedicalRecordCreateManyPatientInput = {
     id?: string
     hospitalCode: string
@@ -12203,6 +14698,21 @@ export namespace Prisma {
     time: string
     status?: string
     reason: string
+  }
+
+  export type HistoryUpdateWithoutPatientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type HistoryUncheckedUpdateWithoutPatientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type HistoryUncheckedUpdateManyWithoutPatientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
   }
 
   export type MedicalRecordUpdateWithoutPatientInput = {
@@ -12299,6 +14809,10 @@ export namespace Prisma {
      */
     export type PatientArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PatientDefaultArgs<ExtArgs>
     /**
+     * @deprecated Use HistoryDefaultArgs instead
+     */
+    export type HistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = HistoryDefaultArgs<ExtArgs>
+    /**
      * @deprecated Use PatientBookingDefaultArgs instead
      */
     export type PatientBookingArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PatientBookingDefaultArgs<ExtArgs>
@@ -12318,6 +14832,10 @@ export namespace Prisma {
      * @deprecated Use BedRequestDefaultArgs instead
      */
     export type BedRequestArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = BedRequestDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use triageDefaultArgs instead
+     */
+    export type triageArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = triageDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

@@ -20,10 +20,10 @@ model Doctors {
   departmentId   String
   hospitalCode   String           @default("0001")
   department     Departments      @relation("DepartmentDoctors", fields: [departmentId], references: [id])
-  // headOfDepartmentOf Departments? @relation("DepartmentHead")
   opdQueue       OPDQueue[]
   admissions     Admission[]
   patientInstances PatientInstance[]
+  adminssionredirected AdmissionRedirected[]
 }
 enum DesignationType {
   Trainee
@@ -44,8 +44,6 @@ model OPSlots {
 model Departments {
   id String @id @default(uuid())
   name String
-  //  headOfDepartmentId  String?      @unique
-  // headOfDepartment    Doctors?     @relation("DepartmentHead", fields: [headOfDepartmentId], references: [id])
   doctors Doctors[] @relation("DepartmentDoctors")
   slots OPSlots[]
   intimation Intimation[]
@@ -76,6 +74,7 @@ model Bed {
   ward Ward @relation(fields: [wardId], references: [id])
   status BedStatus
   admissions Admission[]
+  admissionsredirected AdmissionRedirected[]
 }
 
 enum BedStatus {
@@ -91,6 +90,7 @@ model Ward {
   availableBeds Int
   beds Bed[]
   admissions Admission[]
+  admissionsredirected AdmissionRedirected[]
 }
 
 
@@ -110,6 +110,30 @@ model PatientInstance {
   opqueue OPDQueue[]
   admission Admission[]
 }
+
+model PatientInstanceRedirected{
+  id String @id @default(uuid())
+  abhaId String @unique
+  name String
+  age Int
+  gender String
+  reason String
+  medications Json?
+  admission AdmissionRedirected[]
+}
+
+model AdmissionRedirected{
+  id String @id @default(uuid())
+  patientId String
+  patient PatientInstanceRedirected @relation(fields: [patientId],references: [id])
+  wardId String?
+  ward Ward? @relation(fields: [wardId], references: [id])
+  bedId String?
+  bed Bed? @relation(fields: [bedId], references: [id])
+  doctorId String
+  doctor Doctors @relation(fields: [doctorId], references: [id])
+}
+
 
 enum VisitType {
   FreshVisit
@@ -185,3 +209,18 @@ enum InventoryCategory {
   Surgical_Tools
   Others
 }
+
+model OPDdata{
+  id String @id @default(uuid())
+  date String
+  day String
+  holiday Boolean
+  specialEvent Boolean
+  noofpatients Int
+  noofdoctors Int
+  time Float
+  ppdh Float
+  weather String
+  department String
+}
+

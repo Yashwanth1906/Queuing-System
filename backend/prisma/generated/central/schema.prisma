@@ -40,8 +40,16 @@ model Patient {
   gender           String
   DOB              String
   emergencyContact String
+  history          History[]
   medicalRecords   MedicalRecord[]
   patientBooking   PatientBooking[]
+}
+
+model History {
+  id        String  @id @default(uuid())
+  message   String
+  patientId String
+  patient   Patient @relation(fields: [patientId], references: [abhaId])
 }
 
 model PatientBooking {
@@ -90,6 +98,14 @@ model BedRequest {
   hospitalCode   String
   patientAbhaId  String @unique
   patientName    String
+  patientAge     Int
+  patientGender  String
+  reason         String
   patientContact String
   wardName       String
+}
+
+model triage {
+  id      String @id @default(uuid())
+  message String
 }

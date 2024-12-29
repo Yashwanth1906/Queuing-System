@@ -224,18 +224,19 @@ export function AdminDashboard() {
         setDoctors(doctorsResponse);
         console.log(doctorsResponse);
       });
+      console.log("Doctor Response : "+doctorsResponse);
       await axios.post(`${DJANGO_URL}/predict/`, {
         symptom: find?.reason,
         doctors: doctorsResponse,
+        initimated : true
       }).then((data) => {
         if (data.data.error != null) {
           alert(data.data.error);
         } else {
           console.log(data.data.doctor);
           const doctor = doctorsResponse.find(doc => doc.id === data.data.doctor);
-          console.log(allocatedDoctor)
-          setAllocatedDoctorForCheckIn(doctor || null);
-          console.log(allocatedDoctor);
+          console.log(doctor)
+          setAllocatedDoctor(doctor || null);
         }
       });
     } catch (error) {
@@ -632,7 +633,7 @@ export function AdminDashboard() {
         setDoctors(doctorsResponse);
         console.log(doctorsResponse);
       });
-
+      console.log("Before check:"+doctorsResponse);
       await axios.post("http://localhost:8000/predict/", {
         symptom: reason,
         doctors: doctorsResponse,
@@ -640,11 +641,11 @@ export function AdminDashboard() {
         if (data.data.error != null) {
           alert(data.data.error);
         } else {
-          console.log(data.data.doctor);
-          // Find the allocated doctor from the response
+          console.log(data.data);
+          doctorsResponse.map(doc => console.log(doc))
           const doctor = doctorsResponse.find(doc => doc.id === data.data.doctor);
+          console.log(doctor);
           setAllocatedDoctor(doctor || null);
-          console.log(allocatedDoctor);
         }
       });
     } catch (error) {
@@ -699,28 +700,28 @@ export function AdminDashboard() {
 
 
   const handleOPDUpdate = async()=>{
-      await axios.post(`${BACKEND_URL}/api/hospital/createpatient`,{
-          abhaId:patientDetails?.abhaId,
-          doctorId : allocatedDoctor?.id,
-          queueNumber:allocatedDoctor?._count.opdQueue,
-          visitType:"FreshVisit",
-          age:patientDetails?.Age,
-          gender:patientDetails?.gender,
-          reason:reason,
-          name:patientDetails?.name
-      },
-      {
-        headers:{
-          code: HOSPITAL_CODE,
-        }
-      }
-    ).then((data)=>{
-        if(data.data.message!=null){
-          alert(data.data.message);
-        }
-        setAllocatedDoctor(null);
-        setActiveView("main");
-      })
+    await axios.post(`${BACKEND_URL}/api/hospital/createpatient`,{
+      abhaId:patientDetails?.abhaId,
+      doctorId : allocatedDoctor?.id,
+      queueNumber:allocatedDoctor?._count.opdQueue,
+      visitType:"FreshVisit",
+      age:patientDetails?.Age,
+      gender:patientDetails?.gender,
+      reason:reason,
+      name:patientDetails?.name
+  },
+  {
+    headers:{
+      code: HOSPITAL_CODE,
+    }
+  }
+).then((data)=>{
+    if(data.data.message!=null){
+      alert(data.data.message);
+    }
+    setAllocatedDoctor(null);
+    setActiveView("main");
+  })
   }
 
 
@@ -872,7 +873,7 @@ export function AdminDashboard() {
                   </div>
                 </div>
                 <div className="mt-4 flex justify-between">
-                  <Button onClick={() => setAllocatedDoctor(null)} className="bg-[#68BA7F] hover:bg-[#2E6F40] text-[#CFFFDC]">Close</Button>
+                  <Button onClick={() => setAllocatedDoctorForCheckIn(null)} className="bg-[#68BA7F] hover:bg-[#2E6F40] text-[#CFFFDC]">Close</Button>
                   <Button className="bg-[#2E6F40] text-[#CFFFDC] hover:bg-[#253D2C]" onClick={handleOPDUpdateForCheckIn}>Allocate</Button>
                 </div>
               </Card>

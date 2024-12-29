@@ -183,6 +183,24 @@ exports.Prisma.PatientInstanceScalarFieldEnum = {
   visitType: 'visitType'
 };
 
+exports.Prisma.PatientInstanceRedirectedScalarFieldEnum = {
+  id: 'id',
+  abhaId: 'abhaId',
+  name: 'name',
+  age: 'age',
+  gender: 'gender',
+  reason: 'reason',
+  medications: 'medications'
+};
+
+exports.Prisma.AdmissionRedirectedScalarFieldEnum = {
+  id: 'id',
+  patientId: 'patientId',
+  wardId: 'wardId',
+  bedId: 'bedId',
+  doctorId: 'doctorId'
+};
+
 exports.Prisma.AdmissionScalarFieldEnum = {
   id: 'id',
   patientId: 'patientId',
@@ -229,6 +247,20 @@ exports.Prisma.InventoryScalarFieldEnum = {
   mainStoreId: 'mainStoreId',
   subStoreId: 'subStoreId',
   pharmacyId: 'pharmacyId'
+};
+
+exports.Prisma.OPDdataScalarFieldEnum = {
+  id: 'id',
+  date: 'date',
+  day: 'day',
+  holiday: 'holiday',
+  specialEvent: 'specialEvent',
+  noofpatients: 'noofpatients',
+  noofdoctors: 'noofdoctors',
+  time: 'time',
+  ppdh: 'ppdh',
+  weather: 'weather',
+  department: 'department'
 };
 
 exports.Prisma.SortOrder = {
@@ -294,12 +326,15 @@ exports.Prisma.ModelName = {
   Bed: 'Bed',
   Ward: 'Ward',
   PatientInstance: 'PatientInstance',
+  PatientInstanceRedirected: 'PatientInstanceRedirected',
+  AdmissionRedirected: 'AdmissionRedirected',
   Admission: 'Admission',
   Intimation: 'Intimation',
   MainStore: 'MainStore',
   SubStore: 'SubStore',
   Pharmacy: 'Pharmacy',
-  Inventory: 'Inventory'
+  Inventory: 'Inventory',
+  OPDdata: 'OPDdata'
 };
 
 /**

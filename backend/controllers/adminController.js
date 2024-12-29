@@ -263,4 +263,133 @@ function createtoken(id)
 }
 
 
+export const allocateBed = async(req,res) =>{
+    const prisma = req.prisma;
+    try{
+        
+    } catch(e){
+        console.log(e);
+        res.json({success:false,error:e})
+    }
+}
+
+
+export const addOPD = async (req, res) => {
+    try {
+      const prisma = req.prisma;
+      const {
+        date,
+        day,
+        holiday,
+        specialEvent,
+        noofpatients,
+        noofdoctors,
+        time,
+        ppdh,
+        weather,
+      } = req.body;
+      if (
+        !date ||
+        !day ||
+        typeof holiday !== "boolean" ||
+        typeof specialEvent !== "boolean" ||
+        !Number.isInteger(noofpatients) ||
+        !Number.isInteger(noofdoctors) ||
+        typeof time !== "number" ||
+        typeof ppdh !== "number" ||
+        !weather
+      ) {
+        return res.status(400).json({
+          success: false,
+          message: "Invalid input data. Please provide all required fields.",
+        });
+      }
+      const opdEntry = await prisma.oPDdata.create({
+        data: {
+          date,
+          day,
+          holiday,
+          specialEvent,
+          noofpatients,
+          noofdoctors,
+          time,
+          ppdh,
+          weather,
+        },
+      });
+      res.json({
+        success: true,
+        message: "OPD data added successfully.",
+        opdEntry,
+      });
+    } catch (e) {
+      console.error("Error while adding OPD data:", e);
+      res.status(500).json({
+        success: false,
+        error: e.message || "An error occurred while adding OPD data.",
+      });
+    }
+  };
+  
+  export const addMultipleOPD = async (req, res) => {
+    try {
+      const prisma = req.prisma;
+      const { opdEntries } = req.body;
+      console.log(opdEntries)
+      if (!Array.isArray(opdEntries) || opdEntries.length === 0) {
+        return res.status(400).json({
+          success: false,
+          message: "Invalid input. Please provide an array of OPD entries.",
+        });
+      }
+      for (const entry of opdEntries) {
+        const {
+          date,
+          day,
+          holiday,
+          specialEvent,
+          noofpatients,
+          noofdoctors,
+          time,
+          ppdh,
+          weather,
+        } = entry;
+  
+        if (
+          !date ||
+          !day ||
+          typeof holiday !== "boolean" ||
+          typeof specialEvent !== "boolean" ||
+          !Number.isInteger(noofpatients) ||
+          !Number.isInteger(noofdoctors) ||
+          typeof time !== "number" ||
+          typeof ppdh !== "number" ||
+          !weather
+        ) {
+          return res.status(400).json({
+            success: false,
+            message: `Invalid data for one or more entries: ${JSON.stringify(
+              entry
+            )}`,
+          });
+        }
+      }
+      const createdEntries = await prisma.oPDdata.createMany({
+        data: opdEntries,
+      });
+      res.json({
+        success: true,
+        message: "All OPD data added successfully.",
+        count: createdEntries.count,
+      });
+    } catch (e) {
+      console.error("Error while adding multiple OPD data entries:", e);
+      res.status(500).json({
+        success: false,
+        error: e.message || "An error occurred while adding OPD data.",
+      });
+    }
+  };
+  
+
 export {addHospital,migratealldbs,createPatient,getPatientabhaId,adminregister,adminlogin}

@@ -25,5 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',home),
     path('predict/',views.PredictDepartmentAndDoctorAPIView.as_view()),
-    path('test/',views.test)
+    path('test/',views.test),
+    path("trainpatientmodel/",views.TrainModelAPIView.as_view()),
+    path("predictpatient/",views.PredictOneDayAPIView.as_view())
 ]

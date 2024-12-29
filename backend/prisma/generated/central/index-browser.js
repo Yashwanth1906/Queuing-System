@@ -149,6 +149,12 @@ exports.Prisma.PatientScalarFieldEnum = {
   emergencyContact: 'emergencyContact'
 };
 
+exports.Prisma.HistoryScalarFieldEnum = {
+  id: 'id',
+  message: 'message',
+  patientId: 'patientId'
+};
+
 exports.Prisma.PatientBookingScalarFieldEnum = {
   id: 'id',
   abhaId: 'abhaId',
@@ -191,8 +197,16 @@ exports.Prisma.BedRequestScalarFieldEnum = {
   hospitalCode: 'hospitalCode',
   patientAbhaId: 'patientAbhaId',
   patientName: 'patientName',
+  patientAge: 'patientAge',
+  patientGender: 'patientGender',
+  reason: 'reason',
   patientContact: 'patientContact',
   wardName: 'wardName'
+};
+
+exports.Prisma.TriageScalarFieldEnum = {
+  id: 'id',
+  message: 'message'
 };
 
 exports.Prisma.SortOrder = {
@@ -230,11 +244,13 @@ exports.Prisma.ModelName = {
   Admin: 'Admin',
   Hospital: 'Hospital',
   Patient: 'Patient',
+  History: 'History',
   PatientBooking: 'PatientBooking',
   MedicalRecord: 'MedicalRecord',
   ABHANumber: 'ABHANumber',
   OTPVerification: 'OTPVerification',
-  BedRequest: 'BedRequest'
+  BedRequest: 'BedRequest',
+  triage: 'triage'
 };
 
 /**

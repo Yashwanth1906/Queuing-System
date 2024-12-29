@@ -94,7 +94,8 @@ const createPatientInstance = async(req,res)=>{
                 patientInstanceId:abhaId,
                 doctorId:doctorId,
                 status:QueueStatus.Pending,
-                queueNumber:queueNumber
+                queueNumber:queueNumber,
+                intimated : false
             }
         })
         console.log(patientInstance,patientqueue);
@@ -182,7 +183,7 @@ const allocateBed = async (req, res) => {
       if (!adm) {
         return res.json({ success: false, message: "Admission not found" });
       }
-  
+
       const availableBed = await prisma.bed.findFirst({
         where: { wardId: adm.wardId, status: BedStatus.Available },
         select: { id: true, bedNumber: true },

@@ -49,6 +49,16 @@ export type Ward = $Result.DefaultSelection<Prisma.$WardPayload>
  */
 export type PatientInstance = $Result.DefaultSelection<Prisma.$PatientInstancePayload>
 /**
+ * Model PatientInstanceRedirected
+ * 
+ */
+export type PatientInstanceRedirected = $Result.DefaultSelection<Prisma.$PatientInstanceRedirectedPayload>
+/**
+ * Model AdmissionRedirected
+ * 
+ */
+export type AdmissionRedirected = $Result.DefaultSelection<Prisma.$AdmissionRedirectedPayload>
+/**
  * Model Admission
  * 
  */
@@ -78,6 +88,11 @@ export type Pharmacy = $Result.DefaultSelection<Prisma.$PharmacyPayload>
  * 
  */
 export type Inventory = $Result.DefaultSelection<Prisma.$InventoryPayload>
+/**
+ * Model OPDdata
+ * 
+ */
+export type OPDdata = $Result.DefaultSelection<Prisma.$OPDdataPayload>
 
 /**
  * Enums
@@ -342,6 +357,26 @@ export class PrismaClient<
   get patientInstance(): Prisma.PatientInstanceDelegate<ExtArgs>;
 
   /**
+   * `prisma.patientInstanceRedirected`: Exposes CRUD operations for the **PatientInstanceRedirected** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PatientInstanceRedirecteds
+    * const patientInstanceRedirecteds = await prisma.patientInstanceRedirected.findMany()
+    * ```
+    */
+  get patientInstanceRedirected(): Prisma.PatientInstanceRedirectedDelegate<ExtArgs>;
+
+  /**
+   * `prisma.admissionRedirected`: Exposes CRUD operations for the **AdmissionRedirected** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AdmissionRedirecteds
+    * const admissionRedirecteds = await prisma.admissionRedirected.findMany()
+    * ```
+    */
+  get admissionRedirected(): Prisma.AdmissionRedirectedDelegate<ExtArgs>;
+
+  /**
    * `prisma.admission`: Exposes CRUD operations for the **Admission** model.
     * Example usage:
     * ```ts
@@ -400,6 +435,16 @@ export class PrismaClient<
     * ```
     */
   get inventory(): Prisma.InventoryDelegate<ExtArgs>;
+
+  /**
+   * `prisma.oPDdata`: Exposes CRUD operations for the **OPDdata** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more OPDdata
+    * const oPDdata = await prisma.oPDdata.findMany()
+    * ```
+    */
+  get oPDdata(): Prisma.OPDdataDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -884,12 +929,15 @@ export namespace Prisma {
     Bed: 'Bed',
     Ward: 'Ward',
     PatientInstance: 'PatientInstance',
+    PatientInstanceRedirected: 'PatientInstanceRedirected',
+    AdmissionRedirected: 'AdmissionRedirected',
     Admission: 'Admission',
     Intimation: 'Intimation',
     MainStore: 'MainStore',
     SubStore: 'SubStore',
     Pharmacy: 'Pharmacy',
-    Inventory: 'Inventory'
+    Inventory: 'Inventory',
+    OPDdata: 'OPDdata'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -905,7 +953,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "doctors" | "oPSlots" | "departments" | "oPDQueue" | "bed" | "ward" | "patientInstance" | "admission" | "intimation" | "mainStore" | "subStore" | "pharmacy" | "inventory"
+      modelProps: "doctors" | "oPSlots" | "departments" | "oPDQueue" | "bed" | "ward" | "patientInstance" | "patientInstanceRedirected" | "admissionRedirected" | "admission" | "intimation" | "mainStore" | "subStore" | "pharmacy" | "inventory" | "oPDdata"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1399,6 +1447,146 @@ export namespace Prisma {
           }
         }
       }
+      PatientInstanceRedirected: {
+        payload: Prisma.$PatientInstanceRedirectedPayload<ExtArgs>
+        fields: Prisma.PatientInstanceRedirectedFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PatientInstanceRedirectedFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PatientInstanceRedirectedPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PatientInstanceRedirectedFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PatientInstanceRedirectedPayload>
+          }
+          findFirst: {
+            args: Prisma.PatientInstanceRedirectedFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PatientInstanceRedirectedPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PatientInstanceRedirectedFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PatientInstanceRedirectedPayload>
+          }
+          findMany: {
+            args: Prisma.PatientInstanceRedirectedFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PatientInstanceRedirectedPayload>[]
+          }
+          create: {
+            args: Prisma.PatientInstanceRedirectedCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PatientInstanceRedirectedPayload>
+          }
+          createMany: {
+            args: Prisma.PatientInstanceRedirectedCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PatientInstanceRedirectedCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PatientInstanceRedirectedPayload>[]
+          }
+          delete: {
+            args: Prisma.PatientInstanceRedirectedDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PatientInstanceRedirectedPayload>
+          }
+          update: {
+            args: Prisma.PatientInstanceRedirectedUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PatientInstanceRedirectedPayload>
+          }
+          deleteMany: {
+            args: Prisma.PatientInstanceRedirectedDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PatientInstanceRedirectedUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.PatientInstanceRedirectedUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PatientInstanceRedirectedPayload>
+          }
+          aggregate: {
+            args: Prisma.PatientInstanceRedirectedAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePatientInstanceRedirected>
+          }
+          groupBy: {
+            args: Prisma.PatientInstanceRedirectedGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PatientInstanceRedirectedGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PatientInstanceRedirectedCountArgs<ExtArgs>
+            result: $Utils.Optional<PatientInstanceRedirectedCountAggregateOutputType> | number
+          }
+        }
+      }
+      AdmissionRedirected: {
+        payload: Prisma.$AdmissionRedirectedPayload<ExtArgs>
+        fields: Prisma.AdmissionRedirectedFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AdmissionRedirectedFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdmissionRedirectedPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AdmissionRedirectedFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdmissionRedirectedPayload>
+          }
+          findFirst: {
+            args: Prisma.AdmissionRedirectedFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdmissionRedirectedPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AdmissionRedirectedFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdmissionRedirectedPayload>
+          }
+          findMany: {
+            args: Prisma.AdmissionRedirectedFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdmissionRedirectedPayload>[]
+          }
+          create: {
+            args: Prisma.AdmissionRedirectedCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdmissionRedirectedPayload>
+          }
+          createMany: {
+            args: Prisma.AdmissionRedirectedCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AdmissionRedirectedCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdmissionRedirectedPayload>[]
+          }
+          delete: {
+            args: Prisma.AdmissionRedirectedDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdmissionRedirectedPayload>
+          }
+          update: {
+            args: Prisma.AdmissionRedirectedUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdmissionRedirectedPayload>
+          }
+          deleteMany: {
+            args: Prisma.AdmissionRedirectedDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AdmissionRedirectedUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.AdmissionRedirectedUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdmissionRedirectedPayload>
+          }
+          aggregate: {
+            args: Prisma.AdmissionRedirectedAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAdmissionRedirected>
+          }
+          groupBy: {
+            args: Prisma.AdmissionRedirectedGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AdmissionRedirectedGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AdmissionRedirectedCountArgs<ExtArgs>
+            result: $Utils.Optional<AdmissionRedirectedCountAggregateOutputType> | number
+          }
+        }
+      }
       Admission: {
         payload: Prisma.$AdmissionPayload<ExtArgs>
         fields: Prisma.AdmissionFieldRefs
@@ -1819,6 +2007,76 @@ export namespace Prisma {
           }
         }
       }
+      OPDdata: {
+        payload: Prisma.$OPDdataPayload<ExtArgs>
+        fields: Prisma.OPDdataFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.OPDdataFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OPDdataPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.OPDdataFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OPDdataPayload>
+          }
+          findFirst: {
+            args: Prisma.OPDdataFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OPDdataPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.OPDdataFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OPDdataPayload>
+          }
+          findMany: {
+            args: Prisma.OPDdataFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OPDdataPayload>[]
+          }
+          create: {
+            args: Prisma.OPDdataCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OPDdataPayload>
+          }
+          createMany: {
+            args: Prisma.OPDdataCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.OPDdataCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OPDdataPayload>[]
+          }
+          delete: {
+            args: Prisma.OPDdataDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OPDdataPayload>
+          }
+          update: {
+            args: Prisma.OPDdataUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OPDdataPayload>
+          }
+          deleteMany: {
+            args: Prisma.OPDdataDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.OPDdataUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.OPDdataUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OPDdataPayload>
+          }
+          aggregate: {
+            args: Prisma.OPDdataAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateOPDdata>
+          }
+          groupBy: {
+            args: Prisma.OPDdataGroupByArgs<ExtArgs>
+            result: $Utils.Optional<OPDdataGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.OPDdataCountArgs<ExtArgs>
+            result: $Utils.Optional<OPDdataCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1983,12 +2241,14 @@ export namespace Prisma {
     opdQueue: number
     admissions: number
     patientInstances: number
+    adminssionredirected: number
   }
 
   export type DoctorsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     opdQueue?: boolean | DoctorsCountOutputTypeCountOpdQueueArgs
     admissions?: boolean | DoctorsCountOutputTypeCountAdmissionsArgs
     patientInstances?: boolean | DoctorsCountOutputTypeCountPatientInstancesArgs
+    adminssionredirected?: boolean | DoctorsCountOutputTypeCountAdminssionredirectedArgs
   }
 
   // Custom InputTypes
@@ -2021,6 +2281,13 @@ export namespace Prisma {
    */
   export type DoctorsCountOutputTypeCountPatientInstancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PatientInstanceWhereInput
+  }
+
+  /**
+   * DoctorsCountOutputType without action
+   */
+  export type DoctorsCountOutputTypeCountAdminssionredirectedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AdmissionRedirectedWhereInput
   }
 
 
@@ -2079,10 +2346,12 @@ export namespace Prisma {
 
   export type BedCountOutputType = {
     admissions: number
+    admissionsredirected: number
   }
 
   export type BedCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     admissions?: boolean | BedCountOutputTypeCountAdmissionsArgs
+    admissionsredirected?: boolean | BedCountOutputTypeCountAdmissionsredirectedArgs
   }
 
   // Custom InputTypes
@@ -2103,6 +2372,13 @@ export namespace Prisma {
     where?: AdmissionWhereInput
   }
 
+  /**
+   * BedCountOutputType without action
+   */
+  export type BedCountOutputTypeCountAdmissionsredirectedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AdmissionRedirectedWhereInput
+  }
+
 
   /**
    * Count Type WardCountOutputType
@@ -2111,11 +2387,13 @@ export namespace Prisma {
   export type WardCountOutputType = {
     beds: number
     admissions: number
+    admissionsredirected: number
   }
 
   export type WardCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     beds?: boolean | WardCountOutputTypeCountBedsArgs
     admissions?: boolean | WardCountOutputTypeCountAdmissionsArgs
+    admissionsredirected?: boolean | WardCountOutputTypeCountAdmissionsredirectedArgs
   }
 
   // Custom InputTypes
@@ -2141,6 +2419,13 @@ export namespace Prisma {
    */
   export type WardCountOutputTypeCountAdmissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AdmissionWhereInput
+  }
+
+  /**
+   * WardCountOutputType without action
+   */
+  export type WardCountOutputTypeCountAdmissionsredirectedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AdmissionRedirectedWhereInput
   }
 
 
@@ -2181,6 +2466,37 @@ export namespace Prisma {
    */
   export type PatientInstanceCountOutputTypeCountAdmissionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AdmissionWhereInput
+  }
+
+
+  /**
+   * Count Type PatientInstanceRedirectedCountOutputType
+   */
+
+  export type PatientInstanceRedirectedCountOutputType = {
+    admission: number
+  }
+
+  export type PatientInstanceRedirectedCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    admission?: boolean | PatientInstanceRedirectedCountOutputTypeCountAdmissionArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * PatientInstanceRedirectedCountOutputType without action
+   */
+  export type PatientInstanceRedirectedCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PatientInstanceRedirectedCountOutputType
+     */
+    select?: PatientInstanceRedirectedCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * PatientInstanceRedirectedCountOutputType without action
+   */
+  export type PatientInstanceRedirectedCountOutputTypeCountAdmissionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AdmissionRedirectedWhereInput
   }
 
 
@@ -2507,6 +2823,7 @@ export namespace Prisma {
     opdQueue?: boolean | Doctors$opdQueueArgs<ExtArgs>
     admissions?: boolean | Doctors$admissionsArgs<ExtArgs>
     patientInstances?: boolean | Doctors$patientInstancesArgs<ExtArgs>
+    adminssionredirected?: boolean | Doctors$adminssionredirectedArgs<ExtArgs>
     _count?: boolean | DoctorsCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["doctors"]>
 
@@ -2542,6 +2859,7 @@ export namespace Prisma {
     opdQueue?: boolean | Doctors$opdQueueArgs<ExtArgs>
     admissions?: boolean | Doctors$admissionsArgs<ExtArgs>
     patientInstances?: boolean | Doctors$patientInstancesArgs<ExtArgs>
+    adminssionredirected?: boolean | Doctors$adminssionredirectedArgs<ExtArgs>
     _count?: boolean | DoctorsCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type DoctorsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2555,6 +2873,7 @@ export namespace Prisma {
       opdQueue: Prisma.$OPDQueuePayload<ExtArgs>[]
       admissions: Prisma.$AdmissionPayload<ExtArgs>[]
       patientInstances: Prisma.$PatientInstancePayload<ExtArgs>[]
+      adminssionredirected: Prisma.$AdmissionRedirectedPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2935,6 +3254,7 @@ export namespace Prisma {
     opdQueue<T extends Doctors$opdQueueArgs<ExtArgs> = {}>(args?: Subset<T, Doctors$opdQueueArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OPDQueuePayload<ExtArgs>, T, "findMany"> | Null>
     admissions<T extends Doctors$admissionsArgs<ExtArgs> = {}>(args?: Subset<T, Doctors$admissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdmissionPayload<ExtArgs>, T, "findMany"> | Null>
     patientInstances<T extends Doctors$patientInstancesArgs<ExtArgs> = {}>(args?: Subset<T, Doctors$patientInstancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PatientInstancePayload<ExtArgs>, T, "findMany"> | Null>
+    adminssionredirected<T extends Doctors$adminssionredirectedArgs<ExtArgs> = {}>(args?: Subset<T, Doctors$adminssionredirectedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdmissionRedirectedPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3349,6 +3669,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: PatientInstanceScalarFieldEnum | PatientInstanceScalarFieldEnum[]
+  }
+
+  /**
+   * Doctors.adminssionredirected
+   */
+  export type Doctors$adminssionredirectedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdmissionRedirected
+     */
+    select?: AdmissionRedirectedSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdmissionRedirectedInclude<ExtArgs> | null
+    where?: AdmissionRedirectedWhereInput
+    orderBy?: AdmissionRedirectedOrderByWithRelationInput | AdmissionRedirectedOrderByWithRelationInput[]
+    cursor?: AdmissionRedirectedWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AdmissionRedirectedScalarFieldEnum | AdmissionRedirectedScalarFieldEnum[]
   }
 
   /**
@@ -6452,6 +6792,7 @@ export namespace Prisma {
     status?: boolean
     ward?: boolean | WardDefaultArgs<ExtArgs>
     admissions?: boolean | Bed$admissionsArgs<ExtArgs>
+    admissionsredirected?: boolean | Bed$admissionsredirectedArgs<ExtArgs>
     _count?: boolean | BedCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["bed"]>
 
@@ -6473,6 +6814,7 @@ export namespace Prisma {
   export type BedInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     ward?: boolean | WardDefaultArgs<ExtArgs>
     admissions?: boolean | Bed$admissionsArgs<ExtArgs>
+    admissionsredirected?: boolean | Bed$admissionsredirectedArgs<ExtArgs>
     _count?: boolean | BedCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type BedIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6484,6 +6826,7 @@ export namespace Prisma {
     objects: {
       ward: Prisma.$WardPayload<ExtArgs>
       admissions: Prisma.$AdmissionPayload<ExtArgs>[]
+      admissionsredirected: Prisma.$AdmissionRedirectedPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -6856,6 +7199,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     ward<T extends WardDefaultArgs<ExtArgs> = {}>(args?: Subset<T, WardDefaultArgs<ExtArgs>>): Prisma__WardClient<$Result.GetResult<Prisma.$WardPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     admissions<T extends Bed$admissionsArgs<ExtArgs> = {}>(args?: Subset<T, Bed$admissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdmissionPayload<ExtArgs>, T, "findMany"> | Null>
+    admissionsredirected<T extends Bed$admissionsredirectedArgs<ExtArgs> = {}>(args?: Subset<T, Bed$admissionsredirectedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdmissionRedirectedPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7227,6 +7571,26 @@ export namespace Prisma {
   }
 
   /**
+   * Bed.admissionsredirected
+   */
+  export type Bed$admissionsredirectedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdmissionRedirected
+     */
+    select?: AdmissionRedirectedSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdmissionRedirectedInclude<ExtArgs> | null
+    where?: AdmissionRedirectedWhereInput
+    orderBy?: AdmissionRedirectedOrderByWithRelationInput | AdmissionRedirectedOrderByWithRelationInput[]
+    cursor?: AdmissionRedirectedWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AdmissionRedirectedScalarFieldEnum | AdmissionRedirectedScalarFieldEnum[]
+  }
+
+  /**
    * Bed without action
    */
   export type BedDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7437,6 +7801,7 @@ export namespace Prisma {
     availableBeds?: boolean
     beds?: boolean | Ward$bedsArgs<ExtArgs>
     admissions?: boolean | Ward$admissionsArgs<ExtArgs>
+    admissionsredirected?: boolean | Ward$admissionsredirectedArgs<ExtArgs>
     _count?: boolean | WardCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["ward"]>
 
@@ -7457,6 +7822,7 @@ export namespace Prisma {
   export type WardInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     beds?: boolean | Ward$bedsArgs<ExtArgs>
     admissions?: boolean | Ward$admissionsArgs<ExtArgs>
+    admissionsredirected?: boolean | Ward$admissionsredirectedArgs<ExtArgs>
     _count?: boolean | WardCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type WardIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -7466,6 +7832,7 @@ export namespace Prisma {
     objects: {
       beds: Prisma.$BedPayload<ExtArgs>[]
       admissions: Prisma.$AdmissionPayload<ExtArgs>[]
+      admissionsredirected: Prisma.$AdmissionRedirectedPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -7838,6 +8205,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     beds<T extends Ward$bedsArgs<ExtArgs> = {}>(args?: Subset<T, Ward$bedsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BedPayload<ExtArgs>, T, "findMany"> | Null>
     admissions<T extends Ward$admissionsArgs<ExtArgs> = {}>(args?: Subset<T, Ward$admissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdmissionPayload<ExtArgs>, T, "findMany"> | Null>
+    admissionsredirected<T extends Ward$admissionsredirectedArgs<ExtArgs> = {}>(args?: Subset<T, Ward$admissionsredirectedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdmissionRedirectedPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8222,6 +8590,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: AdmissionScalarFieldEnum | AdmissionScalarFieldEnum[]
+  }
+
+  /**
+   * Ward.admissionsredirected
+   */
+  export type Ward$admissionsredirectedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdmissionRedirected
+     */
+    select?: AdmissionRedirectedSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdmissionRedirectedInclude<ExtArgs> | null
+    where?: AdmissionRedirectedWhereInput
+    orderBy?: AdmissionRedirectedOrderByWithRelationInput | AdmissionRedirectedOrderByWithRelationInput[]
+    cursor?: AdmissionRedirectedWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AdmissionRedirectedScalarFieldEnum | AdmissionRedirectedScalarFieldEnum[]
   }
 
   /**
@@ -9325,6 +9713,1989 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: PatientInstanceInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PatientInstanceRedirected
+   */
+
+  export type AggregatePatientInstanceRedirected = {
+    _count: PatientInstanceRedirectedCountAggregateOutputType | null
+    _avg: PatientInstanceRedirectedAvgAggregateOutputType | null
+    _sum: PatientInstanceRedirectedSumAggregateOutputType | null
+    _min: PatientInstanceRedirectedMinAggregateOutputType | null
+    _max: PatientInstanceRedirectedMaxAggregateOutputType | null
+  }
+
+  export type PatientInstanceRedirectedAvgAggregateOutputType = {
+    age: number | null
+  }
+
+  export type PatientInstanceRedirectedSumAggregateOutputType = {
+    age: number | null
+  }
+
+  export type PatientInstanceRedirectedMinAggregateOutputType = {
+    id: string | null
+    abhaId: string | null
+    name: string | null
+    age: number | null
+    gender: string | null
+    reason: string | null
+  }
+
+  export type PatientInstanceRedirectedMaxAggregateOutputType = {
+    id: string | null
+    abhaId: string | null
+    name: string | null
+    age: number | null
+    gender: string | null
+    reason: string | null
+  }
+
+  export type PatientInstanceRedirectedCountAggregateOutputType = {
+    id: number
+    abhaId: number
+    name: number
+    age: number
+    gender: number
+    reason: number
+    medications: number
+    _all: number
+  }
+
+
+  export type PatientInstanceRedirectedAvgAggregateInputType = {
+    age?: true
+  }
+
+  export type PatientInstanceRedirectedSumAggregateInputType = {
+    age?: true
+  }
+
+  export type PatientInstanceRedirectedMinAggregateInputType = {
+    id?: true
+    abhaId?: true
+    name?: true
+    age?: true
+    gender?: true
+    reason?: true
+  }
+
+  export type PatientInstanceRedirectedMaxAggregateInputType = {
+    id?: true
+    abhaId?: true
+    name?: true
+    age?: true
+    gender?: true
+    reason?: true
+  }
+
+  export type PatientInstanceRedirectedCountAggregateInputType = {
+    id?: true
+    abhaId?: true
+    name?: true
+    age?: true
+    gender?: true
+    reason?: true
+    medications?: true
+    _all?: true
+  }
+
+  export type PatientInstanceRedirectedAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PatientInstanceRedirected to aggregate.
+     */
+    where?: PatientInstanceRedirectedWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PatientInstanceRedirecteds to fetch.
+     */
+    orderBy?: PatientInstanceRedirectedOrderByWithRelationInput | PatientInstanceRedirectedOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PatientInstanceRedirectedWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PatientInstanceRedirecteds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PatientInstanceRedirecteds.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PatientInstanceRedirecteds
+    **/
+    _count?: true | PatientInstanceRedirectedCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PatientInstanceRedirectedAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PatientInstanceRedirectedSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PatientInstanceRedirectedMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PatientInstanceRedirectedMaxAggregateInputType
+  }
+
+  export type GetPatientInstanceRedirectedAggregateType<T extends PatientInstanceRedirectedAggregateArgs> = {
+        [P in keyof T & keyof AggregatePatientInstanceRedirected]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePatientInstanceRedirected[P]>
+      : GetScalarType<T[P], AggregatePatientInstanceRedirected[P]>
+  }
+
+
+
+
+  export type PatientInstanceRedirectedGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PatientInstanceRedirectedWhereInput
+    orderBy?: PatientInstanceRedirectedOrderByWithAggregationInput | PatientInstanceRedirectedOrderByWithAggregationInput[]
+    by: PatientInstanceRedirectedScalarFieldEnum[] | PatientInstanceRedirectedScalarFieldEnum
+    having?: PatientInstanceRedirectedScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PatientInstanceRedirectedCountAggregateInputType | true
+    _avg?: PatientInstanceRedirectedAvgAggregateInputType
+    _sum?: PatientInstanceRedirectedSumAggregateInputType
+    _min?: PatientInstanceRedirectedMinAggregateInputType
+    _max?: PatientInstanceRedirectedMaxAggregateInputType
+  }
+
+  export type PatientInstanceRedirectedGroupByOutputType = {
+    id: string
+    abhaId: string
+    name: string
+    age: number
+    gender: string
+    reason: string
+    medications: JsonValue | null
+    _count: PatientInstanceRedirectedCountAggregateOutputType | null
+    _avg: PatientInstanceRedirectedAvgAggregateOutputType | null
+    _sum: PatientInstanceRedirectedSumAggregateOutputType | null
+    _min: PatientInstanceRedirectedMinAggregateOutputType | null
+    _max: PatientInstanceRedirectedMaxAggregateOutputType | null
+  }
+
+  type GetPatientInstanceRedirectedGroupByPayload<T extends PatientInstanceRedirectedGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PatientInstanceRedirectedGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PatientInstanceRedirectedGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PatientInstanceRedirectedGroupByOutputType[P]>
+            : GetScalarType<T[P], PatientInstanceRedirectedGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PatientInstanceRedirectedSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    abhaId?: boolean
+    name?: boolean
+    age?: boolean
+    gender?: boolean
+    reason?: boolean
+    medications?: boolean
+    admission?: boolean | PatientInstanceRedirected$admissionArgs<ExtArgs>
+    _count?: boolean | PatientInstanceRedirectedCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["patientInstanceRedirected"]>
+
+  export type PatientInstanceRedirectedSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    abhaId?: boolean
+    name?: boolean
+    age?: boolean
+    gender?: boolean
+    reason?: boolean
+    medications?: boolean
+  }, ExtArgs["result"]["patientInstanceRedirected"]>
+
+  export type PatientInstanceRedirectedSelectScalar = {
+    id?: boolean
+    abhaId?: boolean
+    name?: boolean
+    age?: boolean
+    gender?: boolean
+    reason?: boolean
+    medications?: boolean
+  }
+
+  export type PatientInstanceRedirectedInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    admission?: boolean | PatientInstanceRedirected$admissionArgs<ExtArgs>
+    _count?: boolean | PatientInstanceRedirectedCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type PatientInstanceRedirectedIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $PatientInstanceRedirectedPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PatientInstanceRedirected"
+    objects: {
+      admission: Prisma.$AdmissionRedirectedPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      abhaId: string
+      name: string
+      age: number
+      gender: string
+      reason: string
+      medications: Prisma.JsonValue | null
+    }, ExtArgs["result"]["patientInstanceRedirected"]>
+    composites: {}
+  }
+
+  type PatientInstanceRedirectedGetPayload<S extends boolean | null | undefined | PatientInstanceRedirectedDefaultArgs> = $Result.GetResult<Prisma.$PatientInstanceRedirectedPayload, S>
+
+  type PatientInstanceRedirectedCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<PatientInstanceRedirectedFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: PatientInstanceRedirectedCountAggregateInputType | true
+    }
+
+  export interface PatientInstanceRedirectedDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PatientInstanceRedirected'], meta: { name: 'PatientInstanceRedirected' } }
+    /**
+     * Find zero or one PatientInstanceRedirected that matches the filter.
+     * @param {PatientInstanceRedirectedFindUniqueArgs} args - Arguments to find a PatientInstanceRedirected
+     * @example
+     * // Get one PatientInstanceRedirected
+     * const patientInstanceRedirected = await prisma.patientInstanceRedirected.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PatientInstanceRedirectedFindUniqueArgs>(args: SelectSubset<T, PatientInstanceRedirectedFindUniqueArgs<ExtArgs>>): Prisma__PatientInstanceRedirectedClient<$Result.GetResult<Prisma.$PatientInstanceRedirectedPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one PatientInstanceRedirected that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {PatientInstanceRedirectedFindUniqueOrThrowArgs} args - Arguments to find a PatientInstanceRedirected
+     * @example
+     * // Get one PatientInstanceRedirected
+     * const patientInstanceRedirected = await prisma.patientInstanceRedirected.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PatientInstanceRedirectedFindUniqueOrThrowArgs>(args: SelectSubset<T, PatientInstanceRedirectedFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PatientInstanceRedirectedClient<$Result.GetResult<Prisma.$PatientInstanceRedirectedPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first PatientInstanceRedirected that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PatientInstanceRedirectedFindFirstArgs} args - Arguments to find a PatientInstanceRedirected
+     * @example
+     * // Get one PatientInstanceRedirected
+     * const patientInstanceRedirected = await prisma.patientInstanceRedirected.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PatientInstanceRedirectedFindFirstArgs>(args?: SelectSubset<T, PatientInstanceRedirectedFindFirstArgs<ExtArgs>>): Prisma__PatientInstanceRedirectedClient<$Result.GetResult<Prisma.$PatientInstanceRedirectedPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first PatientInstanceRedirected that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PatientInstanceRedirectedFindFirstOrThrowArgs} args - Arguments to find a PatientInstanceRedirected
+     * @example
+     * // Get one PatientInstanceRedirected
+     * const patientInstanceRedirected = await prisma.patientInstanceRedirected.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PatientInstanceRedirectedFindFirstOrThrowArgs>(args?: SelectSubset<T, PatientInstanceRedirectedFindFirstOrThrowArgs<ExtArgs>>): Prisma__PatientInstanceRedirectedClient<$Result.GetResult<Prisma.$PatientInstanceRedirectedPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more PatientInstanceRedirecteds that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PatientInstanceRedirectedFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PatientInstanceRedirecteds
+     * const patientInstanceRedirecteds = await prisma.patientInstanceRedirected.findMany()
+     * 
+     * // Get first 10 PatientInstanceRedirecteds
+     * const patientInstanceRedirecteds = await prisma.patientInstanceRedirected.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const patientInstanceRedirectedWithIdOnly = await prisma.patientInstanceRedirected.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PatientInstanceRedirectedFindManyArgs>(args?: SelectSubset<T, PatientInstanceRedirectedFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PatientInstanceRedirectedPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a PatientInstanceRedirected.
+     * @param {PatientInstanceRedirectedCreateArgs} args - Arguments to create a PatientInstanceRedirected.
+     * @example
+     * // Create one PatientInstanceRedirected
+     * const PatientInstanceRedirected = await prisma.patientInstanceRedirected.create({
+     *   data: {
+     *     // ... data to create a PatientInstanceRedirected
+     *   }
+     * })
+     * 
+     */
+    create<T extends PatientInstanceRedirectedCreateArgs>(args: SelectSubset<T, PatientInstanceRedirectedCreateArgs<ExtArgs>>): Prisma__PatientInstanceRedirectedClient<$Result.GetResult<Prisma.$PatientInstanceRedirectedPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many PatientInstanceRedirecteds.
+     * @param {PatientInstanceRedirectedCreateManyArgs} args - Arguments to create many PatientInstanceRedirecteds.
+     * @example
+     * // Create many PatientInstanceRedirecteds
+     * const patientInstanceRedirected = await prisma.patientInstanceRedirected.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PatientInstanceRedirectedCreateManyArgs>(args?: SelectSubset<T, PatientInstanceRedirectedCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PatientInstanceRedirecteds and returns the data saved in the database.
+     * @param {PatientInstanceRedirectedCreateManyAndReturnArgs} args - Arguments to create many PatientInstanceRedirecteds.
+     * @example
+     * // Create many PatientInstanceRedirecteds
+     * const patientInstanceRedirected = await prisma.patientInstanceRedirected.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PatientInstanceRedirecteds and only return the `id`
+     * const patientInstanceRedirectedWithIdOnly = await prisma.patientInstanceRedirected.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PatientInstanceRedirectedCreateManyAndReturnArgs>(args?: SelectSubset<T, PatientInstanceRedirectedCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PatientInstanceRedirectedPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a PatientInstanceRedirected.
+     * @param {PatientInstanceRedirectedDeleteArgs} args - Arguments to delete one PatientInstanceRedirected.
+     * @example
+     * // Delete one PatientInstanceRedirected
+     * const PatientInstanceRedirected = await prisma.patientInstanceRedirected.delete({
+     *   where: {
+     *     // ... filter to delete one PatientInstanceRedirected
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PatientInstanceRedirectedDeleteArgs>(args: SelectSubset<T, PatientInstanceRedirectedDeleteArgs<ExtArgs>>): Prisma__PatientInstanceRedirectedClient<$Result.GetResult<Prisma.$PatientInstanceRedirectedPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one PatientInstanceRedirected.
+     * @param {PatientInstanceRedirectedUpdateArgs} args - Arguments to update one PatientInstanceRedirected.
+     * @example
+     * // Update one PatientInstanceRedirected
+     * const patientInstanceRedirected = await prisma.patientInstanceRedirected.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PatientInstanceRedirectedUpdateArgs>(args: SelectSubset<T, PatientInstanceRedirectedUpdateArgs<ExtArgs>>): Prisma__PatientInstanceRedirectedClient<$Result.GetResult<Prisma.$PatientInstanceRedirectedPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more PatientInstanceRedirecteds.
+     * @param {PatientInstanceRedirectedDeleteManyArgs} args - Arguments to filter PatientInstanceRedirecteds to delete.
+     * @example
+     * // Delete a few PatientInstanceRedirecteds
+     * const { count } = await prisma.patientInstanceRedirected.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PatientInstanceRedirectedDeleteManyArgs>(args?: SelectSubset<T, PatientInstanceRedirectedDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PatientInstanceRedirecteds.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PatientInstanceRedirectedUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PatientInstanceRedirecteds
+     * const patientInstanceRedirected = await prisma.patientInstanceRedirected.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PatientInstanceRedirectedUpdateManyArgs>(args: SelectSubset<T, PatientInstanceRedirectedUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one PatientInstanceRedirected.
+     * @param {PatientInstanceRedirectedUpsertArgs} args - Arguments to update or create a PatientInstanceRedirected.
+     * @example
+     * // Update or create a PatientInstanceRedirected
+     * const patientInstanceRedirected = await prisma.patientInstanceRedirected.upsert({
+     *   create: {
+     *     // ... data to create a PatientInstanceRedirected
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PatientInstanceRedirected we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PatientInstanceRedirectedUpsertArgs>(args: SelectSubset<T, PatientInstanceRedirectedUpsertArgs<ExtArgs>>): Prisma__PatientInstanceRedirectedClient<$Result.GetResult<Prisma.$PatientInstanceRedirectedPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of PatientInstanceRedirecteds.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PatientInstanceRedirectedCountArgs} args - Arguments to filter PatientInstanceRedirecteds to count.
+     * @example
+     * // Count the number of PatientInstanceRedirecteds
+     * const count = await prisma.patientInstanceRedirected.count({
+     *   where: {
+     *     // ... the filter for the PatientInstanceRedirecteds we want to count
+     *   }
+     * })
+    **/
+    count<T extends PatientInstanceRedirectedCountArgs>(
+      args?: Subset<T, PatientInstanceRedirectedCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PatientInstanceRedirectedCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PatientInstanceRedirected.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PatientInstanceRedirectedAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PatientInstanceRedirectedAggregateArgs>(args: Subset<T, PatientInstanceRedirectedAggregateArgs>): Prisma.PrismaPromise<GetPatientInstanceRedirectedAggregateType<T>>
+
+    /**
+     * Group by PatientInstanceRedirected.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PatientInstanceRedirectedGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PatientInstanceRedirectedGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PatientInstanceRedirectedGroupByArgs['orderBy'] }
+        : { orderBy?: PatientInstanceRedirectedGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PatientInstanceRedirectedGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPatientInstanceRedirectedGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PatientInstanceRedirected model
+   */
+  readonly fields: PatientInstanceRedirectedFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PatientInstanceRedirected.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PatientInstanceRedirectedClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    admission<T extends PatientInstanceRedirected$admissionArgs<ExtArgs> = {}>(args?: Subset<T, PatientInstanceRedirected$admissionArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdmissionRedirectedPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PatientInstanceRedirected model
+   */ 
+  interface PatientInstanceRedirectedFieldRefs {
+    readonly id: FieldRef<"PatientInstanceRedirected", 'String'>
+    readonly abhaId: FieldRef<"PatientInstanceRedirected", 'String'>
+    readonly name: FieldRef<"PatientInstanceRedirected", 'String'>
+    readonly age: FieldRef<"PatientInstanceRedirected", 'Int'>
+    readonly gender: FieldRef<"PatientInstanceRedirected", 'String'>
+    readonly reason: FieldRef<"PatientInstanceRedirected", 'String'>
+    readonly medications: FieldRef<"PatientInstanceRedirected", 'Json'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PatientInstanceRedirected findUnique
+   */
+  export type PatientInstanceRedirectedFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PatientInstanceRedirected
+     */
+    select?: PatientInstanceRedirectedSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PatientInstanceRedirectedInclude<ExtArgs> | null
+    /**
+     * Filter, which PatientInstanceRedirected to fetch.
+     */
+    where: PatientInstanceRedirectedWhereUniqueInput
+  }
+
+  /**
+   * PatientInstanceRedirected findUniqueOrThrow
+   */
+  export type PatientInstanceRedirectedFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PatientInstanceRedirected
+     */
+    select?: PatientInstanceRedirectedSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PatientInstanceRedirectedInclude<ExtArgs> | null
+    /**
+     * Filter, which PatientInstanceRedirected to fetch.
+     */
+    where: PatientInstanceRedirectedWhereUniqueInput
+  }
+
+  /**
+   * PatientInstanceRedirected findFirst
+   */
+  export type PatientInstanceRedirectedFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PatientInstanceRedirected
+     */
+    select?: PatientInstanceRedirectedSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PatientInstanceRedirectedInclude<ExtArgs> | null
+    /**
+     * Filter, which PatientInstanceRedirected to fetch.
+     */
+    where?: PatientInstanceRedirectedWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PatientInstanceRedirecteds to fetch.
+     */
+    orderBy?: PatientInstanceRedirectedOrderByWithRelationInput | PatientInstanceRedirectedOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PatientInstanceRedirecteds.
+     */
+    cursor?: PatientInstanceRedirectedWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PatientInstanceRedirecteds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PatientInstanceRedirecteds.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PatientInstanceRedirecteds.
+     */
+    distinct?: PatientInstanceRedirectedScalarFieldEnum | PatientInstanceRedirectedScalarFieldEnum[]
+  }
+
+  /**
+   * PatientInstanceRedirected findFirstOrThrow
+   */
+  export type PatientInstanceRedirectedFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PatientInstanceRedirected
+     */
+    select?: PatientInstanceRedirectedSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PatientInstanceRedirectedInclude<ExtArgs> | null
+    /**
+     * Filter, which PatientInstanceRedirected to fetch.
+     */
+    where?: PatientInstanceRedirectedWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PatientInstanceRedirecteds to fetch.
+     */
+    orderBy?: PatientInstanceRedirectedOrderByWithRelationInput | PatientInstanceRedirectedOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PatientInstanceRedirecteds.
+     */
+    cursor?: PatientInstanceRedirectedWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PatientInstanceRedirecteds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PatientInstanceRedirecteds.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PatientInstanceRedirecteds.
+     */
+    distinct?: PatientInstanceRedirectedScalarFieldEnum | PatientInstanceRedirectedScalarFieldEnum[]
+  }
+
+  /**
+   * PatientInstanceRedirected findMany
+   */
+  export type PatientInstanceRedirectedFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PatientInstanceRedirected
+     */
+    select?: PatientInstanceRedirectedSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PatientInstanceRedirectedInclude<ExtArgs> | null
+    /**
+     * Filter, which PatientInstanceRedirecteds to fetch.
+     */
+    where?: PatientInstanceRedirectedWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PatientInstanceRedirecteds to fetch.
+     */
+    orderBy?: PatientInstanceRedirectedOrderByWithRelationInput | PatientInstanceRedirectedOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PatientInstanceRedirecteds.
+     */
+    cursor?: PatientInstanceRedirectedWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PatientInstanceRedirecteds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PatientInstanceRedirecteds.
+     */
+    skip?: number
+    distinct?: PatientInstanceRedirectedScalarFieldEnum | PatientInstanceRedirectedScalarFieldEnum[]
+  }
+
+  /**
+   * PatientInstanceRedirected create
+   */
+  export type PatientInstanceRedirectedCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PatientInstanceRedirected
+     */
+    select?: PatientInstanceRedirectedSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PatientInstanceRedirectedInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PatientInstanceRedirected.
+     */
+    data: XOR<PatientInstanceRedirectedCreateInput, PatientInstanceRedirectedUncheckedCreateInput>
+  }
+
+  /**
+   * PatientInstanceRedirected createMany
+   */
+  export type PatientInstanceRedirectedCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PatientInstanceRedirecteds.
+     */
+    data: PatientInstanceRedirectedCreateManyInput | PatientInstanceRedirectedCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PatientInstanceRedirected createManyAndReturn
+   */
+  export type PatientInstanceRedirectedCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PatientInstanceRedirected
+     */
+    select?: PatientInstanceRedirectedSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many PatientInstanceRedirecteds.
+     */
+    data: PatientInstanceRedirectedCreateManyInput | PatientInstanceRedirectedCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PatientInstanceRedirected update
+   */
+  export type PatientInstanceRedirectedUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PatientInstanceRedirected
+     */
+    select?: PatientInstanceRedirectedSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PatientInstanceRedirectedInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PatientInstanceRedirected.
+     */
+    data: XOR<PatientInstanceRedirectedUpdateInput, PatientInstanceRedirectedUncheckedUpdateInput>
+    /**
+     * Choose, which PatientInstanceRedirected to update.
+     */
+    where: PatientInstanceRedirectedWhereUniqueInput
+  }
+
+  /**
+   * PatientInstanceRedirected updateMany
+   */
+  export type PatientInstanceRedirectedUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PatientInstanceRedirecteds.
+     */
+    data: XOR<PatientInstanceRedirectedUpdateManyMutationInput, PatientInstanceRedirectedUncheckedUpdateManyInput>
+    /**
+     * Filter which PatientInstanceRedirecteds to update
+     */
+    where?: PatientInstanceRedirectedWhereInput
+  }
+
+  /**
+   * PatientInstanceRedirected upsert
+   */
+  export type PatientInstanceRedirectedUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PatientInstanceRedirected
+     */
+    select?: PatientInstanceRedirectedSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PatientInstanceRedirectedInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PatientInstanceRedirected to update in case it exists.
+     */
+    where: PatientInstanceRedirectedWhereUniqueInput
+    /**
+     * In case the PatientInstanceRedirected found by the `where` argument doesn't exist, create a new PatientInstanceRedirected with this data.
+     */
+    create: XOR<PatientInstanceRedirectedCreateInput, PatientInstanceRedirectedUncheckedCreateInput>
+    /**
+     * In case the PatientInstanceRedirected was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PatientInstanceRedirectedUpdateInput, PatientInstanceRedirectedUncheckedUpdateInput>
+  }
+
+  /**
+   * PatientInstanceRedirected delete
+   */
+  export type PatientInstanceRedirectedDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PatientInstanceRedirected
+     */
+    select?: PatientInstanceRedirectedSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PatientInstanceRedirectedInclude<ExtArgs> | null
+    /**
+     * Filter which PatientInstanceRedirected to delete.
+     */
+    where: PatientInstanceRedirectedWhereUniqueInput
+  }
+
+  /**
+   * PatientInstanceRedirected deleteMany
+   */
+  export type PatientInstanceRedirectedDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PatientInstanceRedirecteds to delete
+     */
+    where?: PatientInstanceRedirectedWhereInput
+  }
+
+  /**
+   * PatientInstanceRedirected.admission
+   */
+  export type PatientInstanceRedirected$admissionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdmissionRedirected
+     */
+    select?: AdmissionRedirectedSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdmissionRedirectedInclude<ExtArgs> | null
+    where?: AdmissionRedirectedWhereInput
+    orderBy?: AdmissionRedirectedOrderByWithRelationInput | AdmissionRedirectedOrderByWithRelationInput[]
+    cursor?: AdmissionRedirectedWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AdmissionRedirectedScalarFieldEnum | AdmissionRedirectedScalarFieldEnum[]
+  }
+
+  /**
+   * PatientInstanceRedirected without action
+   */
+  export type PatientInstanceRedirectedDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PatientInstanceRedirected
+     */
+    select?: PatientInstanceRedirectedSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PatientInstanceRedirectedInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model AdmissionRedirected
+   */
+
+  export type AggregateAdmissionRedirected = {
+    _count: AdmissionRedirectedCountAggregateOutputType | null
+    _min: AdmissionRedirectedMinAggregateOutputType | null
+    _max: AdmissionRedirectedMaxAggregateOutputType | null
+  }
+
+  export type AdmissionRedirectedMinAggregateOutputType = {
+    id: string | null
+    patientId: string | null
+    wardId: string | null
+    bedId: string | null
+    doctorId: string | null
+  }
+
+  export type AdmissionRedirectedMaxAggregateOutputType = {
+    id: string | null
+    patientId: string | null
+    wardId: string | null
+    bedId: string | null
+    doctorId: string | null
+  }
+
+  export type AdmissionRedirectedCountAggregateOutputType = {
+    id: number
+    patientId: number
+    wardId: number
+    bedId: number
+    doctorId: number
+    _all: number
+  }
+
+
+  export type AdmissionRedirectedMinAggregateInputType = {
+    id?: true
+    patientId?: true
+    wardId?: true
+    bedId?: true
+    doctorId?: true
+  }
+
+  export type AdmissionRedirectedMaxAggregateInputType = {
+    id?: true
+    patientId?: true
+    wardId?: true
+    bedId?: true
+    doctorId?: true
+  }
+
+  export type AdmissionRedirectedCountAggregateInputType = {
+    id?: true
+    patientId?: true
+    wardId?: true
+    bedId?: true
+    doctorId?: true
+    _all?: true
+  }
+
+  export type AdmissionRedirectedAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AdmissionRedirected to aggregate.
+     */
+    where?: AdmissionRedirectedWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AdmissionRedirecteds to fetch.
+     */
+    orderBy?: AdmissionRedirectedOrderByWithRelationInput | AdmissionRedirectedOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AdmissionRedirectedWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AdmissionRedirecteds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AdmissionRedirecteds.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AdmissionRedirecteds
+    **/
+    _count?: true | AdmissionRedirectedCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AdmissionRedirectedMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AdmissionRedirectedMaxAggregateInputType
+  }
+
+  export type GetAdmissionRedirectedAggregateType<T extends AdmissionRedirectedAggregateArgs> = {
+        [P in keyof T & keyof AggregateAdmissionRedirected]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAdmissionRedirected[P]>
+      : GetScalarType<T[P], AggregateAdmissionRedirected[P]>
+  }
+
+
+
+
+  export type AdmissionRedirectedGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AdmissionRedirectedWhereInput
+    orderBy?: AdmissionRedirectedOrderByWithAggregationInput | AdmissionRedirectedOrderByWithAggregationInput[]
+    by: AdmissionRedirectedScalarFieldEnum[] | AdmissionRedirectedScalarFieldEnum
+    having?: AdmissionRedirectedScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AdmissionRedirectedCountAggregateInputType | true
+    _min?: AdmissionRedirectedMinAggregateInputType
+    _max?: AdmissionRedirectedMaxAggregateInputType
+  }
+
+  export type AdmissionRedirectedGroupByOutputType = {
+    id: string
+    patientId: string
+    wardId: string | null
+    bedId: string | null
+    doctorId: string
+    _count: AdmissionRedirectedCountAggregateOutputType | null
+    _min: AdmissionRedirectedMinAggregateOutputType | null
+    _max: AdmissionRedirectedMaxAggregateOutputType | null
+  }
+
+  type GetAdmissionRedirectedGroupByPayload<T extends AdmissionRedirectedGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AdmissionRedirectedGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AdmissionRedirectedGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AdmissionRedirectedGroupByOutputType[P]>
+            : GetScalarType<T[P], AdmissionRedirectedGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AdmissionRedirectedSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    patientId?: boolean
+    wardId?: boolean
+    bedId?: boolean
+    doctorId?: boolean
+    patient?: boolean | PatientInstanceRedirectedDefaultArgs<ExtArgs>
+    ward?: boolean | AdmissionRedirected$wardArgs<ExtArgs>
+    bed?: boolean | AdmissionRedirected$bedArgs<ExtArgs>
+    doctor?: boolean | DoctorsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["admissionRedirected"]>
+
+  export type AdmissionRedirectedSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    patientId?: boolean
+    wardId?: boolean
+    bedId?: boolean
+    doctorId?: boolean
+    patient?: boolean | PatientInstanceRedirectedDefaultArgs<ExtArgs>
+    ward?: boolean | AdmissionRedirected$wardArgs<ExtArgs>
+    bed?: boolean | AdmissionRedirected$bedArgs<ExtArgs>
+    doctor?: boolean | DoctorsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["admissionRedirected"]>
+
+  export type AdmissionRedirectedSelectScalar = {
+    id?: boolean
+    patientId?: boolean
+    wardId?: boolean
+    bedId?: boolean
+    doctorId?: boolean
+  }
+
+  export type AdmissionRedirectedInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    patient?: boolean | PatientInstanceRedirectedDefaultArgs<ExtArgs>
+    ward?: boolean | AdmissionRedirected$wardArgs<ExtArgs>
+    bed?: boolean | AdmissionRedirected$bedArgs<ExtArgs>
+    doctor?: boolean | DoctorsDefaultArgs<ExtArgs>
+  }
+  export type AdmissionRedirectedIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    patient?: boolean | PatientInstanceRedirectedDefaultArgs<ExtArgs>
+    ward?: boolean | AdmissionRedirected$wardArgs<ExtArgs>
+    bed?: boolean | AdmissionRedirected$bedArgs<ExtArgs>
+    doctor?: boolean | DoctorsDefaultArgs<ExtArgs>
+  }
+
+  export type $AdmissionRedirectedPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AdmissionRedirected"
+    objects: {
+      patient: Prisma.$PatientInstanceRedirectedPayload<ExtArgs>
+      ward: Prisma.$WardPayload<ExtArgs> | null
+      bed: Prisma.$BedPayload<ExtArgs> | null
+      doctor: Prisma.$DoctorsPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      patientId: string
+      wardId: string | null
+      bedId: string | null
+      doctorId: string
+    }, ExtArgs["result"]["admissionRedirected"]>
+    composites: {}
+  }
+
+  type AdmissionRedirectedGetPayload<S extends boolean | null | undefined | AdmissionRedirectedDefaultArgs> = $Result.GetResult<Prisma.$AdmissionRedirectedPayload, S>
+
+  type AdmissionRedirectedCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<AdmissionRedirectedFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: AdmissionRedirectedCountAggregateInputType | true
+    }
+
+  export interface AdmissionRedirectedDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AdmissionRedirected'], meta: { name: 'AdmissionRedirected' } }
+    /**
+     * Find zero or one AdmissionRedirected that matches the filter.
+     * @param {AdmissionRedirectedFindUniqueArgs} args - Arguments to find a AdmissionRedirected
+     * @example
+     * // Get one AdmissionRedirected
+     * const admissionRedirected = await prisma.admissionRedirected.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AdmissionRedirectedFindUniqueArgs>(args: SelectSubset<T, AdmissionRedirectedFindUniqueArgs<ExtArgs>>): Prisma__AdmissionRedirectedClient<$Result.GetResult<Prisma.$AdmissionRedirectedPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one AdmissionRedirected that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {AdmissionRedirectedFindUniqueOrThrowArgs} args - Arguments to find a AdmissionRedirected
+     * @example
+     * // Get one AdmissionRedirected
+     * const admissionRedirected = await prisma.admissionRedirected.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AdmissionRedirectedFindUniqueOrThrowArgs>(args: SelectSubset<T, AdmissionRedirectedFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AdmissionRedirectedClient<$Result.GetResult<Prisma.$AdmissionRedirectedPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first AdmissionRedirected that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdmissionRedirectedFindFirstArgs} args - Arguments to find a AdmissionRedirected
+     * @example
+     * // Get one AdmissionRedirected
+     * const admissionRedirected = await prisma.admissionRedirected.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AdmissionRedirectedFindFirstArgs>(args?: SelectSubset<T, AdmissionRedirectedFindFirstArgs<ExtArgs>>): Prisma__AdmissionRedirectedClient<$Result.GetResult<Prisma.$AdmissionRedirectedPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first AdmissionRedirected that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdmissionRedirectedFindFirstOrThrowArgs} args - Arguments to find a AdmissionRedirected
+     * @example
+     * // Get one AdmissionRedirected
+     * const admissionRedirected = await prisma.admissionRedirected.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AdmissionRedirectedFindFirstOrThrowArgs>(args?: SelectSubset<T, AdmissionRedirectedFindFirstOrThrowArgs<ExtArgs>>): Prisma__AdmissionRedirectedClient<$Result.GetResult<Prisma.$AdmissionRedirectedPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more AdmissionRedirecteds that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdmissionRedirectedFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AdmissionRedirecteds
+     * const admissionRedirecteds = await prisma.admissionRedirected.findMany()
+     * 
+     * // Get first 10 AdmissionRedirecteds
+     * const admissionRedirecteds = await prisma.admissionRedirected.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const admissionRedirectedWithIdOnly = await prisma.admissionRedirected.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AdmissionRedirectedFindManyArgs>(args?: SelectSubset<T, AdmissionRedirectedFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdmissionRedirectedPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a AdmissionRedirected.
+     * @param {AdmissionRedirectedCreateArgs} args - Arguments to create a AdmissionRedirected.
+     * @example
+     * // Create one AdmissionRedirected
+     * const AdmissionRedirected = await prisma.admissionRedirected.create({
+     *   data: {
+     *     // ... data to create a AdmissionRedirected
+     *   }
+     * })
+     * 
+     */
+    create<T extends AdmissionRedirectedCreateArgs>(args: SelectSubset<T, AdmissionRedirectedCreateArgs<ExtArgs>>): Prisma__AdmissionRedirectedClient<$Result.GetResult<Prisma.$AdmissionRedirectedPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many AdmissionRedirecteds.
+     * @param {AdmissionRedirectedCreateManyArgs} args - Arguments to create many AdmissionRedirecteds.
+     * @example
+     * // Create many AdmissionRedirecteds
+     * const admissionRedirected = await prisma.admissionRedirected.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AdmissionRedirectedCreateManyArgs>(args?: SelectSubset<T, AdmissionRedirectedCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AdmissionRedirecteds and returns the data saved in the database.
+     * @param {AdmissionRedirectedCreateManyAndReturnArgs} args - Arguments to create many AdmissionRedirecteds.
+     * @example
+     * // Create many AdmissionRedirecteds
+     * const admissionRedirected = await prisma.admissionRedirected.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AdmissionRedirecteds and only return the `id`
+     * const admissionRedirectedWithIdOnly = await prisma.admissionRedirected.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AdmissionRedirectedCreateManyAndReturnArgs>(args?: SelectSubset<T, AdmissionRedirectedCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdmissionRedirectedPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a AdmissionRedirected.
+     * @param {AdmissionRedirectedDeleteArgs} args - Arguments to delete one AdmissionRedirected.
+     * @example
+     * // Delete one AdmissionRedirected
+     * const AdmissionRedirected = await prisma.admissionRedirected.delete({
+     *   where: {
+     *     // ... filter to delete one AdmissionRedirected
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AdmissionRedirectedDeleteArgs>(args: SelectSubset<T, AdmissionRedirectedDeleteArgs<ExtArgs>>): Prisma__AdmissionRedirectedClient<$Result.GetResult<Prisma.$AdmissionRedirectedPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one AdmissionRedirected.
+     * @param {AdmissionRedirectedUpdateArgs} args - Arguments to update one AdmissionRedirected.
+     * @example
+     * // Update one AdmissionRedirected
+     * const admissionRedirected = await prisma.admissionRedirected.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AdmissionRedirectedUpdateArgs>(args: SelectSubset<T, AdmissionRedirectedUpdateArgs<ExtArgs>>): Prisma__AdmissionRedirectedClient<$Result.GetResult<Prisma.$AdmissionRedirectedPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more AdmissionRedirecteds.
+     * @param {AdmissionRedirectedDeleteManyArgs} args - Arguments to filter AdmissionRedirecteds to delete.
+     * @example
+     * // Delete a few AdmissionRedirecteds
+     * const { count } = await prisma.admissionRedirected.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AdmissionRedirectedDeleteManyArgs>(args?: SelectSubset<T, AdmissionRedirectedDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AdmissionRedirecteds.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdmissionRedirectedUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AdmissionRedirecteds
+     * const admissionRedirected = await prisma.admissionRedirected.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AdmissionRedirectedUpdateManyArgs>(args: SelectSubset<T, AdmissionRedirectedUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one AdmissionRedirected.
+     * @param {AdmissionRedirectedUpsertArgs} args - Arguments to update or create a AdmissionRedirected.
+     * @example
+     * // Update or create a AdmissionRedirected
+     * const admissionRedirected = await prisma.admissionRedirected.upsert({
+     *   create: {
+     *     // ... data to create a AdmissionRedirected
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AdmissionRedirected we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AdmissionRedirectedUpsertArgs>(args: SelectSubset<T, AdmissionRedirectedUpsertArgs<ExtArgs>>): Prisma__AdmissionRedirectedClient<$Result.GetResult<Prisma.$AdmissionRedirectedPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of AdmissionRedirecteds.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdmissionRedirectedCountArgs} args - Arguments to filter AdmissionRedirecteds to count.
+     * @example
+     * // Count the number of AdmissionRedirecteds
+     * const count = await prisma.admissionRedirected.count({
+     *   where: {
+     *     // ... the filter for the AdmissionRedirecteds we want to count
+     *   }
+     * })
+    **/
+    count<T extends AdmissionRedirectedCountArgs>(
+      args?: Subset<T, AdmissionRedirectedCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AdmissionRedirectedCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AdmissionRedirected.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdmissionRedirectedAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AdmissionRedirectedAggregateArgs>(args: Subset<T, AdmissionRedirectedAggregateArgs>): Prisma.PrismaPromise<GetAdmissionRedirectedAggregateType<T>>
+
+    /**
+     * Group by AdmissionRedirected.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdmissionRedirectedGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AdmissionRedirectedGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AdmissionRedirectedGroupByArgs['orderBy'] }
+        : { orderBy?: AdmissionRedirectedGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AdmissionRedirectedGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAdmissionRedirectedGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AdmissionRedirected model
+   */
+  readonly fields: AdmissionRedirectedFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AdmissionRedirected.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AdmissionRedirectedClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    patient<T extends PatientInstanceRedirectedDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PatientInstanceRedirectedDefaultArgs<ExtArgs>>): Prisma__PatientInstanceRedirectedClient<$Result.GetResult<Prisma.$PatientInstanceRedirectedPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    ward<T extends AdmissionRedirected$wardArgs<ExtArgs> = {}>(args?: Subset<T, AdmissionRedirected$wardArgs<ExtArgs>>): Prisma__WardClient<$Result.GetResult<Prisma.$WardPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    bed<T extends AdmissionRedirected$bedArgs<ExtArgs> = {}>(args?: Subset<T, AdmissionRedirected$bedArgs<ExtArgs>>): Prisma__BedClient<$Result.GetResult<Prisma.$BedPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    doctor<T extends DoctorsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DoctorsDefaultArgs<ExtArgs>>): Prisma__DoctorsClient<$Result.GetResult<Prisma.$DoctorsPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AdmissionRedirected model
+   */ 
+  interface AdmissionRedirectedFieldRefs {
+    readonly id: FieldRef<"AdmissionRedirected", 'String'>
+    readonly patientId: FieldRef<"AdmissionRedirected", 'String'>
+    readonly wardId: FieldRef<"AdmissionRedirected", 'String'>
+    readonly bedId: FieldRef<"AdmissionRedirected", 'String'>
+    readonly doctorId: FieldRef<"AdmissionRedirected", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AdmissionRedirected findUnique
+   */
+  export type AdmissionRedirectedFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdmissionRedirected
+     */
+    select?: AdmissionRedirectedSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdmissionRedirectedInclude<ExtArgs> | null
+    /**
+     * Filter, which AdmissionRedirected to fetch.
+     */
+    where: AdmissionRedirectedWhereUniqueInput
+  }
+
+  /**
+   * AdmissionRedirected findUniqueOrThrow
+   */
+  export type AdmissionRedirectedFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdmissionRedirected
+     */
+    select?: AdmissionRedirectedSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdmissionRedirectedInclude<ExtArgs> | null
+    /**
+     * Filter, which AdmissionRedirected to fetch.
+     */
+    where: AdmissionRedirectedWhereUniqueInput
+  }
+
+  /**
+   * AdmissionRedirected findFirst
+   */
+  export type AdmissionRedirectedFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdmissionRedirected
+     */
+    select?: AdmissionRedirectedSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdmissionRedirectedInclude<ExtArgs> | null
+    /**
+     * Filter, which AdmissionRedirected to fetch.
+     */
+    where?: AdmissionRedirectedWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AdmissionRedirecteds to fetch.
+     */
+    orderBy?: AdmissionRedirectedOrderByWithRelationInput | AdmissionRedirectedOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AdmissionRedirecteds.
+     */
+    cursor?: AdmissionRedirectedWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AdmissionRedirecteds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AdmissionRedirecteds.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AdmissionRedirecteds.
+     */
+    distinct?: AdmissionRedirectedScalarFieldEnum | AdmissionRedirectedScalarFieldEnum[]
+  }
+
+  /**
+   * AdmissionRedirected findFirstOrThrow
+   */
+  export type AdmissionRedirectedFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdmissionRedirected
+     */
+    select?: AdmissionRedirectedSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdmissionRedirectedInclude<ExtArgs> | null
+    /**
+     * Filter, which AdmissionRedirected to fetch.
+     */
+    where?: AdmissionRedirectedWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AdmissionRedirecteds to fetch.
+     */
+    orderBy?: AdmissionRedirectedOrderByWithRelationInput | AdmissionRedirectedOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AdmissionRedirecteds.
+     */
+    cursor?: AdmissionRedirectedWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AdmissionRedirecteds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AdmissionRedirecteds.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AdmissionRedirecteds.
+     */
+    distinct?: AdmissionRedirectedScalarFieldEnum | AdmissionRedirectedScalarFieldEnum[]
+  }
+
+  /**
+   * AdmissionRedirected findMany
+   */
+  export type AdmissionRedirectedFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdmissionRedirected
+     */
+    select?: AdmissionRedirectedSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdmissionRedirectedInclude<ExtArgs> | null
+    /**
+     * Filter, which AdmissionRedirecteds to fetch.
+     */
+    where?: AdmissionRedirectedWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AdmissionRedirecteds to fetch.
+     */
+    orderBy?: AdmissionRedirectedOrderByWithRelationInput | AdmissionRedirectedOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AdmissionRedirecteds.
+     */
+    cursor?: AdmissionRedirectedWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AdmissionRedirecteds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AdmissionRedirecteds.
+     */
+    skip?: number
+    distinct?: AdmissionRedirectedScalarFieldEnum | AdmissionRedirectedScalarFieldEnum[]
+  }
+
+  /**
+   * AdmissionRedirected create
+   */
+  export type AdmissionRedirectedCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdmissionRedirected
+     */
+    select?: AdmissionRedirectedSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdmissionRedirectedInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AdmissionRedirected.
+     */
+    data: XOR<AdmissionRedirectedCreateInput, AdmissionRedirectedUncheckedCreateInput>
+  }
+
+  /**
+   * AdmissionRedirected createMany
+   */
+  export type AdmissionRedirectedCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AdmissionRedirecteds.
+     */
+    data: AdmissionRedirectedCreateManyInput | AdmissionRedirectedCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AdmissionRedirected createManyAndReturn
+   */
+  export type AdmissionRedirectedCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdmissionRedirected
+     */
+    select?: AdmissionRedirectedSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many AdmissionRedirecteds.
+     */
+    data: AdmissionRedirectedCreateManyInput | AdmissionRedirectedCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdmissionRedirectedIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AdmissionRedirected update
+   */
+  export type AdmissionRedirectedUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdmissionRedirected
+     */
+    select?: AdmissionRedirectedSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdmissionRedirectedInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AdmissionRedirected.
+     */
+    data: XOR<AdmissionRedirectedUpdateInput, AdmissionRedirectedUncheckedUpdateInput>
+    /**
+     * Choose, which AdmissionRedirected to update.
+     */
+    where: AdmissionRedirectedWhereUniqueInput
+  }
+
+  /**
+   * AdmissionRedirected updateMany
+   */
+  export type AdmissionRedirectedUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AdmissionRedirecteds.
+     */
+    data: XOR<AdmissionRedirectedUpdateManyMutationInput, AdmissionRedirectedUncheckedUpdateManyInput>
+    /**
+     * Filter which AdmissionRedirecteds to update
+     */
+    where?: AdmissionRedirectedWhereInput
+  }
+
+  /**
+   * AdmissionRedirected upsert
+   */
+  export type AdmissionRedirectedUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdmissionRedirected
+     */
+    select?: AdmissionRedirectedSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdmissionRedirectedInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AdmissionRedirected to update in case it exists.
+     */
+    where: AdmissionRedirectedWhereUniqueInput
+    /**
+     * In case the AdmissionRedirected found by the `where` argument doesn't exist, create a new AdmissionRedirected with this data.
+     */
+    create: XOR<AdmissionRedirectedCreateInput, AdmissionRedirectedUncheckedCreateInput>
+    /**
+     * In case the AdmissionRedirected was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AdmissionRedirectedUpdateInput, AdmissionRedirectedUncheckedUpdateInput>
+  }
+
+  /**
+   * AdmissionRedirected delete
+   */
+  export type AdmissionRedirectedDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdmissionRedirected
+     */
+    select?: AdmissionRedirectedSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdmissionRedirectedInclude<ExtArgs> | null
+    /**
+     * Filter which AdmissionRedirected to delete.
+     */
+    where: AdmissionRedirectedWhereUniqueInput
+  }
+
+  /**
+   * AdmissionRedirected deleteMany
+   */
+  export type AdmissionRedirectedDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AdmissionRedirecteds to delete
+     */
+    where?: AdmissionRedirectedWhereInput
+  }
+
+  /**
+   * AdmissionRedirected.ward
+   */
+  export type AdmissionRedirected$wardArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ward
+     */
+    select?: WardSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WardInclude<ExtArgs> | null
+    where?: WardWhereInput
+  }
+
+  /**
+   * AdmissionRedirected.bed
+   */
+  export type AdmissionRedirected$bedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Bed
+     */
+    select?: BedSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BedInclude<ExtArgs> | null
+    where?: BedWhereInput
+  }
+
+  /**
+   * AdmissionRedirected without action
+   */
+  export type AdmissionRedirectedDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdmissionRedirected
+     */
+    select?: AdmissionRedirectedSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdmissionRedirectedInclude<ExtArgs> | null
   }
 
 
@@ -15219,6 +17590,1002 @@ export namespace Prisma {
 
 
   /**
+   * Model OPDdata
+   */
+
+  export type AggregateOPDdata = {
+    _count: OPDdataCountAggregateOutputType | null
+    _avg: OPDdataAvgAggregateOutputType | null
+    _sum: OPDdataSumAggregateOutputType | null
+    _min: OPDdataMinAggregateOutputType | null
+    _max: OPDdataMaxAggregateOutputType | null
+  }
+
+  export type OPDdataAvgAggregateOutputType = {
+    noofpatients: number | null
+    noofdoctors: number | null
+    time: number | null
+    ppdh: number | null
+  }
+
+  export type OPDdataSumAggregateOutputType = {
+    noofpatients: number | null
+    noofdoctors: number | null
+    time: number | null
+    ppdh: number | null
+  }
+
+  export type OPDdataMinAggregateOutputType = {
+    id: string | null
+    date: string | null
+    day: string | null
+    holiday: boolean | null
+    specialEvent: boolean | null
+    noofpatients: number | null
+    noofdoctors: number | null
+    time: number | null
+    ppdh: number | null
+    weather: string | null
+    department: string | null
+  }
+
+  export type OPDdataMaxAggregateOutputType = {
+    id: string | null
+    date: string | null
+    day: string | null
+    holiday: boolean | null
+    specialEvent: boolean | null
+    noofpatients: number | null
+    noofdoctors: number | null
+    time: number | null
+    ppdh: number | null
+    weather: string | null
+    department: string | null
+  }
+
+  export type OPDdataCountAggregateOutputType = {
+    id: number
+    date: number
+    day: number
+    holiday: number
+    specialEvent: number
+    noofpatients: number
+    noofdoctors: number
+    time: number
+    ppdh: number
+    weather: number
+    department: number
+    _all: number
+  }
+
+
+  export type OPDdataAvgAggregateInputType = {
+    noofpatients?: true
+    noofdoctors?: true
+    time?: true
+    ppdh?: true
+  }
+
+  export type OPDdataSumAggregateInputType = {
+    noofpatients?: true
+    noofdoctors?: true
+    time?: true
+    ppdh?: true
+  }
+
+  export type OPDdataMinAggregateInputType = {
+    id?: true
+    date?: true
+    day?: true
+    holiday?: true
+    specialEvent?: true
+    noofpatients?: true
+    noofdoctors?: true
+    time?: true
+    ppdh?: true
+    weather?: true
+    department?: true
+  }
+
+  export type OPDdataMaxAggregateInputType = {
+    id?: true
+    date?: true
+    day?: true
+    holiday?: true
+    specialEvent?: true
+    noofpatients?: true
+    noofdoctors?: true
+    time?: true
+    ppdh?: true
+    weather?: true
+    department?: true
+  }
+
+  export type OPDdataCountAggregateInputType = {
+    id?: true
+    date?: true
+    day?: true
+    holiday?: true
+    specialEvent?: true
+    noofpatients?: true
+    noofdoctors?: true
+    time?: true
+    ppdh?: true
+    weather?: true
+    department?: true
+    _all?: true
+  }
+
+  export type OPDdataAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OPDdata to aggregate.
+     */
+    where?: OPDdataWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OPDdata to fetch.
+     */
+    orderBy?: OPDdataOrderByWithRelationInput | OPDdataOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: OPDdataWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OPDdata from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OPDdata.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned OPDdata
+    **/
+    _count?: true | OPDdataCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: OPDdataAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: OPDdataSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: OPDdataMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: OPDdataMaxAggregateInputType
+  }
+
+  export type GetOPDdataAggregateType<T extends OPDdataAggregateArgs> = {
+        [P in keyof T & keyof AggregateOPDdata]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateOPDdata[P]>
+      : GetScalarType<T[P], AggregateOPDdata[P]>
+  }
+
+
+
+
+  export type OPDdataGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OPDdataWhereInput
+    orderBy?: OPDdataOrderByWithAggregationInput | OPDdataOrderByWithAggregationInput[]
+    by: OPDdataScalarFieldEnum[] | OPDdataScalarFieldEnum
+    having?: OPDdataScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: OPDdataCountAggregateInputType | true
+    _avg?: OPDdataAvgAggregateInputType
+    _sum?: OPDdataSumAggregateInputType
+    _min?: OPDdataMinAggregateInputType
+    _max?: OPDdataMaxAggregateInputType
+  }
+
+  export type OPDdataGroupByOutputType = {
+    id: string
+    date: string
+    day: string
+    holiday: boolean
+    specialEvent: boolean
+    noofpatients: number
+    noofdoctors: number
+    time: number
+    ppdh: number
+    weather: string
+    department: string
+    _count: OPDdataCountAggregateOutputType | null
+    _avg: OPDdataAvgAggregateOutputType | null
+    _sum: OPDdataSumAggregateOutputType | null
+    _min: OPDdataMinAggregateOutputType | null
+    _max: OPDdataMaxAggregateOutputType | null
+  }
+
+  type GetOPDdataGroupByPayload<T extends OPDdataGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<OPDdataGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof OPDdataGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], OPDdataGroupByOutputType[P]>
+            : GetScalarType<T[P], OPDdataGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type OPDdataSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    date?: boolean
+    day?: boolean
+    holiday?: boolean
+    specialEvent?: boolean
+    noofpatients?: boolean
+    noofdoctors?: boolean
+    time?: boolean
+    ppdh?: boolean
+    weather?: boolean
+    department?: boolean
+  }, ExtArgs["result"]["oPDdata"]>
+
+  export type OPDdataSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    date?: boolean
+    day?: boolean
+    holiday?: boolean
+    specialEvent?: boolean
+    noofpatients?: boolean
+    noofdoctors?: boolean
+    time?: boolean
+    ppdh?: boolean
+    weather?: boolean
+    department?: boolean
+  }, ExtArgs["result"]["oPDdata"]>
+
+  export type OPDdataSelectScalar = {
+    id?: boolean
+    date?: boolean
+    day?: boolean
+    holiday?: boolean
+    specialEvent?: boolean
+    noofpatients?: boolean
+    noofdoctors?: boolean
+    time?: boolean
+    ppdh?: boolean
+    weather?: boolean
+    department?: boolean
+  }
+
+
+  export type $OPDdataPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "OPDdata"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      date: string
+      day: string
+      holiday: boolean
+      specialEvent: boolean
+      noofpatients: number
+      noofdoctors: number
+      time: number
+      ppdh: number
+      weather: string
+      department: string
+    }, ExtArgs["result"]["oPDdata"]>
+    composites: {}
+  }
+
+  type OPDdataGetPayload<S extends boolean | null | undefined | OPDdataDefaultArgs> = $Result.GetResult<Prisma.$OPDdataPayload, S>
+
+  type OPDdataCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<OPDdataFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: OPDdataCountAggregateInputType | true
+    }
+
+  export interface OPDdataDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['OPDdata'], meta: { name: 'OPDdata' } }
+    /**
+     * Find zero or one OPDdata that matches the filter.
+     * @param {OPDdataFindUniqueArgs} args - Arguments to find a OPDdata
+     * @example
+     * // Get one OPDdata
+     * const oPDdata = await prisma.oPDdata.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends OPDdataFindUniqueArgs>(args: SelectSubset<T, OPDdataFindUniqueArgs<ExtArgs>>): Prisma__OPDdataClient<$Result.GetResult<Prisma.$OPDdataPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one OPDdata that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {OPDdataFindUniqueOrThrowArgs} args - Arguments to find a OPDdata
+     * @example
+     * // Get one OPDdata
+     * const oPDdata = await prisma.oPDdata.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends OPDdataFindUniqueOrThrowArgs>(args: SelectSubset<T, OPDdataFindUniqueOrThrowArgs<ExtArgs>>): Prisma__OPDdataClient<$Result.GetResult<Prisma.$OPDdataPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first OPDdata that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OPDdataFindFirstArgs} args - Arguments to find a OPDdata
+     * @example
+     * // Get one OPDdata
+     * const oPDdata = await prisma.oPDdata.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends OPDdataFindFirstArgs>(args?: SelectSubset<T, OPDdataFindFirstArgs<ExtArgs>>): Prisma__OPDdataClient<$Result.GetResult<Prisma.$OPDdataPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first OPDdata that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OPDdataFindFirstOrThrowArgs} args - Arguments to find a OPDdata
+     * @example
+     * // Get one OPDdata
+     * const oPDdata = await prisma.oPDdata.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends OPDdataFindFirstOrThrowArgs>(args?: SelectSubset<T, OPDdataFindFirstOrThrowArgs<ExtArgs>>): Prisma__OPDdataClient<$Result.GetResult<Prisma.$OPDdataPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more OPDdata that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OPDdataFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all OPDdata
+     * const oPDdata = await prisma.oPDdata.findMany()
+     * 
+     * // Get first 10 OPDdata
+     * const oPDdata = await prisma.oPDdata.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const oPDdataWithIdOnly = await prisma.oPDdata.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends OPDdataFindManyArgs>(args?: SelectSubset<T, OPDdataFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OPDdataPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a OPDdata.
+     * @param {OPDdataCreateArgs} args - Arguments to create a OPDdata.
+     * @example
+     * // Create one OPDdata
+     * const OPDdata = await prisma.oPDdata.create({
+     *   data: {
+     *     // ... data to create a OPDdata
+     *   }
+     * })
+     * 
+     */
+    create<T extends OPDdataCreateArgs>(args: SelectSubset<T, OPDdataCreateArgs<ExtArgs>>): Prisma__OPDdataClient<$Result.GetResult<Prisma.$OPDdataPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many OPDdata.
+     * @param {OPDdataCreateManyArgs} args - Arguments to create many OPDdata.
+     * @example
+     * // Create many OPDdata
+     * const oPDdata = await prisma.oPDdata.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends OPDdataCreateManyArgs>(args?: SelectSubset<T, OPDdataCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many OPDdata and returns the data saved in the database.
+     * @param {OPDdataCreateManyAndReturnArgs} args - Arguments to create many OPDdata.
+     * @example
+     * // Create many OPDdata
+     * const oPDdata = await prisma.oPDdata.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many OPDdata and only return the `id`
+     * const oPDdataWithIdOnly = await prisma.oPDdata.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends OPDdataCreateManyAndReturnArgs>(args?: SelectSubset<T, OPDdataCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OPDdataPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a OPDdata.
+     * @param {OPDdataDeleteArgs} args - Arguments to delete one OPDdata.
+     * @example
+     * // Delete one OPDdata
+     * const OPDdata = await prisma.oPDdata.delete({
+     *   where: {
+     *     // ... filter to delete one OPDdata
+     *   }
+     * })
+     * 
+     */
+    delete<T extends OPDdataDeleteArgs>(args: SelectSubset<T, OPDdataDeleteArgs<ExtArgs>>): Prisma__OPDdataClient<$Result.GetResult<Prisma.$OPDdataPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one OPDdata.
+     * @param {OPDdataUpdateArgs} args - Arguments to update one OPDdata.
+     * @example
+     * // Update one OPDdata
+     * const oPDdata = await prisma.oPDdata.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends OPDdataUpdateArgs>(args: SelectSubset<T, OPDdataUpdateArgs<ExtArgs>>): Prisma__OPDdataClient<$Result.GetResult<Prisma.$OPDdataPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more OPDdata.
+     * @param {OPDdataDeleteManyArgs} args - Arguments to filter OPDdata to delete.
+     * @example
+     * // Delete a few OPDdata
+     * const { count } = await prisma.oPDdata.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends OPDdataDeleteManyArgs>(args?: SelectSubset<T, OPDdataDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more OPDdata.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OPDdataUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many OPDdata
+     * const oPDdata = await prisma.oPDdata.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends OPDdataUpdateManyArgs>(args: SelectSubset<T, OPDdataUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one OPDdata.
+     * @param {OPDdataUpsertArgs} args - Arguments to update or create a OPDdata.
+     * @example
+     * // Update or create a OPDdata
+     * const oPDdata = await prisma.oPDdata.upsert({
+     *   create: {
+     *     // ... data to create a OPDdata
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the OPDdata we want to update
+     *   }
+     * })
+     */
+    upsert<T extends OPDdataUpsertArgs>(args: SelectSubset<T, OPDdataUpsertArgs<ExtArgs>>): Prisma__OPDdataClient<$Result.GetResult<Prisma.$OPDdataPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of OPDdata.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OPDdataCountArgs} args - Arguments to filter OPDdata to count.
+     * @example
+     * // Count the number of OPDdata
+     * const count = await prisma.oPDdata.count({
+     *   where: {
+     *     // ... the filter for the OPDdata we want to count
+     *   }
+     * })
+    **/
+    count<T extends OPDdataCountArgs>(
+      args?: Subset<T, OPDdataCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], OPDdataCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a OPDdata.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OPDdataAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends OPDdataAggregateArgs>(args: Subset<T, OPDdataAggregateArgs>): Prisma.PrismaPromise<GetOPDdataAggregateType<T>>
+
+    /**
+     * Group by OPDdata.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OPDdataGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends OPDdataGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: OPDdataGroupByArgs['orderBy'] }
+        : { orderBy?: OPDdataGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, OPDdataGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetOPDdataGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the OPDdata model
+   */
+  readonly fields: OPDdataFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for OPDdata.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__OPDdataClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the OPDdata model
+   */ 
+  interface OPDdataFieldRefs {
+    readonly id: FieldRef<"OPDdata", 'String'>
+    readonly date: FieldRef<"OPDdata", 'String'>
+    readonly day: FieldRef<"OPDdata", 'String'>
+    readonly holiday: FieldRef<"OPDdata", 'Boolean'>
+    readonly specialEvent: FieldRef<"OPDdata", 'Boolean'>
+    readonly noofpatients: FieldRef<"OPDdata", 'Int'>
+    readonly noofdoctors: FieldRef<"OPDdata", 'Int'>
+    readonly time: FieldRef<"OPDdata", 'Float'>
+    readonly ppdh: FieldRef<"OPDdata", 'Float'>
+    readonly weather: FieldRef<"OPDdata", 'String'>
+    readonly department: FieldRef<"OPDdata", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * OPDdata findUnique
+   */
+  export type OPDdataFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OPDdata
+     */
+    select?: OPDdataSelect<ExtArgs> | null
+    /**
+     * Filter, which OPDdata to fetch.
+     */
+    where: OPDdataWhereUniqueInput
+  }
+
+  /**
+   * OPDdata findUniqueOrThrow
+   */
+  export type OPDdataFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OPDdata
+     */
+    select?: OPDdataSelect<ExtArgs> | null
+    /**
+     * Filter, which OPDdata to fetch.
+     */
+    where: OPDdataWhereUniqueInput
+  }
+
+  /**
+   * OPDdata findFirst
+   */
+  export type OPDdataFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OPDdata
+     */
+    select?: OPDdataSelect<ExtArgs> | null
+    /**
+     * Filter, which OPDdata to fetch.
+     */
+    where?: OPDdataWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OPDdata to fetch.
+     */
+    orderBy?: OPDdataOrderByWithRelationInput | OPDdataOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OPDdata.
+     */
+    cursor?: OPDdataWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OPDdata from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OPDdata.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OPDdata.
+     */
+    distinct?: OPDdataScalarFieldEnum | OPDdataScalarFieldEnum[]
+  }
+
+  /**
+   * OPDdata findFirstOrThrow
+   */
+  export type OPDdataFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OPDdata
+     */
+    select?: OPDdataSelect<ExtArgs> | null
+    /**
+     * Filter, which OPDdata to fetch.
+     */
+    where?: OPDdataWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OPDdata to fetch.
+     */
+    orderBy?: OPDdataOrderByWithRelationInput | OPDdataOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OPDdata.
+     */
+    cursor?: OPDdataWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OPDdata from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OPDdata.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OPDdata.
+     */
+    distinct?: OPDdataScalarFieldEnum | OPDdataScalarFieldEnum[]
+  }
+
+  /**
+   * OPDdata findMany
+   */
+  export type OPDdataFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OPDdata
+     */
+    select?: OPDdataSelect<ExtArgs> | null
+    /**
+     * Filter, which OPDdata to fetch.
+     */
+    where?: OPDdataWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OPDdata to fetch.
+     */
+    orderBy?: OPDdataOrderByWithRelationInput | OPDdataOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing OPDdata.
+     */
+    cursor?: OPDdataWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OPDdata from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OPDdata.
+     */
+    skip?: number
+    distinct?: OPDdataScalarFieldEnum | OPDdataScalarFieldEnum[]
+  }
+
+  /**
+   * OPDdata create
+   */
+  export type OPDdataCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OPDdata
+     */
+    select?: OPDdataSelect<ExtArgs> | null
+    /**
+     * The data needed to create a OPDdata.
+     */
+    data: XOR<OPDdataCreateInput, OPDdataUncheckedCreateInput>
+  }
+
+  /**
+   * OPDdata createMany
+   */
+  export type OPDdataCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many OPDdata.
+     */
+    data: OPDdataCreateManyInput | OPDdataCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * OPDdata createManyAndReturn
+   */
+  export type OPDdataCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OPDdata
+     */
+    select?: OPDdataSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many OPDdata.
+     */
+    data: OPDdataCreateManyInput | OPDdataCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * OPDdata update
+   */
+  export type OPDdataUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OPDdata
+     */
+    select?: OPDdataSelect<ExtArgs> | null
+    /**
+     * The data needed to update a OPDdata.
+     */
+    data: XOR<OPDdataUpdateInput, OPDdataUncheckedUpdateInput>
+    /**
+     * Choose, which OPDdata to update.
+     */
+    where: OPDdataWhereUniqueInput
+  }
+
+  /**
+   * OPDdata updateMany
+   */
+  export type OPDdataUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update OPDdata.
+     */
+    data: XOR<OPDdataUpdateManyMutationInput, OPDdataUncheckedUpdateManyInput>
+    /**
+     * Filter which OPDdata to update
+     */
+    where?: OPDdataWhereInput
+  }
+
+  /**
+   * OPDdata upsert
+   */
+  export type OPDdataUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OPDdata
+     */
+    select?: OPDdataSelect<ExtArgs> | null
+    /**
+     * The filter to search for the OPDdata to update in case it exists.
+     */
+    where: OPDdataWhereUniqueInput
+    /**
+     * In case the OPDdata found by the `where` argument doesn't exist, create a new OPDdata with this data.
+     */
+    create: XOR<OPDdataCreateInput, OPDdataUncheckedCreateInput>
+    /**
+     * In case the OPDdata was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<OPDdataUpdateInput, OPDdataUncheckedUpdateInput>
+  }
+
+  /**
+   * OPDdata delete
+   */
+  export type OPDdataDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OPDdata
+     */
+    select?: OPDdataSelect<ExtArgs> | null
+    /**
+     * Filter which OPDdata to delete.
+     */
+    where: OPDdataWhereUniqueInput
+  }
+
+  /**
+   * OPDdata deleteMany
+   */
+  export type OPDdataDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OPDdata to delete
+     */
+    where?: OPDdataWhereInput
+  }
+
+  /**
+   * OPDdata without action
+   */
+  export type OPDdataDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OPDdata
+     */
+    select?: OPDdataSelect<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -15317,6 +18684,30 @@ export namespace Prisma {
   export type PatientInstanceScalarFieldEnum = (typeof PatientInstanceScalarFieldEnum)[keyof typeof PatientInstanceScalarFieldEnum]
 
 
+  export const PatientInstanceRedirectedScalarFieldEnum: {
+    id: 'id',
+    abhaId: 'abhaId',
+    name: 'name',
+    age: 'age',
+    gender: 'gender',
+    reason: 'reason',
+    medications: 'medications'
+  };
+
+  export type PatientInstanceRedirectedScalarFieldEnum = (typeof PatientInstanceRedirectedScalarFieldEnum)[keyof typeof PatientInstanceRedirectedScalarFieldEnum]
+
+
+  export const AdmissionRedirectedScalarFieldEnum: {
+    id: 'id',
+    patientId: 'patientId',
+    wardId: 'wardId',
+    bedId: 'bedId',
+    doctorId: 'doctorId'
+  };
+
+  export type AdmissionRedirectedScalarFieldEnum = (typeof AdmissionRedirectedScalarFieldEnum)[keyof typeof AdmissionRedirectedScalarFieldEnum]
+
+
   export const AdmissionScalarFieldEnum: {
     id: 'id',
     patientId: 'patientId',
@@ -15381,6 +18772,23 @@ export namespace Prisma {
   };
 
   export type InventoryScalarFieldEnum = (typeof InventoryScalarFieldEnum)[keyof typeof InventoryScalarFieldEnum]
+
+
+  export const OPDdataScalarFieldEnum: {
+    id: 'id',
+    date: 'date',
+    day: 'day',
+    holiday: 'holiday',
+    specialEvent: 'specialEvent',
+    noofpatients: 'noofpatients',
+    noofdoctors: 'noofdoctors',
+    time: 'time',
+    ppdh: 'ppdh',
+    weather: 'weather',
+    department: 'department'
+  };
+
+  export type OPDdataScalarFieldEnum = (typeof OPDdataScalarFieldEnum)[keyof typeof OPDdataScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -15597,6 +19005,7 @@ export namespace Prisma {
     opdQueue?: OPDQueueListRelationFilter
     admissions?: AdmissionListRelationFilter
     patientInstances?: PatientInstanceListRelationFilter
+    adminssionredirected?: AdmissionRedirectedListRelationFilter
   }
 
   export type DoctorsOrderByWithRelationInput = {
@@ -15614,6 +19023,7 @@ export namespace Prisma {
     opdQueue?: OPDQueueOrderByRelationAggregateInput
     admissions?: AdmissionOrderByRelationAggregateInput
     patientInstances?: PatientInstanceOrderByRelationAggregateInput
+    adminssionredirected?: AdmissionRedirectedOrderByRelationAggregateInput
   }
 
   export type DoctorsWhereUniqueInput = Prisma.AtLeast<{
@@ -15634,6 +19044,7 @@ export namespace Prisma {
     opdQueue?: OPDQueueListRelationFilter
     admissions?: AdmissionListRelationFilter
     patientInstances?: PatientInstanceListRelationFilter
+    adminssionredirected?: AdmissionRedirectedListRelationFilter
   }, "id" | "email">
 
   export type DoctorsOrderByWithAggregationInput = {
@@ -15851,6 +19262,7 @@ export namespace Prisma {
     status?: EnumBedStatusFilter<"Bed"> | $Enums.BedStatus
     ward?: XOR<WardRelationFilter, WardWhereInput>
     admissions?: AdmissionListRelationFilter
+    admissionsredirected?: AdmissionRedirectedListRelationFilter
   }
 
   export type BedOrderByWithRelationInput = {
@@ -15860,6 +19272,7 @@ export namespace Prisma {
     status?: SortOrder
     ward?: WardOrderByWithRelationInput
     admissions?: AdmissionOrderByRelationAggregateInput
+    admissionsredirected?: AdmissionRedirectedOrderByRelationAggregateInput
   }
 
   export type BedWhereUniqueInput = Prisma.AtLeast<{
@@ -15872,6 +19285,7 @@ export namespace Prisma {
     status?: EnumBedStatusFilter<"Bed"> | $Enums.BedStatus
     ward?: XOR<WardRelationFilter, WardWhereInput>
     admissions?: AdmissionListRelationFilter
+    admissionsredirected?: AdmissionRedirectedListRelationFilter
   }, "id" | "bedNumber">
 
   export type BedOrderByWithAggregationInput = {
@@ -15904,6 +19318,7 @@ export namespace Prisma {
     availableBeds?: IntFilter<"Ward"> | number
     beds?: BedListRelationFilter
     admissions?: AdmissionListRelationFilter
+    admissionsredirected?: AdmissionRedirectedListRelationFilter
   }
 
   export type WardOrderByWithRelationInput = {
@@ -15913,6 +19328,7 @@ export namespace Prisma {
     availableBeds?: SortOrder
     beds?: BedOrderByRelationAggregateInput
     admissions?: AdmissionOrderByRelationAggregateInput
+    admissionsredirected?: AdmissionRedirectedOrderByRelationAggregateInput
   }
 
   export type WardWhereUniqueInput = Prisma.AtLeast<{
@@ -15925,6 +19341,7 @@ export namespace Prisma {
     availableBeds?: IntFilter<"Ward"> | number
     beds?: BedListRelationFilter
     admissions?: AdmissionListRelationFilter
+    admissionsredirected?: AdmissionRedirectedListRelationFilter
   }, "id">
 
   export type WardOrderByWithAggregationInput = {
@@ -16040,6 +19457,137 @@ export namespace Prisma {
     medications?: JsonNullableWithAggregatesFilter<"PatientInstance">
     feedback?: StringNullableWithAggregatesFilter<"PatientInstance"> | string | null
     visitType?: EnumVisitTypeWithAggregatesFilter<"PatientInstance"> | $Enums.VisitType
+  }
+
+  export type PatientInstanceRedirectedWhereInput = {
+    AND?: PatientInstanceRedirectedWhereInput | PatientInstanceRedirectedWhereInput[]
+    OR?: PatientInstanceRedirectedWhereInput[]
+    NOT?: PatientInstanceRedirectedWhereInput | PatientInstanceRedirectedWhereInput[]
+    id?: StringFilter<"PatientInstanceRedirected"> | string
+    abhaId?: StringFilter<"PatientInstanceRedirected"> | string
+    name?: StringFilter<"PatientInstanceRedirected"> | string
+    age?: IntFilter<"PatientInstanceRedirected"> | number
+    gender?: StringFilter<"PatientInstanceRedirected"> | string
+    reason?: StringFilter<"PatientInstanceRedirected"> | string
+    medications?: JsonNullableFilter<"PatientInstanceRedirected">
+    admission?: AdmissionRedirectedListRelationFilter
+  }
+
+  export type PatientInstanceRedirectedOrderByWithRelationInput = {
+    id?: SortOrder
+    abhaId?: SortOrder
+    name?: SortOrder
+    age?: SortOrder
+    gender?: SortOrder
+    reason?: SortOrder
+    medications?: SortOrderInput | SortOrder
+    admission?: AdmissionRedirectedOrderByRelationAggregateInput
+  }
+
+  export type PatientInstanceRedirectedWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    abhaId?: string
+    AND?: PatientInstanceRedirectedWhereInput | PatientInstanceRedirectedWhereInput[]
+    OR?: PatientInstanceRedirectedWhereInput[]
+    NOT?: PatientInstanceRedirectedWhereInput | PatientInstanceRedirectedWhereInput[]
+    name?: StringFilter<"PatientInstanceRedirected"> | string
+    age?: IntFilter<"PatientInstanceRedirected"> | number
+    gender?: StringFilter<"PatientInstanceRedirected"> | string
+    reason?: StringFilter<"PatientInstanceRedirected"> | string
+    medications?: JsonNullableFilter<"PatientInstanceRedirected">
+    admission?: AdmissionRedirectedListRelationFilter
+  }, "id" | "abhaId">
+
+  export type PatientInstanceRedirectedOrderByWithAggregationInput = {
+    id?: SortOrder
+    abhaId?: SortOrder
+    name?: SortOrder
+    age?: SortOrder
+    gender?: SortOrder
+    reason?: SortOrder
+    medications?: SortOrderInput | SortOrder
+    _count?: PatientInstanceRedirectedCountOrderByAggregateInput
+    _avg?: PatientInstanceRedirectedAvgOrderByAggregateInput
+    _max?: PatientInstanceRedirectedMaxOrderByAggregateInput
+    _min?: PatientInstanceRedirectedMinOrderByAggregateInput
+    _sum?: PatientInstanceRedirectedSumOrderByAggregateInput
+  }
+
+  export type PatientInstanceRedirectedScalarWhereWithAggregatesInput = {
+    AND?: PatientInstanceRedirectedScalarWhereWithAggregatesInput | PatientInstanceRedirectedScalarWhereWithAggregatesInput[]
+    OR?: PatientInstanceRedirectedScalarWhereWithAggregatesInput[]
+    NOT?: PatientInstanceRedirectedScalarWhereWithAggregatesInput | PatientInstanceRedirectedScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PatientInstanceRedirected"> | string
+    abhaId?: StringWithAggregatesFilter<"PatientInstanceRedirected"> | string
+    name?: StringWithAggregatesFilter<"PatientInstanceRedirected"> | string
+    age?: IntWithAggregatesFilter<"PatientInstanceRedirected"> | number
+    gender?: StringWithAggregatesFilter<"PatientInstanceRedirected"> | string
+    reason?: StringWithAggregatesFilter<"PatientInstanceRedirected"> | string
+    medications?: JsonNullableWithAggregatesFilter<"PatientInstanceRedirected">
+  }
+
+  export type AdmissionRedirectedWhereInput = {
+    AND?: AdmissionRedirectedWhereInput | AdmissionRedirectedWhereInput[]
+    OR?: AdmissionRedirectedWhereInput[]
+    NOT?: AdmissionRedirectedWhereInput | AdmissionRedirectedWhereInput[]
+    id?: StringFilter<"AdmissionRedirected"> | string
+    patientId?: StringFilter<"AdmissionRedirected"> | string
+    wardId?: StringNullableFilter<"AdmissionRedirected"> | string | null
+    bedId?: StringNullableFilter<"AdmissionRedirected"> | string | null
+    doctorId?: StringFilter<"AdmissionRedirected"> | string
+    patient?: XOR<PatientInstanceRedirectedRelationFilter, PatientInstanceRedirectedWhereInput>
+    ward?: XOR<WardNullableRelationFilter, WardWhereInput> | null
+    bed?: XOR<BedNullableRelationFilter, BedWhereInput> | null
+    doctor?: XOR<DoctorsRelationFilter, DoctorsWhereInput>
+  }
+
+  export type AdmissionRedirectedOrderByWithRelationInput = {
+    id?: SortOrder
+    patientId?: SortOrder
+    wardId?: SortOrderInput | SortOrder
+    bedId?: SortOrderInput | SortOrder
+    doctorId?: SortOrder
+    patient?: PatientInstanceRedirectedOrderByWithRelationInput
+    ward?: WardOrderByWithRelationInput
+    bed?: BedOrderByWithRelationInput
+    doctor?: DoctorsOrderByWithRelationInput
+  }
+
+  export type AdmissionRedirectedWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: AdmissionRedirectedWhereInput | AdmissionRedirectedWhereInput[]
+    OR?: AdmissionRedirectedWhereInput[]
+    NOT?: AdmissionRedirectedWhereInput | AdmissionRedirectedWhereInput[]
+    patientId?: StringFilter<"AdmissionRedirected"> | string
+    wardId?: StringNullableFilter<"AdmissionRedirected"> | string | null
+    bedId?: StringNullableFilter<"AdmissionRedirected"> | string | null
+    doctorId?: StringFilter<"AdmissionRedirected"> | string
+    patient?: XOR<PatientInstanceRedirectedRelationFilter, PatientInstanceRedirectedWhereInput>
+    ward?: XOR<WardNullableRelationFilter, WardWhereInput> | null
+    bed?: XOR<BedNullableRelationFilter, BedWhereInput> | null
+    doctor?: XOR<DoctorsRelationFilter, DoctorsWhereInput>
+  }, "id">
+
+  export type AdmissionRedirectedOrderByWithAggregationInput = {
+    id?: SortOrder
+    patientId?: SortOrder
+    wardId?: SortOrderInput | SortOrder
+    bedId?: SortOrderInput | SortOrder
+    doctorId?: SortOrder
+    _count?: AdmissionRedirectedCountOrderByAggregateInput
+    _max?: AdmissionRedirectedMaxOrderByAggregateInput
+    _min?: AdmissionRedirectedMinOrderByAggregateInput
+  }
+
+  export type AdmissionRedirectedScalarWhereWithAggregatesInput = {
+    AND?: AdmissionRedirectedScalarWhereWithAggregatesInput | AdmissionRedirectedScalarWhereWithAggregatesInput[]
+    OR?: AdmissionRedirectedScalarWhereWithAggregatesInput[]
+    NOT?: AdmissionRedirectedScalarWhereWithAggregatesInput | AdmissionRedirectedScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"AdmissionRedirected"> | string
+    patientId?: StringWithAggregatesFilter<"AdmissionRedirected"> | string
+    wardId?: StringNullableWithAggregatesFilter<"AdmissionRedirected"> | string | null
+    bedId?: StringNullableWithAggregatesFilter<"AdmissionRedirected"> | string | null
+    doctorId?: StringWithAggregatesFilter<"AdmissionRedirected"> | string
   }
 
   export type AdmissionWhereInput = {
@@ -16403,6 +19951,90 @@ export namespace Prisma {
     pharmacyId?: StringNullableWithAggregatesFilter<"Inventory"> | string | null
   }
 
+  export type OPDdataWhereInput = {
+    AND?: OPDdataWhereInput | OPDdataWhereInput[]
+    OR?: OPDdataWhereInput[]
+    NOT?: OPDdataWhereInput | OPDdataWhereInput[]
+    id?: StringFilter<"OPDdata"> | string
+    date?: StringFilter<"OPDdata"> | string
+    day?: StringFilter<"OPDdata"> | string
+    holiday?: BoolFilter<"OPDdata"> | boolean
+    specialEvent?: BoolFilter<"OPDdata"> | boolean
+    noofpatients?: IntFilter<"OPDdata"> | number
+    noofdoctors?: IntFilter<"OPDdata"> | number
+    time?: FloatFilter<"OPDdata"> | number
+    ppdh?: FloatFilter<"OPDdata"> | number
+    weather?: StringFilter<"OPDdata"> | string
+    department?: StringFilter<"OPDdata"> | string
+  }
+
+  export type OPDdataOrderByWithRelationInput = {
+    id?: SortOrder
+    date?: SortOrder
+    day?: SortOrder
+    holiday?: SortOrder
+    specialEvent?: SortOrder
+    noofpatients?: SortOrder
+    noofdoctors?: SortOrder
+    time?: SortOrder
+    ppdh?: SortOrder
+    weather?: SortOrder
+    department?: SortOrder
+  }
+
+  export type OPDdataWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: OPDdataWhereInput | OPDdataWhereInput[]
+    OR?: OPDdataWhereInput[]
+    NOT?: OPDdataWhereInput | OPDdataWhereInput[]
+    date?: StringFilter<"OPDdata"> | string
+    day?: StringFilter<"OPDdata"> | string
+    holiday?: BoolFilter<"OPDdata"> | boolean
+    specialEvent?: BoolFilter<"OPDdata"> | boolean
+    noofpatients?: IntFilter<"OPDdata"> | number
+    noofdoctors?: IntFilter<"OPDdata"> | number
+    time?: FloatFilter<"OPDdata"> | number
+    ppdh?: FloatFilter<"OPDdata"> | number
+    weather?: StringFilter<"OPDdata"> | string
+    department?: StringFilter<"OPDdata"> | string
+  }, "id">
+
+  export type OPDdataOrderByWithAggregationInput = {
+    id?: SortOrder
+    date?: SortOrder
+    day?: SortOrder
+    holiday?: SortOrder
+    specialEvent?: SortOrder
+    noofpatients?: SortOrder
+    noofdoctors?: SortOrder
+    time?: SortOrder
+    ppdh?: SortOrder
+    weather?: SortOrder
+    department?: SortOrder
+    _count?: OPDdataCountOrderByAggregateInput
+    _avg?: OPDdataAvgOrderByAggregateInput
+    _max?: OPDdataMaxOrderByAggregateInput
+    _min?: OPDdataMinOrderByAggregateInput
+    _sum?: OPDdataSumOrderByAggregateInput
+  }
+
+  export type OPDdataScalarWhereWithAggregatesInput = {
+    AND?: OPDdataScalarWhereWithAggregatesInput | OPDdataScalarWhereWithAggregatesInput[]
+    OR?: OPDdataScalarWhereWithAggregatesInput[]
+    NOT?: OPDdataScalarWhereWithAggregatesInput | OPDdataScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"OPDdata"> | string
+    date?: StringWithAggregatesFilter<"OPDdata"> | string
+    day?: StringWithAggregatesFilter<"OPDdata"> | string
+    holiday?: BoolWithAggregatesFilter<"OPDdata"> | boolean
+    specialEvent?: BoolWithAggregatesFilter<"OPDdata"> | boolean
+    noofpatients?: IntWithAggregatesFilter<"OPDdata"> | number
+    noofdoctors?: IntWithAggregatesFilter<"OPDdata"> | number
+    time?: FloatWithAggregatesFilter<"OPDdata"> | number
+    ppdh?: FloatWithAggregatesFilter<"OPDdata"> | number
+    weather?: StringWithAggregatesFilter<"OPDdata"> | string
+    department?: StringWithAggregatesFilter<"OPDdata"> | string
+  }
+
   export type DoctorsCreateInput = {
     id?: string
     name: string
@@ -16417,6 +20049,7 @@ export namespace Prisma {
     opdQueue?: OPDQueueCreateNestedManyWithoutDoctorInput
     admissions?: AdmissionCreateNestedManyWithoutDoctorInput
     patientInstances?: PatientInstanceCreateNestedManyWithoutDoctorInput
+    adminssionredirected?: AdmissionRedirectedCreateNestedManyWithoutDoctorInput
   }
 
   export type DoctorsUncheckedCreateInput = {
@@ -16433,6 +20066,7 @@ export namespace Prisma {
     opdQueue?: OPDQueueUncheckedCreateNestedManyWithoutDoctorInput
     admissions?: AdmissionUncheckedCreateNestedManyWithoutDoctorInput
     patientInstances?: PatientInstanceUncheckedCreateNestedManyWithoutDoctorInput
+    adminssionredirected?: AdmissionRedirectedUncheckedCreateNestedManyWithoutDoctorInput
   }
 
   export type DoctorsUpdateInput = {
@@ -16449,6 +20083,7 @@ export namespace Prisma {
     opdQueue?: OPDQueueUpdateManyWithoutDoctorNestedInput
     admissions?: AdmissionUpdateManyWithoutDoctorNestedInput
     patientInstances?: PatientInstanceUpdateManyWithoutDoctorNestedInput
+    adminssionredirected?: AdmissionRedirectedUpdateManyWithoutDoctorNestedInput
   }
 
   export type DoctorsUncheckedUpdateInput = {
@@ -16465,6 +20100,7 @@ export namespace Prisma {
     opdQueue?: OPDQueueUncheckedUpdateManyWithoutDoctorNestedInput
     admissions?: AdmissionUncheckedUpdateManyWithoutDoctorNestedInput
     patientInstances?: PatientInstanceUncheckedUpdateManyWithoutDoctorNestedInput
+    adminssionredirected?: AdmissionRedirectedUncheckedUpdateManyWithoutDoctorNestedInput
   }
 
   export type DoctorsCreateManyInput = {
@@ -16678,6 +20314,7 @@ export namespace Prisma {
     status: $Enums.BedStatus
     ward: WardCreateNestedOneWithoutBedsInput
     admissions?: AdmissionCreateNestedManyWithoutBedInput
+    admissionsredirected?: AdmissionRedirectedCreateNestedManyWithoutBedInput
   }
 
   export type BedUncheckedCreateInput = {
@@ -16686,6 +20323,7 @@ export namespace Prisma {
     wardId: string
     status: $Enums.BedStatus
     admissions?: AdmissionUncheckedCreateNestedManyWithoutBedInput
+    admissionsredirected?: AdmissionRedirectedUncheckedCreateNestedManyWithoutBedInput
   }
 
   export type BedUpdateInput = {
@@ -16694,6 +20332,7 @@ export namespace Prisma {
     status?: EnumBedStatusFieldUpdateOperationsInput | $Enums.BedStatus
     ward?: WardUpdateOneRequiredWithoutBedsNestedInput
     admissions?: AdmissionUpdateManyWithoutBedNestedInput
+    admissionsredirected?: AdmissionRedirectedUpdateManyWithoutBedNestedInput
   }
 
   export type BedUncheckedUpdateInput = {
@@ -16702,6 +20341,7 @@ export namespace Prisma {
     wardId?: StringFieldUpdateOperationsInput | string
     status?: EnumBedStatusFieldUpdateOperationsInput | $Enums.BedStatus
     admissions?: AdmissionUncheckedUpdateManyWithoutBedNestedInput
+    admissionsredirected?: AdmissionRedirectedUncheckedUpdateManyWithoutBedNestedInput
   }
 
   export type BedCreateManyInput = {
@@ -16731,6 +20371,7 @@ export namespace Prisma {
     availableBeds: number
     beds?: BedCreateNestedManyWithoutWardInput
     admissions?: AdmissionCreateNestedManyWithoutWardInput
+    admissionsredirected?: AdmissionRedirectedCreateNestedManyWithoutWardInput
   }
 
   export type WardUncheckedCreateInput = {
@@ -16740,6 +20381,7 @@ export namespace Prisma {
     availableBeds: number
     beds?: BedUncheckedCreateNestedManyWithoutWardInput
     admissions?: AdmissionUncheckedCreateNestedManyWithoutWardInput
+    admissionsredirected?: AdmissionRedirectedUncheckedCreateNestedManyWithoutWardInput
   }
 
   export type WardUpdateInput = {
@@ -16749,6 +20391,7 @@ export namespace Prisma {
     availableBeds?: IntFieldUpdateOperationsInput | number
     beds?: BedUpdateManyWithoutWardNestedInput
     admissions?: AdmissionUpdateManyWithoutWardNestedInput
+    admissionsredirected?: AdmissionRedirectedUpdateManyWithoutWardNestedInput
   }
 
   export type WardUncheckedUpdateInput = {
@@ -16758,6 +20401,7 @@ export namespace Prisma {
     availableBeds?: IntFieldUpdateOperationsInput | number
     beds?: BedUncheckedUpdateManyWithoutWardNestedInput
     admissions?: AdmissionUncheckedUpdateManyWithoutWardNestedInput
+    admissionsredirected?: AdmissionRedirectedUncheckedUpdateManyWithoutWardNestedInput
   }
 
   export type WardCreateManyInput = {
@@ -16884,6 +20528,132 @@ export namespace Prisma {
     medications?: NullableJsonNullValueInput | InputJsonValue
     feedback?: NullableStringFieldUpdateOperationsInput | string | null
     visitType?: EnumVisitTypeFieldUpdateOperationsInput | $Enums.VisitType
+  }
+
+  export type PatientInstanceRedirectedCreateInput = {
+    id?: string
+    abhaId: string
+    name: string
+    age: number
+    gender: string
+    reason: string
+    medications?: NullableJsonNullValueInput | InputJsonValue
+    admission?: AdmissionRedirectedCreateNestedManyWithoutPatientInput
+  }
+
+  export type PatientInstanceRedirectedUncheckedCreateInput = {
+    id?: string
+    abhaId: string
+    name: string
+    age: number
+    gender: string
+    reason: string
+    medications?: NullableJsonNullValueInput | InputJsonValue
+    admission?: AdmissionRedirectedUncheckedCreateNestedManyWithoutPatientInput
+  }
+
+  export type PatientInstanceRedirectedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    abhaId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    age?: IntFieldUpdateOperationsInput | number
+    gender?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    medications?: NullableJsonNullValueInput | InputJsonValue
+    admission?: AdmissionRedirectedUpdateManyWithoutPatientNestedInput
+  }
+
+  export type PatientInstanceRedirectedUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    abhaId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    age?: IntFieldUpdateOperationsInput | number
+    gender?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    medications?: NullableJsonNullValueInput | InputJsonValue
+    admission?: AdmissionRedirectedUncheckedUpdateManyWithoutPatientNestedInput
+  }
+
+  export type PatientInstanceRedirectedCreateManyInput = {
+    id?: string
+    abhaId: string
+    name: string
+    age: number
+    gender: string
+    reason: string
+    medications?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type PatientInstanceRedirectedUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    abhaId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    age?: IntFieldUpdateOperationsInput | number
+    gender?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    medications?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type PatientInstanceRedirectedUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    abhaId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    age?: IntFieldUpdateOperationsInput | number
+    gender?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    medications?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type AdmissionRedirectedCreateInput = {
+    id?: string
+    patient: PatientInstanceRedirectedCreateNestedOneWithoutAdmissionInput
+    ward?: WardCreateNestedOneWithoutAdmissionsredirectedInput
+    bed?: BedCreateNestedOneWithoutAdmissionsredirectedInput
+    doctor: DoctorsCreateNestedOneWithoutAdminssionredirectedInput
+  }
+
+  export type AdmissionRedirectedUncheckedCreateInput = {
+    id?: string
+    patientId: string
+    wardId?: string | null
+    bedId?: string | null
+    doctorId: string
+  }
+
+  export type AdmissionRedirectedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    patient?: PatientInstanceRedirectedUpdateOneRequiredWithoutAdmissionNestedInput
+    ward?: WardUpdateOneWithoutAdmissionsredirectedNestedInput
+    bed?: BedUpdateOneWithoutAdmissionsredirectedNestedInput
+    doctor?: DoctorsUpdateOneRequiredWithoutAdminssionredirectedNestedInput
+  }
+
+  export type AdmissionRedirectedUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    patientId?: StringFieldUpdateOperationsInput | string
+    wardId?: NullableStringFieldUpdateOperationsInput | string | null
+    bedId?: NullableStringFieldUpdateOperationsInput | string | null
+    doctorId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AdmissionRedirectedCreateManyInput = {
+    id?: string
+    patientId: string
+    wardId?: string | null
+    bedId?: string | null
+    doctorId: string
+  }
+
+  export type AdmissionRedirectedUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AdmissionRedirectedUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    patientId?: StringFieldUpdateOperationsInput | string
+    wardId?: NullableStringFieldUpdateOperationsInput | string | null
+    bedId?: NullableStringFieldUpdateOperationsInput | string | null
+    doctorId?: StringFieldUpdateOperationsInput | string
   }
 
   export type AdmissionCreateInput = {
@@ -17229,6 +20999,104 @@ export namespace Prisma {
     pharmacyId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type OPDdataCreateInput = {
+    id?: string
+    date: string
+    day: string
+    holiday: boolean
+    specialEvent: boolean
+    noofpatients: number
+    noofdoctors: number
+    time: number
+    ppdh: number
+    weather: string
+    department: string
+  }
+
+  export type OPDdataUncheckedCreateInput = {
+    id?: string
+    date: string
+    day: string
+    holiday: boolean
+    specialEvent: boolean
+    noofpatients: number
+    noofdoctors: number
+    time: number
+    ppdh: number
+    weather: string
+    department: string
+  }
+
+  export type OPDdataUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
+    day?: StringFieldUpdateOperationsInput | string
+    holiday?: BoolFieldUpdateOperationsInput | boolean
+    specialEvent?: BoolFieldUpdateOperationsInput | boolean
+    noofpatients?: IntFieldUpdateOperationsInput | number
+    noofdoctors?: IntFieldUpdateOperationsInput | number
+    time?: FloatFieldUpdateOperationsInput | number
+    ppdh?: FloatFieldUpdateOperationsInput | number
+    weather?: StringFieldUpdateOperationsInput | string
+    department?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type OPDdataUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
+    day?: StringFieldUpdateOperationsInput | string
+    holiday?: BoolFieldUpdateOperationsInput | boolean
+    specialEvent?: BoolFieldUpdateOperationsInput | boolean
+    noofpatients?: IntFieldUpdateOperationsInput | number
+    noofdoctors?: IntFieldUpdateOperationsInput | number
+    time?: FloatFieldUpdateOperationsInput | number
+    ppdh?: FloatFieldUpdateOperationsInput | number
+    weather?: StringFieldUpdateOperationsInput | string
+    department?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type OPDdataCreateManyInput = {
+    id?: string
+    date: string
+    day: string
+    holiday: boolean
+    specialEvent: boolean
+    noofpatients: number
+    noofdoctors: number
+    time: number
+    ppdh: number
+    weather: string
+    department: string
+  }
+
+  export type OPDdataUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
+    day?: StringFieldUpdateOperationsInput | string
+    holiday?: BoolFieldUpdateOperationsInput | boolean
+    specialEvent?: BoolFieldUpdateOperationsInput | boolean
+    noofpatients?: IntFieldUpdateOperationsInput | number
+    noofdoctors?: IntFieldUpdateOperationsInput | number
+    time?: FloatFieldUpdateOperationsInput | number
+    ppdh?: FloatFieldUpdateOperationsInput | number
+    weather?: StringFieldUpdateOperationsInput | string
+    department?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type OPDdataUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
+    day?: StringFieldUpdateOperationsInput | string
+    holiday?: BoolFieldUpdateOperationsInput | boolean
+    specialEvent?: BoolFieldUpdateOperationsInput | boolean
+    noofpatients?: IntFieldUpdateOperationsInput | number
+    noofdoctors?: IntFieldUpdateOperationsInput | number
+    time?: FloatFieldUpdateOperationsInput | number
+    ppdh?: FloatFieldUpdateOperationsInput | number
+    weather?: StringFieldUpdateOperationsInput | string
+    department?: StringFieldUpdateOperationsInput | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -17279,6 +21147,12 @@ export namespace Prisma {
     none?: PatientInstanceWhereInput
   }
 
+  export type AdmissionRedirectedListRelationFilter = {
+    every?: AdmissionRedirectedWhereInput
+    some?: AdmissionRedirectedWhereInput
+    none?: AdmissionRedirectedWhereInput
+  }
+
   export type OPDQueueOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -17288,6 +21162,10 @@ export namespace Prisma {
   }
 
   export type PatientInstanceOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AdmissionRedirectedOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -17825,6 +21703,47 @@ export namespace Prisma {
     _max?: NestedEnumVisitTypeFilter<$PrismaModel>
   }
 
+  export type PatientInstanceRedirectedCountOrderByAggregateInput = {
+    id?: SortOrder
+    abhaId?: SortOrder
+    name?: SortOrder
+    age?: SortOrder
+    gender?: SortOrder
+    reason?: SortOrder
+    medications?: SortOrder
+  }
+
+  export type PatientInstanceRedirectedAvgOrderByAggregateInput = {
+    age?: SortOrder
+  }
+
+  export type PatientInstanceRedirectedMaxOrderByAggregateInput = {
+    id?: SortOrder
+    abhaId?: SortOrder
+    name?: SortOrder
+    age?: SortOrder
+    gender?: SortOrder
+    reason?: SortOrder
+  }
+
+  export type PatientInstanceRedirectedMinOrderByAggregateInput = {
+    id?: SortOrder
+    abhaId?: SortOrder
+    name?: SortOrder
+    age?: SortOrder
+    gender?: SortOrder
+    reason?: SortOrder
+  }
+
+  export type PatientInstanceRedirectedSumOrderByAggregateInput = {
+    age?: SortOrder
+  }
+
+  export type PatientInstanceRedirectedRelationFilter = {
+    is?: PatientInstanceRedirectedWhereInput
+    isNot?: PatientInstanceRedirectedWhereInput
+  }
+
   export type WardNullableRelationFilter = {
     is?: WardWhereInput | null
     isNot?: WardWhereInput | null
@@ -17833,6 +21752,30 @@ export namespace Prisma {
   export type BedNullableRelationFilter = {
     is?: BedWhereInput | null
     isNot?: BedWhereInput | null
+  }
+
+  export type AdmissionRedirectedCountOrderByAggregateInput = {
+    id?: SortOrder
+    patientId?: SortOrder
+    wardId?: SortOrder
+    bedId?: SortOrder
+    doctorId?: SortOrder
+  }
+
+  export type AdmissionRedirectedMaxOrderByAggregateInput = {
+    id?: SortOrder
+    patientId?: SortOrder
+    wardId?: SortOrder
+    bedId?: SortOrder
+    doctorId?: SortOrder
+  }
+
+  export type AdmissionRedirectedMinOrderByAggregateInput = {
+    id?: SortOrder
+    patientId?: SortOrder
+    wardId?: SortOrder
+    bedId?: SortOrder
+    doctorId?: SortOrder
   }
 
   export type AdmissionCountOrderByAggregateInput = {
@@ -18135,6 +22078,62 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type OPDdataCountOrderByAggregateInput = {
+    id?: SortOrder
+    date?: SortOrder
+    day?: SortOrder
+    holiday?: SortOrder
+    specialEvent?: SortOrder
+    noofpatients?: SortOrder
+    noofdoctors?: SortOrder
+    time?: SortOrder
+    ppdh?: SortOrder
+    weather?: SortOrder
+    department?: SortOrder
+  }
+
+  export type OPDdataAvgOrderByAggregateInput = {
+    noofpatients?: SortOrder
+    noofdoctors?: SortOrder
+    time?: SortOrder
+    ppdh?: SortOrder
+  }
+
+  export type OPDdataMaxOrderByAggregateInput = {
+    id?: SortOrder
+    date?: SortOrder
+    day?: SortOrder
+    holiday?: SortOrder
+    specialEvent?: SortOrder
+    noofpatients?: SortOrder
+    noofdoctors?: SortOrder
+    time?: SortOrder
+    ppdh?: SortOrder
+    weather?: SortOrder
+    department?: SortOrder
+  }
+
+  export type OPDdataMinOrderByAggregateInput = {
+    id?: SortOrder
+    date?: SortOrder
+    day?: SortOrder
+    holiday?: SortOrder
+    specialEvent?: SortOrder
+    noofpatients?: SortOrder
+    noofdoctors?: SortOrder
+    time?: SortOrder
+    ppdh?: SortOrder
+    weather?: SortOrder
+    department?: SortOrder
+  }
+
+  export type OPDdataSumOrderByAggregateInput = {
+    noofpatients?: SortOrder
+    noofdoctors?: SortOrder
+    time?: SortOrder
+    ppdh?: SortOrder
+  }
+
   export type DepartmentsCreateNestedOneWithoutDoctorsInput = {
     create?: XOR<DepartmentsCreateWithoutDoctorsInput, DepartmentsUncheckedCreateWithoutDoctorsInput>
     connectOrCreate?: DepartmentsCreateOrConnectWithoutDoctorsInput
@@ -18162,6 +22161,13 @@ export namespace Prisma {
     connect?: PatientInstanceWhereUniqueInput | PatientInstanceWhereUniqueInput[]
   }
 
+  export type AdmissionRedirectedCreateNestedManyWithoutDoctorInput = {
+    create?: XOR<AdmissionRedirectedCreateWithoutDoctorInput, AdmissionRedirectedUncheckedCreateWithoutDoctorInput> | AdmissionRedirectedCreateWithoutDoctorInput[] | AdmissionRedirectedUncheckedCreateWithoutDoctorInput[]
+    connectOrCreate?: AdmissionRedirectedCreateOrConnectWithoutDoctorInput | AdmissionRedirectedCreateOrConnectWithoutDoctorInput[]
+    createMany?: AdmissionRedirectedCreateManyDoctorInputEnvelope
+    connect?: AdmissionRedirectedWhereUniqueInput | AdmissionRedirectedWhereUniqueInput[]
+  }
+
   export type OPDQueueUncheckedCreateNestedManyWithoutDoctorInput = {
     create?: XOR<OPDQueueCreateWithoutDoctorInput, OPDQueueUncheckedCreateWithoutDoctorInput> | OPDQueueCreateWithoutDoctorInput[] | OPDQueueUncheckedCreateWithoutDoctorInput[]
     connectOrCreate?: OPDQueueCreateOrConnectWithoutDoctorInput | OPDQueueCreateOrConnectWithoutDoctorInput[]
@@ -18181,6 +22187,13 @@ export namespace Prisma {
     connectOrCreate?: PatientInstanceCreateOrConnectWithoutDoctorInput | PatientInstanceCreateOrConnectWithoutDoctorInput[]
     createMany?: PatientInstanceCreateManyDoctorInputEnvelope
     connect?: PatientInstanceWhereUniqueInput | PatientInstanceWhereUniqueInput[]
+  }
+
+  export type AdmissionRedirectedUncheckedCreateNestedManyWithoutDoctorInput = {
+    create?: XOR<AdmissionRedirectedCreateWithoutDoctorInput, AdmissionRedirectedUncheckedCreateWithoutDoctorInput> | AdmissionRedirectedCreateWithoutDoctorInput[] | AdmissionRedirectedUncheckedCreateWithoutDoctorInput[]
+    connectOrCreate?: AdmissionRedirectedCreateOrConnectWithoutDoctorInput | AdmissionRedirectedCreateOrConnectWithoutDoctorInput[]
+    createMany?: AdmissionRedirectedCreateManyDoctorInputEnvelope
+    connect?: AdmissionRedirectedWhereUniqueInput | AdmissionRedirectedWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -18245,6 +22258,20 @@ export namespace Prisma {
     deleteMany?: PatientInstanceScalarWhereInput | PatientInstanceScalarWhereInput[]
   }
 
+  export type AdmissionRedirectedUpdateManyWithoutDoctorNestedInput = {
+    create?: XOR<AdmissionRedirectedCreateWithoutDoctorInput, AdmissionRedirectedUncheckedCreateWithoutDoctorInput> | AdmissionRedirectedCreateWithoutDoctorInput[] | AdmissionRedirectedUncheckedCreateWithoutDoctorInput[]
+    connectOrCreate?: AdmissionRedirectedCreateOrConnectWithoutDoctorInput | AdmissionRedirectedCreateOrConnectWithoutDoctorInput[]
+    upsert?: AdmissionRedirectedUpsertWithWhereUniqueWithoutDoctorInput | AdmissionRedirectedUpsertWithWhereUniqueWithoutDoctorInput[]
+    createMany?: AdmissionRedirectedCreateManyDoctorInputEnvelope
+    set?: AdmissionRedirectedWhereUniqueInput | AdmissionRedirectedWhereUniqueInput[]
+    disconnect?: AdmissionRedirectedWhereUniqueInput | AdmissionRedirectedWhereUniqueInput[]
+    delete?: AdmissionRedirectedWhereUniqueInput | AdmissionRedirectedWhereUniqueInput[]
+    connect?: AdmissionRedirectedWhereUniqueInput | AdmissionRedirectedWhereUniqueInput[]
+    update?: AdmissionRedirectedUpdateWithWhereUniqueWithoutDoctorInput | AdmissionRedirectedUpdateWithWhereUniqueWithoutDoctorInput[]
+    updateMany?: AdmissionRedirectedUpdateManyWithWhereWithoutDoctorInput | AdmissionRedirectedUpdateManyWithWhereWithoutDoctorInput[]
+    deleteMany?: AdmissionRedirectedScalarWhereInput | AdmissionRedirectedScalarWhereInput[]
+  }
+
   export type OPDQueueUncheckedUpdateManyWithoutDoctorNestedInput = {
     create?: XOR<OPDQueueCreateWithoutDoctorInput, OPDQueueUncheckedCreateWithoutDoctorInput> | OPDQueueCreateWithoutDoctorInput[] | OPDQueueUncheckedCreateWithoutDoctorInput[]
     connectOrCreate?: OPDQueueCreateOrConnectWithoutDoctorInput | OPDQueueCreateOrConnectWithoutDoctorInput[]
@@ -18285,6 +22312,20 @@ export namespace Prisma {
     update?: PatientInstanceUpdateWithWhereUniqueWithoutDoctorInput | PatientInstanceUpdateWithWhereUniqueWithoutDoctorInput[]
     updateMany?: PatientInstanceUpdateManyWithWhereWithoutDoctorInput | PatientInstanceUpdateManyWithWhereWithoutDoctorInput[]
     deleteMany?: PatientInstanceScalarWhereInput | PatientInstanceScalarWhereInput[]
+  }
+
+  export type AdmissionRedirectedUncheckedUpdateManyWithoutDoctorNestedInput = {
+    create?: XOR<AdmissionRedirectedCreateWithoutDoctorInput, AdmissionRedirectedUncheckedCreateWithoutDoctorInput> | AdmissionRedirectedCreateWithoutDoctorInput[] | AdmissionRedirectedUncheckedCreateWithoutDoctorInput[]
+    connectOrCreate?: AdmissionRedirectedCreateOrConnectWithoutDoctorInput | AdmissionRedirectedCreateOrConnectWithoutDoctorInput[]
+    upsert?: AdmissionRedirectedUpsertWithWhereUniqueWithoutDoctorInput | AdmissionRedirectedUpsertWithWhereUniqueWithoutDoctorInput[]
+    createMany?: AdmissionRedirectedCreateManyDoctorInputEnvelope
+    set?: AdmissionRedirectedWhereUniqueInput | AdmissionRedirectedWhereUniqueInput[]
+    disconnect?: AdmissionRedirectedWhereUniqueInput | AdmissionRedirectedWhereUniqueInput[]
+    delete?: AdmissionRedirectedWhereUniqueInput | AdmissionRedirectedWhereUniqueInput[]
+    connect?: AdmissionRedirectedWhereUniqueInput | AdmissionRedirectedWhereUniqueInput[]
+    update?: AdmissionRedirectedUpdateWithWhereUniqueWithoutDoctorInput | AdmissionRedirectedUpdateWithWhereUniqueWithoutDoctorInput[]
+    updateMany?: AdmissionRedirectedUpdateManyWithWhereWithoutDoctorInput | AdmissionRedirectedUpdateManyWithWhereWithoutDoctorInput[]
+    deleteMany?: AdmissionRedirectedScalarWhereInput | AdmissionRedirectedScalarWhereInput[]
   }
 
   export type DepartmentsCreateNestedOneWithoutSlotsInput = {
@@ -18484,11 +22525,25 @@ export namespace Prisma {
     connect?: AdmissionWhereUniqueInput | AdmissionWhereUniqueInput[]
   }
 
+  export type AdmissionRedirectedCreateNestedManyWithoutBedInput = {
+    create?: XOR<AdmissionRedirectedCreateWithoutBedInput, AdmissionRedirectedUncheckedCreateWithoutBedInput> | AdmissionRedirectedCreateWithoutBedInput[] | AdmissionRedirectedUncheckedCreateWithoutBedInput[]
+    connectOrCreate?: AdmissionRedirectedCreateOrConnectWithoutBedInput | AdmissionRedirectedCreateOrConnectWithoutBedInput[]
+    createMany?: AdmissionRedirectedCreateManyBedInputEnvelope
+    connect?: AdmissionRedirectedWhereUniqueInput | AdmissionRedirectedWhereUniqueInput[]
+  }
+
   export type AdmissionUncheckedCreateNestedManyWithoutBedInput = {
     create?: XOR<AdmissionCreateWithoutBedInput, AdmissionUncheckedCreateWithoutBedInput> | AdmissionCreateWithoutBedInput[] | AdmissionUncheckedCreateWithoutBedInput[]
     connectOrCreate?: AdmissionCreateOrConnectWithoutBedInput | AdmissionCreateOrConnectWithoutBedInput[]
     createMany?: AdmissionCreateManyBedInputEnvelope
     connect?: AdmissionWhereUniqueInput | AdmissionWhereUniqueInput[]
+  }
+
+  export type AdmissionRedirectedUncheckedCreateNestedManyWithoutBedInput = {
+    create?: XOR<AdmissionRedirectedCreateWithoutBedInput, AdmissionRedirectedUncheckedCreateWithoutBedInput> | AdmissionRedirectedCreateWithoutBedInput[] | AdmissionRedirectedUncheckedCreateWithoutBedInput[]
+    connectOrCreate?: AdmissionRedirectedCreateOrConnectWithoutBedInput | AdmissionRedirectedCreateOrConnectWithoutBedInput[]
+    createMany?: AdmissionRedirectedCreateManyBedInputEnvelope
+    connect?: AdmissionRedirectedWhereUniqueInput | AdmissionRedirectedWhereUniqueInput[]
   }
 
   export type EnumBedStatusFieldUpdateOperationsInput = {
@@ -18517,6 +22572,20 @@ export namespace Prisma {
     deleteMany?: AdmissionScalarWhereInput | AdmissionScalarWhereInput[]
   }
 
+  export type AdmissionRedirectedUpdateManyWithoutBedNestedInput = {
+    create?: XOR<AdmissionRedirectedCreateWithoutBedInput, AdmissionRedirectedUncheckedCreateWithoutBedInput> | AdmissionRedirectedCreateWithoutBedInput[] | AdmissionRedirectedUncheckedCreateWithoutBedInput[]
+    connectOrCreate?: AdmissionRedirectedCreateOrConnectWithoutBedInput | AdmissionRedirectedCreateOrConnectWithoutBedInput[]
+    upsert?: AdmissionRedirectedUpsertWithWhereUniqueWithoutBedInput | AdmissionRedirectedUpsertWithWhereUniqueWithoutBedInput[]
+    createMany?: AdmissionRedirectedCreateManyBedInputEnvelope
+    set?: AdmissionRedirectedWhereUniqueInput | AdmissionRedirectedWhereUniqueInput[]
+    disconnect?: AdmissionRedirectedWhereUniqueInput | AdmissionRedirectedWhereUniqueInput[]
+    delete?: AdmissionRedirectedWhereUniqueInput | AdmissionRedirectedWhereUniqueInput[]
+    connect?: AdmissionRedirectedWhereUniqueInput | AdmissionRedirectedWhereUniqueInput[]
+    update?: AdmissionRedirectedUpdateWithWhereUniqueWithoutBedInput | AdmissionRedirectedUpdateWithWhereUniqueWithoutBedInput[]
+    updateMany?: AdmissionRedirectedUpdateManyWithWhereWithoutBedInput | AdmissionRedirectedUpdateManyWithWhereWithoutBedInput[]
+    deleteMany?: AdmissionRedirectedScalarWhereInput | AdmissionRedirectedScalarWhereInput[]
+  }
+
   export type AdmissionUncheckedUpdateManyWithoutBedNestedInput = {
     create?: XOR<AdmissionCreateWithoutBedInput, AdmissionUncheckedCreateWithoutBedInput> | AdmissionCreateWithoutBedInput[] | AdmissionUncheckedCreateWithoutBedInput[]
     connectOrCreate?: AdmissionCreateOrConnectWithoutBedInput | AdmissionCreateOrConnectWithoutBedInput[]
@@ -18529,6 +22598,20 @@ export namespace Prisma {
     update?: AdmissionUpdateWithWhereUniqueWithoutBedInput | AdmissionUpdateWithWhereUniqueWithoutBedInput[]
     updateMany?: AdmissionUpdateManyWithWhereWithoutBedInput | AdmissionUpdateManyWithWhereWithoutBedInput[]
     deleteMany?: AdmissionScalarWhereInput | AdmissionScalarWhereInput[]
+  }
+
+  export type AdmissionRedirectedUncheckedUpdateManyWithoutBedNestedInput = {
+    create?: XOR<AdmissionRedirectedCreateWithoutBedInput, AdmissionRedirectedUncheckedCreateWithoutBedInput> | AdmissionRedirectedCreateWithoutBedInput[] | AdmissionRedirectedUncheckedCreateWithoutBedInput[]
+    connectOrCreate?: AdmissionRedirectedCreateOrConnectWithoutBedInput | AdmissionRedirectedCreateOrConnectWithoutBedInput[]
+    upsert?: AdmissionRedirectedUpsertWithWhereUniqueWithoutBedInput | AdmissionRedirectedUpsertWithWhereUniqueWithoutBedInput[]
+    createMany?: AdmissionRedirectedCreateManyBedInputEnvelope
+    set?: AdmissionRedirectedWhereUniqueInput | AdmissionRedirectedWhereUniqueInput[]
+    disconnect?: AdmissionRedirectedWhereUniqueInput | AdmissionRedirectedWhereUniqueInput[]
+    delete?: AdmissionRedirectedWhereUniqueInput | AdmissionRedirectedWhereUniqueInput[]
+    connect?: AdmissionRedirectedWhereUniqueInput | AdmissionRedirectedWhereUniqueInput[]
+    update?: AdmissionRedirectedUpdateWithWhereUniqueWithoutBedInput | AdmissionRedirectedUpdateWithWhereUniqueWithoutBedInput[]
+    updateMany?: AdmissionRedirectedUpdateManyWithWhereWithoutBedInput | AdmissionRedirectedUpdateManyWithWhereWithoutBedInput[]
+    deleteMany?: AdmissionRedirectedScalarWhereInput | AdmissionRedirectedScalarWhereInput[]
   }
 
   export type BedCreateNestedManyWithoutWardInput = {
@@ -18545,6 +22628,13 @@ export namespace Prisma {
     connect?: AdmissionWhereUniqueInput | AdmissionWhereUniqueInput[]
   }
 
+  export type AdmissionRedirectedCreateNestedManyWithoutWardInput = {
+    create?: XOR<AdmissionRedirectedCreateWithoutWardInput, AdmissionRedirectedUncheckedCreateWithoutWardInput> | AdmissionRedirectedCreateWithoutWardInput[] | AdmissionRedirectedUncheckedCreateWithoutWardInput[]
+    connectOrCreate?: AdmissionRedirectedCreateOrConnectWithoutWardInput | AdmissionRedirectedCreateOrConnectWithoutWardInput[]
+    createMany?: AdmissionRedirectedCreateManyWardInputEnvelope
+    connect?: AdmissionRedirectedWhereUniqueInput | AdmissionRedirectedWhereUniqueInput[]
+  }
+
   export type BedUncheckedCreateNestedManyWithoutWardInput = {
     create?: XOR<BedCreateWithoutWardInput, BedUncheckedCreateWithoutWardInput> | BedCreateWithoutWardInput[] | BedUncheckedCreateWithoutWardInput[]
     connectOrCreate?: BedCreateOrConnectWithoutWardInput | BedCreateOrConnectWithoutWardInput[]
@@ -18557,6 +22647,13 @@ export namespace Prisma {
     connectOrCreate?: AdmissionCreateOrConnectWithoutWardInput | AdmissionCreateOrConnectWithoutWardInput[]
     createMany?: AdmissionCreateManyWardInputEnvelope
     connect?: AdmissionWhereUniqueInput | AdmissionWhereUniqueInput[]
+  }
+
+  export type AdmissionRedirectedUncheckedCreateNestedManyWithoutWardInput = {
+    create?: XOR<AdmissionRedirectedCreateWithoutWardInput, AdmissionRedirectedUncheckedCreateWithoutWardInput> | AdmissionRedirectedCreateWithoutWardInput[] | AdmissionRedirectedUncheckedCreateWithoutWardInput[]
+    connectOrCreate?: AdmissionRedirectedCreateOrConnectWithoutWardInput | AdmissionRedirectedCreateOrConnectWithoutWardInput[]
+    createMany?: AdmissionRedirectedCreateManyWardInputEnvelope
+    connect?: AdmissionRedirectedWhereUniqueInput | AdmissionRedirectedWhereUniqueInput[]
   }
 
   export type BedUpdateManyWithoutWardNestedInput = {
@@ -18587,6 +22684,20 @@ export namespace Prisma {
     deleteMany?: AdmissionScalarWhereInput | AdmissionScalarWhereInput[]
   }
 
+  export type AdmissionRedirectedUpdateManyWithoutWardNestedInput = {
+    create?: XOR<AdmissionRedirectedCreateWithoutWardInput, AdmissionRedirectedUncheckedCreateWithoutWardInput> | AdmissionRedirectedCreateWithoutWardInput[] | AdmissionRedirectedUncheckedCreateWithoutWardInput[]
+    connectOrCreate?: AdmissionRedirectedCreateOrConnectWithoutWardInput | AdmissionRedirectedCreateOrConnectWithoutWardInput[]
+    upsert?: AdmissionRedirectedUpsertWithWhereUniqueWithoutWardInput | AdmissionRedirectedUpsertWithWhereUniqueWithoutWardInput[]
+    createMany?: AdmissionRedirectedCreateManyWardInputEnvelope
+    set?: AdmissionRedirectedWhereUniqueInput | AdmissionRedirectedWhereUniqueInput[]
+    disconnect?: AdmissionRedirectedWhereUniqueInput | AdmissionRedirectedWhereUniqueInput[]
+    delete?: AdmissionRedirectedWhereUniqueInput | AdmissionRedirectedWhereUniqueInput[]
+    connect?: AdmissionRedirectedWhereUniqueInput | AdmissionRedirectedWhereUniqueInput[]
+    update?: AdmissionRedirectedUpdateWithWhereUniqueWithoutWardInput | AdmissionRedirectedUpdateWithWhereUniqueWithoutWardInput[]
+    updateMany?: AdmissionRedirectedUpdateManyWithWhereWithoutWardInput | AdmissionRedirectedUpdateManyWithWhereWithoutWardInput[]
+    deleteMany?: AdmissionRedirectedScalarWhereInput | AdmissionRedirectedScalarWhereInput[]
+  }
+
   export type BedUncheckedUpdateManyWithoutWardNestedInput = {
     create?: XOR<BedCreateWithoutWardInput, BedUncheckedCreateWithoutWardInput> | BedCreateWithoutWardInput[] | BedUncheckedCreateWithoutWardInput[]
     connectOrCreate?: BedCreateOrConnectWithoutWardInput | BedCreateOrConnectWithoutWardInput[]
@@ -18613,6 +22724,20 @@ export namespace Prisma {
     update?: AdmissionUpdateWithWhereUniqueWithoutWardInput | AdmissionUpdateWithWhereUniqueWithoutWardInput[]
     updateMany?: AdmissionUpdateManyWithWhereWithoutWardInput | AdmissionUpdateManyWithWhereWithoutWardInput[]
     deleteMany?: AdmissionScalarWhereInput | AdmissionScalarWhereInput[]
+  }
+
+  export type AdmissionRedirectedUncheckedUpdateManyWithoutWardNestedInput = {
+    create?: XOR<AdmissionRedirectedCreateWithoutWardInput, AdmissionRedirectedUncheckedCreateWithoutWardInput> | AdmissionRedirectedCreateWithoutWardInput[] | AdmissionRedirectedUncheckedCreateWithoutWardInput[]
+    connectOrCreate?: AdmissionRedirectedCreateOrConnectWithoutWardInput | AdmissionRedirectedCreateOrConnectWithoutWardInput[]
+    upsert?: AdmissionRedirectedUpsertWithWhereUniqueWithoutWardInput | AdmissionRedirectedUpsertWithWhereUniqueWithoutWardInput[]
+    createMany?: AdmissionRedirectedCreateManyWardInputEnvelope
+    set?: AdmissionRedirectedWhereUniqueInput | AdmissionRedirectedWhereUniqueInput[]
+    disconnect?: AdmissionRedirectedWhereUniqueInput | AdmissionRedirectedWhereUniqueInput[]
+    delete?: AdmissionRedirectedWhereUniqueInput | AdmissionRedirectedWhereUniqueInput[]
+    connect?: AdmissionRedirectedWhereUniqueInput | AdmissionRedirectedWhereUniqueInput[]
+    update?: AdmissionRedirectedUpdateWithWhereUniqueWithoutWardInput | AdmissionRedirectedUpdateWithWhereUniqueWithoutWardInput[]
+    updateMany?: AdmissionRedirectedUpdateManyWithWhereWithoutWardInput | AdmissionRedirectedUpdateManyWithWhereWithoutWardInput[]
+    deleteMany?: AdmissionRedirectedScalarWhereInput | AdmissionRedirectedScalarWhereInput[]
   }
 
   export type DoctorsCreateNestedOneWithoutPatientInstancesInput = {
@@ -18727,6 +22852,108 @@ export namespace Prisma {
     update?: AdmissionUpdateWithWhereUniqueWithoutPatinetInput | AdmissionUpdateWithWhereUniqueWithoutPatinetInput[]
     updateMany?: AdmissionUpdateManyWithWhereWithoutPatinetInput | AdmissionUpdateManyWithWhereWithoutPatinetInput[]
     deleteMany?: AdmissionScalarWhereInput | AdmissionScalarWhereInput[]
+  }
+
+  export type AdmissionRedirectedCreateNestedManyWithoutPatientInput = {
+    create?: XOR<AdmissionRedirectedCreateWithoutPatientInput, AdmissionRedirectedUncheckedCreateWithoutPatientInput> | AdmissionRedirectedCreateWithoutPatientInput[] | AdmissionRedirectedUncheckedCreateWithoutPatientInput[]
+    connectOrCreate?: AdmissionRedirectedCreateOrConnectWithoutPatientInput | AdmissionRedirectedCreateOrConnectWithoutPatientInput[]
+    createMany?: AdmissionRedirectedCreateManyPatientInputEnvelope
+    connect?: AdmissionRedirectedWhereUniqueInput | AdmissionRedirectedWhereUniqueInput[]
+  }
+
+  export type AdmissionRedirectedUncheckedCreateNestedManyWithoutPatientInput = {
+    create?: XOR<AdmissionRedirectedCreateWithoutPatientInput, AdmissionRedirectedUncheckedCreateWithoutPatientInput> | AdmissionRedirectedCreateWithoutPatientInput[] | AdmissionRedirectedUncheckedCreateWithoutPatientInput[]
+    connectOrCreate?: AdmissionRedirectedCreateOrConnectWithoutPatientInput | AdmissionRedirectedCreateOrConnectWithoutPatientInput[]
+    createMany?: AdmissionRedirectedCreateManyPatientInputEnvelope
+    connect?: AdmissionRedirectedWhereUniqueInput | AdmissionRedirectedWhereUniqueInput[]
+  }
+
+  export type AdmissionRedirectedUpdateManyWithoutPatientNestedInput = {
+    create?: XOR<AdmissionRedirectedCreateWithoutPatientInput, AdmissionRedirectedUncheckedCreateWithoutPatientInput> | AdmissionRedirectedCreateWithoutPatientInput[] | AdmissionRedirectedUncheckedCreateWithoutPatientInput[]
+    connectOrCreate?: AdmissionRedirectedCreateOrConnectWithoutPatientInput | AdmissionRedirectedCreateOrConnectWithoutPatientInput[]
+    upsert?: AdmissionRedirectedUpsertWithWhereUniqueWithoutPatientInput | AdmissionRedirectedUpsertWithWhereUniqueWithoutPatientInput[]
+    createMany?: AdmissionRedirectedCreateManyPatientInputEnvelope
+    set?: AdmissionRedirectedWhereUniqueInput | AdmissionRedirectedWhereUniqueInput[]
+    disconnect?: AdmissionRedirectedWhereUniqueInput | AdmissionRedirectedWhereUniqueInput[]
+    delete?: AdmissionRedirectedWhereUniqueInput | AdmissionRedirectedWhereUniqueInput[]
+    connect?: AdmissionRedirectedWhereUniqueInput | AdmissionRedirectedWhereUniqueInput[]
+    update?: AdmissionRedirectedUpdateWithWhereUniqueWithoutPatientInput | AdmissionRedirectedUpdateWithWhereUniqueWithoutPatientInput[]
+    updateMany?: AdmissionRedirectedUpdateManyWithWhereWithoutPatientInput | AdmissionRedirectedUpdateManyWithWhereWithoutPatientInput[]
+    deleteMany?: AdmissionRedirectedScalarWhereInput | AdmissionRedirectedScalarWhereInput[]
+  }
+
+  export type AdmissionRedirectedUncheckedUpdateManyWithoutPatientNestedInput = {
+    create?: XOR<AdmissionRedirectedCreateWithoutPatientInput, AdmissionRedirectedUncheckedCreateWithoutPatientInput> | AdmissionRedirectedCreateWithoutPatientInput[] | AdmissionRedirectedUncheckedCreateWithoutPatientInput[]
+    connectOrCreate?: AdmissionRedirectedCreateOrConnectWithoutPatientInput | AdmissionRedirectedCreateOrConnectWithoutPatientInput[]
+    upsert?: AdmissionRedirectedUpsertWithWhereUniqueWithoutPatientInput | AdmissionRedirectedUpsertWithWhereUniqueWithoutPatientInput[]
+    createMany?: AdmissionRedirectedCreateManyPatientInputEnvelope
+    set?: AdmissionRedirectedWhereUniqueInput | AdmissionRedirectedWhereUniqueInput[]
+    disconnect?: AdmissionRedirectedWhereUniqueInput | AdmissionRedirectedWhereUniqueInput[]
+    delete?: AdmissionRedirectedWhereUniqueInput | AdmissionRedirectedWhereUniqueInput[]
+    connect?: AdmissionRedirectedWhereUniqueInput | AdmissionRedirectedWhereUniqueInput[]
+    update?: AdmissionRedirectedUpdateWithWhereUniqueWithoutPatientInput | AdmissionRedirectedUpdateWithWhereUniqueWithoutPatientInput[]
+    updateMany?: AdmissionRedirectedUpdateManyWithWhereWithoutPatientInput | AdmissionRedirectedUpdateManyWithWhereWithoutPatientInput[]
+    deleteMany?: AdmissionRedirectedScalarWhereInput | AdmissionRedirectedScalarWhereInput[]
+  }
+
+  export type PatientInstanceRedirectedCreateNestedOneWithoutAdmissionInput = {
+    create?: XOR<PatientInstanceRedirectedCreateWithoutAdmissionInput, PatientInstanceRedirectedUncheckedCreateWithoutAdmissionInput>
+    connectOrCreate?: PatientInstanceRedirectedCreateOrConnectWithoutAdmissionInput
+    connect?: PatientInstanceRedirectedWhereUniqueInput
+  }
+
+  export type WardCreateNestedOneWithoutAdmissionsredirectedInput = {
+    create?: XOR<WardCreateWithoutAdmissionsredirectedInput, WardUncheckedCreateWithoutAdmissionsredirectedInput>
+    connectOrCreate?: WardCreateOrConnectWithoutAdmissionsredirectedInput
+    connect?: WardWhereUniqueInput
+  }
+
+  export type BedCreateNestedOneWithoutAdmissionsredirectedInput = {
+    create?: XOR<BedCreateWithoutAdmissionsredirectedInput, BedUncheckedCreateWithoutAdmissionsredirectedInput>
+    connectOrCreate?: BedCreateOrConnectWithoutAdmissionsredirectedInput
+    connect?: BedWhereUniqueInput
+  }
+
+  export type DoctorsCreateNestedOneWithoutAdminssionredirectedInput = {
+    create?: XOR<DoctorsCreateWithoutAdminssionredirectedInput, DoctorsUncheckedCreateWithoutAdminssionredirectedInput>
+    connectOrCreate?: DoctorsCreateOrConnectWithoutAdminssionredirectedInput
+    connect?: DoctorsWhereUniqueInput
+  }
+
+  export type PatientInstanceRedirectedUpdateOneRequiredWithoutAdmissionNestedInput = {
+    create?: XOR<PatientInstanceRedirectedCreateWithoutAdmissionInput, PatientInstanceRedirectedUncheckedCreateWithoutAdmissionInput>
+    connectOrCreate?: PatientInstanceRedirectedCreateOrConnectWithoutAdmissionInput
+    upsert?: PatientInstanceRedirectedUpsertWithoutAdmissionInput
+    connect?: PatientInstanceRedirectedWhereUniqueInput
+    update?: XOR<XOR<PatientInstanceRedirectedUpdateToOneWithWhereWithoutAdmissionInput, PatientInstanceRedirectedUpdateWithoutAdmissionInput>, PatientInstanceRedirectedUncheckedUpdateWithoutAdmissionInput>
+  }
+
+  export type WardUpdateOneWithoutAdmissionsredirectedNestedInput = {
+    create?: XOR<WardCreateWithoutAdmissionsredirectedInput, WardUncheckedCreateWithoutAdmissionsredirectedInput>
+    connectOrCreate?: WardCreateOrConnectWithoutAdmissionsredirectedInput
+    upsert?: WardUpsertWithoutAdmissionsredirectedInput
+    disconnect?: WardWhereInput | boolean
+    delete?: WardWhereInput | boolean
+    connect?: WardWhereUniqueInput
+    update?: XOR<XOR<WardUpdateToOneWithWhereWithoutAdmissionsredirectedInput, WardUpdateWithoutAdmissionsredirectedInput>, WardUncheckedUpdateWithoutAdmissionsredirectedInput>
+  }
+
+  export type BedUpdateOneWithoutAdmissionsredirectedNestedInput = {
+    create?: XOR<BedCreateWithoutAdmissionsredirectedInput, BedUncheckedCreateWithoutAdmissionsredirectedInput>
+    connectOrCreate?: BedCreateOrConnectWithoutAdmissionsredirectedInput
+    upsert?: BedUpsertWithoutAdmissionsredirectedInput
+    disconnect?: BedWhereInput | boolean
+    delete?: BedWhereInput | boolean
+    connect?: BedWhereUniqueInput
+    update?: XOR<XOR<BedUpdateToOneWithWhereWithoutAdmissionsredirectedInput, BedUpdateWithoutAdmissionsredirectedInput>, BedUncheckedUpdateWithoutAdmissionsredirectedInput>
+  }
+
+  export type DoctorsUpdateOneRequiredWithoutAdminssionredirectedNestedInput = {
+    create?: XOR<DoctorsCreateWithoutAdminssionredirectedInput, DoctorsUncheckedCreateWithoutAdminssionredirectedInput>
+    connectOrCreate?: DoctorsCreateOrConnectWithoutAdminssionredirectedInput
+    upsert?: DoctorsUpsertWithoutAdminssionredirectedInput
+    connect?: DoctorsWhereUniqueInput
+    update?: XOR<XOR<DoctorsUpdateToOneWithWhereWithoutAdminssionredirectedInput, DoctorsUpdateWithoutAdminssionredirectedInput>, DoctorsUncheckedUpdateWithoutAdminssionredirectedInput>
   }
 
   export type PatientInstanceCreateNestedOneWithoutAdmissionInput = {
@@ -19549,6 +23776,30 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type AdmissionRedirectedCreateWithoutDoctorInput = {
+    id?: string
+    patient: PatientInstanceRedirectedCreateNestedOneWithoutAdmissionInput
+    ward?: WardCreateNestedOneWithoutAdmissionsredirectedInput
+    bed?: BedCreateNestedOneWithoutAdmissionsredirectedInput
+  }
+
+  export type AdmissionRedirectedUncheckedCreateWithoutDoctorInput = {
+    id?: string
+    patientId: string
+    wardId?: string | null
+    bedId?: string | null
+  }
+
+  export type AdmissionRedirectedCreateOrConnectWithoutDoctorInput = {
+    where: AdmissionRedirectedWhereUniqueInput
+    create: XOR<AdmissionRedirectedCreateWithoutDoctorInput, AdmissionRedirectedUncheckedCreateWithoutDoctorInput>
+  }
+
+  export type AdmissionRedirectedCreateManyDoctorInputEnvelope = {
+    data: AdmissionRedirectedCreateManyDoctorInput | AdmissionRedirectedCreateManyDoctorInput[]
+    skipDuplicates?: boolean
+  }
+
   export type DepartmentsUpsertWithoutDoctorsInput = {
     update: XOR<DepartmentsUpdateWithoutDoctorsInput, DepartmentsUncheckedUpdateWithoutDoctorsInput>
     create: XOR<DepartmentsCreateWithoutDoctorsInput, DepartmentsUncheckedCreateWithoutDoctorsInput>
@@ -19663,6 +23914,33 @@ export namespace Prisma {
     visitType?: EnumVisitTypeFilter<"PatientInstance"> | $Enums.VisitType
   }
 
+  export type AdmissionRedirectedUpsertWithWhereUniqueWithoutDoctorInput = {
+    where: AdmissionRedirectedWhereUniqueInput
+    update: XOR<AdmissionRedirectedUpdateWithoutDoctorInput, AdmissionRedirectedUncheckedUpdateWithoutDoctorInput>
+    create: XOR<AdmissionRedirectedCreateWithoutDoctorInput, AdmissionRedirectedUncheckedCreateWithoutDoctorInput>
+  }
+
+  export type AdmissionRedirectedUpdateWithWhereUniqueWithoutDoctorInput = {
+    where: AdmissionRedirectedWhereUniqueInput
+    data: XOR<AdmissionRedirectedUpdateWithoutDoctorInput, AdmissionRedirectedUncheckedUpdateWithoutDoctorInput>
+  }
+
+  export type AdmissionRedirectedUpdateManyWithWhereWithoutDoctorInput = {
+    where: AdmissionRedirectedScalarWhereInput
+    data: XOR<AdmissionRedirectedUpdateManyMutationInput, AdmissionRedirectedUncheckedUpdateManyWithoutDoctorInput>
+  }
+
+  export type AdmissionRedirectedScalarWhereInput = {
+    AND?: AdmissionRedirectedScalarWhereInput | AdmissionRedirectedScalarWhereInput[]
+    OR?: AdmissionRedirectedScalarWhereInput[]
+    NOT?: AdmissionRedirectedScalarWhereInput | AdmissionRedirectedScalarWhereInput[]
+    id?: StringFilter<"AdmissionRedirected"> | string
+    patientId?: StringFilter<"AdmissionRedirected"> | string
+    wardId?: StringNullableFilter<"AdmissionRedirected"> | string | null
+    bedId?: StringNullableFilter<"AdmissionRedirected"> | string | null
+    doctorId?: StringFilter<"AdmissionRedirected"> | string
+  }
+
   export type DepartmentsCreateWithoutSlotsInput = {
     id?: string
     name: string
@@ -19720,6 +23998,7 @@ export namespace Prisma {
     opdQueue?: OPDQueueCreateNestedManyWithoutDoctorInput
     admissions?: AdmissionCreateNestedManyWithoutDoctorInput
     patientInstances?: PatientInstanceCreateNestedManyWithoutDoctorInput
+    adminssionredirected?: AdmissionRedirectedCreateNestedManyWithoutDoctorInput
   }
 
   export type DoctorsUncheckedCreateWithoutDepartmentInput = {
@@ -19735,6 +24014,7 @@ export namespace Prisma {
     opdQueue?: OPDQueueUncheckedCreateNestedManyWithoutDoctorInput
     admissions?: AdmissionUncheckedCreateNestedManyWithoutDoctorInput
     patientInstances?: PatientInstanceUncheckedCreateNestedManyWithoutDoctorInput
+    adminssionredirected?: AdmissionRedirectedUncheckedCreateNestedManyWithoutDoctorInput
   }
 
   export type DoctorsCreateOrConnectWithoutDepartmentInput = {
@@ -19930,6 +24210,7 @@ export namespace Prisma {
     department: DepartmentsCreateNestedOneWithoutDoctorsInput
     admissions?: AdmissionCreateNestedManyWithoutDoctorInput
     patientInstances?: PatientInstanceCreateNestedManyWithoutDoctorInput
+    adminssionredirected?: AdmissionRedirectedCreateNestedManyWithoutDoctorInput
   }
 
   export type DoctorsUncheckedCreateWithoutOpdQueueInput = {
@@ -19945,6 +24226,7 @@ export namespace Prisma {
     hospitalCode?: string
     admissions?: AdmissionUncheckedCreateNestedManyWithoutDoctorInput
     patientInstances?: PatientInstanceUncheckedCreateNestedManyWithoutDoctorInput
+    adminssionredirected?: AdmissionRedirectedUncheckedCreateNestedManyWithoutDoctorInput
   }
 
   export type DoctorsCreateOrConnectWithoutOpdQueueInput = {
@@ -20017,6 +24299,7 @@ export namespace Prisma {
     department?: DepartmentsUpdateOneRequiredWithoutDoctorsNestedInput
     admissions?: AdmissionUpdateManyWithoutDoctorNestedInput
     patientInstances?: PatientInstanceUpdateManyWithoutDoctorNestedInput
+    adminssionredirected?: AdmissionRedirectedUpdateManyWithoutDoctorNestedInput
   }
 
   export type DoctorsUncheckedUpdateWithoutOpdQueueInput = {
@@ -20032,6 +24315,7 @@ export namespace Prisma {
     hospitalCode?: StringFieldUpdateOperationsInput | string
     admissions?: AdmissionUncheckedUpdateManyWithoutDoctorNestedInput
     patientInstances?: PatientInstanceUncheckedUpdateManyWithoutDoctorNestedInput
+    adminssionredirected?: AdmissionRedirectedUncheckedUpdateManyWithoutDoctorNestedInput
   }
 
   export type WardCreateWithoutBedsInput = {
@@ -20040,6 +24324,7 @@ export namespace Prisma {
     totalBeds: number
     availableBeds: number
     admissions?: AdmissionCreateNestedManyWithoutWardInput
+    admissionsredirected?: AdmissionRedirectedCreateNestedManyWithoutWardInput
   }
 
   export type WardUncheckedCreateWithoutBedsInput = {
@@ -20048,6 +24333,7 @@ export namespace Prisma {
     totalBeds: number
     availableBeds: number
     admissions?: AdmissionUncheckedCreateNestedManyWithoutWardInput
+    admissionsredirected?: AdmissionRedirectedUncheckedCreateNestedManyWithoutWardInput
   }
 
   export type WardCreateOrConnectWithoutBedsInput = {
@@ -20079,6 +24365,30 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type AdmissionRedirectedCreateWithoutBedInput = {
+    id?: string
+    patient: PatientInstanceRedirectedCreateNestedOneWithoutAdmissionInput
+    ward?: WardCreateNestedOneWithoutAdmissionsredirectedInput
+    doctor: DoctorsCreateNestedOneWithoutAdminssionredirectedInput
+  }
+
+  export type AdmissionRedirectedUncheckedCreateWithoutBedInput = {
+    id?: string
+    patientId: string
+    wardId?: string | null
+    doctorId: string
+  }
+
+  export type AdmissionRedirectedCreateOrConnectWithoutBedInput = {
+    where: AdmissionRedirectedWhereUniqueInput
+    create: XOR<AdmissionRedirectedCreateWithoutBedInput, AdmissionRedirectedUncheckedCreateWithoutBedInput>
+  }
+
+  export type AdmissionRedirectedCreateManyBedInputEnvelope = {
+    data: AdmissionRedirectedCreateManyBedInput | AdmissionRedirectedCreateManyBedInput[]
+    skipDuplicates?: boolean
+  }
+
   export type WardUpsertWithoutBedsInput = {
     update: XOR<WardUpdateWithoutBedsInput, WardUncheckedUpdateWithoutBedsInput>
     create: XOR<WardCreateWithoutBedsInput, WardUncheckedCreateWithoutBedsInput>
@@ -20096,6 +24406,7 @@ export namespace Prisma {
     totalBeds?: IntFieldUpdateOperationsInput | number
     availableBeds?: IntFieldUpdateOperationsInput | number
     admissions?: AdmissionUpdateManyWithoutWardNestedInput
+    admissionsredirected?: AdmissionRedirectedUpdateManyWithoutWardNestedInput
   }
 
   export type WardUncheckedUpdateWithoutBedsInput = {
@@ -20104,6 +24415,7 @@ export namespace Prisma {
     totalBeds?: IntFieldUpdateOperationsInput | number
     availableBeds?: IntFieldUpdateOperationsInput | number
     admissions?: AdmissionUncheckedUpdateManyWithoutWardNestedInput
+    admissionsredirected?: AdmissionRedirectedUncheckedUpdateManyWithoutWardNestedInput
   }
 
   export type AdmissionUpsertWithWhereUniqueWithoutBedInput = {
@@ -20122,11 +24434,28 @@ export namespace Prisma {
     data: XOR<AdmissionUpdateManyMutationInput, AdmissionUncheckedUpdateManyWithoutBedInput>
   }
 
+  export type AdmissionRedirectedUpsertWithWhereUniqueWithoutBedInput = {
+    where: AdmissionRedirectedWhereUniqueInput
+    update: XOR<AdmissionRedirectedUpdateWithoutBedInput, AdmissionRedirectedUncheckedUpdateWithoutBedInput>
+    create: XOR<AdmissionRedirectedCreateWithoutBedInput, AdmissionRedirectedUncheckedCreateWithoutBedInput>
+  }
+
+  export type AdmissionRedirectedUpdateWithWhereUniqueWithoutBedInput = {
+    where: AdmissionRedirectedWhereUniqueInput
+    data: XOR<AdmissionRedirectedUpdateWithoutBedInput, AdmissionRedirectedUncheckedUpdateWithoutBedInput>
+  }
+
+  export type AdmissionRedirectedUpdateManyWithWhereWithoutBedInput = {
+    where: AdmissionRedirectedScalarWhereInput
+    data: XOR<AdmissionRedirectedUpdateManyMutationInput, AdmissionRedirectedUncheckedUpdateManyWithoutBedInput>
+  }
+
   export type BedCreateWithoutWardInput = {
     id?: string
     bedNumber: string
     status: $Enums.BedStatus
     admissions?: AdmissionCreateNestedManyWithoutBedInput
+    admissionsredirected?: AdmissionRedirectedCreateNestedManyWithoutBedInput
   }
 
   export type BedUncheckedCreateWithoutWardInput = {
@@ -20134,6 +24463,7 @@ export namespace Prisma {
     bedNumber: string
     status: $Enums.BedStatus
     admissions?: AdmissionUncheckedCreateNestedManyWithoutBedInput
+    admissionsredirected?: AdmissionRedirectedUncheckedCreateNestedManyWithoutBedInput
   }
 
   export type BedCreateOrConnectWithoutWardInput = {
@@ -20167,6 +24497,30 @@ export namespace Prisma {
 
   export type AdmissionCreateManyWardInputEnvelope = {
     data: AdmissionCreateManyWardInput | AdmissionCreateManyWardInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AdmissionRedirectedCreateWithoutWardInput = {
+    id?: string
+    patient: PatientInstanceRedirectedCreateNestedOneWithoutAdmissionInput
+    bed?: BedCreateNestedOneWithoutAdmissionsredirectedInput
+    doctor: DoctorsCreateNestedOneWithoutAdminssionredirectedInput
+  }
+
+  export type AdmissionRedirectedUncheckedCreateWithoutWardInput = {
+    id?: string
+    patientId: string
+    bedId?: string | null
+    doctorId: string
+  }
+
+  export type AdmissionRedirectedCreateOrConnectWithoutWardInput = {
+    where: AdmissionRedirectedWhereUniqueInput
+    create: XOR<AdmissionRedirectedCreateWithoutWardInput, AdmissionRedirectedUncheckedCreateWithoutWardInput>
+  }
+
+  export type AdmissionRedirectedCreateManyWardInputEnvelope = {
+    data: AdmissionRedirectedCreateManyWardInput | AdmissionRedirectedCreateManyWardInput[]
     skipDuplicates?: boolean
   }
 
@@ -20212,6 +24566,22 @@ export namespace Prisma {
     data: XOR<AdmissionUpdateManyMutationInput, AdmissionUncheckedUpdateManyWithoutWardInput>
   }
 
+  export type AdmissionRedirectedUpsertWithWhereUniqueWithoutWardInput = {
+    where: AdmissionRedirectedWhereUniqueInput
+    update: XOR<AdmissionRedirectedUpdateWithoutWardInput, AdmissionRedirectedUncheckedUpdateWithoutWardInput>
+    create: XOR<AdmissionRedirectedCreateWithoutWardInput, AdmissionRedirectedUncheckedCreateWithoutWardInput>
+  }
+
+  export type AdmissionRedirectedUpdateWithWhereUniqueWithoutWardInput = {
+    where: AdmissionRedirectedWhereUniqueInput
+    data: XOR<AdmissionRedirectedUpdateWithoutWardInput, AdmissionRedirectedUncheckedUpdateWithoutWardInput>
+  }
+
+  export type AdmissionRedirectedUpdateManyWithWhereWithoutWardInput = {
+    where: AdmissionRedirectedScalarWhereInput
+    data: XOR<AdmissionRedirectedUpdateManyMutationInput, AdmissionRedirectedUncheckedUpdateManyWithoutWardInput>
+  }
+
   export type DoctorsCreateWithoutPatientInstancesInput = {
     id?: string
     name: string
@@ -20225,6 +24595,7 @@ export namespace Prisma {
     department: DepartmentsCreateNestedOneWithoutDoctorsInput
     opdQueue?: OPDQueueCreateNestedManyWithoutDoctorInput
     admissions?: AdmissionCreateNestedManyWithoutDoctorInput
+    adminssionredirected?: AdmissionRedirectedCreateNestedManyWithoutDoctorInput
   }
 
   export type DoctorsUncheckedCreateWithoutPatientInstancesInput = {
@@ -20240,6 +24611,7 @@ export namespace Prisma {
     hospitalCode?: string
     opdQueue?: OPDQueueUncheckedCreateNestedManyWithoutDoctorInput
     admissions?: AdmissionUncheckedCreateNestedManyWithoutDoctorInput
+    adminssionredirected?: AdmissionRedirectedUncheckedCreateNestedManyWithoutDoctorInput
   }
 
   export type DoctorsCreateOrConnectWithoutPatientInstancesInput = {
@@ -20323,6 +24695,7 @@ export namespace Prisma {
     department?: DepartmentsUpdateOneRequiredWithoutDoctorsNestedInput
     opdQueue?: OPDQueueUpdateManyWithoutDoctorNestedInput
     admissions?: AdmissionUpdateManyWithoutDoctorNestedInput
+    adminssionredirected?: AdmissionRedirectedUpdateManyWithoutDoctorNestedInput
   }
 
   export type DoctorsUncheckedUpdateWithoutPatientInstancesInput = {
@@ -20338,6 +24711,7 @@ export namespace Prisma {
     hospitalCode?: StringFieldUpdateOperationsInput | string
     opdQueue?: OPDQueueUncheckedUpdateManyWithoutDoctorNestedInput
     admissions?: AdmissionUncheckedUpdateManyWithoutDoctorNestedInput
+    adminssionredirected?: AdmissionRedirectedUncheckedUpdateManyWithoutDoctorNestedInput
   }
 
   export type OPDQueueUpsertWithWhereUniqueWithoutPatientInstanceInput = {
@@ -20370,6 +24744,282 @@ export namespace Prisma {
   export type AdmissionUpdateManyWithWhereWithoutPatinetInput = {
     where: AdmissionScalarWhereInput
     data: XOR<AdmissionUpdateManyMutationInput, AdmissionUncheckedUpdateManyWithoutPatinetInput>
+  }
+
+  export type AdmissionRedirectedCreateWithoutPatientInput = {
+    id?: string
+    ward?: WardCreateNestedOneWithoutAdmissionsredirectedInput
+    bed?: BedCreateNestedOneWithoutAdmissionsredirectedInput
+    doctor: DoctorsCreateNestedOneWithoutAdminssionredirectedInput
+  }
+
+  export type AdmissionRedirectedUncheckedCreateWithoutPatientInput = {
+    id?: string
+    wardId?: string | null
+    bedId?: string | null
+    doctorId: string
+  }
+
+  export type AdmissionRedirectedCreateOrConnectWithoutPatientInput = {
+    where: AdmissionRedirectedWhereUniqueInput
+    create: XOR<AdmissionRedirectedCreateWithoutPatientInput, AdmissionRedirectedUncheckedCreateWithoutPatientInput>
+  }
+
+  export type AdmissionRedirectedCreateManyPatientInputEnvelope = {
+    data: AdmissionRedirectedCreateManyPatientInput | AdmissionRedirectedCreateManyPatientInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AdmissionRedirectedUpsertWithWhereUniqueWithoutPatientInput = {
+    where: AdmissionRedirectedWhereUniqueInput
+    update: XOR<AdmissionRedirectedUpdateWithoutPatientInput, AdmissionRedirectedUncheckedUpdateWithoutPatientInput>
+    create: XOR<AdmissionRedirectedCreateWithoutPatientInput, AdmissionRedirectedUncheckedCreateWithoutPatientInput>
+  }
+
+  export type AdmissionRedirectedUpdateWithWhereUniqueWithoutPatientInput = {
+    where: AdmissionRedirectedWhereUniqueInput
+    data: XOR<AdmissionRedirectedUpdateWithoutPatientInput, AdmissionRedirectedUncheckedUpdateWithoutPatientInput>
+  }
+
+  export type AdmissionRedirectedUpdateManyWithWhereWithoutPatientInput = {
+    where: AdmissionRedirectedScalarWhereInput
+    data: XOR<AdmissionRedirectedUpdateManyMutationInput, AdmissionRedirectedUncheckedUpdateManyWithoutPatientInput>
+  }
+
+  export type PatientInstanceRedirectedCreateWithoutAdmissionInput = {
+    id?: string
+    abhaId: string
+    name: string
+    age: number
+    gender: string
+    reason: string
+    medications?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type PatientInstanceRedirectedUncheckedCreateWithoutAdmissionInput = {
+    id?: string
+    abhaId: string
+    name: string
+    age: number
+    gender: string
+    reason: string
+    medications?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type PatientInstanceRedirectedCreateOrConnectWithoutAdmissionInput = {
+    where: PatientInstanceRedirectedWhereUniqueInput
+    create: XOR<PatientInstanceRedirectedCreateWithoutAdmissionInput, PatientInstanceRedirectedUncheckedCreateWithoutAdmissionInput>
+  }
+
+  export type WardCreateWithoutAdmissionsredirectedInput = {
+    id?: string
+    name: string
+    totalBeds: number
+    availableBeds: number
+    beds?: BedCreateNestedManyWithoutWardInput
+    admissions?: AdmissionCreateNestedManyWithoutWardInput
+  }
+
+  export type WardUncheckedCreateWithoutAdmissionsredirectedInput = {
+    id?: string
+    name: string
+    totalBeds: number
+    availableBeds: number
+    beds?: BedUncheckedCreateNestedManyWithoutWardInput
+    admissions?: AdmissionUncheckedCreateNestedManyWithoutWardInput
+  }
+
+  export type WardCreateOrConnectWithoutAdmissionsredirectedInput = {
+    where: WardWhereUniqueInput
+    create: XOR<WardCreateWithoutAdmissionsredirectedInput, WardUncheckedCreateWithoutAdmissionsredirectedInput>
+  }
+
+  export type BedCreateWithoutAdmissionsredirectedInput = {
+    id?: string
+    bedNumber: string
+    status: $Enums.BedStatus
+    ward: WardCreateNestedOneWithoutBedsInput
+    admissions?: AdmissionCreateNestedManyWithoutBedInput
+  }
+
+  export type BedUncheckedCreateWithoutAdmissionsredirectedInput = {
+    id?: string
+    bedNumber: string
+    wardId: string
+    status: $Enums.BedStatus
+    admissions?: AdmissionUncheckedCreateNestedManyWithoutBedInput
+  }
+
+  export type BedCreateOrConnectWithoutAdmissionsredirectedInput = {
+    where: BedWhereUniqueInput
+    create: XOR<BedCreateWithoutAdmissionsredirectedInput, BedUncheckedCreateWithoutAdmissionsredirectedInput>
+  }
+
+  export type DoctorsCreateWithoutAdminssionredirectedInput = {
+    id?: string
+    name: string
+    gender: string
+    designation: $Enums.DesignationType
+    contact: string
+    email: string
+    password: string
+    active: boolean
+    hospitalCode?: string
+    department: DepartmentsCreateNestedOneWithoutDoctorsInput
+    opdQueue?: OPDQueueCreateNestedManyWithoutDoctorInput
+    admissions?: AdmissionCreateNestedManyWithoutDoctorInput
+    patientInstances?: PatientInstanceCreateNestedManyWithoutDoctorInput
+  }
+
+  export type DoctorsUncheckedCreateWithoutAdminssionredirectedInput = {
+    id?: string
+    name: string
+    gender: string
+    designation: $Enums.DesignationType
+    contact: string
+    email: string
+    password: string
+    active: boolean
+    departmentId: string
+    hospitalCode?: string
+    opdQueue?: OPDQueueUncheckedCreateNestedManyWithoutDoctorInput
+    admissions?: AdmissionUncheckedCreateNestedManyWithoutDoctorInput
+    patientInstances?: PatientInstanceUncheckedCreateNestedManyWithoutDoctorInput
+  }
+
+  export type DoctorsCreateOrConnectWithoutAdminssionredirectedInput = {
+    where: DoctorsWhereUniqueInput
+    create: XOR<DoctorsCreateWithoutAdminssionredirectedInput, DoctorsUncheckedCreateWithoutAdminssionredirectedInput>
+  }
+
+  export type PatientInstanceRedirectedUpsertWithoutAdmissionInput = {
+    update: XOR<PatientInstanceRedirectedUpdateWithoutAdmissionInput, PatientInstanceRedirectedUncheckedUpdateWithoutAdmissionInput>
+    create: XOR<PatientInstanceRedirectedCreateWithoutAdmissionInput, PatientInstanceRedirectedUncheckedCreateWithoutAdmissionInput>
+    where?: PatientInstanceRedirectedWhereInput
+  }
+
+  export type PatientInstanceRedirectedUpdateToOneWithWhereWithoutAdmissionInput = {
+    where?: PatientInstanceRedirectedWhereInput
+    data: XOR<PatientInstanceRedirectedUpdateWithoutAdmissionInput, PatientInstanceRedirectedUncheckedUpdateWithoutAdmissionInput>
+  }
+
+  export type PatientInstanceRedirectedUpdateWithoutAdmissionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    abhaId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    age?: IntFieldUpdateOperationsInput | number
+    gender?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    medications?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type PatientInstanceRedirectedUncheckedUpdateWithoutAdmissionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    abhaId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    age?: IntFieldUpdateOperationsInput | number
+    gender?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    medications?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type WardUpsertWithoutAdmissionsredirectedInput = {
+    update: XOR<WardUpdateWithoutAdmissionsredirectedInput, WardUncheckedUpdateWithoutAdmissionsredirectedInput>
+    create: XOR<WardCreateWithoutAdmissionsredirectedInput, WardUncheckedCreateWithoutAdmissionsredirectedInput>
+    where?: WardWhereInput
+  }
+
+  export type WardUpdateToOneWithWhereWithoutAdmissionsredirectedInput = {
+    where?: WardWhereInput
+    data: XOR<WardUpdateWithoutAdmissionsredirectedInput, WardUncheckedUpdateWithoutAdmissionsredirectedInput>
+  }
+
+  export type WardUpdateWithoutAdmissionsredirectedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    totalBeds?: IntFieldUpdateOperationsInput | number
+    availableBeds?: IntFieldUpdateOperationsInput | number
+    beds?: BedUpdateManyWithoutWardNestedInput
+    admissions?: AdmissionUpdateManyWithoutWardNestedInput
+  }
+
+  export type WardUncheckedUpdateWithoutAdmissionsredirectedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    totalBeds?: IntFieldUpdateOperationsInput | number
+    availableBeds?: IntFieldUpdateOperationsInput | number
+    beds?: BedUncheckedUpdateManyWithoutWardNestedInput
+    admissions?: AdmissionUncheckedUpdateManyWithoutWardNestedInput
+  }
+
+  export type BedUpsertWithoutAdmissionsredirectedInput = {
+    update: XOR<BedUpdateWithoutAdmissionsredirectedInput, BedUncheckedUpdateWithoutAdmissionsredirectedInput>
+    create: XOR<BedCreateWithoutAdmissionsredirectedInput, BedUncheckedCreateWithoutAdmissionsredirectedInput>
+    where?: BedWhereInput
+  }
+
+  export type BedUpdateToOneWithWhereWithoutAdmissionsredirectedInput = {
+    where?: BedWhereInput
+    data: XOR<BedUpdateWithoutAdmissionsredirectedInput, BedUncheckedUpdateWithoutAdmissionsredirectedInput>
+  }
+
+  export type BedUpdateWithoutAdmissionsredirectedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    bedNumber?: StringFieldUpdateOperationsInput | string
+    status?: EnumBedStatusFieldUpdateOperationsInput | $Enums.BedStatus
+    ward?: WardUpdateOneRequiredWithoutBedsNestedInput
+    admissions?: AdmissionUpdateManyWithoutBedNestedInput
+  }
+
+  export type BedUncheckedUpdateWithoutAdmissionsredirectedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    bedNumber?: StringFieldUpdateOperationsInput | string
+    wardId?: StringFieldUpdateOperationsInput | string
+    status?: EnumBedStatusFieldUpdateOperationsInput | $Enums.BedStatus
+    admissions?: AdmissionUncheckedUpdateManyWithoutBedNestedInput
+  }
+
+  export type DoctorsUpsertWithoutAdminssionredirectedInput = {
+    update: XOR<DoctorsUpdateWithoutAdminssionredirectedInput, DoctorsUncheckedUpdateWithoutAdminssionredirectedInput>
+    create: XOR<DoctorsCreateWithoutAdminssionredirectedInput, DoctorsUncheckedCreateWithoutAdminssionredirectedInput>
+    where?: DoctorsWhereInput
+  }
+
+  export type DoctorsUpdateToOneWithWhereWithoutAdminssionredirectedInput = {
+    where?: DoctorsWhereInput
+    data: XOR<DoctorsUpdateWithoutAdminssionredirectedInput, DoctorsUncheckedUpdateWithoutAdminssionredirectedInput>
+  }
+
+  export type DoctorsUpdateWithoutAdminssionredirectedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
+    designation?: EnumDesignationTypeFieldUpdateOperationsInput | $Enums.DesignationType
+    contact?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    hospitalCode?: StringFieldUpdateOperationsInput | string
+    department?: DepartmentsUpdateOneRequiredWithoutDoctorsNestedInput
+    opdQueue?: OPDQueueUpdateManyWithoutDoctorNestedInput
+    admissions?: AdmissionUpdateManyWithoutDoctorNestedInput
+    patientInstances?: PatientInstanceUpdateManyWithoutDoctorNestedInput
+  }
+
+  export type DoctorsUncheckedUpdateWithoutAdminssionredirectedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
+    designation?: EnumDesignationTypeFieldUpdateOperationsInput | $Enums.DesignationType
+    contact?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    departmentId?: StringFieldUpdateOperationsInput | string
+    hospitalCode?: StringFieldUpdateOperationsInput | string
+    opdQueue?: OPDQueueUncheckedUpdateManyWithoutDoctorNestedInput
+    admissions?: AdmissionUncheckedUpdateManyWithoutDoctorNestedInput
+    patientInstances?: PatientInstanceUncheckedUpdateManyWithoutDoctorNestedInput
   }
 
   export type PatientInstanceCreateWithoutAdmissionInput = {
@@ -20413,6 +25063,7 @@ export namespace Prisma {
     totalBeds: number
     availableBeds: number
     beds?: BedCreateNestedManyWithoutWardInput
+    admissionsredirected?: AdmissionRedirectedCreateNestedManyWithoutWardInput
   }
 
   export type WardUncheckedCreateWithoutAdmissionsInput = {
@@ -20421,6 +25072,7 @@ export namespace Prisma {
     totalBeds: number
     availableBeds: number
     beds?: BedUncheckedCreateNestedManyWithoutWardInput
+    admissionsredirected?: AdmissionRedirectedUncheckedCreateNestedManyWithoutWardInput
   }
 
   export type WardCreateOrConnectWithoutAdmissionsInput = {
@@ -20433,6 +25085,7 @@ export namespace Prisma {
     bedNumber: string
     status: $Enums.BedStatus
     ward: WardCreateNestedOneWithoutBedsInput
+    admissionsredirected?: AdmissionRedirectedCreateNestedManyWithoutBedInput
   }
 
   export type BedUncheckedCreateWithoutAdmissionsInput = {
@@ -20440,6 +25093,7 @@ export namespace Prisma {
     bedNumber: string
     wardId: string
     status: $Enums.BedStatus
+    admissionsredirected?: AdmissionRedirectedUncheckedCreateNestedManyWithoutBedInput
   }
 
   export type BedCreateOrConnectWithoutAdmissionsInput = {
@@ -20460,6 +25114,7 @@ export namespace Prisma {
     department: DepartmentsCreateNestedOneWithoutDoctorsInput
     opdQueue?: OPDQueueCreateNestedManyWithoutDoctorInput
     patientInstances?: PatientInstanceCreateNestedManyWithoutDoctorInput
+    adminssionredirected?: AdmissionRedirectedCreateNestedManyWithoutDoctorInput
   }
 
   export type DoctorsUncheckedCreateWithoutAdmissionsInput = {
@@ -20475,6 +25130,7 @@ export namespace Prisma {
     hospitalCode?: string
     opdQueue?: OPDQueueUncheckedCreateNestedManyWithoutDoctorInput
     patientInstances?: PatientInstanceUncheckedCreateNestedManyWithoutDoctorInput
+    adminssionredirected?: AdmissionRedirectedUncheckedCreateNestedManyWithoutDoctorInput
   }
 
   export type DoctorsCreateOrConnectWithoutAdmissionsInput = {
@@ -20540,6 +25196,7 @@ export namespace Prisma {
     totalBeds?: IntFieldUpdateOperationsInput | number
     availableBeds?: IntFieldUpdateOperationsInput | number
     beds?: BedUpdateManyWithoutWardNestedInput
+    admissionsredirected?: AdmissionRedirectedUpdateManyWithoutWardNestedInput
   }
 
   export type WardUncheckedUpdateWithoutAdmissionsInput = {
@@ -20548,6 +25205,7 @@ export namespace Prisma {
     totalBeds?: IntFieldUpdateOperationsInput | number
     availableBeds?: IntFieldUpdateOperationsInput | number
     beds?: BedUncheckedUpdateManyWithoutWardNestedInput
+    admissionsredirected?: AdmissionRedirectedUncheckedUpdateManyWithoutWardNestedInput
   }
 
   export type BedUpsertWithoutAdmissionsInput = {
@@ -20566,6 +25224,7 @@ export namespace Prisma {
     bedNumber?: StringFieldUpdateOperationsInput | string
     status?: EnumBedStatusFieldUpdateOperationsInput | $Enums.BedStatus
     ward?: WardUpdateOneRequiredWithoutBedsNestedInput
+    admissionsredirected?: AdmissionRedirectedUpdateManyWithoutBedNestedInput
   }
 
   export type BedUncheckedUpdateWithoutAdmissionsInput = {
@@ -20573,6 +25232,7 @@ export namespace Prisma {
     bedNumber?: StringFieldUpdateOperationsInput | string
     wardId?: StringFieldUpdateOperationsInput | string
     status?: EnumBedStatusFieldUpdateOperationsInput | $Enums.BedStatus
+    admissionsredirected?: AdmissionRedirectedUncheckedUpdateManyWithoutBedNestedInput
   }
 
   export type DoctorsUpsertWithoutAdmissionsInput = {
@@ -20599,6 +25259,7 @@ export namespace Prisma {
     department?: DepartmentsUpdateOneRequiredWithoutDoctorsNestedInput
     opdQueue?: OPDQueueUpdateManyWithoutDoctorNestedInput
     patientInstances?: PatientInstanceUpdateManyWithoutDoctorNestedInput
+    adminssionredirected?: AdmissionRedirectedUpdateManyWithoutDoctorNestedInput
   }
 
   export type DoctorsUncheckedUpdateWithoutAdmissionsInput = {
@@ -20614,6 +25275,7 @@ export namespace Prisma {
     hospitalCode?: StringFieldUpdateOperationsInput | string
     opdQueue?: OPDQueueUncheckedUpdateManyWithoutDoctorNestedInput
     patientInstances?: PatientInstanceUncheckedUpdateManyWithoutDoctorNestedInput
+    adminssionredirected?: AdmissionRedirectedUncheckedUpdateManyWithoutDoctorNestedInput
   }
 
   export type DepartmentsCreateWithoutIntimationInput = {
@@ -21166,6 +25828,13 @@ export namespace Prisma {
     visitType: $Enums.VisitType
   }
 
+  export type AdmissionRedirectedCreateManyDoctorInput = {
+    id?: string
+    patientId: string
+    wardId?: string | null
+    bedId?: string | null
+  }
+
   export type OPDQueueUpdateWithoutDoctorInput = {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumQueueStatusFieldUpdateOperationsInput | $Enums.QueueStatus
@@ -21257,6 +25926,27 @@ export namespace Prisma {
     visitType?: EnumVisitTypeFieldUpdateOperationsInput | $Enums.VisitType
   }
 
+  export type AdmissionRedirectedUpdateWithoutDoctorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    patient?: PatientInstanceRedirectedUpdateOneRequiredWithoutAdmissionNestedInput
+    ward?: WardUpdateOneWithoutAdmissionsredirectedNestedInput
+    bed?: BedUpdateOneWithoutAdmissionsredirectedNestedInput
+  }
+
+  export type AdmissionRedirectedUncheckedUpdateWithoutDoctorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    patientId?: StringFieldUpdateOperationsInput | string
+    wardId?: NullableStringFieldUpdateOperationsInput | string | null
+    bedId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AdmissionRedirectedUncheckedUpdateManyWithoutDoctorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    patientId?: StringFieldUpdateOperationsInput | string
+    wardId?: NullableStringFieldUpdateOperationsInput | string | null
+    bedId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type DoctorsCreateManyDepartmentInput = {
     id?: string
     name: string
@@ -21297,6 +25987,7 @@ export namespace Prisma {
     opdQueue?: OPDQueueUpdateManyWithoutDoctorNestedInput
     admissions?: AdmissionUpdateManyWithoutDoctorNestedInput
     patientInstances?: PatientInstanceUpdateManyWithoutDoctorNestedInput
+    adminssionredirected?: AdmissionRedirectedUpdateManyWithoutDoctorNestedInput
   }
 
   export type DoctorsUncheckedUpdateWithoutDepartmentInput = {
@@ -21312,6 +26003,7 @@ export namespace Prisma {
     opdQueue?: OPDQueueUncheckedUpdateManyWithoutDoctorNestedInput
     admissions?: AdmissionUncheckedUpdateManyWithoutDoctorNestedInput
     patientInstances?: PatientInstanceUncheckedUpdateManyWithoutDoctorNestedInput
+    adminssionredirected?: AdmissionRedirectedUncheckedUpdateManyWithoutDoctorNestedInput
   }
 
   export type DoctorsUncheckedUpdateManyWithoutDepartmentInput = {
@@ -21376,6 +26068,13 @@ export namespace Prisma {
     doctorId: string
   }
 
+  export type AdmissionRedirectedCreateManyBedInput = {
+    id?: string
+    patientId: string
+    wardId?: string | null
+    doctorId: string
+  }
+
   export type AdmissionUpdateWithoutBedInput = {
     id?: StringFieldUpdateOperationsInput | string
     patinet?: PatientInstanceUpdateOneRequiredWithoutAdmissionNestedInput
@@ -21397,6 +26096,27 @@ export namespace Prisma {
     doctorId?: StringFieldUpdateOperationsInput | string
   }
 
+  export type AdmissionRedirectedUpdateWithoutBedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    patient?: PatientInstanceRedirectedUpdateOneRequiredWithoutAdmissionNestedInput
+    ward?: WardUpdateOneWithoutAdmissionsredirectedNestedInput
+    doctor?: DoctorsUpdateOneRequiredWithoutAdminssionredirectedNestedInput
+  }
+
+  export type AdmissionRedirectedUncheckedUpdateWithoutBedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    patientId?: StringFieldUpdateOperationsInput | string
+    wardId?: NullableStringFieldUpdateOperationsInput | string | null
+    doctorId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AdmissionRedirectedUncheckedUpdateManyWithoutBedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    patientId?: StringFieldUpdateOperationsInput | string
+    wardId?: NullableStringFieldUpdateOperationsInput | string | null
+    doctorId?: StringFieldUpdateOperationsInput | string
+  }
+
   export type BedCreateManyWardInput = {
     id?: string
     bedNumber: string
@@ -21410,11 +26130,19 @@ export namespace Prisma {
     doctorId: string
   }
 
+  export type AdmissionRedirectedCreateManyWardInput = {
+    id?: string
+    patientId: string
+    bedId?: string | null
+    doctorId: string
+  }
+
   export type BedUpdateWithoutWardInput = {
     id?: StringFieldUpdateOperationsInput | string
     bedNumber?: StringFieldUpdateOperationsInput | string
     status?: EnumBedStatusFieldUpdateOperationsInput | $Enums.BedStatus
     admissions?: AdmissionUpdateManyWithoutBedNestedInput
+    admissionsredirected?: AdmissionRedirectedUpdateManyWithoutBedNestedInput
   }
 
   export type BedUncheckedUpdateWithoutWardInput = {
@@ -21422,6 +26150,7 @@ export namespace Prisma {
     bedNumber?: StringFieldUpdateOperationsInput | string
     status?: EnumBedStatusFieldUpdateOperationsInput | $Enums.BedStatus
     admissions?: AdmissionUncheckedUpdateManyWithoutBedNestedInput
+    admissionsredirected?: AdmissionRedirectedUncheckedUpdateManyWithoutBedNestedInput
   }
 
   export type BedUncheckedUpdateManyWithoutWardInput = {
@@ -21445,6 +26174,27 @@ export namespace Prisma {
   }
 
   export type AdmissionUncheckedUpdateManyWithoutWardInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    patientId?: StringFieldUpdateOperationsInput | string
+    bedId?: NullableStringFieldUpdateOperationsInput | string | null
+    doctorId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AdmissionRedirectedUpdateWithoutWardInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    patient?: PatientInstanceRedirectedUpdateOneRequiredWithoutAdmissionNestedInput
+    bed?: BedUpdateOneWithoutAdmissionsredirectedNestedInput
+    doctor?: DoctorsUpdateOneRequiredWithoutAdminssionredirectedNestedInput
+  }
+
+  export type AdmissionRedirectedUncheckedUpdateWithoutWardInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    patientId?: StringFieldUpdateOperationsInput | string
+    bedId?: NullableStringFieldUpdateOperationsInput | string | null
+    doctorId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AdmissionRedirectedUncheckedUpdateManyWithoutWardInput = {
     id?: StringFieldUpdateOperationsInput | string
     patientId?: StringFieldUpdateOperationsInput | string
     bedId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21509,6 +26259,34 @@ export namespace Prisma {
   }
 
   export type AdmissionUncheckedUpdateManyWithoutPatinetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    wardId?: NullableStringFieldUpdateOperationsInput | string | null
+    bedId?: NullableStringFieldUpdateOperationsInput | string | null
+    doctorId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AdmissionRedirectedCreateManyPatientInput = {
+    id?: string
+    wardId?: string | null
+    bedId?: string | null
+    doctorId: string
+  }
+
+  export type AdmissionRedirectedUpdateWithoutPatientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ward?: WardUpdateOneWithoutAdmissionsredirectedNestedInput
+    bed?: BedUpdateOneWithoutAdmissionsredirectedNestedInput
+    doctor?: DoctorsUpdateOneRequiredWithoutAdminssionredirectedNestedInput
+  }
+
+  export type AdmissionRedirectedUncheckedUpdateWithoutPatientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    wardId?: NullableStringFieldUpdateOperationsInput | string | null
+    bedId?: NullableStringFieldUpdateOperationsInput | string | null
+    doctorId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AdmissionRedirectedUncheckedUpdateManyWithoutPatientInput = {
     id?: StringFieldUpdateOperationsInput | string
     wardId?: NullableStringFieldUpdateOperationsInput | string | null
     bedId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21743,6 +26521,10 @@ export namespace Prisma {
      */
     export type PatientInstanceCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PatientInstanceCountOutputTypeDefaultArgs<ExtArgs>
     /**
+     * @deprecated Use PatientInstanceRedirectedCountOutputTypeDefaultArgs instead
+     */
+    export type PatientInstanceRedirectedCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PatientInstanceRedirectedCountOutputTypeDefaultArgs<ExtArgs>
+    /**
      * @deprecated Use MainStoreCountOutputTypeDefaultArgs instead
      */
     export type MainStoreCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = MainStoreCountOutputTypeDefaultArgs<ExtArgs>
@@ -21783,6 +26565,14 @@ export namespace Prisma {
      */
     export type PatientInstanceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PatientInstanceDefaultArgs<ExtArgs>
     /**
+     * @deprecated Use PatientInstanceRedirectedDefaultArgs instead
+     */
+    export type PatientInstanceRedirectedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PatientInstanceRedirectedDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use AdmissionRedirectedDefaultArgs instead
+     */
+    export type AdmissionRedirectedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AdmissionRedirectedDefaultArgs<ExtArgs>
+    /**
      * @deprecated Use AdmissionDefaultArgs instead
      */
     export type AdmissionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AdmissionDefaultArgs<ExtArgs>
@@ -21806,6 +26596,10 @@ export namespace Prisma {
      * @deprecated Use InventoryDefaultArgs instead
      */
     export type InventoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = InventoryDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use OPDdataDefaultArgs instead
+     */
+    export type OPDdataArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = OPDdataDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany
