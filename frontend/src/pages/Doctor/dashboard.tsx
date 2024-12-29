@@ -9,36 +9,26 @@ import axios from 'axios'
 import { BACKEND_URL, HOSPITAL_CODE } from '@/config'
 
 type Patient = {
-  id: number;
+  abhaId: number;
   name: string;
   age: number;
-  gender: string;
+  Gender: string;
   reason: string;
-  status: "Waiting" | "In Progress" | "Completed";
 };
 
 function PatientCard({ patient }: { patient: Patient }) {
-  const statusColors = {
-    Waiting: "bg-[#2E6F40] text-[#CFFFDC]",
-    "In Progress": "bg-[#68BA7F] text-[#253D2C]",
-    Completed: "bg-[#CFFFDC] text-[#2E6F40]",
-  };
-
   return (
-    <Link to={`/doctorconsultancy?abhaid=${patient.id}`} className="no-underline">
-      <Card key={patient.id} className="relative bg-white">
-        <CardHeader className={`${statusColors[patient.status]} px-4 py-2 rounded-t-md`}>
-          <div className="absolute top-2 right-2 rounded-full bg-[#253D2C] px-2 py-1 text-xs font-medium text-[#CFFFDC]">
-            {patient.status}
-          </div>
+    <Link to={`/doctorconsultancy?abhaid=${patient.abhaId}`} className="no-underline">
+      <Card key={patient.abhaId} className="relative bg-white">
+        <CardHeader className={` px-4 py-2 rounded-t-md`}>
           <div className="flex items-center gap-2">
             <Avatar className="border-2 border-[#CFFFDC]">
               <AvatarImage src="/placeholder.svg?height=40&width=40" alt={patient.name} />
-              <AvatarFallback>{patient.name.slice(0, 2).toUpperCase()}</AvatarFallback>
+              <AvatarFallback>{patient.name}</AvatarFallback>
             </Avatar>
             <div>
               <div className="font-medium text-[#253D2C]">{patient.name}</div>
-              <div className="text-sm text-[#253D2C]">{`${patient.age} years old, ${patient.gender}`}</div>
+              <div className="text-sm text-[#253D2C]">{`${patient.age} years old, ${patient.Gender}`}</div>
             </div>
           </div>
         </CardHeader>
@@ -66,15 +56,8 @@ export function DoctorDashboard() {
       })
       .then((response) => {
         if (response.data.success) {
-          const formattedPatients = response.data.patients.map((item: any) => ({
-            id: item.patientInstance.abhaId,
-            name: item.patientInstance.name,
-            age: item.patientInstance.age,
-            gender: item.patientInstance.Gender,
-            reason: item.patientInstance.reason,
-            status: item.status === "Pending" ? "Waiting" : item.status, 
-          }));
-          setPatients(formattedPatients);
+          console.log(response.data.patients)
+          setPatients(response.data.patients);
         } else {
           console.log("Failed to fetch patients:", response.data.message);
         }
@@ -131,9 +114,10 @@ export function DoctorDashboard() {
           <h1 className="text-2xl font-semibold mb-4 text-[#2E6F40]">{activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}</h1>
           {activeTab === 'outpatient' && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {patients.map(patient => (
-                <PatientCard key={patient.id} patient={patient} />
-              ))}
+              {patients.map(patient => {
+                console.log(patient )
+                return <PatientCard key={patient[0].abhaId} patient={patient[0]} />
+})}
             </div>
           )}
           {activeTab === 'inpatient' && (

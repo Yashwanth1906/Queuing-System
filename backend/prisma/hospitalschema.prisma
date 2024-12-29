@@ -229,6 +229,6 @@ model OPDdata{
 model DiseaseAnalysis{
   id String @id @default(uuid())
   date String
-  disease String
+  disease String @unique
   patientsCount Int
 }

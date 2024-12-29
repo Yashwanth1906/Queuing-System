@@ -88,40 +88,25 @@ const getQueuedPatients = async(req,res) =>{
     console.log(doctorId)
     try{
         
+        console.log(queue)
         const patients = await Promise.all(
             queue[doctorId].map(async (id) => {
-                return await prisma.patientInstance.findMany({
+                console.log(id.patientInstanceId)
+                return await prisma.PatientInstance.findMany({
                     where: {
-                        id:id.patientInstanceId
+                        abhaId:id.patientInstanceId
                     },
                     select: {
                         abhaId: true,
                         age: true,
                         Gender: true,
                         reason: true,
-                        name: true
+                        name: true,
                     }
                 });
             })
         );
 
-        // const patients = await prisma.OPDQueue.findMany({
-        //     where:{
-        //         doctorId:doctorId
-        //     },select:{
-        //         patientInstance:{
-        //             select:{
-        //                 abhaId :true,s
-        //                 age:true,
-        //                 Gender:true,
-        //                 reason:true,
-        //                 name:true
-        //             },
-        //         },
-        //         status:true,
-        //         queueNumber:true
-        //     }
-        // })
         console.log(patients)
         res.json({success:true,patients:patients})
     }catch(err){

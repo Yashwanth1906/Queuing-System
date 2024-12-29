@@ -37,11 +37,11 @@ export const insertPatient=(id)=>{
         let pos=-1;
         let currtime=formatTimeToHHMM(new Date());
         let flag=false;
-        for(let i=0;i<queue.length;i++)
+        for(let i=0;i<queue[id.doctorId].length;i++)
         {
-            if(!queue[i].intimated)
+            if(!queue[id.doctorId][i].intimated)
             {
-                if(queue[i].demotion<2 || fn(i,currtime))
+                if(queue[id.doctorId][i].demotion<2 || fn(i,currtime,id))
                 {
                     pos=i;
                     flag=true;
@@ -52,17 +52,17 @@ export const insertPatient=(id)=>{
         }
         if(!flag)
         {
-            queue[id.doctorId][i].push(id);
+            queue[id.doctorId].push(id);
         }
         else{
-            queue[id.doctorId].splice(pos, 0, queue[id]);
+            queue[id.doctorId].splice(pos, 0, id);
 
         }
     }
 
 }
 
-function fn( i, currtime)
+function fn( i, currtime,id)
 {
-    return timeDifferenceInHours(currtime,queue[i].timeStamp)<0.5;
+    return timeDifferenceInHours(currtime,queue[id.doctorId][i].timeStamp)<0.5;
 }

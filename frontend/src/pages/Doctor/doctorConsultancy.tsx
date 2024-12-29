@@ -125,10 +125,10 @@ export function DoctorConsultancy() {
       const abhaid = patient?.abhaId;
       const medications = { medicines, injections };
       const data = { medications, abhaid, feedback };
-
+      console.log(localStorage.getItem("hospitalcode"))
       const response = await axios.post(`${BACKEND_URL}/api/doctor/addmedications`, data, {
         headers: {
-          code: localStorage.getItem("hospitalcode"),
+          code: HOSPITAL_CODE,
           Authorization: localStorage.getItem("doctortoken"),
         }
       });
