@@ -58,7 +58,9 @@ model OPDQueue {
   status QueueStatus
   queueNumber Int
   intimated Boolean
-  timeStamp DateTime? @default(now())
+  priority Int?
+  demotion Int?
+  timeStamp String @default("")
 }
 
 enum QueueStatus {

@@ -5651,10 +5651,14 @@ export namespace Prisma {
 
   export type OPDQueueAvgAggregateOutputType = {
     queueNumber: number | null
+    priority: number | null
+    demotion: number | null
   }
 
   export type OPDQueueSumAggregateOutputType = {
     queueNumber: number | null
+    priority: number | null
+    demotion: number | null
   }
 
   export type OPDQueueMinAggregateOutputType = {
@@ -5664,7 +5668,9 @@ export namespace Prisma {
     status: $Enums.QueueStatus | null
     queueNumber: number | null
     intimated: boolean | null
-    timeStamp: Date | null
+    priority: number | null
+    demotion: number | null
+    timeStamp: string | null
   }
 
   export type OPDQueueMaxAggregateOutputType = {
@@ -5674,7 +5680,9 @@ export namespace Prisma {
     status: $Enums.QueueStatus | null
     queueNumber: number | null
     intimated: boolean | null
-    timeStamp: Date | null
+    priority: number | null
+    demotion: number | null
+    timeStamp: string | null
   }
 
   export type OPDQueueCountAggregateOutputType = {
@@ -5684,6 +5692,8 @@ export namespace Prisma {
     status: number
     queueNumber: number
     intimated: number
+    priority: number
+    demotion: number
     timeStamp: number
     _all: number
   }
@@ -5691,10 +5701,14 @@ export namespace Prisma {
 
   export type OPDQueueAvgAggregateInputType = {
     queueNumber?: true
+    priority?: true
+    demotion?: true
   }
 
   export type OPDQueueSumAggregateInputType = {
     queueNumber?: true
+    priority?: true
+    demotion?: true
   }
 
   export type OPDQueueMinAggregateInputType = {
@@ -5704,6 +5718,8 @@ export namespace Prisma {
     status?: true
     queueNumber?: true
     intimated?: true
+    priority?: true
+    demotion?: true
     timeStamp?: true
   }
 
@@ -5714,6 +5730,8 @@ export namespace Prisma {
     status?: true
     queueNumber?: true
     intimated?: true
+    priority?: true
+    demotion?: true
     timeStamp?: true
   }
 
@@ -5724,6 +5742,8 @@ export namespace Prisma {
     status?: true
     queueNumber?: true
     intimated?: true
+    priority?: true
+    demotion?: true
     timeStamp?: true
     _all?: true
   }
@@ -5821,7 +5841,9 @@ export namespace Prisma {
     status: $Enums.QueueStatus
     queueNumber: number
     intimated: boolean
-    timeStamp: Date | null
+    priority: number | null
+    demotion: number | null
+    timeStamp: string
     _count: OPDQueueCountAggregateOutputType | null
     _avg: OPDQueueAvgAggregateOutputType | null
     _sum: OPDQueueSumAggregateOutputType | null
@@ -5850,6 +5872,8 @@ export namespace Prisma {
     status?: boolean
     queueNumber?: boolean
     intimated?: boolean
+    priority?: boolean
+    demotion?: boolean
     timeStamp?: boolean
     patientInstance?: boolean | PatientInstanceDefaultArgs<ExtArgs>
     doctor?: boolean | DoctorsDefaultArgs<ExtArgs>
@@ -5862,6 +5886,8 @@ export namespace Prisma {
     status?: boolean
     queueNumber?: boolean
     intimated?: boolean
+    priority?: boolean
+    demotion?: boolean
     timeStamp?: boolean
     patientInstance?: boolean | PatientInstanceDefaultArgs<ExtArgs>
     doctor?: boolean | DoctorsDefaultArgs<ExtArgs>
@@ -5874,6 +5900,8 @@ export namespace Prisma {
     status?: boolean
     queueNumber?: boolean
     intimated?: boolean
+    priority?: boolean
+    demotion?: boolean
     timeStamp?: boolean
   }
 
@@ -5899,7 +5927,9 @@ export namespace Prisma {
       status: $Enums.QueueStatus
       queueNumber: number
       intimated: boolean
-      timeStamp: Date | null
+      priority: number | null
+      demotion: number | null
+      timeStamp: string
     }, ExtArgs["result"]["oPDQueue"]>
     composites: {}
   }
@@ -6301,7 +6331,9 @@ export namespace Prisma {
     readonly status: FieldRef<"OPDQueue", 'QueueStatus'>
     readonly queueNumber: FieldRef<"OPDQueue", 'Int'>
     readonly intimated: FieldRef<"OPDQueue", 'Boolean'>
-    readonly timeStamp: FieldRef<"OPDQueue", 'DateTime'>
+    readonly priority: FieldRef<"OPDQueue", 'Int'>
+    readonly demotion: FieldRef<"OPDQueue", 'Int'>
+    readonly timeStamp: FieldRef<"OPDQueue", 'String'>
   }
     
 
@@ -18641,6 +18673,8 @@ export namespace Prisma {
     status: 'status',
     queueNumber: 'queueNumber',
     intimated: 'intimated',
+    priority: 'priority',
+    demotion: 'demotion',
     timeStamp: 'timeStamp'
   };
 
@@ -18901,20 +18935,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'DateTime'
-   */
-  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
-    
-
-
-  /**
-   * Reference to a field of type 'DateTime[]'
-   */
-  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
-    
-
-
-  /**
    * Reference to a field of type 'BedStatus'
    */
   export type EnumBedStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BedStatus'>
@@ -18974,6 +18994,20 @@ export namespace Prisma {
    * Reference to a field of type 'Float[]'
    */
   export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime'
+   */
+  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime[]'
+   */
+  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
     
 
 
@@ -19192,7 +19226,9 @@ export namespace Prisma {
     status?: EnumQueueStatusFilter<"OPDQueue"> | $Enums.QueueStatus
     queueNumber?: IntFilter<"OPDQueue"> | number
     intimated?: BoolFilter<"OPDQueue"> | boolean
-    timeStamp?: DateTimeNullableFilter<"OPDQueue"> | Date | string | null
+    priority?: IntNullableFilter<"OPDQueue"> | number | null
+    demotion?: IntNullableFilter<"OPDQueue"> | number | null
+    timeStamp?: StringFilter<"OPDQueue"> | string
     patientInstance?: XOR<PatientInstanceRelationFilter, PatientInstanceWhereInput>
     doctor?: XOR<DoctorsRelationFilter, DoctorsWhereInput>
   }
@@ -19204,7 +19240,9 @@ export namespace Prisma {
     status?: SortOrder
     queueNumber?: SortOrder
     intimated?: SortOrder
-    timeStamp?: SortOrderInput | SortOrder
+    priority?: SortOrderInput | SortOrder
+    demotion?: SortOrderInput | SortOrder
+    timeStamp?: SortOrder
     patientInstance?: PatientInstanceOrderByWithRelationInput
     doctor?: DoctorsOrderByWithRelationInput
   }
@@ -19219,7 +19257,9 @@ export namespace Prisma {
     status?: EnumQueueStatusFilter<"OPDQueue"> | $Enums.QueueStatus
     queueNumber?: IntFilter<"OPDQueue"> | number
     intimated?: BoolFilter<"OPDQueue"> | boolean
-    timeStamp?: DateTimeNullableFilter<"OPDQueue"> | Date | string | null
+    priority?: IntNullableFilter<"OPDQueue"> | number | null
+    demotion?: IntNullableFilter<"OPDQueue"> | number | null
+    timeStamp?: StringFilter<"OPDQueue"> | string
     patientInstance?: XOR<PatientInstanceRelationFilter, PatientInstanceWhereInput>
     doctor?: XOR<DoctorsRelationFilter, DoctorsWhereInput>
   }, "id" | "patientInstanceId">
@@ -19231,7 +19271,9 @@ export namespace Prisma {
     status?: SortOrder
     queueNumber?: SortOrder
     intimated?: SortOrder
-    timeStamp?: SortOrderInput | SortOrder
+    priority?: SortOrderInput | SortOrder
+    demotion?: SortOrderInput | SortOrder
+    timeStamp?: SortOrder
     _count?: OPDQueueCountOrderByAggregateInput
     _avg?: OPDQueueAvgOrderByAggregateInput
     _max?: OPDQueueMaxOrderByAggregateInput
@@ -19249,7 +19291,9 @@ export namespace Prisma {
     status?: EnumQueueStatusWithAggregatesFilter<"OPDQueue"> | $Enums.QueueStatus
     queueNumber?: IntWithAggregatesFilter<"OPDQueue"> | number
     intimated?: BoolWithAggregatesFilter<"OPDQueue"> | boolean
-    timeStamp?: DateTimeNullableWithAggregatesFilter<"OPDQueue"> | Date | string | null
+    priority?: IntNullableWithAggregatesFilter<"OPDQueue"> | number | null
+    demotion?: IntNullableWithAggregatesFilter<"OPDQueue"> | number | null
+    timeStamp?: StringWithAggregatesFilter<"OPDQueue"> | string
   }
 
   export type BedWhereInput = {
@@ -20245,7 +20289,9 @@ export namespace Prisma {
     status: $Enums.QueueStatus
     queueNumber: number
     intimated: boolean
-    timeStamp?: Date | string | null
+    priority?: number | null
+    demotion?: number | null
+    timeStamp?: string
     patientInstance: PatientInstanceCreateNestedOneWithoutOpqueueInput
     doctor: DoctorsCreateNestedOneWithoutOpdQueueInput
   }
@@ -20257,7 +20303,9 @@ export namespace Prisma {
     status: $Enums.QueueStatus
     queueNumber: number
     intimated: boolean
-    timeStamp?: Date | string | null
+    priority?: number | null
+    demotion?: number | null
+    timeStamp?: string
   }
 
   export type OPDQueueUpdateInput = {
@@ -20265,7 +20313,9 @@ export namespace Prisma {
     status?: EnumQueueStatusFieldUpdateOperationsInput | $Enums.QueueStatus
     queueNumber?: IntFieldUpdateOperationsInput | number
     intimated?: BoolFieldUpdateOperationsInput | boolean
-    timeStamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    priority?: NullableIntFieldUpdateOperationsInput | number | null
+    demotion?: NullableIntFieldUpdateOperationsInput | number | null
+    timeStamp?: StringFieldUpdateOperationsInput | string
     patientInstance?: PatientInstanceUpdateOneRequiredWithoutOpqueueNestedInput
     doctor?: DoctorsUpdateOneRequiredWithoutOpdQueueNestedInput
   }
@@ -20277,7 +20327,9 @@ export namespace Prisma {
     status?: EnumQueueStatusFieldUpdateOperationsInput | $Enums.QueueStatus
     queueNumber?: IntFieldUpdateOperationsInput | number
     intimated?: BoolFieldUpdateOperationsInput | boolean
-    timeStamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    priority?: NullableIntFieldUpdateOperationsInput | number | null
+    demotion?: NullableIntFieldUpdateOperationsInput | number | null
+    timeStamp?: StringFieldUpdateOperationsInput | string
   }
 
   export type OPDQueueCreateManyInput = {
@@ -20287,7 +20339,9 @@ export namespace Prisma {
     status: $Enums.QueueStatus
     queueNumber: number
     intimated: boolean
-    timeStamp?: Date | string | null
+    priority?: number | null
+    demotion?: number | null
+    timeStamp?: string
   }
 
   export type OPDQueueUpdateManyMutationInput = {
@@ -20295,7 +20349,9 @@ export namespace Prisma {
     status?: EnumQueueStatusFieldUpdateOperationsInput | $Enums.QueueStatus
     queueNumber?: IntFieldUpdateOperationsInput | number
     intimated?: BoolFieldUpdateOperationsInput | boolean
-    timeStamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    priority?: NullableIntFieldUpdateOperationsInput | number | null
+    demotion?: NullableIntFieldUpdateOperationsInput | number | null
+    timeStamp?: StringFieldUpdateOperationsInput | string
   }
 
   export type OPDQueueUncheckedUpdateManyInput = {
@@ -20305,7 +20361,9 @@ export namespace Prisma {
     status?: EnumQueueStatusFieldUpdateOperationsInput | $Enums.QueueStatus
     queueNumber?: IntFieldUpdateOperationsInput | number
     intimated?: BoolFieldUpdateOperationsInput | boolean
-    timeStamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    priority?: NullableIntFieldUpdateOperationsInput | number | null
+    demotion?: NullableIntFieldUpdateOperationsInput | number | null
+    timeStamp?: StringFieldUpdateOperationsInput | string
   }
 
   export type BedCreateInput = {
@@ -21357,15 +21415,15 @@ export namespace Prisma {
     not?: NestedEnumQueueStatusFilter<$PrismaModel> | $Enums.QueueStatus
   }
 
-  export type DateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type PatientInstanceRelationFilter = {
@@ -21390,11 +21448,15 @@ export namespace Prisma {
     status?: SortOrder
     queueNumber?: SortOrder
     intimated?: SortOrder
+    priority?: SortOrder
+    demotion?: SortOrder
     timeStamp?: SortOrder
   }
 
   export type OPDQueueAvgOrderByAggregateInput = {
     queueNumber?: SortOrder
+    priority?: SortOrder
+    demotion?: SortOrder
   }
 
   export type OPDQueueMaxOrderByAggregateInput = {
@@ -21404,6 +21466,8 @@ export namespace Prisma {
     status?: SortOrder
     queueNumber?: SortOrder
     intimated?: SortOrder
+    priority?: SortOrder
+    demotion?: SortOrder
     timeStamp?: SortOrder
   }
 
@@ -21414,11 +21478,15 @@ export namespace Prisma {
     status?: SortOrder
     queueNumber?: SortOrder
     intimated?: SortOrder
+    priority?: SortOrder
+    demotion?: SortOrder
     timeStamp?: SortOrder
   }
 
   export type OPDQueueSumOrderByAggregateInput = {
     queueNumber?: SortOrder
+    priority?: SortOrder
+    demotion?: SortOrder
   }
 
   export type EnumQueueStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -21431,18 +21499,20 @@ export namespace Prisma {
     _max?: NestedEnumQueueStatusFilter<$PrismaModel>
   }
 
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
     _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type EnumBedStatusFilter<$PrismaModel = never> = {
@@ -21527,17 +21597,6 @@ export namespace Prisma {
   export type WardSumOrderByAggregateInput = {
     totalBeds?: SortOrder
     availableBeds?: SortOrder
-  }
-
-  export type IntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
   export type JsonNullableFilter<$PrismaModel = never> = 
     | PatchUndefined<
@@ -21632,22 +21691,6 @@ export namespace Prisma {
   export type PatientInstanceSumOrderByAggregateInput = {
     age?: SortOrder
     queueNumber?: SortOrder
-  }
-
-  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
   }
   export type JsonNullableWithAggregatesFilter<$PrismaModel = never> = 
     | PatchUndefined<
@@ -22492,8 +22535,12 @@ export namespace Prisma {
     set?: $Enums.QueueStatus
   }
 
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type PatientInstanceUpdateOneRequiredWithoutOpqueueNestedInput = {
@@ -22772,14 +22819,6 @@ export namespace Prisma {
     connectOrCreate?: AdmissionCreateOrConnectWithoutPatinetInput | AdmissionCreateOrConnectWithoutPatinetInput[]
     createMany?: AdmissionCreateManyPatinetInputEnvelope
     connect?: AdmissionWhereUniqueInput | AdmissionWhereUniqueInput[]
-  }
-
-  export type NullableIntFieldUpdateOperationsInput = {
-    set?: number | null
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
@@ -23447,15 +23486,15 @@ export namespace Prisma {
     not?: NestedEnumQueueStatusFilter<$PrismaModel> | $Enums.QueueStatus
   }
 
-  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedEnumQueueStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -23468,21 +23507,7 @@ export namespace Prisma {
     _max?: NestedEnumQueueStatusFilter<$PrismaModel>
   }
 
-  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
-  }
-
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
     notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -23490,7 +23515,23 @@ export namespace Prisma {
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedEnumBedStatusFilter<$PrismaModel = never> = {
@@ -23529,33 +23570,6 @@ export namespace Prisma {
     in?: $Enums.VisitType[] | ListEnumVisitTypeFieldRefInput<$PrismaModel>
     notIn?: $Enums.VisitType[] | ListEnumVisitTypeFieldRefInput<$PrismaModel>
     not?: NestedEnumVisitTypeFilter<$PrismaModel> | $Enums.VisitType
-  }
-
-  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
   export type NestedJsonNullableFilter<$PrismaModel = never> = 
     | PatchUndefined<
@@ -23689,7 +23703,9 @@ export namespace Prisma {
     status: $Enums.QueueStatus
     queueNumber: number
     intimated: boolean
-    timeStamp?: Date | string | null
+    priority?: number | null
+    demotion?: number | null
+    timeStamp?: string
     patientInstance: PatientInstanceCreateNestedOneWithoutOpqueueInput
   }
 
@@ -23699,7 +23715,9 @@ export namespace Prisma {
     status: $Enums.QueueStatus
     queueNumber: number
     intimated: boolean
-    timeStamp?: Date | string | null
+    priority?: number | null
+    demotion?: number | null
+    timeStamp?: string
   }
 
   export type OPDQueueCreateOrConnectWithoutDoctorInput = {
@@ -23851,7 +23869,9 @@ export namespace Prisma {
     status?: EnumQueueStatusFilter<"OPDQueue"> | $Enums.QueueStatus
     queueNumber?: IntFilter<"OPDQueue"> | number
     intimated?: BoolFilter<"OPDQueue"> | boolean
-    timeStamp?: DateTimeNullableFilter<"OPDQueue"> | Date | string | null
+    priority?: IntNullableFilter<"OPDQueue"> | number | null
+    demotion?: IntNullableFilter<"OPDQueue"> | number | null
+    timeStamp?: StringFilter<"OPDQueue"> | string
   }
 
   export type AdmissionUpsertWithWhereUniqueWithoutDoctorInput = {
@@ -24624,7 +24644,9 @@ export namespace Prisma {
     status: $Enums.QueueStatus
     queueNumber: number
     intimated: boolean
-    timeStamp?: Date | string | null
+    priority?: number | null
+    demotion?: number | null
+    timeStamp?: string
     doctor: DoctorsCreateNestedOneWithoutOpdQueueInput
   }
 
@@ -24634,7 +24656,9 @@ export namespace Prisma {
     status: $Enums.QueueStatus
     queueNumber: number
     intimated: boolean
-    timeStamp?: Date | string | null
+    priority?: number | null
+    demotion?: number | null
+    timeStamp?: string
   }
 
   export type OPDQueueCreateOrConnectWithoutPatientInstanceInput = {
@@ -25805,7 +25829,9 @@ export namespace Prisma {
     status: $Enums.QueueStatus
     queueNumber: number
     intimated: boolean
-    timeStamp?: Date | string | null
+    priority?: number | null
+    demotion?: number | null
+    timeStamp?: string
   }
 
   export type AdmissionCreateManyDoctorInput = {
@@ -25840,7 +25866,9 @@ export namespace Prisma {
     status?: EnumQueueStatusFieldUpdateOperationsInput | $Enums.QueueStatus
     queueNumber?: IntFieldUpdateOperationsInput | number
     intimated?: BoolFieldUpdateOperationsInput | boolean
-    timeStamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    priority?: NullableIntFieldUpdateOperationsInput | number | null
+    demotion?: NullableIntFieldUpdateOperationsInput | number | null
+    timeStamp?: StringFieldUpdateOperationsInput | string
     patientInstance?: PatientInstanceUpdateOneRequiredWithoutOpqueueNestedInput
   }
 
@@ -25850,7 +25878,9 @@ export namespace Prisma {
     status?: EnumQueueStatusFieldUpdateOperationsInput | $Enums.QueueStatus
     queueNumber?: IntFieldUpdateOperationsInput | number
     intimated?: BoolFieldUpdateOperationsInput | boolean
-    timeStamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    priority?: NullableIntFieldUpdateOperationsInput | number | null
+    demotion?: NullableIntFieldUpdateOperationsInput | number | null
+    timeStamp?: StringFieldUpdateOperationsInput | string
   }
 
   export type OPDQueueUncheckedUpdateManyWithoutDoctorInput = {
@@ -25859,7 +25889,9 @@ export namespace Prisma {
     status?: EnumQueueStatusFieldUpdateOperationsInput | $Enums.QueueStatus
     queueNumber?: IntFieldUpdateOperationsInput | number
     intimated?: BoolFieldUpdateOperationsInput | boolean
-    timeStamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    priority?: NullableIntFieldUpdateOperationsInput | number | null
+    demotion?: NullableIntFieldUpdateOperationsInput | number | null
+    timeStamp?: StringFieldUpdateOperationsInput | string
   }
 
   export type AdmissionUpdateWithoutDoctorInput = {
@@ -26207,7 +26239,9 @@ export namespace Prisma {
     status: $Enums.QueueStatus
     queueNumber: number
     intimated: boolean
-    timeStamp?: Date | string | null
+    priority?: number | null
+    demotion?: number | null
+    timeStamp?: string
   }
 
   export type AdmissionCreateManyPatinetInput = {
@@ -26222,7 +26256,9 @@ export namespace Prisma {
     status?: EnumQueueStatusFieldUpdateOperationsInput | $Enums.QueueStatus
     queueNumber?: IntFieldUpdateOperationsInput | number
     intimated?: BoolFieldUpdateOperationsInput | boolean
-    timeStamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    priority?: NullableIntFieldUpdateOperationsInput | number | null
+    demotion?: NullableIntFieldUpdateOperationsInput | number | null
+    timeStamp?: StringFieldUpdateOperationsInput | string
     doctor?: DoctorsUpdateOneRequiredWithoutOpdQueueNestedInput
   }
 
@@ -26232,7 +26268,9 @@ export namespace Prisma {
     status?: EnumQueueStatusFieldUpdateOperationsInput | $Enums.QueueStatus
     queueNumber?: IntFieldUpdateOperationsInput | number
     intimated?: BoolFieldUpdateOperationsInput | boolean
-    timeStamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    priority?: NullableIntFieldUpdateOperationsInput | number | null
+    demotion?: NullableIntFieldUpdateOperationsInput | number | null
+    timeStamp?: StringFieldUpdateOperationsInput | string
   }
 
   export type OPDQueueUncheckedUpdateManyWithoutPatientInstanceInput = {
@@ -26241,7 +26279,9 @@ export namespace Prisma {
     status?: EnumQueueStatusFieldUpdateOperationsInput | $Enums.QueueStatus
     queueNumber?: IntFieldUpdateOperationsInput | number
     intimated?: BoolFieldUpdateOperationsInput | boolean
-    timeStamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    priority?: NullableIntFieldUpdateOperationsInput | number | null
+    demotion?: NullableIntFieldUpdateOperationsInput | number | null
+    timeStamp?: StringFieldUpdateOperationsInput | string
   }
 
   export type AdmissionUpdateWithoutPatinetInput = {

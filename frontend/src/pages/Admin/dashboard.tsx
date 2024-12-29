@@ -99,7 +99,35 @@ export function AdminDashboard() {
     email:"",
     password:""
   });
-  const [searchQuery, setSearchQuery] = useState('')
+  const [searchQuery, setSearchQuery] = useState('');
+  const [onlineDoctors,setOnlineDoctors]=useState();
+  const [loading,setLoading]=useState<boolean>(true);
+
+  useEffect(()=>{
+	async function fn()
+	{
+		try{
+			const res=await axios.post(`${BACKEND_URL}/api/hospital/getonlinedoctors`,{
+			hosCode:'0001'
+		},{headers:{
+			code:'0001'
+		}});
+
+
+		setOnlineDoctors(res.data.docs);
+		console.log(res.data.docs);
+		setLoading(false);
+		}
+		catch{
+			alert("error");
+		}
+		
+	}
+	fn();
+
+
+
+  },[])
 
   const handleReasonChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setReason(e.target.value);
@@ -179,10 +207,19 @@ export function AdminDashboard() {
 
   useEffect(() => {
     if (selectedPatient?.id) {
-      //@ts-expect-errorysds
       fetchBedNumber(selectedPatient?.id);
+      setLoading(false);
     }
   }, [selectedPatient,reload]);
+
+  if(loading)
+  {
+	  return(
+		  <div>
+		  Loading..
+		  </div>
+	  )
+  }
 
   const  handleOPDUpdateForCheckIn = async() =>{
     const find = appointments.find((item) => item.id === selectedCheckIn);
@@ -497,26 +534,27 @@ export function AdminDashboard() {
     </div>
   )
 
-  const renderActiveDoctors = () => (
-    <Card className="max-w-md mx-auto bg-white shadow-md">
+  const renderActiveDoctors = (docs) => {
+	console.log(docs)
+    return <Card className="max-w-md mx-auto bg-white shadow-md">
       <CardHeader>
         <CardTitle className="text-xl font-bold text-gray-800">Active Doctors</CardTitle>
       </CardHeader>
       <CardContent>
         <ul className="space-y-2">
-          {/* Placeholder for active doctors list */}
-          <li className="flex items-center justify-between cursor-pointer hover:bg-gray-100 rounded-md p-2">
-            <div className="font-medium text-gray-700">Dr. John Doe</div>
+	{docs.map((doc)=>{
+		 console.log(doc)
+		return <li className="flex items-center justify-between cursor-pointer hover:bg-gray-100 rounded-md p-2">
+            <div className="font-medium text-gray-700">{doc.name}</div>
             <Badge variant="secondary" className="bg-green-100 text-green-800">Online</Badge>
           </li>
-          <li className="flex items-center justify-between cursor-pointer hover:bg-gray-100 rounded-md p-2">
-            <div className="font-medium text-gray-700">Dr. Jane Smith</div>
-            <Badge variant="secondary" className="bg-green-100 text-green-800">Online</Badge>
-          </li>
+
+	})}
+        
         </ul>
       </CardContent>
     </Card>
-  )
+}
 
   const renderInactiveDoctors = () => (
     <Card className="max-w-md mx-auto bg-white shadow-md mt-6">
@@ -708,7 +746,9 @@ export function AdminDashboard() {
       age:patientDetails?.Age,
       gender:patientDetails?.gender,
       reason:reason,
-      name:patientDetails?.name
+      name:patientDetails?.name,
+      intimated:false,
+      
   },
   {
     headers:{
@@ -820,7 +860,7 @@ export function AdminDashboard() {
         {/* Main Content */}
         <main className="flex-1 overflow-auto bg-gray-50 p-8">
           <div className="max-w-4xl mx-auto">
-          {activeView === "activeDoctors" && renderActiveDoctors()}
+          {activeView === "activeDoctors" && renderActiveDoctors(onlineDoctors)}
           {activeView === "inactiveDoctors" && renderInactiveDoctors()}
           {activeView === "newPatientForm" && renderNewPatientForm()}
           {activeView === "createABHA" && createABHA()}

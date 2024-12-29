@@ -225,6 +225,64 @@ export function DoctorConsultancy() {
               >
                 <TrashIcon className="h-5 w-5" />
               </Button>
+              <div className="grid gap-2">
+  <Label>Medicine Name</Label>
+  <Input
+    value={medicine.name}
+    onChange={(e) => updateMedicine(index, "name", e.target.value)}
+  />
+</div>
+
+<div className="grid gap-2">
+  <Label>Morning</Label>
+  <Input
+    type="number"
+    value={medicine.morning}
+    onChange={(e) =>
+      updateMedicine(index, "morning", parseInt(e.target.value))
+    }
+  />
+</div>
+
+<div className="grid gap-2">
+  <Label>Afternoon</Label>
+  <Input
+    type="number"
+    value={medicine.afternoon}
+    onChange={(e) =>
+      updateMedicine(index, "afternoon", parseInt(e.target.value))
+    }
+  />
+</div>
+
+<div className="grid gap-2">
+  <Label>Night</Label>
+  <Input
+    type="number"
+    value={medicine.night}
+    onChange={(e) =>
+      updateMedicine(index, "night", parseInt(e.target.value))
+    }
+  />
+</div>
+
+<div className="grid gap-2">
+  <Label>Before/After Food</Label>
+  <Input
+    value={medicine.shift}
+    onChange={(e) => updateMedicine(index, "shift", e.target.value)}
+  />
+</div>
+
+<div className="grid gap-2">
+  <Label>Days</Label>
+  <Input
+    type="number"
+    value={medicine.days}
+    onChange={(e) => updateMedicine(index, "days", parseInt(e.target.value))}
+  />
+</div>
+
               {/* ... [Rest of the medicine inputs remain the same] */}
             </div>
           ))}
@@ -238,6 +296,52 @@ export function DoctorConsultancy() {
         {/* Injections Section */}
         <div className="mt-8 p-6 bg-white rounded-lg shadow-lg">
           <h2 className="text-xl font-bold text-[#2E6F40] mb-6">Injections</h2>
+          <div className="grid gap-6">
+  {injections.map((injection, index) => (
+    <div
+      key={index}
+      className="grid sm:grid-cols-3 gap-4 items-center"
+    >
+      <div className="flex items-center justify-end">
+        <Button
+          size="icon"
+          onClick={() => removeInjection(index)}
+          className="flex justify-center"
+        >
+          <TrashIcon className="h-5 w-5" />
+        </Button>
+      </div>
+
+      <div className="flex items-center gap-4">
+        <div className="grid gap-2">
+          <Label>Injection Name</Label>
+          <Input
+            value={injection.name}
+            onChange={(e) => updateInjection(index, "name", e.target.value)}
+          />
+        </div>
+
+        <div className="grid gap-2">
+          <Label>Dosage</Label>
+          <Input
+            value={injection.dosage}
+            onChange={(e) => updateInjection(index, "dosage", e.target.value)}
+          />
+        </div>
+      </div>
+    </div>
+  ))}
+
+  <div className="flex justify-center">
+    <Button
+      onClick={addInjection}
+      className="flex justify-center"
+    >
+      Add Injection
+    </Button>
+  </div>
+</div>
+
           {/* ... [Injections content remains the same with updated button colors] */}
         </div>
 
@@ -262,6 +366,33 @@ export function DoctorConsultancy() {
                 </Button>
               </div>
               {/* ... [Modal content remains the same with updated colors] */}
+              <div className="grid gap-6">
+  <div className="grid gap-2">
+    <Label htmlFor="ward">Ward</Label>
+    <Select onValueChange={handleWardChange}>
+      <SelectTrigger>
+        <SelectValue placeholder="Select Ward" />
+      </SelectTrigger>
+      <SelectContent>
+        {ward.map((item) => (
+          <SelectItem key={item.id} value={item.id}>
+            {item.name}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
+  </div>
+</div>
+
+<div className="flex justify-between mt-6">
+  <Button onClick={closeModal} className="flex justify-center">
+    Cancel
+  </Button>
+  <Button className="flex justify-center" onClick={handleAdmission}>
+    Request Bed
+  </Button>
+</div>
+
             </div>
           </div>
         )}

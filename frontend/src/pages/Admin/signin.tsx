@@ -71,16 +71,16 @@ export function AdminSigninPage() {
 
   return (
     <div className="min-h-screen w-screen bg-[#CFFFDC] flex items-center justify-center p-4">
-      <Card className="w-full max-w-md bg-[#2E6F40] text-white">
+      <Card className="w-full max-w-md  text-[#CFFFDC]">
         <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl font-bold text-center">Sign in</CardTitle>
-          <CardDescription className="text-center text-[#CFFFDC]">
+          <CardTitle className="text-2xl font-bold text-center text-[#2E6F40]">Sign in</CardTitle>
+          <CardDescription className="text-center ">
             Enter your email and password to access your account
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="email" className="text-[#CFFFDC]">Email</Label>
+            <Label htmlFor="email" className="text-black" >Email</Label>
             <Input
               id="email"
               type="email"
@@ -91,7 +91,7 @@ export function AdminSigninPage() {
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="password" className="text-[#CFFFDC]">Password</Label>
+            <Label htmlFor="password" className="text-black" >Password</Label>
             <Input
               id="password"
               type="password"
@@ -102,7 +102,7 @@ export function AdminSigninPage() {
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="hospital-code" className="text-[#CFFFDC]">Hospital Code</Label>
+            <Label htmlFor="hospital-code " className="text-black" >Hospital Code</Label>
             <Input
               id="hoscode"
               type="text"

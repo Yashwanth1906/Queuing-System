@@ -5,7 +5,7 @@ import { Header } from '@/components/component/Header';
 import { ServiceCard } from '@/components/component/ServiceCard';
 export function HomePageComponent() {
   return (
-    <div className="min-h-screen w-screen absolute top-0 left-0 bg-gradient-to-b from-[#CFFFDC] to-white">
+    <div className="min-h-screen w-screen  bg-gradient-to-b from-[#CFFFDC] to-white">
       <Header />
 
       {/* Hero Section */}
@@ -20,8 +20,8 @@ export function HomePageComponent() {
                 Streamlined healthcare solutions for better patient care
               </p>
               <Link 
-                to="/patientlogin" 
-                className="bg-[#68BA7F] text-white py-3 px-6 rounded-full font-semibold inline-flex items-center gap-2 hover:bg-[#2E6F40] transition-colors"
+                to="/adminsignin" 
+                className="bg-[#2E6F40] text-white py-3 px-6 rounded-full font-semibold inline-flex items-center gap-2 hover:bg-[#68BA7F] transition-colors"
               >
                 Get Started
                 <ArrowRight className="w-5 h-5" />
@@ -60,7 +60,7 @@ export function HomePageComponent() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-[#CFFFDC] py-8">
+      <footer className=" py-8">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div>

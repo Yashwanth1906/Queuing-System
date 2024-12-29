@@ -12,7 +12,7 @@ export function ServiceCard({ title, icon: Icon, link, description }: ServiceCar
   return (
     <Link 
       to={link} 
-      className="bg-[#CFFFDC] p-6 rounded-xl hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
+      className= "bg-white p-6 rounded-xl hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
     >
       <Icon className="w-12 h-12 mb-4 text-[#2E6F40]" />
       <h3 className="text-xl font-semibold mb-2 text-[#253D2C]">{title}</h3>

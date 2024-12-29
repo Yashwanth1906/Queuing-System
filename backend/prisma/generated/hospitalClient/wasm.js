@@ -152,6 +152,8 @@ exports.Prisma.OPDQueueScalarFieldEnum = {
   status: 'status',
   queueNumber: 'queueNumber',
   intimated: 'intimated',
+  priority: 'priority',
+  demotion: 'demotion',
   timeStamp: 'timeStamp'
 };
 
