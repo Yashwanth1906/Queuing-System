@@ -2,7 +2,7 @@ import bcrypt from "bcryptjs"
 import validator from "validator";
 import jwt from "jsonwebtoken";
 import { DesignationType, PrismaClient, QueueStatus } from "../prisma/generated/hospitalClient/index.js";
-import { queue } from "../queue.js";
+import QueueManager from "../queue.js";
 const createToken = (id)=>{
     return jwt.sign({id},process.env.JWT_SECRET);
 }
@@ -78,7 +78,7 @@ const getQueuedPatients = async(req,res) =>{
     const doctorId = req.headers.id;
     console.log(doctorId)
     try{
-        
+        const queue=QueueManager.getInstance().queue;
         console.log(queue)
         const patients = await Promise.all(
             queue[doctorId].map(async (id) => {

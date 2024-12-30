@@ -1,6 +1,6 @@
 import { BedStatus, PrismaClient as hospitalPrismaClient, QueueStatus, VisitType} from "../prisma/generated/hospitalClient/index.js";
 import { PrismaClient as centralPrismaClient } from "../prisma/generated/central/index.js";
-import { insertPatient, queue } from "../queue.js";
+import QueueManager from "../queue.js";
 import { formatDateToDDMMYYYY } from "./patientController.js";
 import fs from "fs"
 import csvParser from "csv-parser";
@@ -138,8 +138,9 @@ const createPatientInstance = async(req,res)=>{
                 timeStamp:timee
             }
         })
-        insertPatient(patientqueue);
-        console.log(queue);
+        const queue=QueueManager.getInstance();
+        queue.insertPatient(patientqueue);
+     
         console.log(patientInstance,patientqueue);
         res.json({success:true,patientInstance:patientInstance,patientqueue:patientqueue})
     }catch(err){

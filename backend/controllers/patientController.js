@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken";
 import { PrismaClient as centralPrismaClient } from "../prisma/generated/central/index.js";
-import { queue } from "../queue.js";
+import QueueManager from "../queue.js";
 const centralPrisma = new centralPrismaClient({
     datasources:{
         db:{
@@ -40,31 +40,57 @@ export async function getpatientqueue(req, res) {
     try {
         const prisma = req.prisma;
         const abhaId = req.headers.id;
-        const x = await prisma.PatientInstance.findUnique({
-            where: {
-                abhaId
-            }, 
-            select: {
-                id: true,
-            }})
+        const queue=QueueManager.getInstance().queue;
+        console.log(abhaId)
+        console.log(queue)
+        
             let flag=false;
             let docId=-1;
             for(let i in queue)
             {
-                if(queue[i].includes(x.id))
+                console.log(i)
+                for(let j=0;j<queue[i].length;j++)
                 {
-                    docId=i;
-                    flag=true;
-                    break;
+                    console.log(queue[i][j])
+                    console.log(queue[i][j]);
+                    if(queue[i][j].patientInstanceId==abhaId)
+                    {
+                        docId=i;
+                        flag=true;
+                    
+                        break;
+                    }
+                    
                 }
+                if(flag)
+                {
+                    break
+                }
+
             }
             if(!flag)
             {
                 return res.status(500).json({msg:"not in queue"})
             }
+
+            let arr=[]
+            for (let i=0;i<queue[docId].length;i++)
+            {
+                let temp=await prisma.PatientInstance.findUnique({
+                    where:{
+                        abhaId:queue[docId][i].patientInstanceId
+                    },
+                    include:{
+                        doctor:true
+                    }
+                })
+                arr.push(temp)
+
+            }
    
-        
-        return res.status(200).json({queuedata:queue[docId],queued:x});
+            console.log(queue[docId]);
+            console.log(arr);
+        return res.status(200).json({queuedata:queue[docId],queued:arr,abhaId});
     } catch (err) {
         console.log(err);
 

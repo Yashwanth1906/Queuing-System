@@ -8,6 +8,7 @@ import { sendOTP, verifyotp } from "./middleware/auth.js";
 import cors from "cors"
 import { patientRouter } from "./routes/patientRoute.js";
 import { PrismaClient as hospitalprisma } from "./prisma/generated/hospitalClient/index.js";
+import { getHospitalPrismaClient } from "./middleware/prismaProvider.js";
 
 const centralprisma = new PrismaClient();
 const prisma = new hospitalprisma({
@@ -45,6 +46,8 @@ app.use("/api/patient",patientRouter)
 app.post("/api/sendotp",sendOTP)
 app.post("/api/verifyotp",verifyotp)
 
-app.get("/check",(req,res)=>{
-    res.send("Running");
+app.get("/delete",getHospitalPrismaClient,async (req,res)=>{
+    const prisma=req.prisma;
+    await prisma.Intimation.deleteMany({})
+    res.send("done");
 })

@@ -15,8 +15,9 @@ interface QueuePatient {
 }
 
 export function PatientApt() {
-  const [currentUserId, setCurrentUserId] = useState<string>(''); // Replace with actual user ID
-  const [queueData, setQueueData] = useState<QueuePatient[]>([]);
+  const [memberDetails,setMemberDetails]=useState();
+  const [queueData, setQueueData] = useState([]);
+  const [curr,SetCurr]=useState()
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -24,9 +25,10 @@ export function PatientApt() {
       try {
         const response = await axios.get('http://localhost:4000/api/patient/getqueue', { headers:{code:"0001",Authorization:localStorage.getItem('patienttoken') }});
         setQueueData(response.data.queuedata);
-        console.log(response.data.queuedata);
+        // console.log(response.data.queuedata);
         console.log(response.data.queueId);
-        setCurrentUserId(response.data.queued);
+        setMemberDetails(response.data.queued);
+        SetCurr(response.data.abhaId);
         setLoading(false);
       } catch (err) {
         console.log(err);
@@ -45,7 +47,7 @@ export function PatientApt() {
     );
   }
 
-  const userPosition = queueData.findIndex(patient => patient.id === currentUserId) + 1;
+  const userPosition = queueData.findIndex(patient => patient.patientInstanceId === curr) + 1;
   const isUserInQueue = userPosition > 0;
 
   if (!isUserInQueue) {
@@ -81,24 +83,24 @@ export function PatientApt() {
                 <TableRow>
                   <TableHead className="text-[#2E6F40]">Position</TableHead>
                   <TableHead className="text-[#2E6F40]">Patient</TableHead>
-                  <TableHead className="text-[#2E6F40]">Department</TableHead>
+                  {/* <TableHead className="text-[#2E6F40]">Department</TableHead> */}
                   <TableHead className="text-[#2E6F40]">Doctor</TableHead>
-                  <TableHead className="text-[#2E6F40]">Wait Time</TableHead>
-                  <TableHead className="text-[#2E6F40]">Status</TableHead>
+                  {/* <TableHead className="text-[#2E6F40]">Wait Time</TableHead>
+                  <TableHead className="text-[#2E6F40]">Status</TableHead> */}
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {queueData.map((patient, index) => (
                   <TableRow 
                     key={patient.id}
-                    className={patient.id === currentUserId ? 'bg-[#CFFFDC]' : ''}
+                    className={memberDetails[index].abhaId === curr ? 'bg-[#CFFFDC]' : ''}
                   >
                     <TableCell className="font-medium">{index + 1}</TableCell>
-                    <TableCell>{patient.name}</TableCell>
-                    <TableCell>{patient.department}</TableCell>
-                    <TableCell>{patient.doctor}</TableCell>
-                    <TableCell>10 mins</TableCell>
-                    <TableCell>
+                    <TableCell>{memberDetails[index].name}</TableCell>
+                    <TableCell>{memberDetails[index].doctor.name}</TableCell>
+                    {/* <TableCell>{patient.doctor}</TableCell> */}
+                    {/* <TableCell>10 mins</TableCell> */}
+                    {/* <TableCell>
                       <Badge 
                         className={
                           patient.status === 'in-consultation' 
@@ -110,21 +112,21 @@ export function PatientApt() {
                       >
                         {patient.status.replace('-', ' ')}
                       </Badge>
-                    </TableCell>
+                    </TableCell> */}
                   </TableRow>
                 ))}
               </TableBody>
             </Table>
           </div>
 
-          <div className="mt-6 p-4 bg-[#CFFFDC] rounded-lg">
+          {/* <div className="mt-6 p-4 bg-[#CFFFDC] rounded-lg">
             <h3 className="text-[#2E6F40] font-semibold mb-2">Your Appointment Details</h3>
             <p className="text-[#253D2C]">
               Estimated wait time: <span className="font-bold">
                 {queueData[userPosition - 1]?.estimatedWaitTime} minutes
               </span>
             </p>
-          </div>
+          </div> */}
         </div>
       </Card>
     </div>

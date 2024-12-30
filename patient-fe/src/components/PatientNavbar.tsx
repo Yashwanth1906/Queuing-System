@@ -55,7 +55,7 @@ export function PatientNavbar({ onLogout }: PatientNavbarProps) {
                   <Button variant="ghost" className="justify-start text-[#253D2C] hover:text-[#2E6F40] hover:bg-[#CFFFDC]">
                     Dashboard
                   </Button>
-                  <Button variant="ghost" className="justify-start text-[#253D2C] hover:text-[#2E6F40] hover:bg-[#CFFFDC]">
+                  <Button onClick={() => navigate("/patientappointments")} variant="ghost" className="justify-start text-[#253D2C] hover:text-[#2E6F40] hover:bg-[#CFFFDC]">
                     My Bookings
                   </Button>
                   <Button 
