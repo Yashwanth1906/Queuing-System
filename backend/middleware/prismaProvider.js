@@ -20,7 +20,7 @@ const getHospitalPrismaClient = async(req,res,next)=>{
             return next();
         }
         const hospitals = await centralprisma.hospital.findMany({})
-        console.log(hospitals)
+        console.log(hospitals,code)
         const hospitalDBURL = await centralprisma.hospital.findUnique({
             where:{
                 code:code
