@@ -1,6 +1,8 @@
 import { BedStatus, PrismaClient as hospitalPrismaClient, QueueStatus, VisitType} from "../prisma/generated/hospitalClient/index.js";
 import { PrismaClient as centralPrismaClient } from "../prisma/generated/central/index.js";
 import { insertPatient, queue } from "../queue.js";
+import fs from "fs"
+import csvParser from "csv-parser";
 const centralPrisma = new centralPrismaClient({
     datasources:{
         db:{
@@ -436,6 +438,111 @@ export const getHospitalDetails = async (req, res) => {
     });
   }
 };
+
+
+function getDayOfWeek(date) {
+    const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    return daysOfWeek[date.getDay()];
+  }
+  
+  
+  function add(prisma)
+  {
+    const records = [];
+    let filePath="/home/shiva_18/hackathon/Hospital-Management-System/backend/synthetic_data_2018_2023.csv"
+    fs.createReadStream(filePath)
+      .pipe(csvParser())
+      .on('data', (row) => {
+
+        records.push({
+          date: row.Date,
+          day: row.Day,
+          holiday: row.Holiday === '1', // Convert '1' to true, '0' to false
+          specialEvent: row['Special Event'] === '1', // Convert '1' to true, '0' to false
+          noofpatients: parseInt(row['Number of patients'], 10),
+          noofdoctors: parseInt(row['Number of doctors'], 10),
+          time: parseFloat(row.Time),
+          ppdh: parseFloat(row.PPDH),
+          weather: row.Weather,
+          department: "General" // Default department for now; adjust as needed
+        });
+      })
+      .on('end', async () => {
+        console.log('CSV file successfully processed');
+        try {
+          // Insert data into the database
+          await prisma.OPData2.createMany({
+            data: records,
+            skipDuplicates: true, // Avoid inserting duplicate records
+          });
+  
+          console.log('Data imported successfully');
+        } catch (error) {
+          console.error('Error importing data:', error);
+        } finally {
+          await prisma.$disconnect();
+        }
+      });
+  }
+
+
+
+export const getTmrwDocPred=async(req,res)=>{
+    // await req.prisma.OPData2.deleteMany({})
+
+    // add(req.prisma)
+    try{
+        const {dept,isSpec}=req.body;
+        const prisma =req.prisma;
+        const tmrw=getDayOfWeek(new Date());
+        console.log(req.body)
+        // console.log(tmrwholiday)
+
+        const totppdh=await prisma.OPData2.findMany({
+            where:{
+                department:dept,
+                specialEvent:isSpec,
+                day:tmrw
+
+            }
+        });
+        console.log(totppdh);
+        let denm=totppdh.length;
+        console.log(denm)
+        if(denm===0)
+        {
+            console.log(denm)
+            return res.status(200).json({doc:0});
+        }
+        let tot=0;
+        let totpat=0;
+        for(let i=0;i<totppdh.length;i++)
+        {
+            tot+=Math.ceil(totppdh[i].ppdh);
+            totpat+=totppdh[i].noofpatients
+        }
+        totpat/=denm;
+        console.log(totpat)
+        let ppdh=(tot/denm);
+        let doc=totpat/(ppdh*4)
+        console.log(doc);
+
+        return res.status(200).json({msg:doc});
+
+
+    }
+    catch(e){
+        console.log(e);
+        return res.status(500).json({msg:"error"});
+
+
+    }
+
+  
+
+
+
+}
 
 
 export {getDoctors,addDepartments,getDepartments,createPatientInstance,addWard,getAdmissionsBedNotAllocated,allocateBed,getPatient,getWard}

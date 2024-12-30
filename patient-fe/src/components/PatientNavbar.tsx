@@ -27,9 +27,11 @@ export function PatientNavbar({ onLogout }: PatientNavbarProps) {
 
           {/* Desktop menu */}
           <div className="hidden md:flex items-center space-x-8">
+
             <Button onClick={() => navigate("/dashboard")} variant="ghost" className="text-[#253D2C] hover:text-[#2E6F40] hover:bg-[#CFFFDC]">Dashboard</Button>
             <Button onClick={() => navigate("/patientappointments")}variant="ghost" className="text-[#253D2C] hover:text-[#2E6F40] hover:bg-[#CFFFDC]">My Appointments</Button>
     
+
             <Button 
               variant="ghost" 
               onClick={onLogout}

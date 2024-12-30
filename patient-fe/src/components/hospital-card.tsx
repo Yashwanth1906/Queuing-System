@@ -20,7 +20,7 @@ return (
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
     >
-      <Card className="h-full hover:shadow-lg transition-shadow border-[#68BA7F]/20">
+      <Card className="h-full hover:shadow-lg transition-shadow border-[#68BA7F]/20" data-intro="Use this search bar to filter hospitals by name, location, or specialty. Quickly find the best healthcare provider for your needs.">
         <CardHeader>
           <div className="w-12 h-12 bg-[#2E6F40]/10 rounded-lg flex items-center justify-center mb-4">
             <Building2 className="w-6 h-6 text-[#2E6F40]" />

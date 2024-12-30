@@ -1,0 +1,376 @@
+/*
+  Warnings:
+
+  - You are about to drop the `ABHANumber` table. If the table is not empty, all the data it contains will be lost.
+  - You are about to drop the `Admin` table. If the table is not empty, all the data it contains will be lost.
+  - You are about to drop the `BedRequest` table. If the table is not empty, all the data it contains will be lost.
+  - You are about to drop the `History` table. If the table is not empty, all the data it contains will be lost.
+  - You are about to drop the `Hospital` table. If the table is not empty, all the data it contains will be lost.
+  - You are about to drop the `MedicalRecord` table. If the table is not empty, all the data it contains will be lost.
+  - You are about to drop the `OTPVerification` table. If the table is not empty, all the data it contains will be lost.
+  - You are about to drop the `Patient` table. If the table is not empty, all the data it contains will be lost.
+  - You are about to drop the `PatientBooking` table. If the table is not empty, all the data it contains will be lost.
+  - You are about to drop the `triage` table. If the table is not empty, all the data it contains will be lost.
+
+*/
+-- CreateEnum
+CREATE TYPE "DesignationType" AS ENUM ('Trainee', 'Assistant', 'Senior', 'HeadOfDepartment');
+
+-- CreateEnum
+CREATE TYPE "QueueStatus" AS ENUM ('Pending', 'Inprogress', 'Completed');
+
+-- CreateEnum
+CREATE TYPE "BedStatus" AS ENUM ('Available', 'Occupied', 'Under_Maintainence');
+
+-- CreateEnum
+CREATE TYPE "VisitType" AS ENUM ('FreshVisit', 'Revisit');
+
+-- CreateEnum
+CREATE TYPE "InventoryCategory" AS ENUM ('Medicine', 'Surgical_Tools', 'Others');
+
+-- DropForeignKey
+ALTER TABLE "Admin" DROP CONSTRAINT "Admin_hospitalCode_fkey";
+
+-- DropForeignKey
+ALTER TABLE "History" DROP CONSTRAINT "History_patientId_fkey";
+
+-- DropForeignKey
+ALTER TABLE "MedicalRecord" DROP CONSTRAINT "MedicalRecord_hospitalCode_fkey";
+
+-- DropForeignKey
+ALTER TABLE "MedicalRecord" DROP CONSTRAINT "MedicalRecord_patientId_fkey";
+
+-- DropForeignKey
+ALTER TABLE "PatientBooking" DROP CONSTRAINT "PatientBooking_abhaId_fkey";
+
+-- DropForeignKey
+ALTER TABLE "PatientBooking" DROP CONSTRAINT "PatientBooking_hospitalCode_fkey";
+
+-- DropTable
+DROP TABLE "ABHANumber";
+
+-- DropTable
+DROP TABLE "Admin";
+
+-- DropTable
+DROP TABLE "BedRequest";
+
+-- DropTable
+DROP TABLE "History";
+
+-- DropTable
+DROP TABLE "Hospital";
+
+-- DropTable
+DROP TABLE "MedicalRecord";
+
+-- DropTable
+DROP TABLE "OTPVerification";
+
+-- DropTable
+DROP TABLE "Patient";
+
+-- DropTable
+DROP TABLE "PatientBooking";
+
+-- DropTable
+DROP TABLE "triage";
+
+-- CreateTable
+CREATE TABLE "Doctors" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "gender" TEXT NOT NULL,
+    "designation" "DesignationType" NOT NULL,
+    "contact" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
+    "active" BOOLEAN NOT NULL,
+    "departmentId" TEXT NOT NULL,
+    "hospitalCode" TEXT NOT NULL DEFAULT '0001',
+
+    CONSTRAINT "Doctors_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "OPSlots" (
+    "id" SERIAL NOT NULL,
+    "date" TEXT NOT NULL,
+    "slot" TEXT NOT NULL,
+    "count" INTEGER NOT NULL,
+    "deptid" TEXT NOT NULL,
+
+    CONSTRAINT "OPSlots_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Departments" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+
+    CONSTRAINT "Departments_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "OPDQueue" (
+    "id" TEXT NOT NULL,
+    "patientInstanceId" TEXT NOT NULL,
+    "doctorId" TEXT NOT NULL,
+    "status" "QueueStatus" NOT NULL,
+    "queueNumber" INTEGER NOT NULL,
+    "intimated" BOOLEAN NOT NULL,
+    "priority" INTEGER,
+    "demotion" INTEGER,
+    "timeStamp" TEXT NOT NULL DEFAULT '',
+
+    CONSTRAINT "OPDQueue_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Bed" (
+    "id" TEXT NOT NULL,
+    "bedNumber" TEXT NOT NULL,
+    "wardId" TEXT NOT NULL,
+    "status" "BedStatus" NOT NULL,
+
+    CONSTRAINT "Bed_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Ward" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "totalBeds" INTEGER NOT NULL,
+    "availableBeds" INTEGER NOT NULL,
+
+    CONSTRAINT "Ward_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "PatientInstance" (
+    "id" TEXT NOT NULL,
+    "abhaId" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "age" INTEGER NOT NULL,
+    "Gender" TEXT NOT NULL,
+    "reason" TEXT NOT NULL,
+    "doctorId" TEXT NOT NULL,
+    "queueNumber" INTEGER,
+    "medications" JSONB,
+    "feedback" TEXT,
+    "visitType" "VisitType" NOT NULL,
+
+    CONSTRAINT "PatientInstance_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "PatientInstanceRedirected" (
+    "id" TEXT NOT NULL,
+    "abhaId" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "age" INTEGER NOT NULL,
+    "gender" TEXT NOT NULL,
+    "reason" TEXT NOT NULL,
+    "medications" JSONB,
+
+    CONSTRAINT "PatientInstanceRedirected_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "AdmissionRedirected" (
+    "id" TEXT NOT NULL,
+    "patientId" TEXT NOT NULL,
+    "wardId" TEXT,
+    "bedId" TEXT,
+    "doctorId" TEXT NOT NULL,
+
+    CONSTRAINT "AdmissionRedirected_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Admission" (
+    "id" TEXT NOT NULL,
+    "patientId" TEXT NOT NULL,
+    "wardId" TEXT,
+    "bedId" TEXT,
+    "doctorId" TEXT NOT NULL,
+
+    CONSTRAINT "Admission_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Intimation" (
+    "id" SERIAL NOT NULL,
+    "abhaId" TEXT NOT NULL,
+    "reason" TEXT,
+    "deptId" TEXT,
+    "date" TEXT NOT NULL,
+    "time" TEXT NOT NULL,
+
+    CONSTRAINT "Intimation_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "MainStore" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+
+    CONSTRAINT "MainStore_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "SubStore" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "mainStoreId" TEXT NOT NULL,
+
+    CONSTRAINT "SubStore_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Pharmacy" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "subStoreId" TEXT NOT NULL,
+
+    CONSTRAINT "Pharmacy_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Inventory" (
+    "id" TEXT NOT NULL,
+    "itemName" TEXT NOT NULL,
+    "category" "InventoryCategory" NOT NULL,
+    "quantity" INTEGER NOT NULL,
+    "price" DOUBLE PRECISION NOT NULL,
+    "reorderLevel" INTEGER NOT NULL,
+    "lastOrderDate" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "stockBatches" JSONB[],
+    "mainStoreId" TEXT,
+    "subStoreId" TEXT,
+    "pharmacyId" TEXT,
+
+    CONSTRAINT "Inventory_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "OPDdata" (
+    "id" TEXT NOT NULL,
+    "date" TEXT NOT NULL,
+    "day" TEXT NOT NULL,
+    "holiday" BOOLEAN NOT NULL,
+    "specialEvent" BOOLEAN NOT NULL,
+    "noofpatients" INTEGER NOT NULL,
+    "noofdoctors" INTEGER NOT NULL,
+    "time" DOUBLE PRECISION NOT NULL,
+    "ppdh" DOUBLE PRECISION NOT NULL,
+    "weather" TEXT NOT NULL,
+    "department" TEXT NOT NULL,
+
+    CONSTRAINT "OPDdata_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "DiseaseAnalysis" (
+    "id" TEXT NOT NULL,
+    "date" TEXT NOT NULL,
+    "disease" TEXT NOT NULL,
+    "patientsCount" INTEGER NOT NULL,
+
+    CONSTRAINT "DiseaseAnalysis_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "OPData2" (
+    "id" TEXT NOT NULL,
+    "date" TEXT NOT NULL,
+    "day" TEXT NOT NULL,
+    "holiday" BOOLEAN NOT NULL,
+    "specialEvent" BOOLEAN NOT NULL,
+    "noofpatients" INTEGER NOT NULL,
+    "noofdoctors" INTEGER NOT NULL,
+    "time" DOUBLE PRECISION NOT NULL,
+    "ppdh" DOUBLE PRECISION NOT NULL,
+    "weather" TEXT NOT NULL,
+    "department" TEXT NOT NULL,
+
+    CONSTRAINT "OPData2_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Doctors_email_key" ON "Doctors"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "OPDQueue_patientInstanceId_key" ON "OPDQueue"("patientInstanceId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Bed_bedNumber_key" ON "Bed"("bedNumber");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "PatientInstance_abhaId_key" ON "PatientInstance"("abhaId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "PatientInstanceRedirected_abhaId_key" ON "PatientInstanceRedirected"("abhaId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "DiseaseAnalysis_disease_key" ON "DiseaseAnalysis"("disease");
+
+-- AddForeignKey
+ALTER TABLE "Doctors" ADD CONSTRAINT "Doctors_departmentId_fkey" FOREIGN KEY ("departmentId") REFERENCES "Departments"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "OPSlots" ADD CONSTRAINT "OPSlots_deptid_fkey" FOREIGN KEY ("deptid") REFERENCES "Departments"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "OPDQueue" ADD CONSTRAINT "OPDQueue_patientInstanceId_fkey" FOREIGN KEY ("patientInstanceId") REFERENCES "PatientInstance"("abhaId") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "OPDQueue" ADD CONSTRAINT "OPDQueue_doctorId_fkey" FOREIGN KEY ("doctorId") REFERENCES "Doctors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Bed" ADD CONSTRAINT "Bed_wardId_fkey" FOREIGN KEY ("wardId") REFERENCES "Ward"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "PatientInstance" ADD CONSTRAINT "PatientInstance_doctorId_fkey" FOREIGN KEY ("doctorId") REFERENCES "Doctors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "AdmissionRedirected" ADD CONSTRAINT "AdmissionRedirected_patientId_fkey" FOREIGN KEY ("patientId") REFERENCES "PatientInstanceRedirected"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "AdmissionRedirected" ADD CONSTRAINT "AdmissionRedirected_wardId_fkey" FOREIGN KEY ("wardId") REFERENCES "Ward"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "AdmissionRedirected" ADD CONSTRAINT "AdmissionRedirected_bedId_fkey" FOREIGN KEY ("bedId") REFERENCES "Bed"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "AdmissionRedirected" ADD CONSTRAINT "AdmissionRedirected_doctorId_fkey" FOREIGN KEY ("doctorId") REFERENCES "Doctors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Admission" ADD CONSTRAINT "Admission_patientId_fkey" FOREIGN KEY ("patientId") REFERENCES "PatientInstance"("abhaId") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Admission" ADD CONSTRAINT "Admission_wardId_fkey" FOREIGN KEY ("wardId") REFERENCES "Ward"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Admission" ADD CONSTRAINT "Admission_bedId_fkey" FOREIGN KEY ("bedId") REFERENCES "Bed"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Admission" ADD CONSTRAINT "Admission_doctorId_fkey" FOREIGN KEY ("doctorId") REFERENCES "Doctors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Intimation" ADD CONSTRAINT "Intimation_deptId_fkey" FOREIGN KEY ("deptId") REFERENCES "Departments"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "SubStore" ADD CONSTRAINT "SubStore_mainStoreId_fkey" FOREIGN KEY ("mainStoreId") REFERENCES "MainStore"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Pharmacy" ADD CONSTRAINT "Pharmacy_subStoreId_fkey" FOREIGN KEY ("subStoreId") REFERENCES "SubStore"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Inventory" ADD CONSTRAINT "Inventory_mainStoreId_fkey" FOREIGN KEY ("mainStoreId") REFERENCES "MainStore"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Inventory" ADD CONSTRAINT "Inventory_subStoreId_fkey" FOREIGN KEY ("subStoreId") REFERENCES "SubStore"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Inventory" ADD CONSTRAINT "Inventory_pharmacyId_fkey" FOREIGN KEY ("pharmacyId") REFERENCES "Pharmacy"("id") ON DELETE SET NULL ON UPDATE CASCADE;

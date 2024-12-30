@@ -7,11 +7,13 @@ import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
-import { UserPlus, BedDouble, UserCheck, Activity, BarChart, Bell, Search, Settings } from 'lucide-react'
+import { UserPlus, BedDouble, UserCheck, Activity, BarChart, Bell, Search, Settings, Calendar } from 'lucide-react'
 import { BACKEND_URL, HOSPITAL_CODE,DJANGO_URL } from '@/config'
 import axios from 'axios'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
 import { AnalyticsDashboard } from '@/components/component/analytics'
+import { DoctorPredCard } from '@/components/DoctorPredCard'
+
 
 interface PatientDetails {
   abhaId :string,
@@ -75,7 +77,7 @@ type Appointment = {
 
 
 export function AdminDashboard() {
-  const [activeView, setActiveView] = useState<"activeDoctors" | "inactiveDoctors" | "newPatientForm" | "createABHA" | "popupcard" | "bedAllocation" | "bedPopUp"|"patientCheckin" | "analysis" |"main" | "getPatient" | "analytics">("newPatientForm");
+  const [activeView, setActiveView] = useState<"activeDoctors" | "inactiveDoctors" | "newPatientForm" | "createABHA" | "popupcard" | "bedAllocation" | "bedPopUp"|"patientCheckin" | "analysis" |"main" | "getPatient" | "analytics" | "tmrwdocprediction">("newPatientForm");
   const [reload,setReload] = useState<boolean>(false);
   const [patientDetails, setPatientDetails] = useState<PatientDetails | null>(null);
   const [reason, setReason] = useState('');
@@ -855,6 +857,14 @@ export function AdminDashboard() {
               <BarChart className="mr-2 h-4 w-4" />
               Analysis
             </Button>
+            <Button
+            variant="ghost"
+            className="w-full justify-start mb-1 text-left font-normal"
+            onClick={() => setActiveView("tmrwdocprediction")}
+          >
+            <Calendar className="mr-2 h-4 w-4" />
+            Doctor Availability
+          </Button>
           </nav>
         </div>
 
@@ -871,6 +881,7 @@ export function AdminDashboard() {
           {activeView === "patientCheckin" && renderPatientCheckIn()}
           {activeView === "getPatient" && renderPatientDetails()}
           {activeView === "analysis" && <AnalyticsDashboard/>}
+          {activeView==='tmrwdocprediction' && <DoctorPredCard />}
           {allocatedDoctor && (
             <div className="fixed inset-0 flex items-center justify-center bg-[#CFFFDC] bg-opacity-80 backdrop-blur-sm z-50">
               <Card className="w-full max-w-md p-6 bg-[#CFFFDC] rounded-lg shadow-lg">
