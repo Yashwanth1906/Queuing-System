@@ -11,9 +11,6 @@ patientRouter.post("/login",patientLogin)
 patientRouter.get("/getdetails",authMiddleWare,getPatient)
 patientRouter.get("/appointments",authMiddleWare,getBookedAppointments)
 patientRouter.get("/gethospitals",authMiddleWare,getHospitals);
-// patientRouter.post("/intimatereason",getHospitalPrismaClient,intimatebyreason);
 patientRouter.post("/getslots",getHospitalPrismaClient,authMiddleWare,getSlots);
-
 patientRouter.post("/bookslot",getHospitalPrismaClient,authMiddleWare,bookSlot);
 patientRouter.post("/bookwithsymptoms",getHospitalPrismaClient,authMiddleWare,bookBySymptoms);
-
