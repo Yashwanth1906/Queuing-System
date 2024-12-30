@@ -1,22 +1,12 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Building2, Calendar, Clock, Phone, Mail, Globe, Shield } from 'lucide-react';
+import { Building2, Calendar, Clock, Phone, Mail, Globe, Shield, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { BookingDialog } from '@/components/booking-dialog';
 import type { Hospital } from '@/lib/types';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { BACKEND_URL } from '../../config';
 import axios from 'axios';
-
-const sampleHospital: Hospital = {
-  id: "1",
-  code: "APOLLO-BLR-001",
-  name: "Apollo Hospitals Bangalore",
-  location: "154/11, Bannerghatta Road",
-  city: "Bangalore",
-  state: "Karnataka",
-  dbURL: "apollo-blr.database.com"
-};
 
 const facilities = [
   { icon: Shield, label: "24/7 Emergency Care" },
@@ -26,42 +16,40 @@ const facilities = [
   { icon: Globe, label: "www.apollohospitals.com" },
 ];
 
-interface HospitalDetailsProps {
-  hospital?: Hospital; 
-}
-
 export function HospitalDetailsPage() {
   const [showBooking, setShowBooking] = useState(false);
-  const [loading,setLoading]=useState(true);
-  const [sp,setSp] =useSearchParams();
-  const [hosp,setHosp]=useState();
+  const [loading, setLoading] = useState(true);
+  const [sp, setSp] = useSearchParams();
+  const [hosp, setHosp] = useState();
 
+  useEffect(() => {
+    console.log(sp.get('code'))
+    axios.post(`${BACKEND_URL}/api/admin/gethosp`, {
+      code: sp.get('code')
+    }, {
+      headers: {
+        Authorization: localStorage.getItem("patienttoken")
+      }
+    }).then((res) => {
+      console.log(res.data)
+      setHosp(res.data.hosp);
+      setLoading(false);
+    }).catch(() => {
+      alert("error");
+    })
+  }, [])
 
-  useEffect(()=>{
-     console.log(sp.get('code'))
-     axios.post(`${BACKEND_URL}/api/admin/gethosp`,{
-	  code:sp.get('code')
-     },{
-	     headers:{
-		     Authorization:localStorage.getItem("patienttoken")
-	     }
-     }).then((res)=>{
-	console.log(res.data)
-	setHosp(res.data.hosp);
-       setLoading(false);
+  const getGoogleMapsUrl = () => {
+    const address = `${hosp.location}, ${hosp.city}, ${hosp.state}`;
+    return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
+  };
 
-     }).catch(()=>{
-	     alert("error");
-     })
-  },[])
-
-  if(loading)
-  {
-	  return(
-		  <div>
-		  Loading..
-		  </div>
-	  )
+  if (loading) {
+    return (
+      <div>
+        Loading..
+      </div>
+    )
   }
 
   return (
@@ -82,9 +70,27 @@ export function HospitalDetailsPage() {
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                 <div className="space-y-3">
-                  <p className="text-[#253D2C]/80">
-                    <strong>Location:</strong> {hosp.location}
-                  </p>
+                  <div className="flex items-center gap-3">
+                    <div className="flex-1">
+                      <p className="text-[#253D2C]/80">
+                        <strong>Location:</strong> {hosp.location}
+                      </p>
+                    </div>
+                    <motion.a
+                      href={getGoogleMapsUrl()}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex items-center gap-2 px-4 py-2 bg-[#2E6F40]/10 rounded-lg hover:bg-[#2E6F40]/20 transition-all duration-300 cursor-pointer"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      title="View on Google Maps"
+                    >
+                      <MapPin className="w-6 h-6 text-[#2E6F40] group-hover:text-[#253D2C] transition-colors" />
+                      <span className="text-sm font-medium text-[#2E6F40] group-hover:text-[#253D2C] transition-colors">
+                        View Map
+                      </span>
+                    </motion.a>
+                  </div>
                   <p className="text-[#253D2C]/80">
                     <strong>City:</strong> {hosp.city}
                   </p>

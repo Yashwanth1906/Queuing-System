@@ -272,6 +272,20 @@ exports.Prisma.DiseaseAnalysisScalarFieldEnum = {
   patientsCount: 'patientsCount'
 };
 
+exports.Prisma.OPData2ScalarFieldEnum = {
+  id: 'id',
+  date: 'date',
+  day: 'day',
+  holiday: 'holiday',
+  specialEvent: 'specialEvent',
+  noofpatients: 'noofpatients',
+  noofdoctors: 'noofdoctors',
+  time: 'time',
+  ppdh: 'ppdh',
+  weather: 'weather',
+  department: 'department'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -344,7 +358,8 @@ exports.Prisma.ModelName = {
   Pharmacy: 'Pharmacy',
   Inventory: 'Inventory',
   OPDdata: 'OPDdata',
-  DiseaseAnalysis: 'DiseaseAnalysis'
+  DiseaseAnalysis: 'DiseaseAnalysis',
+  OPData2: 'OPData2'
 };
 
 /**

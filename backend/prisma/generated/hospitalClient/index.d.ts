@@ -98,6 +98,11 @@ export type OPDdata = $Result.DefaultSelection<Prisma.$OPDdataPayload>
  * 
  */
 export type DiseaseAnalysis = $Result.DefaultSelection<Prisma.$DiseaseAnalysisPayload>
+/**
+ * Model OPData2
+ * 
+ */
+export type OPData2 = $Result.DefaultSelection<Prisma.$OPData2Payload>
 
 /**
  * Enums
@@ -460,6 +465,16 @@ export class PrismaClient<
     * ```
     */
   get diseaseAnalysis(): Prisma.DiseaseAnalysisDelegate<ExtArgs>;
+
+  /**
+   * `prisma.oPData2`: Exposes CRUD operations for the **OPData2** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more OPData2s
+    * const oPData2s = await prisma.oPData2.findMany()
+    * ```
+    */
+  get oPData2(): Prisma.OPData2Delegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -953,7 +968,8 @@ export namespace Prisma {
     Pharmacy: 'Pharmacy',
     Inventory: 'Inventory',
     OPDdata: 'OPDdata',
-    DiseaseAnalysis: 'DiseaseAnalysis'
+    DiseaseAnalysis: 'DiseaseAnalysis',
+    OPData2: 'OPData2'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -969,7 +985,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "doctors" | "oPSlots" | "departments" | "oPDQueue" | "bed" | "ward" | "patientInstance" | "patientInstanceRedirected" | "admissionRedirected" | "admission" | "intimation" | "mainStore" | "subStore" | "pharmacy" | "inventory" | "oPDdata" | "diseaseAnalysis"
+      modelProps: "doctors" | "oPSlots" | "departments" | "oPDQueue" | "bed" | "ward" | "patientInstance" | "patientInstanceRedirected" | "admissionRedirected" | "admission" | "intimation" | "mainStore" | "subStore" | "pharmacy" | "inventory" | "oPDdata" | "diseaseAnalysis" | "oPData2"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2160,6 +2176,76 @@ export namespace Prisma {
           count: {
             args: Prisma.DiseaseAnalysisCountArgs<ExtArgs>
             result: $Utils.Optional<DiseaseAnalysisCountAggregateOutputType> | number
+          }
+        }
+      }
+      OPData2: {
+        payload: Prisma.$OPData2Payload<ExtArgs>
+        fields: Prisma.OPData2FieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.OPData2FindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OPData2Payload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.OPData2FindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OPData2Payload>
+          }
+          findFirst: {
+            args: Prisma.OPData2FindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OPData2Payload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.OPData2FindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OPData2Payload>
+          }
+          findMany: {
+            args: Prisma.OPData2FindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OPData2Payload>[]
+          }
+          create: {
+            args: Prisma.OPData2CreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OPData2Payload>
+          }
+          createMany: {
+            args: Prisma.OPData2CreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.OPData2CreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OPData2Payload>[]
+          }
+          delete: {
+            args: Prisma.OPData2DeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OPData2Payload>
+          }
+          update: {
+            args: Prisma.OPData2UpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OPData2Payload>
+          }
+          deleteMany: {
+            args: Prisma.OPData2DeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.OPData2UpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.OPData2UpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OPData2Payload>
+          }
+          aggregate: {
+            args: Prisma.OPData2AggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateOPData2>
+          }
+          groupBy: {
+            args: Prisma.OPData2GroupByArgs<ExtArgs>
+            result: $Utils.Optional<OPData2GroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.OPData2CountArgs<ExtArgs>
+            result: $Utils.Optional<OPData2CountAggregateOutputType> | number
           }
         }
       }
@@ -19619,6 +19705,1002 @@ export namespace Prisma {
 
 
   /**
+   * Model OPData2
+   */
+
+  export type AggregateOPData2 = {
+    _count: OPData2CountAggregateOutputType | null
+    _avg: OPData2AvgAggregateOutputType | null
+    _sum: OPData2SumAggregateOutputType | null
+    _min: OPData2MinAggregateOutputType | null
+    _max: OPData2MaxAggregateOutputType | null
+  }
+
+  export type OPData2AvgAggregateOutputType = {
+    noofpatients: number | null
+    noofdoctors: number | null
+    time: number | null
+    ppdh: number | null
+  }
+
+  export type OPData2SumAggregateOutputType = {
+    noofpatients: number | null
+    noofdoctors: number | null
+    time: number | null
+    ppdh: number | null
+  }
+
+  export type OPData2MinAggregateOutputType = {
+    id: string | null
+    date: string | null
+    day: string | null
+    holiday: boolean | null
+    specialEvent: boolean | null
+    noofpatients: number | null
+    noofdoctors: number | null
+    time: number | null
+    ppdh: number | null
+    weather: string | null
+    department: string | null
+  }
+
+  export type OPData2MaxAggregateOutputType = {
+    id: string | null
+    date: string | null
+    day: string | null
+    holiday: boolean | null
+    specialEvent: boolean | null
+    noofpatients: number | null
+    noofdoctors: number | null
+    time: number | null
+    ppdh: number | null
+    weather: string | null
+    department: string | null
+  }
+
+  export type OPData2CountAggregateOutputType = {
+    id: number
+    date: number
+    day: number
+    holiday: number
+    specialEvent: number
+    noofpatients: number
+    noofdoctors: number
+    time: number
+    ppdh: number
+    weather: number
+    department: number
+    _all: number
+  }
+
+
+  export type OPData2AvgAggregateInputType = {
+    noofpatients?: true
+    noofdoctors?: true
+    time?: true
+    ppdh?: true
+  }
+
+  export type OPData2SumAggregateInputType = {
+    noofpatients?: true
+    noofdoctors?: true
+    time?: true
+    ppdh?: true
+  }
+
+  export type OPData2MinAggregateInputType = {
+    id?: true
+    date?: true
+    day?: true
+    holiday?: true
+    specialEvent?: true
+    noofpatients?: true
+    noofdoctors?: true
+    time?: true
+    ppdh?: true
+    weather?: true
+    department?: true
+  }
+
+  export type OPData2MaxAggregateInputType = {
+    id?: true
+    date?: true
+    day?: true
+    holiday?: true
+    specialEvent?: true
+    noofpatients?: true
+    noofdoctors?: true
+    time?: true
+    ppdh?: true
+    weather?: true
+    department?: true
+  }
+
+  export type OPData2CountAggregateInputType = {
+    id?: true
+    date?: true
+    day?: true
+    holiday?: true
+    specialEvent?: true
+    noofpatients?: true
+    noofdoctors?: true
+    time?: true
+    ppdh?: true
+    weather?: true
+    department?: true
+    _all?: true
+  }
+
+  export type OPData2AggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OPData2 to aggregate.
+     */
+    where?: OPData2WhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OPData2s to fetch.
+     */
+    orderBy?: OPData2OrderByWithRelationInput | OPData2OrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: OPData2WhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OPData2s from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OPData2s.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned OPData2s
+    **/
+    _count?: true | OPData2CountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: OPData2AvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: OPData2SumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: OPData2MinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: OPData2MaxAggregateInputType
+  }
+
+  export type GetOPData2AggregateType<T extends OPData2AggregateArgs> = {
+        [P in keyof T & keyof AggregateOPData2]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateOPData2[P]>
+      : GetScalarType<T[P], AggregateOPData2[P]>
+  }
+
+
+
+
+  export type OPData2GroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OPData2WhereInput
+    orderBy?: OPData2OrderByWithAggregationInput | OPData2OrderByWithAggregationInput[]
+    by: OPData2ScalarFieldEnum[] | OPData2ScalarFieldEnum
+    having?: OPData2ScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: OPData2CountAggregateInputType | true
+    _avg?: OPData2AvgAggregateInputType
+    _sum?: OPData2SumAggregateInputType
+    _min?: OPData2MinAggregateInputType
+    _max?: OPData2MaxAggregateInputType
+  }
+
+  export type OPData2GroupByOutputType = {
+    id: string
+    date: string
+    day: string
+    holiday: boolean
+    specialEvent: boolean
+    noofpatients: number
+    noofdoctors: number
+    time: number
+    ppdh: number
+    weather: string
+    department: string
+    _count: OPData2CountAggregateOutputType | null
+    _avg: OPData2AvgAggregateOutputType | null
+    _sum: OPData2SumAggregateOutputType | null
+    _min: OPData2MinAggregateOutputType | null
+    _max: OPData2MaxAggregateOutputType | null
+  }
+
+  type GetOPData2GroupByPayload<T extends OPData2GroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<OPData2GroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof OPData2GroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], OPData2GroupByOutputType[P]>
+            : GetScalarType<T[P], OPData2GroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type OPData2Select<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    date?: boolean
+    day?: boolean
+    holiday?: boolean
+    specialEvent?: boolean
+    noofpatients?: boolean
+    noofdoctors?: boolean
+    time?: boolean
+    ppdh?: boolean
+    weather?: boolean
+    department?: boolean
+  }, ExtArgs["result"]["oPData2"]>
+
+  export type OPData2SelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    date?: boolean
+    day?: boolean
+    holiday?: boolean
+    specialEvent?: boolean
+    noofpatients?: boolean
+    noofdoctors?: boolean
+    time?: boolean
+    ppdh?: boolean
+    weather?: boolean
+    department?: boolean
+  }, ExtArgs["result"]["oPData2"]>
+
+  export type OPData2SelectScalar = {
+    id?: boolean
+    date?: boolean
+    day?: boolean
+    holiday?: boolean
+    specialEvent?: boolean
+    noofpatients?: boolean
+    noofdoctors?: boolean
+    time?: boolean
+    ppdh?: boolean
+    weather?: boolean
+    department?: boolean
+  }
+
+
+  export type $OPData2Payload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "OPData2"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      date: string
+      day: string
+      holiday: boolean
+      specialEvent: boolean
+      noofpatients: number
+      noofdoctors: number
+      time: number
+      ppdh: number
+      weather: string
+      department: string
+    }, ExtArgs["result"]["oPData2"]>
+    composites: {}
+  }
+
+  type OPData2GetPayload<S extends boolean | null | undefined | OPData2DefaultArgs> = $Result.GetResult<Prisma.$OPData2Payload, S>
+
+  type OPData2CountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<OPData2FindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: OPData2CountAggregateInputType | true
+    }
+
+  export interface OPData2Delegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['OPData2'], meta: { name: 'OPData2' } }
+    /**
+     * Find zero or one OPData2 that matches the filter.
+     * @param {OPData2FindUniqueArgs} args - Arguments to find a OPData2
+     * @example
+     * // Get one OPData2
+     * const oPData2 = await prisma.oPData2.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends OPData2FindUniqueArgs>(args: SelectSubset<T, OPData2FindUniqueArgs<ExtArgs>>): Prisma__OPData2Client<$Result.GetResult<Prisma.$OPData2Payload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one OPData2 that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {OPData2FindUniqueOrThrowArgs} args - Arguments to find a OPData2
+     * @example
+     * // Get one OPData2
+     * const oPData2 = await prisma.oPData2.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends OPData2FindUniqueOrThrowArgs>(args: SelectSubset<T, OPData2FindUniqueOrThrowArgs<ExtArgs>>): Prisma__OPData2Client<$Result.GetResult<Prisma.$OPData2Payload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first OPData2 that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OPData2FindFirstArgs} args - Arguments to find a OPData2
+     * @example
+     * // Get one OPData2
+     * const oPData2 = await prisma.oPData2.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends OPData2FindFirstArgs>(args?: SelectSubset<T, OPData2FindFirstArgs<ExtArgs>>): Prisma__OPData2Client<$Result.GetResult<Prisma.$OPData2Payload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first OPData2 that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OPData2FindFirstOrThrowArgs} args - Arguments to find a OPData2
+     * @example
+     * // Get one OPData2
+     * const oPData2 = await prisma.oPData2.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends OPData2FindFirstOrThrowArgs>(args?: SelectSubset<T, OPData2FindFirstOrThrowArgs<ExtArgs>>): Prisma__OPData2Client<$Result.GetResult<Prisma.$OPData2Payload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more OPData2s that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OPData2FindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all OPData2s
+     * const oPData2s = await prisma.oPData2.findMany()
+     * 
+     * // Get first 10 OPData2s
+     * const oPData2s = await prisma.oPData2.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const oPData2WithIdOnly = await prisma.oPData2.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends OPData2FindManyArgs>(args?: SelectSubset<T, OPData2FindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OPData2Payload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a OPData2.
+     * @param {OPData2CreateArgs} args - Arguments to create a OPData2.
+     * @example
+     * // Create one OPData2
+     * const OPData2 = await prisma.oPData2.create({
+     *   data: {
+     *     // ... data to create a OPData2
+     *   }
+     * })
+     * 
+     */
+    create<T extends OPData2CreateArgs>(args: SelectSubset<T, OPData2CreateArgs<ExtArgs>>): Prisma__OPData2Client<$Result.GetResult<Prisma.$OPData2Payload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many OPData2s.
+     * @param {OPData2CreateManyArgs} args - Arguments to create many OPData2s.
+     * @example
+     * // Create many OPData2s
+     * const oPData2 = await prisma.oPData2.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends OPData2CreateManyArgs>(args?: SelectSubset<T, OPData2CreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many OPData2s and returns the data saved in the database.
+     * @param {OPData2CreateManyAndReturnArgs} args - Arguments to create many OPData2s.
+     * @example
+     * // Create many OPData2s
+     * const oPData2 = await prisma.oPData2.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many OPData2s and only return the `id`
+     * const oPData2WithIdOnly = await prisma.oPData2.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends OPData2CreateManyAndReturnArgs>(args?: SelectSubset<T, OPData2CreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OPData2Payload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a OPData2.
+     * @param {OPData2DeleteArgs} args - Arguments to delete one OPData2.
+     * @example
+     * // Delete one OPData2
+     * const OPData2 = await prisma.oPData2.delete({
+     *   where: {
+     *     // ... filter to delete one OPData2
+     *   }
+     * })
+     * 
+     */
+    delete<T extends OPData2DeleteArgs>(args: SelectSubset<T, OPData2DeleteArgs<ExtArgs>>): Prisma__OPData2Client<$Result.GetResult<Prisma.$OPData2Payload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one OPData2.
+     * @param {OPData2UpdateArgs} args - Arguments to update one OPData2.
+     * @example
+     * // Update one OPData2
+     * const oPData2 = await prisma.oPData2.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends OPData2UpdateArgs>(args: SelectSubset<T, OPData2UpdateArgs<ExtArgs>>): Prisma__OPData2Client<$Result.GetResult<Prisma.$OPData2Payload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more OPData2s.
+     * @param {OPData2DeleteManyArgs} args - Arguments to filter OPData2s to delete.
+     * @example
+     * // Delete a few OPData2s
+     * const { count } = await prisma.oPData2.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends OPData2DeleteManyArgs>(args?: SelectSubset<T, OPData2DeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more OPData2s.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OPData2UpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many OPData2s
+     * const oPData2 = await prisma.oPData2.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends OPData2UpdateManyArgs>(args: SelectSubset<T, OPData2UpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one OPData2.
+     * @param {OPData2UpsertArgs} args - Arguments to update or create a OPData2.
+     * @example
+     * // Update or create a OPData2
+     * const oPData2 = await prisma.oPData2.upsert({
+     *   create: {
+     *     // ... data to create a OPData2
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the OPData2 we want to update
+     *   }
+     * })
+     */
+    upsert<T extends OPData2UpsertArgs>(args: SelectSubset<T, OPData2UpsertArgs<ExtArgs>>): Prisma__OPData2Client<$Result.GetResult<Prisma.$OPData2Payload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of OPData2s.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OPData2CountArgs} args - Arguments to filter OPData2s to count.
+     * @example
+     * // Count the number of OPData2s
+     * const count = await prisma.oPData2.count({
+     *   where: {
+     *     // ... the filter for the OPData2s we want to count
+     *   }
+     * })
+    **/
+    count<T extends OPData2CountArgs>(
+      args?: Subset<T, OPData2CountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], OPData2CountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a OPData2.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OPData2AggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends OPData2AggregateArgs>(args: Subset<T, OPData2AggregateArgs>): Prisma.PrismaPromise<GetOPData2AggregateType<T>>
+
+    /**
+     * Group by OPData2.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OPData2GroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends OPData2GroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: OPData2GroupByArgs['orderBy'] }
+        : { orderBy?: OPData2GroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, OPData2GroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetOPData2GroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the OPData2 model
+   */
+  readonly fields: OPData2FieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for OPData2.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__OPData2Client<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the OPData2 model
+   */ 
+  interface OPData2FieldRefs {
+    readonly id: FieldRef<"OPData2", 'String'>
+    readonly date: FieldRef<"OPData2", 'String'>
+    readonly day: FieldRef<"OPData2", 'String'>
+    readonly holiday: FieldRef<"OPData2", 'Boolean'>
+    readonly specialEvent: FieldRef<"OPData2", 'Boolean'>
+    readonly noofpatients: FieldRef<"OPData2", 'Int'>
+    readonly noofdoctors: FieldRef<"OPData2", 'Int'>
+    readonly time: FieldRef<"OPData2", 'Float'>
+    readonly ppdh: FieldRef<"OPData2", 'Float'>
+    readonly weather: FieldRef<"OPData2", 'String'>
+    readonly department: FieldRef<"OPData2", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * OPData2 findUnique
+   */
+  export type OPData2FindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OPData2
+     */
+    select?: OPData2Select<ExtArgs> | null
+    /**
+     * Filter, which OPData2 to fetch.
+     */
+    where: OPData2WhereUniqueInput
+  }
+
+  /**
+   * OPData2 findUniqueOrThrow
+   */
+  export type OPData2FindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OPData2
+     */
+    select?: OPData2Select<ExtArgs> | null
+    /**
+     * Filter, which OPData2 to fetch.
+     */
+    where: OPData2WhereUniqueInput
+  }
+
+  /**
+   * OPData2 findFirst
+   */
+  export type OPData2FindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OPData2
+     */
+    select?: OPData2Select<ExtArgs> | null
+    /**
+     * Filter, which OPData2 to fetch.
+     */
+    where?: OPData2WhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OPData2s to fetch.
+     */
+    orderBy?: OPData2OrderByWithRelationInput | OPData2OrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OPData2s.
+     */
+    cursor?: OPData2WhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OPData2s from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OPData2s.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OPData2s.
+     */
+    distinct?: OPData2ScalarFieldEnum | OPData2ScalarFieldEnum[]
+  }
+
+  /**
+   * OPData2 findFirstOrThrow
+   */
+  export type OPData2FindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OPData2
+     */
+    select?: OPData2Select<ExtArgs> | null
+    /**
+     * Filter, which OPData2 to fetch.
+     */
+    where?: OPData2WhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OPData2s to fetch.
+     */
+    orderBy?: OPData2OrderByWithRelationInput | OPData2OrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OPData2s.
+     */
+    cursor?: OPData2WhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OPData2s from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OPData2s.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OPData2s.
+     */
+    distinct?: OPData2ScalarFieldEnum | OPData2ScalarFieldEnum[]
+  }
+
+  /**
+   * OPData2 findMany
+   */
+  export type OPData2FindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OPData2
+     */
+    select?: OPData2Select<ExtArgs> | null
+    /**
+     * Filter, which OPData2s to fetch.
+     */
+    where?: OPData2WhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OPData2s to fetch.
+     */
+    orderBy?: OPData2OrderByWithRelationInput | OPData2OrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing OPData2s.
+     */
+    cursor?: OPData2WhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OPData2s from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OPData2s.
+     */
+    skip?: number
+    distinct?: OPData2ScalarFieldEnum | OPData2ScalarFieldEnum[]
+  }
+
+  /**
+   * OPData2 create
+   */
+  export type OPData2CreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OPData2
+     */
+    select?: OPData2Select<ExtArgs> | null
+    /**
+     * The data needed to create a OPData2.
+     */
+    data: XOR<OPData2CreateInput, OPData2UncheckedCreateInput>
+  }
+
+  /**
+   * OPData2 createMany
+   */
+  export type OPData2CreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many OPData2s.
+     */
+    data: OPData2CreateManyInput | OPData2CreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * OPData2 createManyAndReturn
+   */
+  export type OPData2CreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OPData2
+     */
+    select?: OPData2SelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many OPData2s.
+     */
+    data: OPData2CreateManyInput | OPData2CreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * OPData2 update
+   */
+  export type OPData2UpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OPData2
+     */
+    select?: OPData2Select<ExtArgs> | null
+    /**
+     * The data needed to update a OPData2.
+     */
+    data: XOR<OPData2UpdateInput, OPData2UncheckedUpdateInput>
+    /**
+     * Choose, which OPData2 to update.
+     */
+    where: OPData2WhereUniqueInput
+  }
+
+  /**
+   * OPData2 updateMany
+   */
+  export type OPData2UpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update OPData2s.
+     */
+    data: XOR<OPData2UpdateManyMutationInput, OPData2UncheckedUpdateManyInput>
+    /**
+     * Filter which OPData2s to update
+     */
+    where?: OPData2WhereInput
+  }
+
+  /**
+   * OPData2 upsert
+   */
+  export type OPData2UpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OPData2
+     */
+    select?: OPData2Select<ExtArgs> | null
+    /**
+     * The filter to search for the OPData2 to update in case it exists.
+     */
+    where: OPData2WhereUniqueInput
+    /**
+     * In case the OPData2 found by the `where` argument doesn't exist, create a new OPData2 with this data.
+     */
+    create: XOR<OPData2CreateInput, OPData2UncheckedCreateInput>
+    /**
+     * In case the OPData2 was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<OPData2UpdateInput, OPData2UncheckedUpdateInput>
+  }
+
+  /**
+   * OPData2 delete
+   */
+  export type OPData2DeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OPData2
+     */
+    select?: OPData2Select<ExtArgs> | null
+    /**
+     * Filter which OPData2 to delete.
+     */
+    where: OPData2WhereUniqueInput
+  }
+
+  /**
+   * OPData2 deleteMany
+   */
+  export type OPData2DeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OPData2s to delete
+     */
+    where?: OPData2WhereInput
+  }
+
+  /**
+   * OPData2 without action
+   */
+  export type OPData2DefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OPData2
+     */
+    select?: OPData2Select<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -19834,6 +20916,23 @@ export namespace Prisma {
   };
 
   export type DiseaseAnalysisScalarFieldEnum = (typeof DiseaseAnalysisScalarFieldEnum)[keyof typeof DiseaseAnalysisScalarFieldEnum]
+
+
+  export const OPData2ScalarFieldEnum: {
+    id: 'id',
+    date: 'date',
+    day: 'day',
+    holiday: 'holiday',
+    specialEvent: 'specialEvent',
+    noofpatients: 'noofpatients',
+    noofdoctors: 'noofdoctors',
+    time: 'time',
+    ppdh: 'ppdh',
+    weather: 'weather',
+    department: 'department'
+  };
+
+  export type OPData2ScalarFieldEnum = (typeof OPData2ScalarFieldEnum)[keyof typeof OPData2ScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -21139,6 +22238,90 @@ export namespace Prisma {
     patientsCount?: IntWithAggregatesFilter<"DiseaseAnalysis"> | number
   }
 
+  export type OPData2WhereInput = {
+    AND?: OPData2WhereInput | OPData2WhereInput[]
+    OR?: OPData2WhereInput[]
+    NOT?: OPData2WhereInput | OPData2WhereInput[]
+    id?: StringFilter<"OPData2"> | string
+    date?: StringFilter<"OPData2"> | string
+    day?: StringFilter<"OPData2"> | string
+    holiday?: BoolFilter<"OPData2"> | boolean
+    specialEvent?: BoolFilter<"OPData2"> | boolean
+    noofpatients?: IntFilter<"OPData2"> | number
+    noofdoctors?: IntFilter<"OPData2"> | number
+    time?: FloatFilter<"OPData2"> | number
+    ppdh?: FloatFilter<"OPData2"> | number
+    weather?: StringFilter<"OPData2"> | string
+    department?: StringFilter<"OPData2"> | string
+  }
+
+  export type OPData2OrderByWithRelationInput = {
+    id?: SortOrder
+    date?: SortOrder
+    day?: SortOrder
+    holiday?: SortOrder
+    specialEvent?: SortOrder
+    noofpatients?: SortOrder
+    noofdoctors?: SortOrder
+    time?: SortOrder
+    ppdh?: SortOrder
+    weather?: SortOrder
+    department?: SortOrder
+  }
+
+  export type OPData2WhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: OPData2WhereInput | OPData2WhereInput[]
+    OR?: OPData2WhereInput[]
+    NOT?: OPData2WhereInput | OPData2WhereInput[]
+    date?: StringFilter<"OPData2"> | string
+    day?: StringFilter<"OPData2"> | string
+    holiday?: BoolFilter<"OPData2"> | boolean
+    specialEvent?: BoolFilter<"OPData2"> | boolean
+    noofpatients?: IntFilter<"OPData2"> | number
+    noofdoctors?: IntFilter<"OPData2"> | number
+    time?: FloatFilter<"OPData2"> | number
+    ppdh?: FloatFilter<"OPData2"> | number
+    weather?: StringFilter<"OPData2"> | string
+    department?: StringFilter<"OPData2"> | string
+  }, "id">
+
+  export type OPData2OrderByWithAggregationInput = {
+    id?: SortOrder
+    date?: SortOrder
+    day?: SortOrder
+    holiday?: SortOrder
+    specialEvent?: SortOrder
+    noofpatients?: SortOrder
+    noofdoctors?: SortOrder
+    time?: SortOrder
+    ppdh?: SortOrder
+    weather?: SortOrder
+    department?: SortOrder
+    _count?: OPData2CountOrderByAggregateInput
+    _avg?: OPData2AvgOrderByAggregateInput
+    _max?: OPData2MaxOrderByAggregateInput
+    _min?: OPData2MinOrderByAggregateInput
+    _sum?: OPData2SumOrderByAggregateInput
+  }
+
+  export type OPData2ScalarWhereWithAggregatesInput = {
+    AND?: OPData2ScalarWhereWithAggregatesInput | OPData2ScalarWhereWithAggregatesInput[]
+    OR?: OPData2ScalarWhereWithAggregatesInput[]
+    NOT?: OPData2ScalarWhereWithAggregatesInput | OPData2ScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"OPData2"> | string
+    date?: StringWithAggregatesFilter<"OPData2"> | string
+    day?: StringWithAggregatesFilter<"OPData2"> | string
+    holiday?: BoolWithAggregatesFilter<"OPData2"> | boolean
+    specialEvent?: BoolWithAggregatesFilter<"OPData2"> | boolean
+    noofpatients?: IntWithAggregatesFilter<"OPData2"> | number
+    noofdoctors?: IntWithAggregatesFilter<"OPData2"> | number
+    time?: FloatWithAggregatesFilter<"OPData2"> | number
+    ppdh?: FloatWithAggregatesFilter<"OPData2"> | number
+    weather?: StringWithAggregatesFilter<"OPData2"> | string
+    department?: StringWithAggregatesFilter<"OPData2"> | string
+  }
+
   export type DoctorsCreateInput = {
     id?: string
     name: string
@@ -22264,6 +23447,104 @@ export namespace Prisma {
     patientsCount?: IntFieldUpdateOperationsInput | number
   }
 
+  export type OPData2CreateInput = {
+    id?: string
+    date: string
+    day: string
+    holiday: boolean
+    specialEvent: boolean
+    noofpatients: number
+    noofdoctors: number
+    time: number
+    ppdh: number
+    weather: string
+    department: string
+  }
+
+  export type OPData2UncheckedCreateInput = {
+    id?: string
+    date: string
+    day: string
+    holiday: boolean
+    specialEvent: boolean
+    noofpatients: number
+    noofdoctors: number
+    time: number
+    ppdh: number
+    weather: string
+    department: string
+  }
+
+  export type OPData2UpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
+    day?: StringFieldUpdateOperationsInput | string
+    holiday?: BoolFieldUpdateOperationsInput | boolean
+    specialEvent?: BoolFieldUpdateOperationsInput | boolean
+    noofpatients?: IntFieldUpdateOperationsInput | number
+    noofdoctors?: IntFieldUpdateOperationsInput | number
+    time?: FloatFieldUpdateOperationsInput | number
+    ppdh?: FloatFieldUpdateOperationsInput | number
+    weather?: StringFieldUpdateOperationsInput | string
+    department?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type OPData2UncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
+    day?: StringFieldUpdateOperationsInput | string
+    holiday?: BoolFieldUpdateOperationsInput | boolean
+    specialEvent?: BoolFieldUpdateOperationsInput | boolean
+    noofpatients?: IntFieldUpdateOperationsInput | number
+    noofdoctors?: IntFieldUpdateOperationsInput | number
+    time?: FloatFieldUpdateOperationsInput | number
+    ppdh?: FloatFieldUpdateOperationsInput | number
+    weather?: StringFieldUpdateOperationsInput | string
+    department?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type OPData2CreateManyInput = {
+    id?: string
+    date: string
+    day: string
+    holiday: boolean
+    specialEvent: boolean
+    noofpatients: number
+    noofdoctors: number
+    time: number
+    ppdh: number
+    weather: string
+    department: string
+  }
+
+  export type OPData2UpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
+    day?: StringFieldUpdateOperationsInput | string
+    holiday?: BoolFieldUpdateOperationsInput | boolean
+    specialEvent?: BoolFieldUpdateOperationsInput | boolean
+    noofpatients?: IntFieldUpdateOperationsInput | number
+    noofdoctors?: IntFieldUpdateOperationsInput | number
+    time?: FloatFieldUpdateOperationsInput | number
+    ppdh?: FloatFieldUpdateOperationsInput | number
+    weather?: StringFieldUpdateOperationsInput | string
+    department?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type OPData2UncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
+    day?: StringFieldUpdateOperationsInput | string
+    holiday?: BoolFieldUpdateOperationsInput | boolean
+    specialEvent?: BoolFieldUpdateOperationsInput | boolean
+    noofpatients?: IntFieldUpdateOperationsInput | number
+    noofdoctors?: IntFieldUpdateOperationsInput | number
+    time?: FloatFieldUpdateOperationsInput | number
+    ppdh?: FloatFieldUpdateOperationsInput | number
+    weather?: StringFieldUpdateOperationsInput | string
+    department?: StringFieldUpdateOperationsInput | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -23318,6 +24599,62 @@ export namespace Prisma {
 
   export type DiseaseAnalysisSumOrderByAggregateInput = {
     patientsCount?: SortOrder
+  }
+
+  export type OPData2CountOrderByAggregateInput = {
+    id?: SortOrder
+    date?: SortOrder
+    day?: SortOrder
+    holiday?: SortOrder
+    specialEvent?: SortOrder
+    noofpatients?: SortOrder
+    noofdoctors?: SortOrder
+    time?: SortOrder
+    ppdh?: SortOrder
+    weather?: SortOrder
+    department?: SortOrder
+  }
+
+  export type OPData2AvgOrderByAggregateInput = {
+    noofpatients?: SortOrder
+    noofdoctors?: SortOrder
+    time?: SortOrder
+    ppdh?: SortOrder
+  }
+
+  export type OPData2MaxOrderByAggregateInput = {
+    id?: SortOrder
+    date?: SortOrder
+    day?: SortOrder
+    holiday?: SortOrder
+    specialEvent?: SortOrder
+    noofpatients?: SortOrder
+    noofdoctors?: SortOrder
+    time?: SortOrder
+    ppdh?: SortOrder
+    weather?: SortOrder
+    department?: SortOrder
+  }
+
+  export type OPData2MinOrderByAggregateInput = {
+    id?: SortOrder
+    date?: SortOrder
+    day?: SortOrder
+    holiday?: SortOrder
+    specialEvent?: SortOrder
+    noofpatients?: SortOrder
+    noofdoctors?: SortOrder
+    time?: SortOrder
+    ppdh?: SortOrder
+    weather?: SortOrder
+    department?: SortOrder
+  }
+
+  export type OPData2SumOrderByAggregateInput = {
+    noofpatients?: SortOrder
+    noofdoctors?: SortOrder
+    time?: SortOrder
+    ppdh?: SortOrder
   }
 
   export type DepartmentsCreateNestedOneWithoutDoctorsInput = {
@@ -27789,6 +29126,10 @@ export namespace Prisma {
      * @deprecated Use DiseaseAnalysisDefaultArgs instead
      */
     export type DiseaseAnalysisArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = DiseaseAnalysisDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use OPData2DefaultArgs instead
+     */
+    export type OPData2Args<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = OPData2DefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

@@ -30,7 +30,7 @@ export function RegisterForm() {
 	    });
 	    localStorage.setItem("patienttoken",res.data.token);
 	   // alert("done")
-	    navigate("/home");
+	    navigate("/home?first=true");
 	    setIsSubmitting(false)
 
 
