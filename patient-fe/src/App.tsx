@@ -6,6 +6,7 @@ import LoginPage from './pages/LoginPage'
 import HomePage from './pages/Home'
 import { HospitalDetailsPage } from './pages/HospitalDetails'
 import { PatientProfile } from './components/Dashboard'
+import { PatientApt } from './components/PatientApt'
 
 
 function App() {
@@ -22,6 +23,8 @@ function App() {
 			<Route path="/login" element={<LoginPage />}></Route>
 			<Route path="/home" element={<HomePage />}></Route>
 			<Route path="/dashboard" element={<PatientProfile />}></Route>
+			<Route path="/patientappointments" element={<PatientApt />}></Route>
+
 			<Route path="/hospdetails" element={<HospitalDetailsPage />}></Route>
 		</Routes>
 

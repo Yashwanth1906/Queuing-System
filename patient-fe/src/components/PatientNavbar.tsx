@@ -28,8 +28,8 @@ export function PatientNavbar({ onLogout }: PatientNavbarProps) {
           {/* Desktop menu */}
           <div className="hidden md:flex items-center space-x-8">
             <Button onClick={() => navigate("/dashboard")} variant="ghost" className="text-[#253D2C] hover:text-[#2E6F40] hover:bg-[#CFFFDC]">Dashboard</Button>
-            <Button variant="ghost" className="text-[#253D2C] hover:text-[#2E6F40] hover:bg-[#CFFFDC]">My Appointments</Button>
-            <Button variant="ghost" className="text-[#253D2C] hover:text-[#2E6F40] hover:bg-[#CFFFDC]">Medical Records</Button>
+            <Button onClick={() => navigate("/patientappointments")}variant="ghost" className="text-[#253D2C] hover:text-[#2E6F40] hover:bg-[#CFFFDC]">My Appointments</Button>
+    
             <Button 
               variant="ghost" 
               onClick={onLogout}
@@ -40,7 +40,7 @@ export function PatientNavbar({ onLogout }: PatientNavbarProps) {
             </Button>
           </div>
 
-          {/* Mobile menu */}
+          {/* Mobile menu */} 
           <div className="md:hidden flex items-center">
             <Sheet>
               <SheetTrigger asChild>

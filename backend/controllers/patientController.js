@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken";
 import { PrismaClient as centralPrismaClient } from "../prisma/generated/central/index.js";
+import { queue } from "../queue.js";
 const centralPrisma = new centralPrismaClient({
     datasources:{
         db:{
@@ -33,6 +34,42 @@ export const patientLogin = async(req,res) =>{
     catch(er){
         console.log(er);
         res.status(500).json({message:er})
+    }
+}
+export async function getpatientqueue(req, res) {
+    try {
+        const prisma = req.prisma;
+        const abhaId = req.headers.id;
+        const x = await prisma.PatientInstance.findUnique({
+            where: {
+                abhaId
+            }, 
+            select: {
+                id: true,
+            }})
+            let flag=false;
+            let docId=-1;
+            for(let i in queue)
+            {
+                if(queue[i].includes(x.id))
+                {
+                    docId=i;
+                    flag=true;
+                    break;
+                }
+            }
+            if(!flag)
+            {
+                return res.status(500).json({msg:"not in queue"})
+            }
+   
+        
+        return res.status(200).json({queuedata:queue[docId],queued:x});
+    } catch (err) {
+        console.log(err);
+
+
+        res.json({ message: err.message });
     }
 }
 
