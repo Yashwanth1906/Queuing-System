@@ -1,5 +1,4 @@
-Here’s an updated README file with each problem and its solution listed clearly:  
----
+Please read the readme so that the potential of the project can be known
 
 # Redefining Hospital Management System in India  
 
