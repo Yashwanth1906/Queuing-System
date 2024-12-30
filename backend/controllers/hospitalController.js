@@ -1,6 +1,7 @@
 import { BedStatus, PrismaClient as hospitalPrismaClient, QueueStatus, VisitType} from "../prisma/generated/hospitalClient/index.js";
 import { PrismaClient as centralPrismaClient } from "../prisma/generated/central/index.js";
 import { insertPatient, queue } from "../queue.js";
+import { formatDateToDDMMYYYY } from "./patientController.js";
 import fs from "fs"
 import csvParser from "csv-parser";
 const centralPrisma = new centralPrismaClient({
@@ -310,45 +311,103 @@ export const getHosCodes = async(req,res)=>{
     }
 }
 
-export const getIntimated = async(req,res)=>{
+// export const getIntimated = async(req,res)=>{
+//     const prisma = req.prisma;
+//     try{
+//         const date=formatDateToDDMMYYYY(new Date());
+// 		const time=formatTimeToHHMM(new Date());
+//         const checkins = await prisma.intimation.findMany({
+//             where: {
+//                 OR: [
+//                     {
+//                         date: {
+//                             gt: date,
+//                         }
+//                     },
+//                     {
+//                         date: date,
+//                         time: {
+//                             gte: time,
+//                         }
+//                     }
+//                 ]
+//             },
+//             orderBy: [
+//                 {
+//                     date: 'asc'
+//                 },
+//                 {
+//                     time: 'asc'
+//                 }
+//             ]
+//         });
+//         console.log(checkins)
+//         return res.status(200).json({checkins})
+//     }catch(err){
+//         console.log(err);
+//         return res.status(500).json({message:err})
+//     }
+// }
+
+export const getIntimated = async (req, res) => {
     const prisma = req.prisma;
-    try{
+    try {
         const currentDate = new Date();
-        const currentDateString = currentDate.toISOString().split('T')[0];
-        const currentTimeString = currentDate.toTimeString().split(' ')[0];
+        const todayISO = currentDate.toISOString().split('T')[0]; // YYYY-MM-DD
+        const currentTime = currentDate.toTimeString().slice(0, 5); // HH:MM
+
         const checkins = await prisma.intimation.findMany({
             where: {
                 OR: [
                     {
                         date: {
-                            gt: currentDateString,
+                            gt: todayISO, // All slots greater than today
                         }
                     },
                     {
-                        date: currentDateString,
+                        date: todayISO, // Slots for today, but time >= now
                         time: {
-                            gte: currentTimeString,
+                            gte: currentTime,
                         }
                     }
                 ]
             },
             orderBy: [
-                {
-                    date: 'asc'
-                },
-                {
-                    time: 'asc'
-                }
+                { date: 'asc' },
+                { time: 'asc' }
             ]
         });
-        console.log(checkins)
-        console.log(checkins)
-        return res.status(200).json({checkins})
-    }catch(err){
+        const ogCheckins = [];
+        for (let i = 0; i < checkins.length; i++) {
+            const checkin = checkins[i];
+            console.log(checkin);
+        
+            const patient = await centralPrisma.patient.findUnique({
+                where: { abhaId: checkin.abhaId },
+                select: { name: true },
+            });
+            let department;
+            if(checkin.deptId){
+                department = await prisma.departments.findUnique({
+                    where: { id: checkin.deptId },
+                    select: { name: true },
+                });
+            }
+            console.log("Patient : "+patient)
+            ogCheckins.push({
+                ...checkin,
+                patientName: patient?.name || null,
+                departmentName: department?.name || null,
+            });
+        }
+        console.log(ogCheckins)
+        return res.status(200).json({ checkins:ogCheckins });
+    } catch (err) {
         console.log(err);
-        return res.status(500).json({message:err})
+        return res.status(500).json({ message: err.message });
     }
-}
+};
+
 
 
 export const getHospital = async(req,res) =>{
@@ -544,5 +603,115 @@ export const getTmrwDocPred=async(req,res)=>{
 
 }
 
+
+// export const allocateDoctor = async(req,res)=>{
+//     try{
+//         const {deptId} = req.body;
+//         console.log(deptId)
+//         const  prisma = req.prisma;
+//         const doctors = await prisma.departments.findUnique({
+//             where:{
+//                 id:deptId
+//             },select:{
+//                 doctors:{
+//                     select:{
+//                         opdQueue:true
+//                     }
+//                 }
+//             }
+//         })
+//         console.log(doctors)
+//         let minQueueDoctor = doctors[0];
+//         for (const doctor of doctors) {
+//             if (doctor.opdQueue.queueNumber < minQueueDoctor.opdQueue.queueNumber) {
+//                 minQueueDoctor = doctor;
+//             }
+//         }
+//         res.json({success:true,doctor:minQueueDoctor});
+//     } catch(e){
+//         console.log(e);
+//         res.json({success:false,message:e})
+//     }
+// }
+export const allocateDoctor = async (req, res) => {
+    try {
+        const { deptId } = req.body;
+        console.log(deptId);
+
+        const prisma = req.prisma;
+
+        // Fetch doctors and their opdQueue for the given department
+        const department = await prisma.departments.findUnique({
+            where: {
+                id: deptId,
+            },
+            select: {
+                name : true,
+                doctors: {
+                    select: {
+                        id: true,
+                        name : true,
+                        opdQueue: {
+                            select: {
+                                queueNumber: true,
+                            },
+                        },
+                    },
+                },
+            },
+        });
+
+        if (!department || !department.doctors.length) {
+            return res
+                .status(404)
+                .json({ success: false, message: "No doctors found for this department" });
+        }
+
+        // Find the doctor with the minimum queue length
+        let minQueueDoctor = department.doctors[0];
+        let minQueueLength = minQueueDoctor.opdQueue.length;
+
+        for (const doctor of department.doctors) {
+            const queueLength = doctor.opdQueue.length;
+            if (queueLength < minQueueLength) {
+                minQueueDoctor = doctor;
+                minQueueLength = queueLength;
+            }
+        }
+
+        console.log("Doctor with minimum queue:", minQueueDoctor);
+
+        res.json({
+            success: true,
+            doctor: {
+                name : minQueueDoctor.name,
+                id: minQueueDoctor.id,
+                queueLength: minQueueLength,
+                deptName : department.name
+            },
+        });
+    } catch (e) {
+        console.error(e);
+        res.status(500).json({ success: false, message: e.message });
+    }
+};
+
+
+export const getDepartmentByName = async(req,res) =>{
+    try{
+        const prisma = req.prisma;
+        const {departmentName} = req.body;
+        const department = await prisma.departments.findMany({
+            where:{
+                name : departmentName
+            }
+        })
+        console.log(department);
+        res.json({success:true,deptId:department[0].id})
+    } catch(e){
+        console.log(e);
+        res.json({success:false,error:e})
+    }
+}
 
 export {getDoctors,addDepartments,getDepartments,createPatientInstance,addWard,getAdmissionsBedNotAllocated,allocateBed,getPatient,getWard}

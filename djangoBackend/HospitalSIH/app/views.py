@@ -37,10 +37,9 @@ class TrainModelView(APIView):
 class PredictDepartmentView(APIView):
     def post(self, request):
         try:
-            symptoms = request.data.get("symptoms", "")
+            symptoms = request.data.get("symptom", "")
             if not symptoms:
                 return Response({"error": "Symptoms are required"}, status=status.HTTP_400_BAD_REQUEST)
-            
             department = predict_department(symptoms)
             return Response({"department": department}, status=status.HTTP_200_OK)
         except Exception as e:

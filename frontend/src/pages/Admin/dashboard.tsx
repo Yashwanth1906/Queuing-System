@@ -12,8 +12,7 @@ import { BACKEND_URL, HOSPITAL_CODE,DJANGO_URL } from '@/config'
 import axios from 'axios'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
 import { AnalyticsDashboard } from '@/components/component/analytics'
-import { DoctorPredCard } from '@/components/DoctorPredCard'
-
+import { DepartmentPredictions } from '@/components/component/departmentprediction'
 
 interface PatientDetails {
   abhaId :string,
@@ -26,8 +25,8 @@ interface PatientDetails {
 interface Doctor {
   id: string;
   name: string;
-  department: { name: string };
-  _count: { opdQueue: number };
+  deptName : string;
+  queueLength : number
 }
 
 interface FormState {
@@ -67,12 +66,11 @@ type Appointment = {
   id: number;
   abhaId:string;
   name:string;
-  gender:string;
-  age:string
   date: string;
   time: string;
   reason: string;
-
+  deptId : string;
+  departmentName : string
 };
 
 
@@ -254,31 +252,37 @@ export function AdminDashboard() {
     const find = appointments.find((item) => item.id === patientId)
     setSelectedCheckIn(patientId);
     try {
-      let doctorsResponse: Doctor[] = [];
-      await axios.get(`${BACKEND_URL}/api/doctor/alldoctors`, {
-        headers: {
-          code: HOSPITAL_CODE,
-        }
-      }).then((data) => {
-        doctorsResponse = data.data.doctors;
-        setDoctors(doctorsResponse);
-        console.log(doctorsResponse);
-      });
-      console.log("Doctor Response : "+doctorsResponse);
-      await axios.post(`${DJANGO_URL}/predict/`, {
-        symptom: find?.reason,
-        doctors: doctorsResponse,
-        initimated : true
-      }).then((data) => {
-        if (data.data.error != null) {
-          alert(data.data.error);
-        } else {
-          console.log(data.data.doctor);
-          const doctor = doctorsResponse.find(doc => doc.id === data.data.doctor);
-          console.log(doctor)
-          setAllocatedDoctor(doctor || null);
-        }
-      });
+      if(find?.deptId === null){
+        await axios.post(`${DJANGO_URL}/predict/`, {
+          symptom: find?.reason,
+        }).then((data) => {
+          if (data.data.error != null) {
+            alert(data.data.error);
+          } else {
+            find.departmentName = data.data.department
+          }
+        });
+        await axios.post(`${BACKEND_URL}/api/hospital/getdept`,{
+          departmentName : find.departmentName
+        }).then((res)=>{
+            console.log(res.data)
+            find.deptId = res.data.deptId
+        }).catch((e)=>{
+          console.log(e);
+        })
+      }
+      await axios.post(`${BACKEND_URL}/api/hospital/allocatedoc`,
+          {deptId : find?.deptId},{
+            headers:{
+              code: HOSPITAL_CODE
+            }
+          }
+        ).then((res)=>{
+          console.log(res.data);
+          setAllocatedDoctor(res.data.doctor);
+        }).catch((e)=>{
+          console.log(e);
+      })
     } catch (error) {
       console.error(error);
     }
@@ -635,7 +639,7 @@ export function AdminDashboard() {
                 </div>
                 <div>
                   <Label className="text-sm font-medium text-gray-500">Symptom</Label>
-                  <div className="text-lg font-semibold text-gray-900">{item.reason}</div>
+                  <div className="text-lg font-semibold text-gray-900">{item.reason ? item.reason : "NULL"}</div>
                 </div>
                 <div>
                   <Label className="text-sm font-medium text-gray-500">Time Slot</Label>
@@ -644,6 +648,10 @@ export function AdminDashboard() {
                 <div>
                   <Label className="text-sm font-medium text-gray-500">Date</Label>
                   <div className="text-lg font-semibold text-gray-900">{item.date}</div>
+                </div>
+                <div>
+                  <Label>Department</Label>
+                  <div>{item.departmentName ? item.departmentName : "NULL"}</div>
                 </div>
               </div>
               <div className="flex gap-2">
@@ -663,35 +671,42 @@ export function AdminDashboard() {
 
   
   const handleAllocateDoctor = async () => {
-    try {
-      let doctorsResponse: Doctor[] = [];
-      await axios.get(`${BACKEND_URL}/api/doctor/alldoctors`, {
-        headers: {
-          code: HOSPITAL_CODE,
-        }
-      }).then((data) => {
-        doctorsResponse = data.data.doctors;
-        setDoctors(doctorsResponse);
-        console.log(doctorsResponse);
-      });
-      console.log("Before check:"+doctorsResponse);
+      let deptId = "";
+      let departmentName = "";
       await axios.post("http://localhost:8000/predict/", {
         symptom: reason,
-        doctors: doctorsResponse,
       }).then((data) => {
         if (data.data.error != null) {
           alert(data.data.error);
         } else {
-          console.log(data.data);
-          doctorsResponse.map(doc => console.log(doc))
-          const doctor = doctorsResponse.find(doc => doc.id === data.data.doctor);
-          console.log(doctor);
-          setAllocatedDoctor(doctor || null);
+          departmentName = data.data.department;
         }
       });
-    } catch (error) {
-      console.error(error);
-    }
+      await axios.post(`${BACKEND_URL}/api/hospital/getdept`,{
+        departmentName : departmentName
+      },{
+        headers:{
+          code : HOSPITAL_CODE
+        }
+      }).then((res)=>{
+          console.log(res.data)
+          deptId = res.data.deptId
+      }).catch((e)=>{
+        console.log(e);
+      })
+      console.log("Department Id :"+ deptId)
+      await axios.post(`${BACKEND_URL}/api/hospital/allocatedoc`,
+          {deptId : deptId},{
+            headers:{
+              code: HOSPITAL_CODE
+            }
+          }
+        ).then((res)=>{
+          console.log(res.data);
+          setAllocatedDoctor(res.data.doctor);
+        }).catch((e)=>{
+          console.log(e);
+      })
   };
   const renderPatientDetails = () =>(
     <Card className="bg-[#CFFFDC]">
@@ -744,14 +759,13 @@ export function AdminDashboard() {
     await axios.post(`${BACKEND_URL}/api/hospital/createpatient`,{
       abhaId:patientDetails?.abhaId,
       doctorId : allocatedDoctor?.id,
-      queueNumber:allocatedDoctor?._count.opdQueue,
+      queueNumber:allocatedDoctor?.queueLength,
       visitType:"FreshVisit",
       age:patientDetails?.Age,
       gender:patientDetails?.gender,
       reason:reason,
       name:patientDetails?.name,
       intimated:false,
-      
   },
   {
     headers:{
@@ -893,10 +907,10 @@ export function AdminDashboard() {
                   <div className="grid gap-1 flex-1">
                     <h3 className="text-xl font-semibold">{allocatedDoctor.name}</h3>
                     <div className="text-muted-foreground">
-                      <span className="font-medium">Department:</span> {allocatedDoctor.department.name}
+                      <span className="font-medium">Department:</span> {allocatedDoctor.deptName}
                     </div>
                     <div className="text-muted-foreground">
-                      <span className="font-medium">Queue Length:</span> {allocatedDoctor._count.opdQueue}
+                      <span className="font-medium">Queue Length:</span> {allocatedDoctor.queueLength}
                     </div>
                   </div>
                 </div>
@@ -918,10 +932,10 @@ export function AdminDashboard() {
                   <div className="grid gap-1 flex-1">
                     <h3 className="text-xl font-semibold">{allocatedDoctorForCheckIn.name}</h3>
                     <div className="text-muted-foreground">
-                      <span className="font-medium">Department:</span> {allocatedDoctorForCheckIn.department.name}
+                      <span className="font-medium">Department:</span> {allocatedDoctorForCheckIn.deptName}
                     </div>
                     <div className="text-muted-foreground">
-                      <span className="font-medium">Queue Length:</span> {allocatedDoctorForCheckIn._count.opdQueue}
+                      <span className="font-medium">Queue Length:</span> {allocatedDoctorForCheckIn.queueLength}
                     </div>
                   </div>
                 </div>

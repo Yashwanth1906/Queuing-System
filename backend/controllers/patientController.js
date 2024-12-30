@@ -73,7 +73,7 @@ export async function getpatientqueue(req, res) {
     }
 }
 
-function formatDateToDDMMYYYY(date) {
+export function formatDateToDDMMYYYY(date) {
     const day = String(date.getDate()).padStart(2, '0'); 
     const month = String(date.getMonth() + 1).padStart(2, '0'); 
     const year = date.getFullYear();
@@ -81,7 +81,7 @@ function formatDateToDDMMYYYY(date) {
     return `${day}-${month}-${year}`;
 }
 
-function getNextDateFormatted(date) {
+export function getNextDateFormatted(date) {
     const nextDate = new Date(date);
     
     nextDate.setDate(nextDate.getDate() + 1);
