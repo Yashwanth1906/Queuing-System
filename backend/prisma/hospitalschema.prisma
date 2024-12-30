@@ -233,3 +233,21 @@ model DiseaseAnalysis{
   disease String @unique
   patientsCount Int
 }
+
+
+model OPData2{
+  id String @id @default(uuid())
+  date String
+  day String
+  holiday Boolean
+  specialEvent Boolean
+  noofpatients Int
+  noofdoctors Int
+  time Float
+  ppdh Float
+  weather String
+  department String
+
+
+
+}
