@@ -15,6 +15,10 @@ export function InventoryLogin() {
   const [password, setPassword] = useState<string>("");
   const navigate = useNavigate(); // Hook for navigation
 
+
+
+
+  
   const handleLogin = () => {
     // Implement your login logic here
     console.log("Login type:", loginType);
