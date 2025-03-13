@@ -82,26 +82,26 @@ APPEND_SLASH = False
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': "defaultdb",
-        "PORT":"13070",
-        "USER":"avnadmin",
-        "PASSWORD":"AVNS_5qb24Cru8rsqoTnQMap",
-        "HOST":"pg-37f71f7d-shreecharan215-d1dd.b.aivencloud.com"
-    }
-}
-
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': "hospital",
-#         # "PORT":"13070",
-#         "USER":"root",
-#         "PASSWORD":"12345",
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': "defaultdb",
+#         "PORT":"13070",
+#         "USER":"avnadmin",
+#         "PASSWORD":"AVNS_5qb24Cru8rsqoTnQMap",
+#         "HOST":"pg-37f71f7d-shreecharan215-d1dd.b.aivencloud.com"
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': "hospital",
+        # "PORT":"13070",
+        "USER":"root",
+        "PASSWORD":"12345",
+    }
+}
 
 
 # Password validation
