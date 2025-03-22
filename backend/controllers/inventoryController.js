@@ -28,7 +28,6 @@ const add = async(req,res) =>{
     catch(err){
         res.json({success:false,message:err})
     }
-
 }
 
 const supplyChain = async(req,res) =>{
@@ -68,4 +67,4 @@ const supplyChain = async(req,res) =>{
     }
 }
 
-export {add}
+export {add,supplyChain}

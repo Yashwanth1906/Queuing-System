@@ -16,6 +16,7 @@ import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 // import { useNavigate } from 'react-router-dom';
 import '../App.css'; 
+import { ChatBot } from '@/components/chatbot';
 
 
 
@@ -57,6 +58,7 @@ function HomePage() {
     <>
       <PatientNavbar onLogout={handleLogout}  />
       <Home />
+      <ChatBot/>
     </>
   );
 }
